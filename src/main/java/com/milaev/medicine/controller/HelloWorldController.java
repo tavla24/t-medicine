@@ -1,4 +1,4 @@
-package com.milaev.medicine.controllers;
+package com.milaev.medicine.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

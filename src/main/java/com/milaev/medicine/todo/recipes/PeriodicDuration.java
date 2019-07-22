@@ -1,4 +1,4 @@
-package com.milaev.medicine.recipes;
+package com.milaev.medicine.todo.recipes;
 
 import java.util.Date;
 

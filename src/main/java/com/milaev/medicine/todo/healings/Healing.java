@@ -1,4 +1,4 @@
-package com.milaev.medicine.healings;
+package com.milaev.medicine.todo.healings;
 
 import org.springframework.stereotype.Component;
 

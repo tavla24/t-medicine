@@ -1,13 +1,16 @@
-package com.milaev.medicine.recipes;
+package com.milaev.medicine.todo.recipes;
 
-import com.milaev.medicine.patients.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.milaev.medicine.todo.healings.Healing;
+import com.milaev.medicine.todo.patients.Patient;
 
 @Component
 public class Recipe {
     @Autowired
     private Patient patient;
+    private Healing healing;
 
     private PeriodicHealing periodic;
     private PeriodicDuration duration;

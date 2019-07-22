@@ -1,4 +1,4 @@
-package com.milaev.medicine.patients;
+package com.milaev.medicine.todo.patients;
 
 import org.springframework.stereotype.Component;
 

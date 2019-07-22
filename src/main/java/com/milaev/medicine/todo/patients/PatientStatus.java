@@ -1,4 +1,4 @@
-package com.milaev.medicine.patients;
+package com.milaev.medicine.todo.patients;
 
 public enum PatientStatus {
     ILL, HEALTHY
