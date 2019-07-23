@@ -14,6 +14,15 @@ DROP TABLE IF EXISTS events;
 
 
 # for tests ========================================
+DROP TABLE IF EXISTS accounts_simple;
+CREATE TABLE accounts_simple
+(
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=UTF8;
+
+
 CREATE TABLE accounts
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -50,6 +59,10 @@ INSERT INTO accounts (name, extend_id) VALUES
 ('pasha', 3),
 ('masha', 1),
 ('masha', 3);
+
+INSERT INTO accounts_simple (name) VALUES 
+('pasha'),
+('masha');
 # ==================================================
 
 /*

@@ -1,5 +1,9 @@
 package com.milaev.medicine.mvc.config;
 
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +15,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-import java.util.Properties;
-
 @Configuration
-@ComponentScan(basePackages = "com.milaev.medicine")
+@ComponentScan("com.milaev.medicine")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
@@ -47,7 +48,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.milaev.medicine");
+        sessionFactory.setPackagesToScan("com.milaev.medicine.mvc.model.accounts");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

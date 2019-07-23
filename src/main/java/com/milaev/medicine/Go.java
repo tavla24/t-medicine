@@ -1,13 +1,8 @@
 package com.milaev.medicine;
 
-import com.milaev.medicine.test.Bean;
-import com.milaev.medicine.test.BeanAnnotation;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Go {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.milaev.medicine.db.entity;
+package com.milaev.medicine.mvc.model.accounts;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,24 +9,22 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "doctors")
-public class Doctor {
-
+@Table(name = "accounts_simple")
+public class AccountSimple {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(nullable = false)
-    private long id;
-
+    private int id;
     @Column(nullable = false)
     private String name;
 
-    public Doctor() {
+    public int getId() {
+        return id;
     }
 
-    public Doctor(long id, String name) {
+    public void setId(int id) {
         this.id = id;
-        this.name = name;
     }
 
     public String getName() {
@@ -37,11 +35,8 @@ public class Doctor {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return String.format("accounts_simple result: id[%d]; name[%s]\n", id, name);
     }
 }
