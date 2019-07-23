@@ -10,14 +10,15 @@ import com.milaev.medicine.service.AccountService;
 
 @Controller
 public class HelloWorldController {
-//    @Autowired
-//    private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-    @RequestMapping("/hello")
+    @RequestMapping("/h")
     public String hello(Model model) {
-//        Account acc = accountService.getById(0);
-//        System.out.println(acc.toString());
+        Account acc = accountService.getById(0);
+        System.out.println(acc.toString());
         model.addAttribute("greeting", "Hello Spring MVC by controller");
+        System.out.println("/hellosys");
         return "helloworld";
     }
 }
