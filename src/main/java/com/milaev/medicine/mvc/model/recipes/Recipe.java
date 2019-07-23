@@ -1,10 +1,10 @@
-package com.milaev.medicine.todo.recipes;
+package com.milaev.medicine.mvc.model.recipes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.milaev.medicine.todo.healings.Healing;
-import com.milaev.medicine.todo.patients.Patient;
+import com.milaev.medicine.mvc.model.healings.Healing;
+import com.milaev.medicine.mvc.model.patients.Patient;
 
 @Component
 public class Recipe {

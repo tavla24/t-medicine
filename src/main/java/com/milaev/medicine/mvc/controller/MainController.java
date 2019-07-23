@@ -1,4 +1,4 @@
-package com.milaev.medicine.controller;
+package com.milaev.medicine.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
