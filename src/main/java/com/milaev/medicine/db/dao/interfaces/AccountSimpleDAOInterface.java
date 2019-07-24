@@ -2,7 +2,7 @@ package com.milaev.medicine.db.dao.interfaces;
 
 import java.util.List;
 
-import com.milaev.medicine.mvc.model.accounts.AccountSimple;
+import com.milaev.medicine.db.entity.AccountSimple;
 
 public interface AccountSimpleDAOInterface {
     List<AccountSimple> allAccounts();

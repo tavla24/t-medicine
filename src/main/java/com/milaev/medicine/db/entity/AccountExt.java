@@ -1,13 +1,18 @@
-package com.milaev.medicine.mvc.model.accounts;
+package com.milaev.medicine.db.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-//@Entity
-//@Table(name = "accounts_ext")
+import com.milaev.medicine.db.entity.enums.AccessLevelType;
+
+@Entity
+@Table(name = "accounts_ext")
+//@Proxy(lazy =false) 
 public class AccountExt {
     @Id
     @GeneratedValue(generator = "increment")

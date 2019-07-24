@@ -1,17 +1,20 @@
-package com.milaev.medicine.mvc.model.accounts;
+package com.milaev.medicine.db.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-//@Entity
-//@Table(name = "accounts")
+@Entity
+@Table(name = "accounts")
+//@Proxy(lazy =false) 
 public class Account {
     @Id
     @GeneratedValue(generator = "increment")
@@ -20,7 +23,7 @@ public class Account {
     private int id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "extend_id", nullable = false)
     private AccountExt extend;
 

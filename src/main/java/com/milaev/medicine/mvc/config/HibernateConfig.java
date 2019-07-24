@@ -48,7 +48,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.milaev.medicine.mvc.model.accounts");
+        sessionFactory.setPackagesToScan("com.milaev.medicine.db.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

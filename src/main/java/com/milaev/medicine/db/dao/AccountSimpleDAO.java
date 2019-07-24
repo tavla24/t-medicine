@@ -8,30 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.milaev.medicine.db.dao.interfaces.AccountSimpleDAOInterface;
-import com.milaev.medicine.mvc.model.accounts.AccountSimple;
+import com.milaev.medicine.db.entity.AccountSimple;
 
 @Repository
 public class AccountSimpleDAO implements AccountSimpleDAOInterface {
-    
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<AccountSimple> allAccounts() {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from AccountSimple").list();
     }
 
     @Override
     public void add(AccountSimple acc) {
-        // TODO Auto-generated method stub
-
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(acc);
     }
 
     @Override
     public void delete(AccountSimple acc) {
-        // TODO Auto-generated method stub
-
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(acc);
     }
 
     @Override

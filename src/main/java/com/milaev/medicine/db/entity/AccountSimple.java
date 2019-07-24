@@ -1,4 +1,4 @@
-package com.milaev.medicine.mvc.model.accounts;
+package com.milaev.medicine.db.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +18,15 @@ public class AccountSimple {
     private int id;
     @Column(nullable = false)
     private String name;
+
+    public AccountSimple() {
+    }
+
+    public AccountSimple(int id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;

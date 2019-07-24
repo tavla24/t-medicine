@@ -6,44 +6,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.db.dao.AccountSimpleDAO;
-import com.milaev.medicine.db.entity.AccountSimple;
+import com.milaev.medicine.db.dao.AccountDAO;
+import com.milaev.medicine.db.entity.Account;
 import com.milaev.medicine.service.interfaces.TServiceInterface;
 
 @Service
-//@EnableTransactionManagement(proxyTargetClass = true)
-public class AccountSimpleService implements TServiceInterface<AccountSimple> {
+public class AccountService implements TServiceInterface<Account> {
 
     @Autowired
-    private AccountSimpleDAO dao;
+    private AccountDAO dao;
 
     @Override
     @Transactional
-    public List<AccountSimple> allAccounts() {
+    public List<Account> allAccounts() {
         return dao.allAccounts();
     }
 
     @Override
     @Transactional
-    public void add(AccountSimple acc) {
+    public void add(Account acc) {
         dao.add(acc);
     }
 
     @Override
     @Transactional
-    public void delete(AccountSimple acc) {
+    public void delete(Account acc) {
         dao.delete(acc);
     }
 
     @Override
     @Transactional
-    public void edit(AccountSimple acc) {
+    public void edit(Account acc) {
         dao.edit(acc);
     }
 
     @Override
     @Transactional
-    public AccountSimple getById(int id) {
+    public Account getById(int id) {
         return dao.getById(id);
     }
 

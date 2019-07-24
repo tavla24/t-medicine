@@ -1,4 +1,4 @@
-package com.milaev.medicine.mvc.model.accounts;
+package com.milaev.medicine.db.entity.enums;
 
 public enum AccessLevelType {
     LOW, MED, HIGHT;
