@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.db.dao.AccountSimpleDAO;
-import com.milaev.medicine.db.entity.AccountSimple;
+import com.milaev.medicine.dao.AccountSimpleDAO;
+import com.milaev.medicine.model.AccountSimple;
 import com.milaev.medicine.service.interfaces.TServiceInterface;
 
 @Service
