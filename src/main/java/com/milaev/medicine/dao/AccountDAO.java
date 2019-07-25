@@ -16,21 +16,22 @@ public class AccountDAO implements AccountDAOInterface {
     private SessionFactory sessionFactory;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Account> allAccounts() {
-        // TODO Auto-generated method stub
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Account").list();
     }
 
     @Override
     public void add(Account acc) {
-        // TODO Auto-generated method stub
-
+        Session session = sessionFactory.getCurrentSession();
+        session.persist(acc);
     }
 
     @Override
     public void delete(Account acc) {
-        // TODO Auto-generated method stub
-
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(acc);
     }
 
     @Override
@@ -43,6 +44,12 @@ public class AccountDAO implements AccountDAOInterface {
     public Account getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Account.class, id);
+    }
+
+    @Override
+    public Account getByLogin(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Account.class, login);
     }
 
 }

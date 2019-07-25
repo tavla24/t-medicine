@@ -10,5 +10,5 @@ public class MainController {
     // @RequestMapping("/doctor_view")
     // @RequestMapping("/nurce_view")
     // @RequestMapping("/patient_view")
-    // @RequestMapping("/error/404")
+    // @RequestMapping("/error/404/403")
 }

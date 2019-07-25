@@ -14,4 +14,6 @@ public interface AccountDAOInterface {
     void edit(Account acc);
 
     Account getById(int id);
+
+    Account getByLogin(String login);
 }

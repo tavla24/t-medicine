@@ -1,16 +1,14 @@
 package com.milaev.medicine.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.milaev.medicine.model.enums.AccessLevelType;
 
 @Entity
 @Table(name = "accounts")
@@ -23,9 +21,12 @@ public class Account {
     private int id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JoinColumn(name = "extend_id", nullable = false)
-    private AccountExt extend;
+    @Column(nullable = false)
+    private String login;
+    @Column(nullable = false)
+    private long password_hash;
+    @Column(nullable = false)
+    private AccessLevelType access_level;
 
     public int getId() {
         return id;
@@ -43,23 +44,33 @@ public class Account {
         this.name = name;
     }
 
-    public AccountExt getExtend_id() {
-        return extend;
+    public String getLogin() {
+        return login;
     }
 
-    public void setExtend_id(AccountExt extend_id) {
-        this.extend = extend_id;
+    public void setLogin(String login) {
+        this.login = login;
     }
-    
+
+    public long getPassword_hash() {
+        return password_hash;
+    }
+
+    public void setPassword_hash(long password_hash) {
+        this.password_hash = password_hash;
+    }
+
+    public AccessLevelType getAccess_level() {
+        return access_level;
+    }
+
+    public void setAccess_level(AccessLevelType access_level) {
+        this.access_level = access_level;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("id: %d; name: %s\n", id, name));
-        if (extend != null)
-            sb.append(String.format("\t id: %d; login: %s; password_hash: %d; access_level: %s\n ", extend.getId(),
-                    extend.getLogin(), extend.getPassword_hash(), extend.getAccess_level().toString()));
-        else
-            sb.append("\t no extend_id");
-        return sb.toString();
+        return String.format("accounts result: id[%d]; name[%s]; login[%s]; password_hash[%d]; access_level[%s]", id,
+                name, login, password_hash, access_level.name());
     }
 }

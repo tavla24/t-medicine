@@ -7,7 +7,9 @@ USE hospital;
 # TODO unique
 # TODO catch exceptions (delete void or unique add for example)
 # TODO lazy query - how grab objects
+# TODO serialize class into db
 
+DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS patients;
@@ -16,69 +18,30 @@ DROP TABLE IF EXISTS healings;
 DROP TABLE IF EXISTS events;
 
 
-# for tests ========================================
-DROP TABLE IF EXISTS accounts_simple;
-CREATE TABLE accounts_simple
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-
 CREATE TABLE accounts
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  extend_id INT UNSIGNED NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-DROP TABLE IF EXISTS accounts_ext;
-CREATE TABLE accounts_ext
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   access_level TINYINT UNSIGNED NOT NULL,
   login VARCHAR(31) NOT NULL,
   password_hash BIGINT NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
-ALTER TABLE accounts 
-  ADD CONSTRAINT accounts_accounts_ext_fk 
-  FOREIGN KEY (extend_id) 
-  REFERENCES accounts_ext(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
-     
-INSERT INTO accounts_ext (access_level, login, password_hash) VALUES 
-(0, 'user', 5486),
-(1, 'root', 2614),
-(2, 'admin', 4194);
-
-INSERT INTO accounts (name, extend_id) VALUES 
-('pasha', 1),
-('pasha', 2),
-('pasha', 3),
-('masha', 1),
-('masha', 3);
-
-INSERT INTO accounts_simple (name) VALUES 
-('pasha'),
-('masha');
+# for tests ========================================
+INSERT INTO accounts (name, access_level, login, password_hash) VALUES 
+('name_root', 1, 'root', 1111),
+('name_admin', 2, 'admin', 2222),
+('name_user', 3, 'user', 3333);
 # ==================================================
 
-/*
-CREATE TABLE accounts
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  access_level TINYINT UNSIGNED NOT NULL,
-  login VARCHAR(31) NOT NULL,
-  password_hash BIGINT NOT NULL,
-  PRIMARY KEY (id)
+CREATE TABLE persistent_logins (
+  username VARCHAR(64) NOT NULL,
+  series VARCHAR(64) NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  last_used TIMESTAMP NOT NULL,
+  PRIMARY KEY (series)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
-*/
 
 CREATE TABLE doctors
 (

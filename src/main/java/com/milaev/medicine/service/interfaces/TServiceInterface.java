@@ -12,4 +12,6 @@ public interface TServiceInterface <T>{
     void edit(T acc);
 
     T getById(int id);
+
+    T getByLogin(String login);
 }

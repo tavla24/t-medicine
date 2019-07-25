@@ -45,5 +45,21 @@ public class AccountService implements TServiceInterface<Account> {
     public Account getById(int id) {
         return dao.getById(id);
     }
+    
+    @Override
+    @Transactional
+    public Account getByLogin(String login) {
+        return dao.getByLogin(login);
+    }
+
+    // TODO LAZY query
+//    @Override
+//    @Transactional
+//    public Account getById(int id) {
+//        Account rez = dao.getById(id);
+//        rez.setExtend_id(rez.getExtend_id());
+//        return rez;
+//        //return dao.getById(id);
+//    }
 
 }
