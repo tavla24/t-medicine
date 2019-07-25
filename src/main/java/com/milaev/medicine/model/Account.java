@@ -23,7 +23,7 @@ public class Account {
     private int id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "extend_id", nullable = false)
     private AccountExt extend;
 

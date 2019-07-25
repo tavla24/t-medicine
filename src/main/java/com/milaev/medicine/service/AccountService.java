@@ -43,7 +43,11 @@ public class AccountService implements TServiceInterface<Account> {
     @Override
     @Transactional
     public Account getById(int id) {
-        return dao.getById(id);
+        Account rez = dao.getById(id);
+        rez.getExtend_id();
+        //rez.setExtend_id(rez.getExtend_id());
+        return rez;
+        // return dao.getById(id);
     }
 
 }
