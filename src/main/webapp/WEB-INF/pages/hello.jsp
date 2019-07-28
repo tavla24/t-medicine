@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Spring MVC -HelloWorld</title>
+<title>Spring MVC - HelloWorld</title>
 </head>
 
 

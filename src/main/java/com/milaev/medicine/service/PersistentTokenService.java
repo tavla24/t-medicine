@@ -3,6 +3,7 @@ package com.milaev.medicine.service;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import com.milaev.medicine.service.interfaces.TPersistentTokenServiceInterface;
 public class PersistentTokenService implements TPersistentTokenServiceInterface {
 
     @Autowired
+    @Qualifier("persistentTokenDAO")
     private PersistentTokenDAOInterface dao;
 
     @Override

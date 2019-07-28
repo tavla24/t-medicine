@@ -2,6 +2,8 @@ package com.milaev.medicine.service.interfaces;
 
 import java.util.List;
 
+import com.milaev.medicine.model.Account;
+
 public interface TServiceInterface <T>{
     List<T> allAccounts();
 
@@ -13,5 +15,6 @@ public interface TServiceInterface <T>{
 
     T getById(int id);
 
-    T getByLogin(String login);
+    List<T> getByLogin(String login);
+    T getByLoginSingle(String login);
 }

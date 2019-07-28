@@ -30,9 +30,9 @@ CREATE TABLE accounts
 
 # for tests ========================================
 INSERT INTO accounts (name, access_level, login, password_hash) VALUES 
-('name_root', 1, 'root', 1111),
-('name_admin', 2, 'admin', 2222),
-('name_user', 3, 'user', 3333);
+('name_root', 0, 'root', 1111),
+('name_admin', 1, 'admin', 2222),
+('name_user', 2, 'user', 3333);
 # ==================================================
 
 CREATE TABLE persistent_logins (

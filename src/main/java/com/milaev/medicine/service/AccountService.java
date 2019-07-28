@@ -48,8 +48,14 @@ public class AccountService implements TServiceInterface<Account> {
     
     @Override
     @Transactional
-    public Account getByLogin(String login) {
+    public List<Account> getByLogin(String login) {
         return dao.getByLogin(login);
+    }
+    
+    @Override
+    @Transactional
+    public Account getByLoginSingle(String login) {
+    	return dao.getByLoginSingle(login);
     }
 
     // TODO LAZY query
