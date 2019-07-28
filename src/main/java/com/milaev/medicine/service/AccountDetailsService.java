@@ -18,29 +18,29 @@ import com.milaev.medicine.service.interfaces.TServiceInterface;
 
 @Service
 public class AccountDetailsService implements UserDetailsService {
-	
+
 	private static Logger LOGGER = Logger.getLogger(AccountDetailsService.class);
 
-    @Autowired
-    private TServiceInterface<Account> accountService;
+	@Autowired
+	private TServiceInterface<Account> accountService;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<Account> users = accountService.getByLogin(username);
-        Account user = users.get(0);
-        if (user == null) {
-            throw new UsernameNotFoundException("Username not found");
-        }
-        LOGGER.info("loadUserByUsername(): " + user.getLogin());
-        return new org.springframework.security.core.userdetails.User(user.getLogin(),
-                Long.toString(user.getPassword_hash()), true, true, true, true, getGrantedAuthorities(user));
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<Account> users = accountService.getByLogin(username);
+		Account user = users.get(0);
+		if (user == null) {
+			throw new UsernameNotFoundException("Username not found");
+		}
+		LOGGER.info("loadUserByUsername(): " + user.getLogin());
+		return new org.springframework.security.core.userdetails.User(user.getLogin(),
+				Long.toString(user.getPassword_hash()), true, true, true, true, getGrantedAuthorities(user));
+	}
 
-    private List<GrantedAuthority> getGrantedAuthorities(Account user) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(user.getAccess_level().name()));
-        LOGGER.info("getGrantedAuthorities(): " + user.getAccess_level().name());
-        return authorities;
-    }
+	private List<GrantedAuthority> getGrantedAuthorities(Account user) {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getAccess_level().name()));
+		LOGGER.info("getGrantedAuthorities(): " + user.getAccess_level().name());
+		return authorities;
+	}
 
 }
