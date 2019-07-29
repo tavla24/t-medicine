@@ -35,6 +35,7 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String index(Model model) {
+	    LOGGER.debug("index()");
 		return "main";
 	}
 	
