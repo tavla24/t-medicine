@@ -2,12 +2,10 @@ package com.milaev.medicine.controller;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -19,13 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 //@SessionAttributes("XXXX")
 public class MainController {
 
-	private static Logger LOGGER = Logger.getLogger(MainController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;

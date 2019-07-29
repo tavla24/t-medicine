@@ -2,10 +2,12 @@ package com.milaev.medicine.dao;
 
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.stereotype.Repository;
@@ -16,7 +18,7 @@ import com.milaev.medicine.model.PersistentToken;
 @Repository
 public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
-	private static Logger LOGGER = Logger.getLogger(PersistentTokenDAO.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(PersistentTokenDAO.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;

@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// TODO = public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
 	// throws Exception {...}? + how/why?
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(accountDetailsService);
+		//auth.userDetailsService(accountDetailsService);
 		auth.authenticationProvider(authenticationProvider());
 	}
 

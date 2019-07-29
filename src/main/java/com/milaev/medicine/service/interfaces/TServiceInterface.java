@@ -2,8 +2,6 @@ package com.milaev.medicine.service.interfaces;
 
 import java.util.List;
 
-import com.milaev.medicine.model.Account;
-
 public interface TServiceInterface <T>{
     List<T> allAccounts();
 
