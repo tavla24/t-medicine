@@ -12,9 +12,9 @@
 
 <body>
 	<div>
-		<span><strong>${loggedinuser}</strong> authorized </span> <br> <span
-			class="floatRight"><a href="<c:url value="/" />">Main page</a></span>
+		<span><strong>${loggedinuser}</strong> access granted </span> <br>
 	</div>
+	<%@include file="zfooter.jsp" %>
 </body>
 
 </html>

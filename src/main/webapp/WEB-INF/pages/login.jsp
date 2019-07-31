@@ -12,7 +12,8 @@
 
 <body>
 	<div>
-		<form action="/t-medicine/login" method="post">
+	<c:url var="loginUrl" value="/logincmd" />
+		<form action="${loginUrl}" method="POST">
 			<c:if test="${param.error != null}">
 				<div>
 					<p>Invalid username and password.</p>
@@ -41,9 +42,8 @@
 				<button type="submit">Log in...</button>
 			</div>
 		</form>
-		<span class="floatRight"><a href="<c:url value="/" />">Main
-				page</a></span>
 	</div>
+	<%@include file="zfooter.jsp" %>
 </body>
 
 </html>

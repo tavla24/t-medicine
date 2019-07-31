@@ -7,41 +7,58 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.service.interfaces.TServiceInterface;
 
 @Service
 public class AccountDetailsService implements UserDetailsService {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(AccountDetailsService.class);
+    private static Logger log = LoggerFactory.getLogger(AccountDetailsService.class);
 
-	@Autowired
-	private TServiceInterface<Account> accountService;
+    @Autowired
+    private TServiceInterface<Account, ?> accountService;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		List<Account> users = accountService.getByLogin(username);
-		Account user = users.get(0);
-		if (user == null) {
-			throw new UsernameNotFoundException("Username not found");
-		}
-		LOGGER.info("loadUserByUsername(): " + user.getLogin());
-		return new org.springframework.security.core.userdetails.User(user.getLogin(),
-				Long.toString(user.getPassword_hash()), true, true, true, true, getGrantedAuthorities(user));
-	}
+    @Autowired
+    @Qualifier("passwordEncoder")
+    PasswordEncoder passwordEncoder;
 
-	private List<GrantedAuthority> getGrantedAuthorities(Account user) {
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getAccess_level().name()));
-		LOGGER.info("getGrantedAuthorities(): " + user.getAccess_level().name());
-		return authorities;
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account user = accountService.getByLogin(username);
+        // Account user = users.get(0);
+        if (user == null) {
+            throw new UsernameNotFoundException("Username not found");
+        }
+        log.info("loadUserByUsername(): " + user.getLogin());
+
+        UserBuilder builder = User.withUsername(username);
+        // TODO passwordEncoder.encode(user.getPassword();
+        builder.password(user.getPassword());
+        builder.roles(user.getRole().getType().name());
+
+        return builder.build();
+
+//        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), true, true,
+//                true, true, getGrantedAuthorities(user));
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(Account user) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getType().name()));
+        log.info("getGrantedAuthorities(): " + user.getRole().getType().name());
+        return authorities;
+    }
 
 }

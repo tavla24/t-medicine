@@ -1,32 +1,39 @@
 package com.milaev.medicine.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.milaev.medicine.model.enums.AccessLevelType;
 
 @Entity
 @Table(name = "accounts")
 //@Proxy(lazy =false) 
 public class Account {
+
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private int id;
-    @Column(nullable = false)
-    private String name;
+
     @Column(nullable = false)
     private String login;
+
     @Column(nullable = false)
-    private long password_hash;
-    @Column(nullable = false)
-    private AccessLevelType access_level;
+    private String password;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+    private Person person;
 
     public int getId() {
         return id;
@@ -34,14 +41,6 @@ public class Account {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLogin() {
@@ -52,25 +51,33 @@ public class Account {
         this.login = login;
     }
 
-    public long getPassword_hash() {
-        return password_hash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword_hash(long password_hash) {
-        this.password_hash = password_hash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public AccessLevelType getAccess_level() {
-        return access_level;
+    public Role getRole() {
+        return role;
     }
 
-    public void setAccess_level(AccessLevelType access_level) {
-        this.access_level = access_level;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override
     public String toString() {
-        return String.format("accounts result: id[%d]; name[%s]; login[%s]; password_hash[%d]; access_level[%s]", id,
-                name, login, password_hash, access_level.name());
+        return String.format("accounts result: id[%d]; login[%s]; password[%d]; access_level[%s]", id, login, password,
+                role.getType().name());
     }
 }

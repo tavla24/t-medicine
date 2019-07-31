@@ -12,11 +12,9 @@
 
 <body>
 	<div>
-		<div>
-			<span><strong>${loggedinuser}</strong> access denied </span> <br>
-			<span class="floatRight"><a href="<c:url value="/" />">Main
-					page</a></span>
-		</div>
+		<span><strong>${loggedinuser}</strong> access denied </span> <br>
+	</div>
+	<%@include file="zfooter.jsp" %>
 </body>
 
 </html>

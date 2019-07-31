@@ -18,14 +18,14 @@ import com.milaev.medicine.model.PersistentToken;
 @Repository
 public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(PersistentTokenDAO.class);
+	private static Logger log = LoggerFactory.getLogger(PersistentTokenDAO.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
-		LOGGER.info("Creating Token for user : " + token.getUsername());
+		log.info("Creating Token for user : " + token.getUsername());
 		PersistentToken persistentLogin = new PersistentToken();
 		persistentLogin.setUsername(token.getUsername());
 		persistentLogin.setSeries(token.getSeries());
@@ -37,7 +37,7 @@ public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
 	@Override
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		LOGGER.info("Fetch Token if any for seriesId : " + seriesId);
+		log.info("Fetch Token if any for seriesId : " + seriesId);
 		try {
 			Criteria crit = createEntityCriteria();
 			crit.add(Restrictions.eq("series", seriesId));
@@ -46,19 +46,19 @@ public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 			return new PersistentRememberMeToken(persistentLogin.getUsername(), persistentLogin.getSeries(),
 					persistentLogin.getToken(), persistentLogin.getLast_used());
 		} catch (Exception e) {
-			LOGGER.info("Token not found...");
+			log.info("Token not found...");
 			return null;
 		}
 	}
 
 	@Override
 	public void removeUserTokens(String username) {
-		LOGGER.info("Removing Token if any for user : " + username);
+		log.info("Removing Token if any for user : " + username);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("username", username));
 		PersistentToken persistentLogin = (PersistentToken) crit.uniqueResult();
 		if (persistentLogin != null) {
-			LOGGER.info("rememberMe was selected");
+			log.info("rememberMe was selected");
 			delete(persistentLogin);
 		}
 
@@ -66,7 +66,7 @@ public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
 	@Override
 	public void updateToken(String seriesId, String tokenValue, Date lastUsed) {
-		LOGGER.info("Updating Token for seriesId : " + seriesId);
+		log.info("Updating Token for seriesId : " + seriesId);
 		PersistentToken persistentLogin = getByKey(seriesId);
 		persistentLogin.setToken(tokenValue);
 		persistentLogin.setLast_used(lastUsed);

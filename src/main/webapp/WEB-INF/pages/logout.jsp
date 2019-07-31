@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -12,13 +12,14 @@
 
 <body>
 	<div>
-		<form action="<%=request.getContextPath()%>/logoutws" method="POST">
+		<c:url var="logoutUrl" value="/logoutcmd" />
+		<form action="${logoutUrl}" method="POST">
+			<!-- <form action="<%=request.getContextPath()%>/logoutcmd" method="POST"> -->
 			<input type="submit" value="Logout..." /> <input type="hidden"
 				name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
-		<span class="floatRight"><a href="<c:url value="/" />">Main
-				page</a></span>
 	</div>
+	<%@include file="zfooter.jsp" %>
 </body>
 
 </html>

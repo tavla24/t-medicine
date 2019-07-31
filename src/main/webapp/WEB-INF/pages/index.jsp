@@ -12,10 +12,9 @@
 
 <body>
 	<div>
-		<span>Page for everybody </span> <br> <span class="floatRight"><a
-			href="<c:url value="/" />">Main page</a></span> <br> <span
-			class="floatRight"><a href="<c:url value="/login" />">Login</a></span>
-		<br> <span class="floatRight"><a
+		<span>Page for everybody </span> <br> <span><a
+			href="<c:url value="/" />">Main page</a></span> <br> <span><a
+			href="<c:url value="/login" />">Login</a></span> <br> <span><a
 			href="<c:url value="/logout" />">Logout</a></span> <br>
 	</div>
 </body>

@@ -49,32 +49,19 @@ public class AccountDAO implements AccountDAOInterface {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Account> getByLogin(String login) {
-		Session session = sessionFactory.getCurrentSession();
-		// TODO by criteriabuilder
-		// Criteria criteria = session.createCriteria(Account.class);
-		Query<Account> query = session.createQuery("from Account where login = :paramName");
-		query.setParameter("paramName", login);
-		List<Account> list = query.getResultList();// list();
-		return list;
+	public Account getByLogin(String login) {
+        Session session = sessionFactory.getCurrentSession();
+        // TODO by criteriabuilder
+        // Criteria criteria = session.createCriteria(Account.class);
+        Query<Account> query = session.createQuery("from Account where login = :paramName");
+        query.setParameter("paramName", login);
+        // TODO unique?
+        return query.getSingleResult();// list();
+        
+        // List<Account> list = query.list();
+        // if (list == null || list.isEmpty()) {
+        // return null;
+        // }
+        // return list.get(0);
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Account getByLoginSingle(String login) {
-		Session session = sessionFactory.getCurrentSession();
-		// TODO by criteriabuilder
-		// Criteria criteria = session.createCriteria(Account.class);
-		Query<Account> query = session.createQuery("from Account where login = :paramName");
-		query.setParameter("paramName", login);
-		// TODO unique?
-		return query.getSingleResult();// list();
-
-		// List<Account> list = query.list();
-		// if (list == null || list.isEmpty()) {
-		// return null;
-		// }
-		// return list.get(0);
-	}
-
 }

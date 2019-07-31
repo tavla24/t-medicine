@@ -18,6 +18,29 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<artifactId>jstl</artifactId>
+		<version.jstl>1.2</version.jstl>
+		<version.javax.servlet-api>4.0.1</version.javax.servlet-api>
+		<version.spring-core>5.1.8.RELEASE</version.spring-core>
+		<version.spring-context>5.1.8.RELEASE</version.spring-context>
+		<version.spring-beans>5.1.8.RELEASE</version.spring-beans>
+		<version.spring-web>5.1.8.RELEASE</version.spring-web>
+		<version.spring-webmvc>5.1.8.RELEASE</version.spring-webmvc>
+		<version.spring-security-taglibs>5.1.5.RELEASE</version.spring-security-taglibs>
+		<version.spring-security-web>5.1.5.RELEASE</version.spring-security-web>
+		<version.spring-security-config>5.1.5.RELEASE</version.spring-security-config>
+		<version.spring-jdbc>5.1.8.RELEASE</version.spring-jdbc>
+		<version.spring-orm>5.1.8.RELEASE</version.spring-orm>
+		<version.tomcat-dbcp>9.0.22</version.tomcat-dbcp>
+		<version.mysql-connector-java>8.0.16</version.mysql-connector-java>
+		<version.hibernate-entitymanager>5.4.3.Final</version.hibernate-entitymanager>
+		<version.hibernate-jpa-2.1-api>1.0.2.Final</version.hibernate-jpa-2.1-api>
+		<version.log4j-core>2.12.0</version.log4j-core>
+		<version.log4j-api>2.12.0</version.log4j-api>
+		<version.log4j-slf4j-impl>2.12.0</version.log4j-slf4j-impl>
+		<version.lombok>1.18.8</version.lombok>
+		<version.modelmapper>2.3.5</version.modelmapper>
+		<version.junit>4.11</version.junit>
 	</properties>
 
 	<dependencies>
@@ -26,14 +49,14 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<version>${version.jstl}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
+			<version>${version.javax.servlet-api}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -43,7 +66,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-core}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -56,28 +79,28 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-context}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-beans}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-web}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-webmvc}</version>
 		</dependency>
 
 
@@ -86,21 +109,21 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>5.1.5.RELEASE</version>
+			<version>${version.spring-security-taglibs}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>5.1.5.RELEASE</version>
+			<version>${version.spring-security-web}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>5.1.5.RELEASE</version>
+			<version>${version.spring-security-config}</version>
 		</dependency>
 
 
@@ -109,75 +132,61 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-jdbc}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>5.1.8.RELEASE</version>
+			<version>${version.spring-orm}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-dbcp</artifactId>
-			<version>9.0.22</version>
+			<version>${version.tomcat-dbcp}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
+			<version>${version.mysql-connector-java}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.3.Final</version>
+			<version>${version.hibernate-entitymanager}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>1.0.2.Final</version>
+			<version>${version.hibernate-jpa-2.1-api}</version>
 		</dependency>
 
 
 		<!-- === log === -->
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
-		<!-- <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			<version>1.2.17</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-		<!-- <dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-			<scope>test</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>ch.qos.logback</groupId> <artifactId>logback-classic</artifactId> 
+			<version>1.2.3</version> <scope>test</scope> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<!-- <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.26</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
+			<version>1.7.26</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
-		<!-- <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.26</version>
-			<scope>test</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
+			<version>1.7.26</version> <scope>test</scope> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
 		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-slf4j-impl</artifactId> 
@@ -195,21 +204,38 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.12.0</version>
+			<version>${version.log4j-core}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.12.0</version>
+			<version>${version.log4j-api}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>2.12.0</version>
+			<version>${version.log4j-slf4j-impl}</version>
+		</dependency>
+
+
+		<!-- ============================================================ -->
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${version.lombok}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${version.modelmapper}</version>
 		</dependency>
 
 
@@ -217,7 +243,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${version.junit}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

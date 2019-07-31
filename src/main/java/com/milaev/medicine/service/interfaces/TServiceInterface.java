@@ -2,17 +2,20 @@ package com.milaev.medicine.service.interfaces;
 
 import java.util.List;
 
-public interface TServiceInterface <T>{
-    List<T> allAccounts();
+public interface TServiceInterface <E, D>{
+    List<E> allAccounts();
 
-    void add(T acc);
+    void add(E acc);
 
-    void delete(T acc);
+    void delete(E acc);
 
-    void edit(T acc);
+    void edit(E acc);
 
-    T getById(int id);
+    E getById(int id);
 
-    List<T> getByLogin(String login);
-    T getByLoginSingle(String login);
+    E getByLogin(String login);
+    
+    D entityToDTO(E entity);
+    
+    E dtoToEntity(D dto);
 }

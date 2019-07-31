@@ -22,57 +22,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //@SessionAttributes("XXXX")
 public class MainController {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(MainController.class);
+    private static Logger log = LoggerFactory.getLogger(MainController.class);
 
-	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
+    @Autowired
+    AuthenticationTrustResolver authenticationTrustResolver;
 
-	@Autowired
-	PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
+    @Autowired
+    PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
 
-	@RequestMapping("/")
-	public String index(Model model) {
-		return "main";
-	}
-	
-	@RequestMapping("/hello")
-	public String hello(Model model) {
-		LOGGER.info("hello()");
-		model.addAttribute("greeting", "Hello page: Spring MVC by controller");
-		return "hello";
-	}
+    @RequestMapping("/")
+    public String index(Model model) {
+        return "index";
+    }
 
-	@RequestMapping("/login") // , method = RequestMethod.GET
-	public String loginPage() {
-		LOGGER.info("loginPage()");
-		if (isCurrentAuthenticationAnonymous()) {
-			LOGGER.info("return \"login\"");
-			return "login";
-		} else {
-			LOGGER.info("return \"redirect:/access_granted\"");
-			return "redirect:/access_granted";
-		}
-	}
+    @RequestMapping("/hello")
+    public String hello(Model model) {
+        log.info("hello()");
+        model.addAttribute("greeting", "Hello page: Spring MVC by controller");
+        return "hello";
+    }
 
-	@RequestMapping(value = "/access_granted") //, method = RequestMethod.GET
-	public String accessGrantedPage(ModelMap model) {
-		LOGGER.info("accessGrantedPage()");
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "access_granted";
-	}
-	
-	@RequestMapping(value = "/access_denied") //, method = RequestMethod.GET
-	public String accessDeniedPage(ModelMap model) {
-		LOGGER.info("accessDeniedPage()");
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "access_denied";
-	}
+    @RequestMapping("/login") // , method = RequestMethod.GET
+    public String loginPage() {
+        log.info("loginPage()");
+        if (isCurrentAuthenticationAnonymous()) {
+            log.info("return \"login\"");
+            return "login";
+        } else {
+            log.info("return \"redirect:/access_granted\"");
+            return "redirect:/access_granted";
+        }
+    }
 
-	@RequestMapping(value = "/logout")
-	public String logoutPage() {
-		LOGGER.info("logoutPage()");
-		return "logout";
-	}
+    @RequestMapping("/access_granted") // , method = RequestMethod.GET
+    public String accessGrantedPage(ModelMap model) {
+        log.info("accessGrantedPage()");
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "access_granted";
+    }
+
+    @RequestMapping("/access_denied") // , method = RequestMethod.GET
+    public String accessDeniedPage(ModelMap model) {
+        log.info("accessDeniedPage()");
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "access_denied";
+    }
+
+    @RequestMapping("/logout")
+    public String logoutPage() {
+        log.info("logoutPage()");
+        return "logout";
+    }
 
 //	@RequestMapping(value="/logout") //, method = RequestMethod.GET
 //	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
@@ -84,35 +84,44 @@ public class MainController {
 //		return "redirect:/login";
 //	}
 
-	// @RequestMapping("/register")
-	// @RequestMapping("/doctor_view")
-	// @RequestMapping("/nurce_view")
-	// @RequestMapping("/patient_view")
-	// @RequestMapping("/error/404/403")
+//    @RequestMapping(value = "/list")//, method = RequestMethod.GET
+//    public String listUsers(ModelMap model) {
+//        List<User> users = userService.findAllUsers();
+//        model.addAttribute("users", users);
+//        model.addAttribute("loggedinuser", getPrincipal());
+//        return "userslist";
+//    }
 
-	private String getPrincipal() {
-		LOGGER.info("getPrincipal()");
-		String userName = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    // @RequestMapping("/register")
+    // @RequestMapping("/doctor_view")
+    // @RequestMapping("/nurce_view")
+    // @RequestMapping("/patient_view")
+    // @RequestMapping("/error/404/403")
 
-		if (principal instanceof UserDetails) {
-			LOGGER.info("getPrincipal(): instanceof UserDetails");
-			userName = ((UserDetails) principal).getUsername();
-			LOGGER.info("getPrincipal() UserDetails userName: " + userName);
-			
-			Collection<GrantedAuthority> cga = ((Collection<GrantedAuthority>) ((UserDetails) principal).getAuthorities());
-			Iterator <GrantedAuthority> icga = cga.iterator();
-			while(icga.hasNext())
-				LOGGER.info("getPrincipal() UserDetails Authority: " + icga.next().getAuthority());
-		} else {
-			userName = principal.toString();
-			LOGGER.info("getPrincipal() principal.toString() userName: " + userName);
-		}
-		return userName;
-	}
+    private String getPrincipal() {
+        log.info("getPrincipal()");
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-	private boolean isCurrentAuthenticationAnonymous() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authenticationTrustResolver.isAnonymous(authentication);
-	}
+        if (principal instanceof UserDetails) {
+            log.info("getPrincipal(): instanceof UserDetails");
+            userName = ((UserDetails) principal).getUsername();
+            log.info("getPrincipal() UserDetails userName: " + userName);
+
+            Collection<GrantedAuthority> cga = ((Collection<GrantedAuthority>) ((UserDetails) principal)
+                    .getAuthorities());
+            Iterator<GrantedAuthority> icga = cga.iterator();
+            while (icga.hasNext())
+                log.info("getPrincipal() UserDetails Authority: " + icga.next().getAuthority());
+        } else {
+            userName = principal.toString();
+            log.info("getPrincipal() principal.toString() userName: " + userName);
+        }
+        return userName;
+    }
+
+    private boolean isCurrentAuthenticationAnonymous() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver.isAnonymous(authentication);
+    }
 }
