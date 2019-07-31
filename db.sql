@@ -169,13 +169,30 @@ ALTER TABLE events
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
-(0), (1), (2);
+(0), (1), (2), (3), (4), (5);
 
 INSERT INTO accounts (login, password, role_id) VALUES 
 ('root', '1111', 1),
 ('admin', '2222', 2),
-('user', '3333', 3);
+('user', '3333', 3),
+('doctor', '4444', 4),
+('nurse', '5555', 5),
+('patient', '6666', 6);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Milaev', 'Alexandr', 'Victorovich', 'ksri.milaev@mail.ru', '+79213357546', 1);
+('Ivanov', 'Sergey', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1);
+INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
+('Petrov', 'Arseniy', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 5);
+INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
+('Sidorov', 'Konstantin', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 6);
+
+INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
+('Bochkareva', 'Ekaterina', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 4);
+
+INSERT INTO doctors (id, specialization) VALUES
+(4, 'okulist');
+
+INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
+(2, 4, 'dalnozorkost', 9872350982357879635, 1),
+(3, 4, 'astigmatizm', 876358327659328755, 1);
 # ==================================================
