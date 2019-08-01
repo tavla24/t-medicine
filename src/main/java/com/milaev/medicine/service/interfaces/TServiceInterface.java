@@ -8,6 +8,8 @@ public interface TServiceInterface<E, D> {
     void add(E acc);
 
     void delete(E acc);
+    
+    void deleteByLogin(String login);
 
     void edit(E acc);
 

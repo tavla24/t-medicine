@@ -50,6 +50,13 @@ public class AccountService implements TServiceInterface<Account, AccountDTO> {
     public void delete(Account acc) {
         dao.delete(acc);
     }
+    
+    @Override
+    @Transactional
+    public void deleteByLogin(String login) {
+        Account acc = getByLogin(login);
+        delete(acc);
+    }
 
     @Override
     @Transactional

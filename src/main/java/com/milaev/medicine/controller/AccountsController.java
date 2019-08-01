@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,6 +51,7 @@ public class AccountsController {
 
     @RequestMapping(value = { "/newaccount" }, method = RequestMethod.GET)
     public String newUser(ModelMap model) {
+        log.info("newUser()");
         AccountDTO account = new AccountDTO();
 
         model.addAttribute("account", account);
@@ -71,10 +73,8 @@ public class AccountsController {
 
         log.info("no validation errors");
 
-        boolean update = false;
         if (!accountService.isLoginUnique(account.getLogin())) {
             log.info("non Unique Login");
-            update = true;
             FieldError loginErr = new FieldError("account", "login",
                     messageSource.getMessage("non.unique.login", new String[] { account.getLogin() }, Locale.ENGLISH));
             result.addError(loginErr);
@@ -90,13 +90,39 @@ public class AccountsController {
         acc.setRole(r);
         log.info("AccountEntity: ", acc.toString());
 
-        if (update) {
-            // point 5
-            accountService.edit(acc);
-        } else
-            accountService.add(acc);
+        accountService.add(acc);
 
         // point 4
+        return "userslist";
+    }
+
+    @RequestMapping(value = { "/delete-user-{login}" }, method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String login) {
+        log.info("deleteUser()");
+        accountService.deleteByLogin(login);
+        return "redirect:/list";
+    }
+
+    @RequestMapping(value = { "/edit-user-{login}" }, method = RequestMethod.GET)
+    public String editUser(@PathVariable String login, ModelMap model) {
+        log.info("editUser()");
+        AccountDTO account = accountService.entityToDTO(accountService.getByLogin(login));
+        model.addAttribute("account", account);
+        model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        return "registration";
+    }
+
+    @RequestMapping(value = { "/edit-user-{login}" }, method = RequestMethod.POST)
+    public String updateUser(@Valid AccountDTO account, BindingResult result, ModelMap model,
+            @PathVariable String login) {
+        log.info("updateUser()");
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        // point 5
+        accountService.edit(accountService.dtoToEntity(account));
+
         return "userslist";
     }
 }
