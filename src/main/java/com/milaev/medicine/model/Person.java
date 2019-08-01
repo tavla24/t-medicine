@@ -26,19 +26,19 @@ public class Person {
 
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "surname", nullable = false)
     private String surname;
-    
+
     @Column(name = "patronymic")
     private String patronymic;
-    
+
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "phone")
     private String phone;
-    
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;

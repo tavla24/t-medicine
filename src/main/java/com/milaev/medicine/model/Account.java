@@ -1,6 +1,5 @@
 package com.milaev.medicine.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +27,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne // (cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -59,12 +58,32 @@ public class Account {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public String getRole() {
+        if (this.role == null)
+            this.role = new Role();
+        return role.getType();
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public long getRoleID() {
+        if (this.role == null)
+            this.role = new Role();
+        return role.getId();
+    }
+
+    public void setRole(String role) {
+        if (this.role == null)
+            this.role = new Role();
+        this.role.setType(role);
+    }
+
+    public void setRoleID(long id) {
+        if (this.role == null)
+            this.role = new Role();
+        this.role.setId(id);
+    }
+
+    public void setRole(Role r) {
+        this.role = r;
     }
 
     public Person getPerson() {
@@ -77,7 +96,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return String.format("accounts result: id[%d]; login[%s]; password[%d]; access_level[%s]", id, login, password,
-                role.getType().name());
+        return String.format("accounts result: id[%d]; login[%s]; password[%s]; access_level[%s]", id, login, password,
+                role.getType());
     }
 }

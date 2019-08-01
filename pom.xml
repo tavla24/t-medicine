@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<artifactId>jstl</artifactId>
+
 		<version.jstl>1.2</version.jstl>
 		<version.javax.servlet-api>4.0.1</version.javax.servlet-api>
 		<version.spring-core>5.1.8.RELEASE</version.spring-core>
@@ -41,6 +41,8 @@
 		<version.lombok>1.18.8</version.lombok>
 		<version.modelmapper>2.3.5</version.modelmapper>
 		<version.junit>4.11</version.junit>
+		<version.validation-api>2.0.1.Final</version.validation-api>
+		<version.hibernate-validator>6.0.17.Final</version.hibernate-validator>
 	</properties>
 
 	<dependencies>
@@ -236,6 +238,20 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${version.modelmapper}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${version.validation-api}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${version.hibernate-validator}</version>
 		</dependency>
 
 

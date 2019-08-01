@@ -10,7 +10,7 @@ import com.milaev.medicine.test.mvc.model.recipes.Recipe;
 @Component
 public class Event {
     @Autowired
-    //private Patient patient;
+    // private Patient patient;
     private Recipe recipe;
     private Date date;
     private EventStatus status;

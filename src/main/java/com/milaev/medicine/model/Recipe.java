@@ -34,7 +34,7 @@ public class Recipe {
     private Healing healing;
     @Column
     private float dose;
-    
+
     // TODO periodic + duration - ??
 
     public Recipe() {

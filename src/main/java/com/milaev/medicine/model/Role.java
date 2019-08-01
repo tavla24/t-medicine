@@ -24,7 +24,7 @@ public class Role {
     private long id;
 
     @Column(name = "type", nullable = false)
-    private RoleType type;
+    private String type = RoleType.USER.getUserProfileType();
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Collection<Account> accounts;
@@ -37,11 +37,11 @@ public class Role {
         this.id = id;
     }
 
-    public RoleType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(RoleType roleType) {
+    public void setType(String roleType) {
         this.type = roleType;
     }
 

@@ -15,7 +15,7 @@ public class Go {
 //        BeanAnnotation bean02 = context.getBean("ffBeanByAnn", BeanAnnotation.class);
 //        System.out.println(bean02.getName());
 //        context.close();
-        
+
         connectionTest();
     }
 

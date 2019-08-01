@@ -1,6 +1,6 @@
 package com.milaev.medicine.dto;
 
-public class DoctorDTO extends PersonDTO{
+public class DoctorDTO extends PersonDTO {
     private String specialization;
 
     public String getSpecialization() {

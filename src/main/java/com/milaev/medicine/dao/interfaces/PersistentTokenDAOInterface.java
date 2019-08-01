@@ -4,7 +4,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import com.milaev.medicine.model.PersistentToken;
 
-public interface PersistentTokenDAOInterface extends PersistentTokenRepository{
+public interface PersistentTokenDAOInterface extends PersistentTokenRepository {
 
     public PersistentToken getByKey(String key);
 

@@ -15,7 +15,7 @@
 <body>
 	<div>
 		<div>
-			<span class="lead">List of Users </span>
+			<span class="lead">List of Users, ${loggedinuser}</span>
 		</div>
 		<table>
 			<thead>
@@ -23,7 +23,7 @@
 					<th>Login</th>
 					<th>Password</th>
 					<th>Role</th>
-					<th></th>
+					<th>todo: link details</th>
 					<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
 						<th width="100"></th>
 					</sec:authorize>
@@ -38,7 +38,7 @@
 						<th>${user.login}</th>
 						<th>${user.password}</th>
 						<th>${user.role}</th>
-						<th>todo: link details</th>
+						<th></th>
 						<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
 							<td><a href="<c:url value='/edit-user-${user.login}' />">edit</a></td>
 						</sec:authorize>

@@ -12,13 +12,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.service.interfaces.TServiceInterface;
 
@@ -37,7 +36,6 @@ public class AccountDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account user = accountService.getByLogin(username);
-        // Account user = users.get(0);
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
@@ -46,7 +44,7 @@ public class AccountDetailsService implements UserDetailsService {
         UserBuilder builder = User.withUsername(username);
         // TODO passwordEncoder.encode(user.getPassword();
         builder.password(user.getPassword());
-        builder.roles(user.getRole().getType().name());
+        builder.roles(user.getRole());
 
         return builder.build();
 
@@ -56,8 +54,8 @@ public class AccountDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(Account user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getType().name()));
-        log.info("getGrantedAuthorities(): " + user.getRole().getType().name());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        log.info("getGrantedAuthorities(): " + user.getRole());
         return authorities;
     }
 

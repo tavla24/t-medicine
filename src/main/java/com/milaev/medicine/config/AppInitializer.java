@@ -10,8 +10,9 @@ import com.milaev.medicine.config.security.WebSecurityConfig;
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     // TODO AbstractAnnotationConfigDispatcherServletInitializer vs
     // AnnotationConfigWebApplicationContext (WebApplicationInitializer)
-    
-    // TODO in all notes HibernateConfig.class, SecurityConfig.class - in the getRootConfigClasses()
+
+    // TODO in all notes HibernateConfig.class, SecurityConfig.class - in the
+    // getRootConfigClasses()
     // WebMvcConfig.class - in the getServletConfigClasses()
     @Override
     protected Class<?>[] getRootConfigClasses() {

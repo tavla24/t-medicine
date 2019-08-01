@@ -31,7 +31,7 @@ CREATE TABLE accounts
 CREATE TABLE roles
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  type TINYINT UNSIGNED NOT NULL UNIQUE,
+  type VARCHAR(31) NOT NULL UNIQUE,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -169,7 +169,7 @@ ALTER TABLE events
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
-(0), (1), (2), (3), (4), (5);
+('ROOT'), ('ADMIN'), ('USER'), ('DOCTOR'), ('NURSE'), ('PATIENT');
 
 INSERT INTO accounts (login, password, role_id) VALUES 
 ('root', '1111', 1),
@@ -193,6 +193,6 @@ INSERT INTO doctors (id, specialization) VALUES
 (4, 'okulist');
 
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
-(2, 4, 'dalnozorkost', 9872350982357879635, 1),
-(3, 4, 'astigmatizm', 876358327659328755, 1);
+(2, 4, 'dalnozorkost', 98723509, 1),
+(3, 4, 'astigmatizm', 87635832, 1);
 # ==================================================

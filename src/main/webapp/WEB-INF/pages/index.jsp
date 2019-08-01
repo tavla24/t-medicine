@@ -15,7 +15,10 @@
 		<span>Page for everybody </span> <br> <span><a
 			href="<c:url value="/" />">Main page</a></span> <br> <span><a
 			href="<c:url value="/login" />">Login</a></span> <br> <span><a
-			href="<c:url value="/logout" />">Logout</a></span> <br>
+			href="<c:url value="/logout" />">Logout</a></span> <br> <span><a
+			href="<c:url value="/list" />">List</a></span> <br> <span><a
+			href="<c:url value="/newaccount" />">New account</a></span>
+
 	</div>
 </body>
 

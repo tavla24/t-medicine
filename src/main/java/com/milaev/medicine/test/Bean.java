@@ -3,7 +3,7 @@ package com.milaev.medicine.test;
 public class Bean {
     private String name;
 
-    public Bean(String name){
+    public Bean(String name) {
         this.name = name;
     }
 
