@@ -1,80 +1,68 @@
 package com.milaev.medicine.service;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.controller.AccountsController;
 import com.milaev.medicine.dao.AccountDAO;
+import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
-import com.milaev.medicine.service.interfaces.TServiceInterface;
+import com.milaev.medicine.model.Role;
+import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.utils.MapperAccounts;
 
 @Service
-public class AccountService implements TServiceInterface<Account, AccountDTO> {
+public class AccountService implements AccountServiceInterface {
 
-    private static Logger log = LoggerFactory.getLogger(AccountsController.class);
+    private static Logger log = LoggerFactory.getLogger(AccountService.class);
 
     // TODO in official docs created by autowired
     // @Autowired
     // private ModelMapper modelMapper;
 
     @Autowired
-    private AccountDAO dao;
+    private AccountDAO daoAccount;
+
+    @Autowired
+    private RoleDAO daoRole;
 
     @Override
     @Transactional
-    public List<Account> allAccounts() {
-        return dao.allAccounts();
+    public List<AccountDTO> getAll() {
+
+        List<Account> list = daoAccount.allAccounts();
+        List<AccountDTO> listDAO = new ArrayList<>();
+        for (Account item : list) {
+            AccountDTO accountDTO = new AccountDTO();
+            MapperAccounts.toDTO().accept(item, accountDTO);
+            listDAO.add(accountDTO);
+        }
+
+        return listDAO;
     }
 
     @Override
     @Transactional
-    public void add(Account acc) {
-        log.info("service.add(Account)");
-        log.info(acc.toString());
-        dao.add(acc);
+    public AccountDTO getByLogin(String login) {
+        Account dbAccount = daoAccount.getByLogin(login);
+        AccountDTO accountDTO = new AccountDTO();
+        MapperAccounts.toDTO().accept(dbAccount, accountDTO);
+        return accountDTO;
     }
 
     @Override
     @Transactional
-    public void delete(Account acc) {
-        dao.delete(acc);
-    }
-    
-    @Override
-    @Transactional
-    public void deleteByLogin(String login) {
-        Account acc = getByLogin(login);
-        delete(acc);
-    }
-
-    @Override
-    @Transactional
-    public void edit(Account acc) {
-        log.info("service.edit(Account)");
-        dao.edit(acc);
-    }
-
-    @Override
-    @Transactional
-    public Account getById(int id) {
-        return dao.getById(id);
-    }
-
-    @Override
-    @Transactional
-    public Account getByLogin(String login) {
-        return dao.getByLogin(login);
+    public AccountDTO getById(int id) {
+        Account dbAccount = daoAccount.getById(id);
+        AccountDTO accountDTO = new AccountDTO();
+        MapperAccounts.toDTO().accept(dbAccount, accountDTO);
+        return accountDTO;
     }
 
     @Override
@@ -84,48 +72,62 @@ public class AccountService implements TServiceInterface<Account, AccountDTO> {
         try {
             // TODO is it normal way, or realize by criteria without exceptions
             getByLogin(login);
-        } catch (NoResultException ex) {
+        } catch (Exception ex) {
             log.info("unique by NoResultException");
             return true;
         }
-
         return false;
     }
 
     @Override
     @Transactional
-    public AccountDTO entityToDTO(Account entity) {
-        // ModelMapper modelMapper = new ModelMapper();
-        return (new ModelMapper()).map(entity, AccountDTO.class);
+    public boolean deleteByLogin(String login) {
+        Account dbAccount = daoAccount.getByLogin(login);
+        try {
+            daoAccount.delete(dbAccount);
+        } catch (Exception ex) {
+            log.info("something wrong with delete");
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public Account dtoToEntity(AccountDTO dto) {
-        return (new ModelMapper()).map(dto, Account.class);
+    @Transactional
+    public boolean edit(AccountDTO dto, String oldLogin) {
+        log.info("service.edit(Account)");
+        Account dbAccount = daoAccount.getByLogin(oldLogin);
+        Role r = daoRole.getByType(dto.getRole());
+        dbAccount.setRole(r);
+        MapperAccounts.toEntity().accept(dto, dbAccount);
+        try {
+            daoAccount.edit(dbAccount);
+        } catch (Exception ex) {
+            log.info("something wrong with edit");
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public List<AccountDTO> entityToDTO(List<Account> entities) {
-        Type listType = new TypeToken<List<AccountDTO>>() {
-        }.getType();
-        List<AccountDTO> postDtoList = (new ModelMapper()).map(entities, listType);
-        return postDtoList;
+    @Transactional
+    public boolean add(AccountDTO dto) {
+        log.info("service.add(Account)");
+        log.info(dto.toString());
+        Role r = daoRole.getByType(dto.getRole());
+        Account dbAccount = new Account();
+        // TODO question for Anatoliy - why cant be new Role()
+        // e.t. exception "role_id" cannot be null
+        dbAccount.setRole(r);
+        log.info(dbAccount.toString());
+        MapperAccounts.toEntity().accept(dto, dbAccount);
+        try {
+            daoAccount.add(dbAccount);
+        } catch (Exception ex) {
+            log.info("something wrong with insert");
+            return false;
+        }
+        return true;
     }
-
-    @Override
-    public List<Account> dtoToEntity(List<AccountDTO> dtos) {
-        return (new ModelMapper()).map(dtos, new TypeToken<List<Account>>() {
-        }.getType());
-    }
-
-    // TODO LAZY query
-//    @Override
-//    @Transactional
-//    public Account getById(int id) {
-//        Account rez = dao.getById(id);
-//        rez.setExtend_id(rez.getExtend_id());
-//        return rez;
-//        //return dao.getById(id);
-//    }
 
 }

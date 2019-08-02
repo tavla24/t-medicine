@@ -36,7 +36,7 @@ public class MainController {
         log.info("loginPage()");
         if (sessionAuth.isAnonimusSession()) {
             log.info("return \"login\"");
-            return "login";
+            return "account/login";
         } else {
             log.info("return \"redirect:/access_granted\"");
             return "redirect:/access_granted";
@@ -47,20 +47,20 @@ public class MainController {
     public String accessGrantedPage(ModelMap model) {
         log.info("accessGrantedPage()");
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "access_granted";
+        return "account/access_granted";
     }
 
     @RequestMapping("/access_denied") // , method = RequestMethod.GET
     public String accessDeniedPage(ModelMap model) {
         log.info("accessDeniedPage()");
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "access_denied";
+        return "account/access_denied";
     }
 
     @RequestMapping("/logout")
     public String logoutPage() {
         log.info("logoutPage()");
-        return "logout";
+        return "account/logout";
     }
 
 //    @Autowired

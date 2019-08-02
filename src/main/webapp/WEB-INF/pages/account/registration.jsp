@@ -53,7 +53,7 @@
             </div>
         </form:form>
     </div>
-    <%@include file="zfooter.jsp" %>
+    <%@include file="../zfooter.jsp" %>
 </body>
 
 </html>

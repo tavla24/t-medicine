@@ -56,4 +56,12 @@ public class PersonDTO {
         this.account = account;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(account.toString());
+        sb.append(String.format("PersonDTO result: name[%s]; surname[%s]; patronymic[%s], email[%s], phone[%s]", name,
+                surname, patronymic, email, phone));
+        return sb.toString();
+    }
 }

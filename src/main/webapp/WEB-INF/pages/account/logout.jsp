@@ -19,7 +19,7 @@
 				name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</div>
-	<%@include file="zfooter.jsp" %>
+	<%@include file="../zfooter.jsp" %>
 </body>
 
 </html>

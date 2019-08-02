@@ -14,7 +14,7 @@
 	<div>
 		<span><strong>${loggedinuser}</strong> access denied </span> <br>
 	</div>
-	<%@include file="zfooter.jsp" %>
+	<%@include file="../zfooter.jsp" %>
 </body>
 
 </html>

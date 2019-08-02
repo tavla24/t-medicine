@@ -40,17 +40,17 @@
 						<th>${user.role}</th>
 						<th></th>
 						<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-							<td><a href="<c:url value='/edit-user-${user.login}' />">edit</a></td>
+							<td><a href="<c:url value='/account/edit-user-${user.login}' />">edit</a></td>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ADMIN')">
-							<td><a href="<c:url value='/delete-user-${user.login}' />">delete</a></td>
+							<td><a href="<c:url value='/account/delete-user-${user.login}' />">delete</a></td>
 						</sec:authorize>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-	<%@include file="zfooter.jsp"%>
+	<%@include file="../zfooter.jsp"%>
 </body>
 
 </html>

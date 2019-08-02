@@ -42,7 +42,8 @@ public class AccountDTO {
 
     @Override
     public String toString() {
-        return String.format("accounts result: login[%s]; password[%s]; access_level[%s]", login, password,
-                role.getType());
+        if (role == null)
+            return String.format("accounts result: login[%s]; password[%s]; role[null]", login, password);
+        return String.format("accounts result: login[%s]; password[%s]; role[%s]", login, password, role.getType());
     }
 }
