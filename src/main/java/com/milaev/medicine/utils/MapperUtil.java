@@ -1,38 +1,50 @@
 package com.milaev.medicine.utils;
 
-import java.lang.reflect.Type;
-import java.util.List;
+import java.util.function.BiConsumer;
 
+import javax.annotation.PostConstruct;
+
+import com.milaev.medicine.dto.AccountDTO;
+import com.milaev.medicine.model.Account;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import org.springframework.stereotype.Component;
 
-public class MapperUtil<E, D> {
-    private final Class<E> classE;
-    private final Class<D> classD;
+import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.model.Doctor;
 
-    public MapperUtil(Class<E> classE, Class<D> classD) {
-        this.classE = classE;
-        this.classD = classD;
+@Component
+public class MapperUtil {
+
+    private static ModelMapper mapper;
+
+    public static BiConsumer<DoctorDTO, Doctor> toEntityDoctor() {
+        return mapper::map;
     }
 
-    public D entityToDTO(E entity) {
-        return (new ModelMapper()).map(entity, classD);
+    public static BiConsumer<Doctor, DoctorDTO> toDTODoctor() {
+        return mapper::map;
     }
 
-    public E dtoToEntity(D dto) {
-        return (new ModelMapper()).map(dto, classE);
+    public static BiConsumer<AccountDTO, Account> toEntityAccount() {
+        return mapper::map;
     }
 
-    // TODO Lists
-    public List<D> entityToDTOList(List<E> entitieList) {
-        return (new ModelMapper()).map(entitieList, new TypeToken<List<D>>() {
-        }.getType());
+    public static BiConsumer<Account, AccountDTO> toDTOAccount() {
+        return mapper::map;
     }
 
-    public List<E> dtoToEntityList(List<D> dtoList) {
-        // return (new ModelMapper()).map(dtoList, classE.getGenericSuperclass());
-        // String classn = classE.getName();
-        Type listType = classE;
-        return (new ModelMapper()).map(dtoList, listType);
+    @PostConstruct
+    public void postConstruct() {
+        mapper = new ModelMapper();
+
+        mapper.createTypeMap(AccountDTO.class, Account.class).setPropertyCondition(Conditions.isNotNull());
+        // .addMappings(map -> map.skip(Account::setId));
+        mapper.createTypeMap(Account.class, AccountDTO.class).setPropertyCondition(Conditions.isNotNull());
+        // .addMappings(map -> map.skip(Account::setId));
+
+
+        mapper.createTypeMap(DoctorDTO.class, Doctor.class).setPropertyCondition(Conditions.isNotNull());
+        mapper.createTypeMap(Doctor.class, DoctorDTO.class).setPropertyCondition(Conditions.isNotNull());
     }
 }

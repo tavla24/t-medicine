@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 public class Healing {
     private String name;
     private HealingType type;
+    private String doze;
 }

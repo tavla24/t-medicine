@@ -3,6 +3,8 @@ package com.milaev.medicine.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.milaev.medicine.dto.AccountDTO;
+import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.apache.log4j.Logger;
@@ -27,7 +29,7 @@ public class AccountDetailsService implements UserDetailsService {
     private static Logger log = LoggerFactory.getLogger(AccountDetailsService.class);
 
     @Autowired
-    private TServiceInterface<Account, ?> accountService;
+    private AccountServiceInterface accountService;
 
     @Autowired
     @Qualifier("passwordEncoder")
@@ -35,7 +37,7 @@ public class AccountDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account user = accountService.getByLogin(username);
+        AccountDTO user = accountService.getByLogin(username);
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }

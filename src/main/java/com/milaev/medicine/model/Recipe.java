@@ -1,16 +1,9 @@
 package com.milaev.medicine.model;
 
+import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,37 +11,28 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "recipes")
 public class Recipe {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
-    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    @Column(nullable = false)
-    private Date periodic;
-    @Column(nullable = false)
-    private Date duration;
-    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "healing_id", nullable = false)
     private Healing healing;
-    @Column
-    private float dose;
 
-    // TODO periodic + duration - ??
+    @Column(name = "date_from",nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateFrom;
 
-    public Recipe() {
-    }
+    @Column(name = "date_to",nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateTo;
 
-    public Recipe(long id, Patient patient, Date periodic, Date duration, Healing healing, float dose) {
-        super();
-        this.id = id;
-        this.patient = patient;
-        this.periodic = periodic;
-        this.duration = duration;
-        this.healing = healing;
-        this.dose = dose;
-    }
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+    private Collection<RecipeDayNames> dayNames;
 
     public long getId() {
         return id;
@@ -66,22 +50,6 @@ public class Recipe {
         this.patient = patient;
     }
 
-    public Date getPeriodic() {
-        return periodic;
-    }
-
-    public void setPeriodic(Date periodic) {
-        this.periodic = periodic;
-    }
-
-    public Date getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Date duration) {
-        this.duration = duration;
-    }
-
     public Healing getHealing() {
         return healing;
     }
@@ -90,12 +58,27 @@ public class Recipe {
         this.healing = healing;
     }
 
-    public float getDose() {
-        return dose;
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
-    public void setDose(float dose) {
-        this.dose = dose;
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
     }
 
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    public Collection<RecipeDayNames> getDayNames() {
+        return dayNames;
+    }
+
+    public void setDayNames(Collection<RecipeDayNames> dayNames) {
+        this.dayNames = dayNames;
+    }
 }

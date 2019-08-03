@@ -17,7 +17,7 @@ import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.model.Role;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
-import com.milaev.medicine.utils.MapperDoctors;
+import com.milaev.medicine.utils.MapperUtil;
 
 @Service
 public class DoctorService implements DoctorServiceInterface {
@@ -39,7 +39,7 @@ public class DoctorService implements DoctorServiceInterface {
         List<DoctorDTO> listDAO = new ArrayList<>();
         for (Doctor item : list) {
             DoctorDTO doctorDTO = new DoctorDTO();
-            MapperDoctors.toDTO().accept(item, doctorDTO);
+            MapperUtil.toDTODoctor().accept(item, doctorDTO);
             listDAO.add(doctorDTO);
         }
 
@@ -51,7 +51,7 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getByLogin(String login) {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperDoctors.toDTO().accept(dbDoctor, doctorDTO);
+        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
 
@@ -60,7 +60,7 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getByFullName(String fname, String surname, String patronymic, String specify) {
         Doctor dbDoctor = daoDoctor.getByFullName(fname, surname, patronymic, specify);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperDoctors.toDTO().accept(dbDoctor, doctorDTO);
+        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
 
@@ -69,7 +69,7 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getById(int id) {
         Doctor dbDoctor = daoDoctor.getById(id);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperDoctors.toDTO().accept(dbDoctor, doctorDTO);
+        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
 
@@ -96,7 +96,7 @@ public class DoctorService implements DoctorServiceInterface {
         Role r = daoRole.getByType(a.getRole());
         a.setRole(r);
         dbDoctor.setAccount(a);
-        MapperDoctors.toEntity().accept(dto, dbDoctor);
+        MapperUtil.toEntityDoctor().accept(dto, dbDoctor);
         try {
             daoDoctor.edit(dbDoctor);
         } catch (Exception ex) {
@@ -116,7 +116,7 @@ public class DoctorService implements DoctorServiceInterface {
         a.setRole(r);
         log.info("!!! a: {}", a.toString());
         Doctor dbDoctor = new Doctor();
-        MapperDoctors.toEntity().accept(dto, dbDoctor);
+        MapperUtil.toEntityDoctor().accept(dto, dbDoctor);
         dbDoctor.setAccount(a);
         log.info("!!! dbDoctor role: {}", dbDoctor.getAccount().getRole());
         try {

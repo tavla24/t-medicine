@@ -2,13 +2,7 @@ package com.milaev.medicine.model;
 
 import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,12 +12,11 @@ import com.milaev.medicine.model.enums.RoleType;
 @Table(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, unique = true)
     private String type = RoleType.USER.getUserProfileType();
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)

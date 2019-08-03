@@ -3,6 +3,7 @@ package com.milaev.medicine.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.milaev.medicine.utils.MapperUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Role;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
-import com.milaev.medicine.utils.MapperAccounts;
 
 @Service
 public class AccountService implements AccountServiceInterface {
@@ -40,7 +40,7 @@ public class AccountService implements AccountServiceInterface {
         List<AccountDTO> listDAO = new ArrayList<>();
         for (Account item : list) {
             AccountDTO accountDTO = new AccountDTO();
-            MapperAccounts.toDTO().accept(item, accountDTO);
+            MapperUtil.toDTOAccount().accept(item, accountDTO);
             listDAO.add(accountDTO);
         }
 
@@ -52,7 +52,7 @@ public class AccountService implements AccountServiceInterface {
     public AccountDTO getByLogin(String login) {
         Account dbAccount = daoAccount.getByLogin(login);
         AccountDTO accountDTO = new AccountDTO();
-        MapperAccounts.toDTO().accept(dbAccount, accountDTO);
+        MapperUtil.toDTOAccount().accept(dbAccount, accountDTO);
         return accountDTO;
     }
 
@@ -61,7 +61,7 @@ public class AccountService implements AccountServiceInterface {
     public AccountDTO getById(int id) {
         Account dbAccount = daoAccount.getById(id);
         AccountDTO accountDTO = new AccountDTO();
-        MapperAccounts.toDTO().accept(dbAccount, accountDTO);
+        MapperUtil.toDTOAccount().accept(dbAccount, accountDTO);
         return accountDTO;
     }
 
@@ -99,7 +99,7 @@ public class AccountService implements AccountServiceInterface {
         Account dbAccount = daoAccount.getByLogin(oldLogin);
         Role r = daoRole.getByType(dto.getRole());
         dbAccount.setRole(r);
-        MapperAccounts.toEntity().accept(dto, dbAccount);
+        MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
             daoAccount.edit(dbAccount);
         } catch (Exception ex) {
@@ -120,7 +120,7 @@ public class AccountService implements AccountServiceInterface {
         // e.t. exception "role_id" cannot be null
         dbAccount.setRole(r);
         log.info(dbAccount.toString());
-        MapperAccounts.toEntity().accept(dto, dbAccount);
+        MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
             daoAccount.add(dbAccount);
         } catch (Exception ex) {

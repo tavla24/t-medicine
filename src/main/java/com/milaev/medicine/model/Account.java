@@ -21,7 +21,7 @@ public class Account {
     @Column(nullable = false)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String login;
 
     @Column(nullable = false)

@@ -1,10 +1,6 @@
 package com.milaev.medicine.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,24 +10,16 @@ import com.milaev.medicine.model.enums.HealingType;
 @Table(name = "healings")
 public class Healing {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
-    @Column
+    @Column(nullable = false)
     private String name;
-    @Column
-    private HealingType type;
+    @Column(nullable = false)
+    private String type; // = ""; //HealingType.DRUG.getHealingType();
 
-    public Healing() {
-    }
-
-    public Healing(long id, String name, HealingType type) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
+    @OneToOne(mappedBy = "healing", fetch = FetchType.LAZY)
+    private Recipe recipe;
 
     public long getId() {
         return id;
@@ -49,12 +37,19 @@ public class Healing {
         this.name = name;
     }
 
-    public HealingType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(HealingType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }

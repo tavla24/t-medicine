@@ -16,13 +16,15 @@ DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS patients;
 DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS recipes_day_parts;
+DROP TABLE IF EXISTS recipes_day_names;
 DROP TABLE IF EXISTS healings;
 DROP TABLE IF EXISTS events;
 
 CREATE TABLE accounts
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  login VARCHAR(31) NOT NULL UNIQUE,
+  login VARCHAR(127) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role_id INT UNSIGNED NOT NULL,
   PRIMARY KEY (id)
@@ -49,7 +51,7 @@ CREATE TABLE persons
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  surname VARCHAR(255),
+  surname VARCHAR(255) NOT NULL,
   patronymic VARCHAR(255),
   email VARCHAR(255) UNIQUE,
   phone VARCHAR(255) UNIQUE,
@@ -76,8 +78,8 @@ CREATE TABLE patients
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   doctor_id INT UNSIGNED NOT NULL,
   diagnosis VARCHAR(255) NOT NULL,
-  insuranceid BIGINT UNSIGNED NOT NULL,
-  status TINYINT UNSIGNED NOT NULL,
+  insuranceid VARCHAR(255) NOT NULL,
+  status VARCHAR(127) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -92,7 +94,7 @@ CREATE TABLE healings
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  type TINYINT UNSIGNED NOT NULL,
+  type VARCHAR(127) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -101,11 +103,42 @@ CREATE TABLE recipes
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   patient_id INT UNSIGNED NOT NULL,
   healing_id INT UNSIGNED NOT NULL,
-  dose FLOAT,
-  periodic DATETIME NOT NULL,
-  duration DATETIME NOT NULL,
+  date_from DATE NOT NULL,
+  date_to DATE NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
+
+CREATE TABLE recipes_day_names
+(
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(127) NOT NULL,
+  recipe_id INT UNSIGNED UNIQUE,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=UTF8;
+
+ALTER TABLE recipes_day_names
+  ADD CONSTRAINT recipes_day_names_recipes_fk
+    FOREIGN KEY (recipe_id)
+      REFERENCES recipes(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
+
+CREATE TABLE recipes_day_parts
+(
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  part VARCHAR(127) NOT NULL,
+  time TIME,
+  doze VARCHAR(127) NOT NULL,
+  day_name_id INT UNSIGNED UNIQUE,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=UTF8;
+
+ALTER TABLE recipes_day_parts
+  ADD CONSTRAINT recipes_day_parts_names_fk
+    FOREIGN KEY (day_name_id)
+      REFERENCES recipes_day_names(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
 
 CREATE TABLE events
 (
@@ -193,6 +226,6 @@ INSERT INTO doctors (id, specialization) VALUES
 (4, 'okulist');
 
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
-(2, 4, 'dalnozorkost', 98723509, 1),
-(3, 4, 'astigmatizm', 87635832, 1);
+(2, 4, 'dalnozorkost', '98723509', 1),
+(3, 4, 'astigmatizm', '87635832', 1);
 # ==================================================
