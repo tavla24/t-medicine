@@ -60,22 +60,22 @@ public class PersonDTO {
         this.account = account;
     }
 
-    public String getLogin() {
-        if (this.getAccount() == null)
-            this.setAccount(new AccountDTO());
-        return getAccount().getLogin();
-    }
-
-    public void setLogin(String login) {
-        if (this.getAccount() == null)
-            this.setAccount(new AccountDTO());
-        getAccount().setLogin(login);
-    }
+//    public String getLogin() {
+//        if (this.getAccount() == null)
+//            this.setAccount(new AccountDTO());
+//        return getAccount().getLogin();
+//    }
+//
+//    public void setLogin(String login) {
+//        if (this.getAccount() == null)
+//            this.setAccount(new AccountDTO());
+//        getAccount().setLogin(login);
+//    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(account.toString());
+        sb.append(getAccount().toString());
         sb.append(String.format("PersonDTO result: name[%s]; surname[%s]; patronymic[%s], email[%s], phone[%s]", name,
                 surname, patronymic, email, phone));
         return sb.toString();

@@ -48,14 +48,14 @@
                         <th>${doctor.specialization}</th>
                         <th>${doctor.email}</th>
                         <th>${doctor.phone}</th>
-                        <th>${doctor.login}</th>
+                        <th>${doctor.account.login}</th>
 
                         <th></th>
                         <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                            <td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>
+                            <td><a href="<c:url value='/admin/doctor/edit/${doctor.account.login}' />">edit</a></td>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>
+                            <td><a href="<c:url value='/admin/doctor/delete/${doctor.account.login}' />">delete</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

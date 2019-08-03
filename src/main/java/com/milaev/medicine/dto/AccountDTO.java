@@ -13,7 +13,7 @@ public class AccountDTO {
     @NotBlank
     private String password;
     // TODO @NotEmpty
-    private Role role;
+    private RoleDTO role;
 
     //private Person person;
 
@@ -33,22 +33,18 @@ public class AccountDTO {
         this.password = password;
     }
 
-    public String getRole() {
+    public RoleDTO getRole() {
         if (this.role == null)
-            this.role = new Role();
-        return role.getType();
+            this.role = new RoleDTO();
+        return role;
     }
 
-    public void setRole(String role) {
-        if (this.role == null)
-            this.role = new Role();
-        this.role.setType(role);
+    public void setRole(RoleDTO role) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        if (role == null)
-            return String.format("accounts result: login[%s]; password[%s]; role[null]", login, password);
-        return String.format("accounts result: login[%s]; password[%s]; role[%s]", login, password, role.getType());
+        return String.format("accounts result: login[%s]; password[%s]; role[%s]", login, password, getRole().getType());
     }
 }

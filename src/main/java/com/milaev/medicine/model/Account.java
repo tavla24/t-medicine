@@ -58,35 +58,19 @@ public class Account {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         if (this.role == null)
             this.role = new Role();
-        return role.getType();
+        return role;
     }
 
-    public long getRoleID() {
-        if (this.role == null)
-            this.role = new Role();
-        return role.getId();
-    }
-
-    public void setRole(String role) {
-        if (this.role == null)
-            this.role = new Role();
-        this.role.setType(role);
-    }
-
-    public void setRoleID(long id) {
-        if (this.role == null)
-            this.role = new Role();
-        this.role.setId(id);
-    }
-
-    public void setRole(Role r) {
-        this.role = r;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Person getPerson() {
+        if (person == null)
+            person = new Person();
         return person;
     }
 

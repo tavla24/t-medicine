@@ -35,22 +35,9 @@ public class DoctorDAO implements DoctorDAOInterface {
     @SuppressWarnings("unchecked")
     public Doctor getByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
-        // TODO
         Query<Doctor> query = session.createQuery("from Doctor as d where d.account.login = :paramName");
         query.setParameter("paramName", login);
         return getSingleResult(query);
-
-        //Query<Doctor> query = session.createQuery("from Doctor");
-//        Doctor rez = null;
-//        List<Doctor> list = query.getResultList();
-//        log.info("size list: {}", list.size());
-//        for (Doctor item : list) {
-//            log.info("login: {}", item.getLogin());
-//            if (item.getLogin().equals(login))
-//                rez = item;
-//        }
-//
-//        return rez;
     }
 
     @SuppressWarnings("unchecked")
@@ -99,8 +86,14 @@ public class DoctorDAO implements DoctorDAOInterface {
 
     @Override
     public boolean edit(Doctor acc) {
-        // TODO Auto-generated method stub
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        try {
+            session.update(acc);
+        } catch (Exception ex) {
+            log.error("");
+            return false;
+        }
+        return true;
     }
 
     public static Doctor getSingleResult(Query<Doctor> query) {

@@ -37,7 +37,7 @@
 					<tr>
 						<th>${account.login}</th>
 						<th>${account.password}</th>
-						<th>${account.role}</th>
+						<th>${account.role.type}</th>
 						<th></th>
 						<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
 							<td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>

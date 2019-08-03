@@ -97,7 +97,7 @@ public class AccountService implements AccountServiceInterface {
     public boolean edit(AccountDTO dto, String oldLogin) {
         log.info("service.edit(Account)");
         Account dbAccount = daoAccount.getByLogin(oldLogin);
-        Role r = daoRole.getByType(dto.getRole());
+        Role r = daoRole.getByType(dto.getRole().getType());
         dbAccount.setRole(r);
         MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
@@ -114,7 +114,7 @@ public class AccountService implements AccountServiceInterface {
     public boolean add(AccountDTO dto) {
         log.info("service.add(Account)");
         log.info(dto.toString());
-        Role r = daoRole.getByType(dto.getRole());
+        Role r = daoRole.getByType(dto.getRole().getType());
         Account dbAccount = new Account();
         // TODO question for Anatoliy - why cant be new Role()
         // e.t. exception "role_id" cannot be null

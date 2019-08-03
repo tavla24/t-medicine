@@ -76,14 +76,14 @@
                     </div>
                 </div>
             </div>
-            
+
             <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
             <div>
                 <label for="login">login</label>
                 <div>
-                    <form:input type="text" path="login" id="login" />
+                    <form:input type="text" path="account.login" id="login" />
                     <div>
-                        <form:errors path="login" />
+                        <form:errors path="account.login" />
                     </div>
                 </div>
             </div>

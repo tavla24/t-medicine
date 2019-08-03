@@ -1,18 +1,21 @@
 package com.milaev.medicine.dto;
 
+import com.milaev.medicine.model.Recipe;
 import com.milaev.medicine.model.enums.PatientStatus;
 
 public class PatientDTO extends PersonDTO {
-    private long insuranceId;
+    private String insuranceId;
     private String diagnosis;
-    private PatientStatus status;
+    private String status = PatientStatus.ILL.getPatientStatus();
     private DoctorDTO doctor;
 
-    public long getInsuranceId() {
+    //private RecipeDTO recipe;
+
+    public String getInsuranceId() {
         return insuranceId;
     }
 
-    public void setInsuranceId(long insuranceId) {
+    public void setInsuranceId(String insuranceId) {
         this.insuranceId = insuranceId;
     }
 
@@ -24,19 +27,23 @@ public class PatientDTO extends PersonDTO {
         this.diagnosis = diagnosis;
     }
 
-    public PatientStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(PatientStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
     public DoctorDTO getDoctor() {
+        if (doctor == null)
+            doctor = new DoctorDTO();
         return doctor;
     }
 
     public void setDoctor(DoctorDTO doctor) {
+        if (doctor == null)
+            doctor = new DoctorDTO();
         this.doctor = doctor;
     }
 

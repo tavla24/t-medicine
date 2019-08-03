@@ -34,7 +34,6 @@ public class DoctorsController {
     private SessionAuthenticationInterface sessionAuth;
     @Autowired
     MessageSource messageSource;
-
     @Autowired
     DoctorServiceInterface doctorService;
     @Autowired
@@ -43,6 +42,7 @@ public class DoctorsController {
     @GetMapping(value = "/") // , method = RequestMethod.GET
     public String main(ModelMap model) {
         log.info("main()");
+        model.addAttribute("loggedinuser", sessionAuth.getUserName());
         return "doctor/mainpanel";
     }
 
@@ -56,7 +56,7 @@ public class DoctorsController {
         doctorDTO = doctorService.getByLogin(loggedinuser);
         else {
             doctorDTO = new DoctorDTO();
-            doctorDTO.setLogin(loggedinuser);
+            doctorDTO.getAccount().setLogin(loggedinuser);
         }
 
         model.addAttribute("doctor", doctorDTO);
@@ -76,7 +76,7 @@ public class DoctorsController {
         //log.info(doctorDTO.toString());
         //doctorService.add(doctorDTO);//, sessionAuth.getUserName()
 
-        doctorDTO.setLogin(loggedinuser);
+        doctorDTO.getAccount().setLogin(loggedinuser);
         doctorService.updateProfile(doctorDTO);
 
         return "redirect:/doctor/";

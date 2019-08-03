@@ -45,7 +45,7 @@ public class AccountDetailsService implements UserDetailsService {
         UserBuilder builder = User.withUsername(username);
         // TODO passwordEncoder.encode(user.getPassword();
         builder.password(user.getPassword());
-        builder.roles(user.getRole());
+        builder.roles(user.getRole().getType());
 
         return builder.build();
 
@@ -55,8 +55,8 @@ public class AccountDetailsService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(Account user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
-        log.info("getGrantedAuthorities(): " + user.getRole());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getType()));
+        log.info("getGrantedAuthorities(): " + user.getRole().getType());
         return authorities;
     }
 

@@ -37,22 +37,14 @@ public class AccountDAO implements AccountDAOInterface {
 
     @Override
     public void edit(Account acc) {
-//        point5. Редактирование логина не работает потому что в dao 
-//        происходит поиск по новому логину Account accExist = getByLogin(acc.getLogin());
-//        (Параметр login из updateUser() нигде не используется, 
-//        можно добавить в метод edit сервиса AccountService параметр String login, см. пункт 5)
-//        - accExist.setRoleID(acc.getRoleID()) если это для того чтобы слинковать юзера 
-//        к одной и существующих ролей то сделано это не верно, чтобы это сделать придется н
-//        айти Role Entity в базе и только тогда сделать accExest.setRole(role), 
-//        в противном случае каждый раз будет создаваться новая роль.
-//        - Hibernate сам заботится о выставлении id новым сущностям - @Id long id 
-//        (по дефолту равны 0, что воспринимается как выставленный id) должны переехать на Long id.
+//        Account accExist = getByLogin(acc.getLogin());
+//        accExist.setLogin(acc.getLogin());
+//        accExist.setPassword(acc.getPassword());
+//        accExist.setRole(acc.getRole());
+//        accExist.setRoleID(acc.getRoleID());
 
-        Account accExist = getByLogin(acc.getLogin());
-        accExist.setLogin(acc.getLogin());
-        accExist.setPassword(acc.getPassword());
-        accExist.setRole(acc.getRole());
-        accExist.setRoleID(acc.getRoleID());
+        Session session = sessionFactory.getCurrentSession();
+        session.update(acc);
     }
 
     @Override

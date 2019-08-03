@@ -102,9 +102,9 @@ public class DoctorService implements DoctorServiceInterface {
     @Override
     @Transactional
     public void updateProfile(DoctorDTO doctorDTO) {
-        log.info("service.updateProfile(Doctor) login [{}]", doctorDTO.getLogin());
-        if (isProfileExist(doctorDTO.getLogin()))
-            edit(doctorDTO, doctorDTO.getLogin());
+        log.info("service.updateProfile(Doctor) login [{}]", doctorDTO.getAccount().getLogin());
+        if (isProfileExist(doctorDTO.getAccount().getLogin()))
+            edit(doctorDTO, doctorDTO.getAccount().getLogin());
         else
             add(doctorDTO);
     }
@@ -145,13 +145,17 @@ public class DoctorService implements DoctorServiceInterface {
     private void fillDTODataToEntity(DoctorDTO dto, Doctor entity) {
         // TODO question - is it normal way?
         log.info("fillDTODataToEntity");
-        Account a = daoAccount.getByLogin(dto.getLogin());
-        Role r = daoRole.getByType(a.getRole());
-        log.info("!!! r: {}", r.getType());
-        a.setRole(r);
+        log.info(dto.toString());
+        Account a = daoAccount.getByLogin(dto.getAccount().getLogin());
         log.info("!!! a: {}", a.toString());
+        //Role r = daoRole.getByType(a.getRole().getType());
+        //log.info("!!! r: {}", r.getType());
+        //a.setRole(r);
+        //log.info("!!! a: {}", a.toString());
         MapperUtil.toEntityDoctor().accept(dto, entity);
-        log.info("!!! entity role: {}", entity.getAccount().getRole());
+        log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
+
+        // TODO sometime work, sometime not
         entity.setAccount(a);
         entity.setAccount(a);
         entity.setAccount(a);
@@ -164,7 +168,9 @@ public class DoctorService implements DoctorServiceInterface {
         entity.setAccount(a);
         entity.setAccount(a);
         entity.setAccount(a);
-        log.info("!!! entity role: {}", entity.getAccount().getRole());
+        entity.setAccount(a);
+        entity.setAccount(a);
+        log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
     }
 
 }

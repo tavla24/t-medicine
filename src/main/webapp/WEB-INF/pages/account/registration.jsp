@@ -41,9 +41,9 @@
 				<div>
 					<label for="role">Roles</label>
 					<div>
-						<form:select path="role" items="${roles}" multiple="false" />
-						<div class="has-error">
-							<form:errors path="role"/>
+						<form:select path="role.type" items="${roles}" multiple="false" id="role"/>
+						<div>
+							<form:errors path="role.type"/>
 						</div>
 					</div>
 				</div>

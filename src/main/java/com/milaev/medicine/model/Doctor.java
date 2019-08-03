@@ -21,18 +21,6 @@ public class Doctor extends Person {
         this.specialization = specialization;
     }
 
-    public String getLogin() {
-        if (this.getAccount() == null)
-            this.setAccount(new Account());
-        return getAccount().getLogin();
-    }
-
-    public void setLogin(String login) {
-        if (this.getAccount() == null)
-            this.setAccount(new Account());
-        getAccount().setLogin(login);
-    }
-
     public Collection<Patient> getPatients() {
         return patients;
     }
