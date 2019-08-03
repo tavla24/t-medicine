@@ -12,9 +12,9 @@ import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 
 @Controller
 //@SessionAttributes("XXXX")
-public class MainController {
+public class SecurityController {
 
-    private static Logger log = LoggerFactory.getLogger(MainController.class);
+    private static Logger log = LoggerFactory.getLogger(SecurityController.class);
 
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
@@ -24,19 +24,12 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/hello")
-    public String hello(Model model) {
-        log.info("hello()");
-        model.addAttribute("greeting", "Hello page: Spring MVC by controller");
-        return "hello";
-    }
-
     @RequestMapping("/login") // , method = RequestMethod.GET
     public String loginPage() {
         log.info("loginPage()");
         if (sessionAuth.isAnonimusSession()) {
             log.info("return \"login\"");
-            return "account/login";
+            return "security/login";
         } else {
             log.info("return \"redirect:/access_granted\"");
             return "redirect:/access_granted";
@@ -47,20 +40,20 @@ public class MainController {
     public String accessGrantedPage(ModelMap model) {
         log.info("accessGrantedPage()");
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/access_granted";
+        return "security/access_granted";
     }
 
     @RequestMapping("/access_denied") // , method = RequestMethod.GET
     public String accessDeniedPage(ModelMap model) {
         log.info("accessDeniedPage()");
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/access_denied";
+        return "security/access_denied";
     }
 
     @RequestMapping("/logout")
     public String logoutPage() {
         log.info("logoutPage()");
-        return "account/logout";
+        return "security/logout";
     }
 
 //    @Autowired

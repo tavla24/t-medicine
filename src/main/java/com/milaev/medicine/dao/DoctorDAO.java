@@ -25,16 +25,32 @@ public class DoctorDAO implements DoctorDAOInterface {
     @SuppressWarnings("unchecked")
     public List<Doctor> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Doctor").list();
+        //return session.createQuery("from Doctor").list();
+        Query<Doctor> query = session.createQuery("from Doctor as d where d.account.role.type = :paramName");
+        query.setParameter("paramName", "DOCTOR");
+        return query.list();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Doctor getByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Doctor> query = session.createQuery("from Doctor D where D.account.login = :paramName");
+        // TODO
+        Query<Doctor> query = session.createQuery("from Doctor as d where d.account.login = :paramName");
         query.setParameter("paramName", login);
-        return query.getSingleResult();
+        return getSingleResult(query);
+
+        //Query<Doctor> query = session.createQuery("from Doctor");
+//        Doctor rez = null;
+//        List<Doctor> list = query.getResultList();
+//        log.info("size list: {}", list.size());
+//        for (Doctor item : list) {
+//            log.info("login: {}", item.getLogin());
+//            if (item.getLogin().equals(login))
+//                rez = item;
+//        }
+//
+//        return rez;
     }
 
     @SuppressWarnings("unchecked")
@@ -85,6 +101,16 @@ public class DoctorDAO implements DoctorDAOInterface {
     public boolean edit(Doctor acc) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    public static Doctor getSingleResult(Query<Doctor> query) {
+        query.setMaxResults(1);
+        List<Doctor> list = query.getResultList();
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        return list.get(0);
     }
 
 }

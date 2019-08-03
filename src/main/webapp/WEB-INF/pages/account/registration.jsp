@@ -37,15 +37,17 @@
                 </div>
             </div>
 
-            <div>
-                <label for="role">Roles</label>
-                <div>
-                    <form:input type="text" path="role" id="role" />
-                        <div>
-                            <form:errors path="role"/>
-                        </div>
-                </div>
-            </div>
+			<div>
+				<div>
+					<label for="role">Roles</label>
+					<div>
+						<form:select path="role" items="${roles}" multiple="false" />
+						<div class="has-error">
+							<form:errors path="role"/>
+						</div>
+					</div>
+				</div>
+			</div>
 
             <div>
                 <br>

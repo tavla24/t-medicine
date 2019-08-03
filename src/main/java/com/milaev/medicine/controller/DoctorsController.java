@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.milaev.medicine.model.enums.RoleType;
+import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,7 +25,7 @@ import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 
 @Controller
-@RequestMapping("/person")
+@RequestMapping("/doctor")
 public class DoctorsController {
 
     private static Logger log = LoggerFactory.getLogger(DoctorsController.class);
@@ -34,49 +37,48 @@ public class DoctorsController {
 
     @Autowired
     DoctorServiceInterface doctorService;
+    @Autowired
+    AccountServiceInterface accountService;
 
-    @GetMapping(value = "/list") // , method = RequestMethod.GET
-    public String listDoctors(ModelMap model) {
-        log.info("listDoctors()");
-        List<DoctorDTO> doctors = doctorService.getAll();
-        model.addAttribute("doctors", doctors);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "doctor/doctorslist";
+    @GetMapping(value = "/") // , method = RequestMethod.GET
+    public String main(ModelMap model) {
+        log.info("main()");
+        return "doctor/mainpanel";
     }
 
-    @GetMapping(value = { "/newdoctor" })
-    public String newDoctor(ModelMap model) {
-        log.info("newDoctor()");
-        if (!model.containsAttribute("doctor")) {
-            DoctorDTO doctorDTO = new DoctorDTO();
-            doctorDTO.setAccount(new AccountDTO());
-            doctorDTO.getAccount().setLogin(sessionAuth.getUserName());
-            model.addAttribute("doctor", doctorDTO);
-            model.addAttribute("loggedinuser", sessionAuth.getUserName());
+    @GetMapping(value = {"/edit"})
+    public String editDoctor(ModelMap model) {
+        log.info("editDoctor()");
+        String loggedinuser = sessionAuth.getUserName();
+
+        DoctorDTO doctorDTO;
+        if (doctorService.isProfileExist(loggedinuser))
+        doctorDTO = doctorService.getByLogin(loggedinuser);
+        else {
+            doctorDTO = new DoctorDTO();
+            doctorDTO.setLogin(loggedinuser);
         }
+
+        model.addAttribute("doctor", doctorDTO);
+        model.addAttribute("loggedinuser", loggedinuser);
         return "doctor/registration";
     }
 
-    @PostMapping(value = { "/newdoctor" })
-    public String saveDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model,
-            RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
-        redirectAttributes.addFlashAttribute("doctor", doctorDTO);
-        redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
-        log.info("saveDoctor()");
-
+    @PostMapping("/edit")
+    public String updateDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model) {
+        log.info("updateDoctor()");
         if (result.hasErrors()) {
-            log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
-            return "redirect:/person/newdoctor";
+            return "doctor/registration";
         }
+        String loggedinuser = sessionAuth.getUserName();
 
-        log.info("no validation errors");
+        //log.info(sessionAuth.getUserName());
+        //log.info(doctorDTO.toString());
+        //doctorService.add(doctorDTO);//, sessionAuth.getUserName()
 
-        log.info(doctorDTO.toString());
+        doctorDTO.setLogin(loggedinuser);
+        doctorService.updateProfile(doctorDTO);
 
-        doctorService.add(doctorDTO);
-
-        return "doctor/doctorslist";
+        return "redirect:/doctor/";
     }
 }

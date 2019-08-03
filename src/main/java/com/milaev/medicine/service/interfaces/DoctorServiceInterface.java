@@ -14,7 +14,10 @@ public interface DoctorServiceInterface {
 
     DoctorDTO getById(int id);
 
-    // boolean isLoginUnique(String login);
+    //boolean isLoginUnique(String login);
+    boolean isProfileExist(String login);
+
+    void updateProfile(DoctorDTO doctorDTO);
 
     boolean deleteByLogin(String login);
 

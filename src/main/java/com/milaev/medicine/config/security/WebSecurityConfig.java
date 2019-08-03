@@ -47,11 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // .anonymous().and();
         http.authorizeRequests().antMatchers("/").permitAll().anyRequest();
 
-        // .authenticated();
-        http.authorizeRequests().antMatchers("/hello", "/admin/**").hasRole("ADMIN");
-
-        http.authorizeRequests().antMatchers("/root-*").hasAnyRole("root", "admin");
+        http.authorizeRequests().antMatchers("/root/**").hasAnyRole("ROOT", "ADMIN");
         // .access("hasRole('ADMIN') or hasRole('ROOT')");
+
+        // .authenticated();
+        http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
+
+        http.authorizeRequests().antMatchers("/doctor/**", "/patient/**").hasRole("DOCTOR");
 
         http.authorizeRequests().and().formLogin().loginPage("/login").loginProcessingUrl("/logincmd")
                 .defaultSuccessUrl("/access_granted").usernameParameter("login").passwordParameter("password");

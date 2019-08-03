@@ -33,17 +33,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${users}" var="user">
+				<c:forEach items="${accounts}" var="account">
 					<tr>
-						<th>${user.login}</th>
-						<th>${user.password}</th>
-						<th>${user.role}</th>
+						<th>${account.login}</th>
+						<th>${account.password}</th>
+						<th>${account.role}</th>
 						<th></th>
 						<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-							<td><a href="<c:url value='/account/edit-user-${user.login}' />">edit</a></td>
+							<td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ADMIN')">
-							<td><a href="<c:url value='/account/delete-user-${user.login}' />">delete</a></td>
+							<td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>
 						</sec:authorize>
 					</tr>
 				</c:forEach>

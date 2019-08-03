@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.controller.AccountsController;
+import com.milaev.medicine.controller.AdminAccountsController;
 import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.model.Role;
 import com.milaev.medicine.service.interfaces.RoleServiceInterface;
@@ -16,7 +16,7 @@ import com.milaev.medicine.service.interfaces.RoleServiceInterface;
 @Service
 public class RoleService implements RoleServiceInterface {
 
-    private static Logger log = LoggerFactory.getLogger(AccountsController.class);
+    private static Logger log = LoggerFactory.getLogger(AdminAccountsController.class);
 
     @Autowired
     private RoleDAO dao;

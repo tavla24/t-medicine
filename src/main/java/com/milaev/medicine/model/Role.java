@@ -1,6 +1,7 @@
 package com.milaev.medicine.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -44,5 +45,9 @@ public class Role {
 
     public void setAccount(Collection<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public static List<String> getRoleTypesList(){
+        return RoleType.getRoleTypesList();
     }
 }

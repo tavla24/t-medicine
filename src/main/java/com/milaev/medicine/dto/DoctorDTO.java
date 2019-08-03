@@ -11,18 +11,6 @@ public class DoctorDTO extends PersonDTO {
         this.specialization = specialization;
     }
 
-    public String getLogin() {
-        if (this.getAccount() == null)
-            this.setAccount(new AccountDTO());
-        return getAccount().getLogin();
-    }
-
-    public void setLogin(String login) {
-        if (this.getAccount() == null)
-            this.setAccount(new AccountDTO());
-        getAccount().setLogin(login);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

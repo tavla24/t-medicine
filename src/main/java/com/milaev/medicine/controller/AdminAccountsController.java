@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
+import com.milaev.medicine.model.enums.RoleType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.service.interfaces.RoleServiceInterface;
 
 @Controller
-@RequestMapping("/account")
-public class AccountsController {
+@RequestMapping("/admin/account")
+public class AdminAccountsController {
 
-    private static Logger log = LoggerFactory.getLogger(AccountsController.class);
+    private static Logger log = LoggerFactory.getLogger(AdminAccountsController.class);
 
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
@@ -41,16 +42,22 @@ public class AccountsController {
     @Autowired
     MessageSource messageSource;
 
+    @GetMapping(value = "/") // , method = RequestMethod.GET
+    public String main(ModelMap model) {
+        log.info("main()");
+        return "account/mainpanel";
+    }
+
     @GetMapping(value = "/list") // , method = RequestMethod.GET
     public String listUsers(ModelMap model) {
         log.info("listUsers()");
-        List<AccountDTO> users = accountService.getAll();
-        model.addAttribute("users", users);
+        List<AccountDTO> accounts = accountService.getAll();
+        model.addAttribute("accounts", accounts);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/userslist";
+        return "account/list";
     }
 
-    @GetMapping("/newaccount")
+    @GetMapping("/new")
     public String newUser(ModelMap model) {
         log.info("newUser()");
         AccountDTO account = new AccountDTO();
@@ -58,12 +65,14 @@ public class AccountsController {
         if (!model.containsAttribute("account")) {
             log.info("!model.containsAttribute(\"account\")");
             model.addAttribute("account", account);
+
+            model.addAttribute("roles", RoleType.getRoleTypesList());
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
         return "account/registration";
     }
 
-    @PostMapping("/newaccount")
+    @PostMapping("/new")
     public String saveAccount(@Valid AccountDTO account, BindingResult result, ModelMap model,
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
@@ -79,14 +88,14 @@ public class AccountsController {
             result.addError(loginErr);
             log.info(result.getAllErrors().toString());
             // point 2
-            return "redirect:/account/newaccount";
+            return "redirect:/admin/account/new";
             // return "account/registration";
         }
 
         if (result.hasErrors()) {
             log.info("hasErrors()");
             log.info(result.getAllErrors().toString());
-            return "redirect:/account/newaccount";
+            return "redirect:/admin/account/new";
         }
 
         log.info("no validation errors");
@@ -100,27 +109,28 @@ public class AccountsController {
         accountService.add(account);
 
         // point 4
-        return "account/userslist";
+        return "account/list";
     }
 
     // @DeleteMapping(value = { "/delete-user-{login}" })
-    @GetMapping(value = { "/delete-user-{login}" })
+    @GetMapping(value = { "/delete/{login}" })
     public String deleteUser(@PathVariable String login) {
         log.info("deleteUser()");
         accountService.deleteByLogin(login);
-        return "redirect:/account/list";
+        return "redirect:/admin/account/list";
     }
 
-    @GetMapping(value = { "/edit-user-{login}" })
+    @GetMapping(value = { "/edit/{login}" })
     public String editUser(@PathVariable String login, ModelMap model) {
         log.info("editUser()");
         AccountDTO account = accountService.getByLogin(login);
         model.addAttribute("account", account);
+        model.addAttribute("roles", RoleType.getRoleTypesList());
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
         return "account/registration";
     }
 
-    @PostMapping("/edit-user-{login}")
+    @PostMapping("/edit/{login}")
     public String updateUser(@Valid AccountDTO account, BindingResult result, ModelMap model,
             @PathVariable String login) {
         log.info("updateUser()");
@@ -130,6 +140,6 @@ public class AccountsController {
 
         accountService.edit(account, login);
 
-        return "account/userslist";
+        return "account/list";
     }
 }

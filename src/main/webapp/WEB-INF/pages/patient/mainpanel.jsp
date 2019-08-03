@@ -7,16 +7,16 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Guests page</title>
+	<title>Patient page</title>
 </head>
 
 <body>
 	<div>
-		<span><a href="<c:url value="/login" />">Login</a></span> <br>
-		<span><a href="<c:url value="/logout" />">Logout</a></span> <br>
-        <span><a href="<c:url value="/admin/account/" />">Admin panel</a></span> <br>
-        <span><a href="<c:url value="/doctor/" />">Doctor panel</a></span> <br>
+		<span>Doctor: ${loggedinuser}</span> <br> 
+		<span><a href="<c:url value="/patient/add" />">Add patient profile</a></span> <br>
+		<span><a href="<c:url value="/patient/list" />">Patients list</a></span> <br>
 	</div>
+    <%@include file="../zfooter.jsp" %>
 </body>
 
 </html>

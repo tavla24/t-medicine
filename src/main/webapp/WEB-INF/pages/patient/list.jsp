@@ -9,13 +9,13 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Doctors List</title>
+    <title>Patients List</title>
 </head>
 
 <body>
     <div>
         <div>
-            <span class="lead">List of Doctors, ${loggedinuser}</span>
+            <span class="lead">List of Patients, doctor ${loggedinuser}</span>
         </div>
         <table>
             <thead>
@@ -24,7 +24,13 @@
                     <th>Surname</th>
                     <th>Patronymic</th>
 
-                    <th>Specialization</th>
+                    <th>InsuranceId</th>
+                    <th>Diagnosis</th>
+                    <th>Status</th>
+                    
+                    <th>Doctor</th>
+                    <th>recipe</th>
+
                     <th>email</th>
                     <th>Phone</th>
                     <th>Login</th>
@@ -39,23 +45,29 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${doctors}" var="doctor">
+                <c:forEach items="${patients}" var="patient">
                     <tr>
-                        <th>${doctor.name}</th>
-                        <th>${doctor.surname}</th>
-                        <th>${doctor.patronymic}</th>
+                        <th>${patient.name}</th>
+                        <th>${patient.surname}</th>
+                        <th>${patient.patronymic}</th>
 
-                        <th>${doctor.specialization}</th>
-                        <th>${doctor.email}</th>
-                        <th>${doctor.phone}</th>
-                        <th>${doctor.login}</th>
+                        <th>${patient.insuranceId}</th>
+                        <th>${patient.diagnosis}</th>
+                        <th>${patient.status}</th>
+
+                        <th>${patient.doctor.name}</th>
+                        <th>recipe</th>
+
+                        <th>${patient.email}</th>
+                        <th>${patient.phone}</th>
+                        <th>${patient.login}</th>
 
                         <th></th>
                         <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                            <td><a href="<c:url value='/person/edit-user-${doctor.login}' />">edit</a></td>
+                            <td><a href="<c:url value='/admin/patient/edit/${patient.id}' />">edit</a></td>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/person/delete-user-${doctor.login}' />">delete</a></td>
+                            <td><a href="<c:url value='/admin/patient/delete/${patient.id}' />">delete</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

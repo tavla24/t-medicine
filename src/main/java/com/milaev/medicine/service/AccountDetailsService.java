@@ -21,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.milaev.medicine.model.Account;
-import com.milaev.medicine.service.interfaces.TServiceInterface;
 
 @Service
 public class AccountDetailsService implements UserDetailsService {

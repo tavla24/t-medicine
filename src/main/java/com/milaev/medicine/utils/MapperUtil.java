@@ -38,10 +38,10 @@ public class MapperUtil {
     public void postConstruct() {
         mapper = new ModelMapper();
 
-        mapper.createTypeMap(AccountDTO.class, Account.class).setPropertyCondition(Conditions.isNotNull());
-        // .addMappings(map -> map.skip(Account::setId));
+        mapper.createTypeMap(AccountDTO.class, Account.class).setPropertyCondition(Conditions.isNotNull())
+        .addMappings(map -> map.skip(Account::setId));
         mapper.createTypeMap(Account.class, AccountDTO.class).setPropertyCondition(Conditions.isNotNull());
-        // .addMappings(map -> map.skip(Account::setId));
+        //.addMappings(map -> map.skip(AccountDTO::setId));
 
 
         mapper.createTypeMap(DoctorDTO.class, Doctor.class).setPropertyCondition(Conditions.isNotNull());

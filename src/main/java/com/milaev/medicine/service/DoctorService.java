@@ -51,7 +51,8 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getByLogin(String login) {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+        if (dbDoctor != null)
+            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
 
@@ -60,7 +61,8 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getByFullName(String fname, String surname, String patronymic, String specify) {
         Doctor dbDoctor = daoDoctor.getByFullName(fname, surname, patronymic, specify);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+        if (dbDoctor != null)
+            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
 
@@ -69,9 +71,11 @@ public class DoctorService implements DoctorServiceInterface {
     public DoctorDTO getById(int id) {
         Doctor dbDoctor = daoDoctor.getById(id);
         DoctorDTO doctorDTO = new DoctorDTO();
-        MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+        if (dbDoctor != null)
+            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
         return doctorDTO;
     }
+
 
     @Override
     @Transactional
@@ -88,15 +92,31 @@ public class DoctorService implements DoctorServiceInterface {
 
     @Override
     @Transactional
+    public boolean isProfileExist(String login) {
+        Doctor dbDoctor = daoDoctor.getByLogin(login);
+        if (dbDoctor == null)
+            return false;
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public void updateProfile(DoctorDTO doctorDTO) {
+        log.info("service.updateProfile(Doctor) login [{}]", doctorDTO.getLogin());
+        if (isProfileExist(doctorDTO.getLogin()))
+            edit(doctorDTO, doctorDTO.getLogin());
+        else
+            add(doctorDTO);
+    }
+
+    @Override
+    @Transactional
     public boolean edit(DoctorDTO dto, String oldLogin) {
-        log.info("service.edit(Doctor)");
-        // TODO question - is it normal way?
+        log.info("service.edit(Doctor) login [{}]", oldLogin);
+        log.info(dto.toString());
         Doctor dbDoctor = daoDoctor.getByLogin(oldLogin);
-        Account a = daoAccount.getByLogin(oldLogin);
-        Role r = daoRole.getByType(a.getRole());
-        a.setRole(r);
-        dbDoctor.setAccount(a);
-        MapperUtil.toEntityDoctor().accept(dto, dbDoctor);
+        //dbDoctor.setLogin(oldLogin);
+        fillDTODataToEntity(dto, dbDoctor);
         try {
             daoDoctor.edit(dbDoctor);
         } catch (Exception ex) {
@@ -110,15 +130,8 @@ public class DoctorService implements DoctorServiceInterface {
     @Transactional
     public boolean add(DoctorDTO dto) {
         log.info("service.add(Doctor)");
-        Account a = daoAccount.getByLogin(dto.getLogin());
-        Role r = daoRole.getByType(a.getRole());
-        log.info("!!! r: {}", r.getType());
-        a.setRole(r);
-        log.info("!!! a: {}", a.toString());
         Doctor dbDoctor = new Doctor();
-        MapperUtil.toEntityDoctor().accept(dto, dbDoctor);
-        dbDoctor.setAccount(a);
-        log.info("!!! dbDoctor role: {}", dbDoctor.getAccount().getRole());
+        fillDTODataToEntity(dto, dbDoctor);
         try {
             daoDoctor.add(dbDoctor);
             log.info("!!! done");
@@ -128,4 +141,30 @@ public class DoctorService implements DoctorServiceInterface {
         }
         return true;
     }
+
+    private void fillDTODataToEntity(DoctorDTO dto, Doctor entity) {
+        // TODO question - is it normal way?
+        log.info("fillDTODataToEntity");
+        Account a = daoAccount.getByLogin(dto.getLogin());
+        Role r = daoRole.getByType(a.getRole());
+        log.info("!!! r: {}", r.getType());
+        a.setRole(r);
+        log.info("!!! a: {}", a.toString());
+        MapperUtil.toEntityDoctor().accept(dto, entity);
+        log.info("!!! entity role: {}", entity.getAccount().getRole());
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        entity.setAccount(a);
+        log.info("!!! entity role: {}", entity.getAccount().getRole());
+    }
+
 }
