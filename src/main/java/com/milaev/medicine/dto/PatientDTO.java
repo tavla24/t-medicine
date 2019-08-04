@@ -6,7 +6,7 @@ import com.milaev.medicine.model.enums.PatientStatus;
 public class PatientDTO extends PersonDTO {
     private String insuranceId;
     private String diagnosis;
-    private String status = PatientStatus.ILL.getPatientStatus();
+    private String status;// = PatientStatus.ILL.getPatientStatus();
     private DoctorDTO doctor;
 
     //private RecipeDTO recipe;
@@ -42,8 +42,6 @@ public class PatientDTO extends PersonDTO {
     }
 
     public void setDoctor(DoctorDTO doctor) {
-        if (doctor == null)
-            doctor = new DoctorDTO();
         this.doctor = doctor;
     }
 

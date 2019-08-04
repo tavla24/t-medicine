@@ -55,22 +55,8 @@ public class PersonDTO {
     }
 
     public void setAccount(AccountDTO account) {
-        if (account == null)
-            account = new AccountDTO();
         this.account = account;
     }
-
-//    public String getLogin() {
-//        if (this.getAccount() == null)
-//            this.setAccount(new AccountDTO());
-//        return getAccount().getLogin();
-//    }
-//
-//    public void setLogin(String login) {
-//        if (this.getAccount() == null)
-//            this.setAccount(new AccountDTO());
-//        getAccount().setLogin(login);
-//    }
 
     @Override
     public String toString() {

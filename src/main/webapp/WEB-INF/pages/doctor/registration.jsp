@@ -19,6 +19,7 @@
         <div>Doctor Registration Form</div>
         <form:form method="POST" modelAttribute="doctor">
 
+
             <div>
                 <label for="name">First Name</label>
                 <div>

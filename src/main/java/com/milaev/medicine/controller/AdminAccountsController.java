@@ -77,6 +77,7 @@ public class AdminAccountsController {
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
         redirectAttributes.addFlashAttribute("account", account);
+        redirectAttributes.addFlashAttribute("roles", RoleType.getRoleTypesList());
         redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
         log.info("saveAccount()");
 

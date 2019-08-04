@@ -59,8 +59,8 @@ public class Account {
     }
 
     public Role getRole() {
-        if (this.role == null)
-            this.role = new Role();
+//        if (this.role == null)
+//            this.role = new Role();
         return role;
     }
 
@@ -69,8 +69,8 @@ public class Account {
     }
 
     public Person getPerson() {
-        if (person == null)
-            person = new Person();
+//        if (person == null)
+//            person = new Person();
         return person;
     }
 

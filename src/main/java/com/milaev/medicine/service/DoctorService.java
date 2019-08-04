@@ -113,7 +113,7 @@ public class DoctorService implements DoctorServiceInterface {
     @Transactional
     public boolean edit(DoctorDTO dto, String oldLogin) {
         log.info("service.edit(Doctor) login [{}]", oldLogin);
-        log.info(dto.toString());
+        //log.info(dto.toString());
         Doctor dbDoctor = daoDoctor.getByLogin(oldLogin);
         //dbDoctor.setLogin(oldLogin);
         fillDTODataToEntity(dto, dbDoctor);
@@ -152,25 +152,12 @@ public class DoctorService implements DoctorServiceInterface {
         //log.info("!!! r: {}", r.getType());
         //a.setRole(r);
         //log.info("!!! a: {}", a.toString());
+        entity.setAccount(a);
         MapperUtil.toEntityDoctor().accept(dto, entity);
         log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
 
         // TODO sometime work, sometime not
         entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
-        entity.setAccount(a);
         log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
     }
-
 }

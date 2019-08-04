@@ -6,7 +6,8 @@ import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.enums.RoleType;
 
 public class RoleDTO {
-    private String type = RoleType.USER.getUserProfileType();
+    private String type;// = RoleType.USER.getUserProfileType();
+
     private Collection<Account> accounts;
 
     public String getType() {
