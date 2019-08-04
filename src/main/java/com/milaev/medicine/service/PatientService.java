@@ -124,6 +124,7 @@ public class PatientService implements PatientServiceInterface {
     @Override
     @Transactional
     public void updateProfile(PatientDTO dto, String insuranceId) {
+        // TODO point 3
         log.info("service.updateProfile(Patient) insuranceId [{}]", insuranceId);
         if (isInsuranceIdExist(insuranceId))
             edit(dto, insuranceId);

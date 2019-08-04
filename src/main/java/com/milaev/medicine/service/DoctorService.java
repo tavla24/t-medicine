@@ -107,6 +107,7 @@ public class DoctorService implements DoctorServiceInterface {
     @Override
     @Transactional
     public boolean edit(DoctorDTO dto, String oldLogin) {
+        // TODO point 2
         log.info("service.update(Doctor) login [{}]", oldLogin);
         //log.info(dto.toString());
         Doctor dbDoctor = daoDoctor.getByLogin(oldLogin);

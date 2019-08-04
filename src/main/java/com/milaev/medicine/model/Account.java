@@ -18,6 +18,7 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
+    // TODO point 1
     @ManyToOne //(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")
     private Role role;

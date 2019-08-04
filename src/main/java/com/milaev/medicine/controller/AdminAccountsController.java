@@ -86,7 +86,7 @@ public class AdminAccountsController {
                     messageSource.getMessage("non.unique.login", new String[] { account.getLogin() }, Locale.ENGLISH));
             result.addError(loginErr);
             log.info(result.getAllErrors().toString());
-            // point 2
+
             return "redirect:/admin/account/new";
             // return "account/registration";
         }
@@ -99,7 +99,6 @@ public class AdminAccountsController {
 
         log.info("no validation errors");
         log.info("AccountDTO: ", account.toString());
-        // point 3
 //        Account acc = accountService.dtoToEntity(account);
 //        Role r = roleService.getByType(acc.getRole());
 //        acc.setRole(r);
@@ -107,7 +106,6 @@ public class AdminAccountsController {
 
         accountService.insert(account);
 
-        // point 4
         return "account/list";
     }
 
