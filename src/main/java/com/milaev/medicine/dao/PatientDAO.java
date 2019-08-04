@@ -5,9 +5,11 @@ import com.milaev.medicine.model.Patient;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class PatientDAO extends AbstractDAO<Patient> implements PatientDAOInterface {
 
     private static Logger log = LoggerFactory.getLogger(PatientDAO.class);
@@ -36,7 +38,7 @@ public class PatientDAO extends AbstractDAO<Patient> implements PatientDAOInterf
     }
 
     @Override
-    public Patient getByInsuranceID(String insuranceId) {
+    public Patient getByInsuranceId(String insuranceId) {
         Query<Patient> query = getCurrentSession()
                 .createQuery("from Patient as p where p.insuranceId = :param1");
         return getByParamsSingle(query, insuranceId);

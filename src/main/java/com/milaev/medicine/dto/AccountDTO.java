@@ -15,7 +15,7 @@ public class AccountDTO {
     // TODO @NotEmpty
     private RoleDTO role;
 
-    //private Person person;
+    //private PersonDTO person;
 
     public String getLogin() {
         return login;
@@ -42,6 +42,16 @@ public class AccountDTO {
     public void setRole(RoleDTO role) {
         this.role = role;
     }
+
+//    public PersonDTO getPerson() {
+//        if (this.person == null)
+//            this.person = new PersonDTO();
+//        return person;
+//    }
+//
+//    public void setPerson(PersonDTO person) {
+//        this.person = person;
+//    }
 
     @Override
     public String toString() {

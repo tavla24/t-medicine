@@ -11,14 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.DoctorDAO;
-import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 
-@Service
+@Service("doctorService")
 public class DoctorService implements DoctorServiceInterface {
 
     private static Logger log = LoggerFactory.getLogger(DoctorService.class);
@@ -27,8 +26,6 @@ public class DoctorService implements DoctorServiceInterface {
     private DoctorDAO daoDoctor;
     @Autowired
     private AccountDAO daoAccount;
-    @Autowired
-    private RoleDAO daoRole;
 
     @Override
     @Transactional
@@ -99,10 +96,10 @@ public class DoctorService implements DoctorServiceInterface {
 
     @Override
     @Transactional
-    public void updateProfile(DoctorDTO doctorDTO) {
-        log.info("service.updateProfile(Doctor) login [{}]", doctorDTO.getAccount().getLogin());
-        if (isProfileExist(doctorDTO.getAccount().getLogin()))
-            edit(doctorDTO, doctorDTO.getAccount().getLogin());
+    public void updateProfile(DoctorDTO doctorDTO, String login) {
+        log.info("service.updateProfile(Doctor) login [{}]", login);
+        if (isProfileExist(login))
+            edit(doctorDTO, login);
         else
             add(doctorDTO);
     }
@@ -121,7 +118,7 @@ public class DoctorService implements DoctorServiceInterface {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
             return false;
-        }
+    }
         return true;
     }
 

@@ -33,10 +33,12 @@
 
                     <th>email</th>
                     <th>Phone</th>
-                    <th>Login</th>
 
                     <th>todo: link details</th>
                     <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
+                        <th width="100"></th>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ADMIN')">
                         <th width="100"></th>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ADMIN')">
@@ -60,14 +62,16 @@
 
                         <th>${patient.email}</th>
                         <th>${patient.phone}</th>
-                        <th>${patient.login}</th>
 
                         <th></th>
-                        <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                            <td><a href="<c:url value='/admin/patient/edit/${patient.id}' />">edit</a></td>
+                        <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
+                            <td><a href="<c:url value='/patient/edit/${patient.insuranceId}' />">edit</a></td>
                         </sec:authorize>
-                        <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/admin/patient/delete/${patient.id}' />">delete</a></td>
+                        <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
+                            <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
+                            <td><a href="<c:url value='/patient/recipe/${patient.insuranceId}' />">recipe</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

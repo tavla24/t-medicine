@@ -17,7 +17,7 @@ public interface DoctorServiceInterface {
     //boolean isLoginUnique(String login);
     boolean isProfileExist(String login);
 
-    void updateProfile(DoctorDTO doctorDTO);
+    void updateProfile(DoctorDTO doctorDTO, String login);
 
     boolean deleteByLogin(String login);
 

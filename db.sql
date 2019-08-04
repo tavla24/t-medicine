@@ -226,6 +226,6 @@ INSERT INTO doctors (id, specialization) VALUES
 (4, 'okulist');
 
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
-(2, 4, 'dalnozorkost', '98723509', 1),
-(3, 4, 'astigmatizm', '87635832', 1);
+(2, 4, 'dalnozorkost', '98723509', 'ILL'),
+(3, 4, 'astigmatizm', '87635832', 'ILL');
 # ==================================================

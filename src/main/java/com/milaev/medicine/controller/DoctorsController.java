@@ -9,6 +9,7 @@ import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,10 +33,14 @@ public class DoctorsController {
 
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
+
     @Autowired
     MessageSource messageSource;
+
     @Autowired
+    @Qualifier("doctorService")
     DoctorServiceInterface doctorService;
+
     @Autowired
     AccountServiceInterface accountService;
 
@@ -77,7 +82,7 @@ public class DoctorsController {
         //doctorService.insert(doctorDTO);//, sessionAuth.getUserName()
 
         doctorDTO.getAccount().setLogin(loggedinuser);
-        doctorService.updateProfile(doctorDTO);
+        doctorService.updateProfile(doctorDTO, loggedinuser);
 
         return "redirect:/doctor/";
     }

@@ -36,8 +36,6 @@ public class AdminAccountsController {
 
     @Autowired
     private AccountServiceInterface accountService;
-    @Autowired
-    private RoleServiceInterface roleService;
 
     @Autowired
     MessageSource messageSource;

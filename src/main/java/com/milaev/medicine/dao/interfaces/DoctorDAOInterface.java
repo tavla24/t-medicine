@@ -4,19 +4,6 @@ import java.util.List;
 
 import com.milaev.medicine.model.Doctor;
 
-public interface DoctorDAOInterface {
+public interface DoctorDAOInterface extends PersonDAOInterface<Doctor>{
 
-    List<Doctor> getAll();
-
-    Doctor getByLogin(String login);
-
-    Doctor getByFullName(String fname, String surname, String patronymic, String specify);
-
-    Doctor getById(int id);
-
-    boolean insert(Doctor acc);
-
-    boolean delete(Doctor acc);
-
-    boolean update(Doctor acc);
 }

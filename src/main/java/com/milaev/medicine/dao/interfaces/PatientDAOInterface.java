@@ -11,7 +11,7 @@ public interface PatientDAOInterface {
 
     Patient getByLogin(String login);
 
-    Patient getByInsuranceID(String insuranceId);
+    Patient getByInsuranceId(String insuranceId);
 
     Patient getByFullName(String fname, String surname, String patronymic, String specify);
 

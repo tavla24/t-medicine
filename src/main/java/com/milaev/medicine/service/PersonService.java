@@ -1,7 +1,8 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.dao.interfaces.AbstractDAOInterface;
-import com.milaev.medicine.utils.MapperUtil;
+import com.milaev.medicine.dao.interfaces.PersonDAOInterface;
+import com.milaev.medicine.model.Person;
+import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.utils.MapperUtil2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,51 +11,79 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractService<E, D> {
+public abstract class PersonService<E extends Person, D>{
 
-    private static Logger log = LoggerFactory.getLogger(AbstractService.class);
+    private static Logger log = LoggerFactory.getLogger(PersonService.class);
 
     private final Class<E> classE;
     private final Class<D> classD;
 
     @SuppressWarnings("unchecked")
-    public AbstractService() {
+    public PersonService() {
         this.classE = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         this.classD = (Class<D>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
-    public abstract AbstractDAOInterface<E> getDAO();
+    public abstract PersonDAOInterface<E> getDAO();
 
-    public List<D> getAll() throws IllegalAccessException, InstantiationException {
+    public List<D> getAll(){
         List<E> list = getDAO().getAll();
         List<D> listDAO = new ArrayList<>();
         for (E item : list) {
-            D dto = classD.newInstance();
+            D dto = null;
+            try {
+                dto = classD.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             (new MapperUtil2<E, D>()).toDTO().accept(item, dto);
             listDAO.add(dto);
         }
         return listDAO;
     }
 
-    public D getByLogin(String login) throws IllegalAccessException, InstantiationException {
+    public D getByLogin(String login){
         E db = getDAO().getByLogin(login);
-        D dto = classD.newInstance();
+        D dto = null;
+        try {
+            dto = classD.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         if (db != null)
             (new MapperUtil2<E, D>()).toDTO().accept(db, dto);
         return dto;
     }
 
-    public D getByFullName(String fname, String surname, String patronymic, String specify) throws IllegalAccessException, InstantiationException {
+    public D getByFullName(String fname, String surname, String patronymic, String specify){
         E db = getDAO().getByFullName(fname, surname, patronymic, specify);
-        D dto = classD.newInstance();
+        D dto = null;
+        try {
+            dto = classD.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         if (db != null)
             (new MapperUtil2<E, D>()).toDTO().accept(db, dto);
         return dto;
     }
 
-    public D getById(int id) throws IllegalAccessException, InstantiationException {
+    public D getById(int id){
         E db = getDAO().getById(id);
-        D dto = classD.newInstance();
+        D dto = null;
+        try {
+            dto = classD.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         if (db != null)
             (new MapperUtil2<E, D>()).toDTO().accept(db, dto);
         return dto;
@@ -79,7 +108,7 @@ public abstract class AbstractService<E, D> {
         return true;
     }
 
-    public void updateProfile(D dto, String login) throws InstantiationException, IllegalAccessException {
+    public void updateProfile(D dto, String login){
         log.info("service.updateProfile(Doctor) login [{}]", login);
         if (isProfileExist(login))
             edit(dto, login);
@@ -103,9 +132,16 @@ public abstract class AbstractService<E, D> {
         return true;
     }
 
-    public boolean add(D dto) throws IllegalAccessException, InstantiationException {
+    public boolean add(D dto){
         log.info("service.insert(Doctor)");
-        E db = classE.newInstance();
+        E db = null;
+        try {
+            db = classE.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         fillDTODataToEntity(dto, db);
         try {
             getDAO().insert(db);

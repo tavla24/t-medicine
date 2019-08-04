@@ -14,7 +14,9 @@
 	<div>
 		<span><a href="<c:url value="/login" />">Login</a></span> <br>
 		<span><a href="<c:url value="/logout" />">Logout</a></span> <br>
+		<span>Only for users with ADMIN role  (for example: login [admin] password [2222])</span> <br>
         <span><a href="<c:url value="/admin/account/" />">Admin panel</a></span> <br>
+		<span>Only for users with DOCTOR role (for example: login [doctor] password [4444])</span> <br>
         <span><a href="<c:url value="/doctor/" />">Doctor panel</a></span> <br>
 	</div>
 </body>

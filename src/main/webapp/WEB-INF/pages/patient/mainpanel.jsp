@@ -13,7 +13,7 @@
 <body>
 	<div>
 		<span>Doctor: ${loggedinuser}</span> <br> 
-		<span><a href="<c:url value="/patient/add" />">Add patient profile</a></span> <br>
+		<span><a href="<c:url value="/patient/new" />">Add patient profile</a></span> <br>
 		<span><a href="<c:url value="/patient/list" />">Patients list</a></span> <br>
 	</div>
     <%@include file="../zfooter.jsp" %>

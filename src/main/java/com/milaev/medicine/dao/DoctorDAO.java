@@ -2,7 +2,7 @@ package com.milaev.medicine.dao;
 
 import java.util.List;
 
-import com.milaev.medicine.dao.interfaces.AbstractDAOInterface;
+import com.milaev.medicine.dao.interfaces.PersonDAOInterface;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import com.milaev.medicine.dao.interfaces.DoctorDAOInterface;
 import com.milaev.medicine.model.Doctor;
 
 @Repository
-public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface, AbstractDAOInterface<Doctor> {
+public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface {
 
     private static Logger log = LoggerFactory.getLogger(DoctorDAO.class);
 

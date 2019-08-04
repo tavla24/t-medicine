@@ -15,7 +15,7 @@
         <span><strong>${loggedinuser}</strong>, welcome </span>
 
         <div>Patient Registration Form</div>
-        <form:form method="POST" modelAttribute="account">
+        <form:form method="POST" modelAttribute="patient">
 
             <div>
                 <label for="name">First Name</label>
@@ -64,6 +64,10 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <!--
             <div>
                 <label for="status">Status</label>
                 <div>
@@ -73,6 +77,22 @@
                     </div>
                 </div>
             </div>
+            -->
+
+            <div>
+				<div>
+					<label for="status">Status</label>
+					<div>
+						<form:select path="status" items="${statuses}" multiple="false" id="status"/>
+						<div>
+							<form:errors path="status"/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
 
             <div>
                 <label for="email">email</label>
@@ -89,15 +109,6 @@
                     <form:input type="text" path="phone" id="phone" />
                     <div>
                         <form:errors path="phone" />
-                    </div>
-                </div>
-            </div>
-            <div>
-                <label for="login">login</label>
-                <div>
-                    <form:input type="text" path="login" id="login" />
-                    <div>
-                        <form:errors path="login" />
                     </div>
                 </div>
             </div>
