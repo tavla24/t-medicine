@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("doctorServiceN")
 public class DoctorServiceN extends PersonService<Doctor, DoctorDTO> implements DoctorServiceInterface {
@@ -28,11 +29,13 @@ public class DoctorServiceN extends PersonService<Doctor, DoctorDTO> implements 
     }
 
     @Override
+    @Transactional
     public PersonDAOInterface<Doctor> getDAO() {
         return daoDoctor;
     }
 
     @Override
+    @Transactional
     public void fillDTODataToEntity(DoctorDTO dto, Doctor entity) {
         // TODO question - is it normal way?
         log.info("fillDTODataToEntity");

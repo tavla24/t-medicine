@@ -71,7 +71,7 @@
                             <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
-                            <td><a href="<c:url value='/patient/recipe/${patient.insuranceId}' />">recipe</a></td>
+                            <td><a href="<c:url value='/recipe/list/${patient.insuranceId}' />">recipe</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

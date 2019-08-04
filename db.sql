@@ -65,13 +65,6 @@ CREATE TABLE doctors
   specialization VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
-  
-ALTER TABLE doctors 
-  ADD CONSTRAINT doctors_persons_fk 
-  FOREIGN KEY (id) 
-  REFERENCES persons(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
 
 CREATE TABLE patients
 (
@@ -82,13 +75,6 @@ CREATE TABLE patients
   status VARCHAR(127) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-ALTER TABLE patients 
-  ADD CONSTRAINT patients_persons_fk 
-  FOREIGN KEY (id) 
-  REFERENCES persons(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
 
 CREATE TABLE healings
 (
@@ -112,16 +98,9 @@ CREATE TABLE recipes_day_names
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(127) NOT NULL,
-  recipe_id INT UNSIGNED UNIQUE,
+  recipe_id INT UNSIGNED,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-ALTER TABLE recipes_day_names
-  ADD CONSTRAINT recipes_day_names_recipes_fk
-    FOREIGN KEY (recipe_id)
-      REFERENCES recipes(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
 
 CREATE TABLE recipes_day_parts
 (
@@ -132,13 +111,6 @@ CREATE TABLE recipes_day_parts
   day_name_id INT UNSIGNED UNIQUE,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-ALTER TABLE recipes_day_parts
-  ADD CONSTRAINT recipes_day_parts_names_fk
-    FOREIGN KEY (day_name_id)
-      REFERENCES recipes_day_names(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
 
 CREATE TABLE events
 (
@@ -172,12 +144,27 @@ ALTER TABLE persons
      ON UPDATE CASCADE
      ON DELETE RESTRICT;
 
-ALTER TABLE patients 
-  ADD CONSTRAINT patients_doctors_fk 
-  FOREIGN KEY (doctor_id) 
-  REFERENCES doctors(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+ALTER TABLE doctors
+  ADD CONSTRAINT doctors_persons_fk
+    FOREIGN KEY (id)
+      REFERENCES persons(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
+
+ALTER TABLE patients
+  ADD CONSTRAINT patients_persons_fk
+    FOREIGN KEY (id)
+      REFERENCES persons(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
+
+
+ALTER TABLE patients
+  ADD CONSTRAINT patients_doctors_fk
+    FOREIGN KEY (doctor_id)
+      REFERENCES doctors(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
   
 ALTER TABLE recipes 
   ADD CONSTRAINT recipes_patients_fk 
@@ -185,6 +172,20 @@ ALTER TABLE recipes
   REFERENCES patients(id)
      ON UPDATE CASCADE
      ON DELETE RESTRICT;
+
+ALTER TABLE recipes_day_names
+  ADD CONSTRAINT recipes_day_names_recipes_fk
+    FOREIGN KEY (recipe_id)
+      REFERENCES recipes(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
+
+ALTER TABLE recipes_day_parts
+  ADD CONSTRAINT recipes_day_parts_names_fk
+    FOREIGN KEY (day_name_id)
+      REFERENCES recipes_day_names(id)
+      ON UPDATE CASCADE
+      ON DELETE RESTRICT;
   
 ALTER TABLE recipes 
   ADD CONSTRAINT recipes_healings_fk 
@@ -228,4 +229,27 @@ INSERT INTO doctors (id, specialization) VALUES
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 (2, 4, 'dalnozorkost', '98723509', 'ILL'),
 (3, 4, 'astigmatizm', '87635832', 'ILL');
+
+INSERT INTO healings (name, type) VALUES
+('ochki', 'PROCEDURE'),
+('drug bitter', 'DRUG'),
+('drug sweed', 'DRUG');
+
+INSERT INTO recipes (patient_id, healing_id, date_from, date_to) VALUES
+(2, 1, '2019-01-01', '2019-09-15'),
+(3, 2, '2019-06-25', '2019-08-11');
+
+INSERT INTO recipes_day_names (name, recipe_id) VALUES
+('Monday', 1),
+('Thursday', 1),
+('Friday', 2),
+('Saturday', 2),
+('Sunday', 2);
+
+INSERT INTO recipes_day_parts (part, time, doze, day_name_id) VALUES
+('Morning', '083000', '0.5', 1),
+('Evening', '181000', '1', 2),
+('Day', '134500', '15', 3),
+('Evening', '180000', '3', 4),
+('Night', '230000', '85', 5);
 # ==================================================

@@ -6,8 +6,10 @@ import javax.annotation.PostConstruct;
 
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.PatientDTO;
+import com.milaev.medicine.dto.RecipeDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Patient;
+import com.milaev.medicine.model.Recipe;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -44,6 +46,14 @@ public class MapperUtil {
         return mapper::map;
     }
 
+    public static BiConsumer<RecipeDTO, Recipe> toEntityRecipe() {
+        return mapper::map;
+    }
+
+    public static BiConsumer<Recipe, RecipeDTO> toDTORecipe() {
+        return mapper::map;
+    }
+
     @PostConstruct
     public void postConstruct() {
         mapper = new ModelMapper();
@@ -60,5 +70,9 @@ public class MapperUtil {
         mapper.createTypeMap(PatientDTO.class, Patient.class).setPropertyCondition(Conditions.isNotNull())
                 .addMappings(map -> map.skip(Patient::setId));
         mapper.createTypeMap(Patient.class, PatientDTO.class).setPropertyCondition(Conditions.isNotNull());
+
+        mapper.createTypeMap(RecipeDTO.class, Recipe.class).setPropertyCondition(Conditions.isNotNull())
+                .addMappings(map -> map.skip(Recipe::setId));
+        mapper.createTypeMap(Recipe.class, RecipeDTO.class).setPropertyCondition(Conditions.isNotNull());
     }
 }
