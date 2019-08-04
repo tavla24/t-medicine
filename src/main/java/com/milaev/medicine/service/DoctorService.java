@@ -15,7 +15,6 @@ import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
-import com.milaev.medicine.model.Role;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 
@@ -34,7 +33,6 @@ public class DoctorService implements DoctorServiceInterface {
     @Override
     @Transactional
     public List<DoctorDTO> getAll() {
-
         List<Doctor> list = daoDoctor.getAll();
         List<DoctorDTO> listDAO = new ArrayList<>();
         for (Doctor item : list) {
@@ -42,7 +40,6 @@ public class DoctorService implements DoctorServiceInterface {
             MapperUtil.toDTODoctor().accept(item, doctorDTO);
             listDAO.add(doctorDTO);
         }
-
         return listDAO;
     }
 
@@ -84,7 +81,8 @@ public class DoctorService implements DoctorServiceInterface {
         try {
             daoDoctor.delete(dbDoctor);
         } catch (Exception ex) {
-            log.info("something wrong with delete");
+            log.error("Exception from Service during DB query");
+            ex.printStackTrace();
             return false;
         }
         return true;
@@ -112,15 +110,16 @@ public class DoctorService implements DoctorServiceInterface {
     @Override
     @Transactional
     public boolean edit(DoctorDTO dto, String oldLogin) {
-        log.info("service.edit(Doctor) login [{}]", oldLogin);
+        log.info("service.update(Doctor) login [{}]", oldLogin);
         //log.info(dto.toString());
         Doctor dbDoctor = daoDoctor.getByLogin(oldLogin);
         //dbDoctor.setLogin(oldLogin);
         fillDTODataToEntity(dto, dbDoctor);
         try {
-            daoDoctor.edit(dbDoctor);
+            daoDoctor.update(dbDoctor);
         } catch (Exception ex) {
-            log.info("something wrong with edit");
+            log.error("Exception from Service during DB query");
+            ex.printStackTrace();
             return false;
         }
         return true;
@@ -129,14 +128,15 @@ public class DoctorService implements DoctorServiceInterface {
     @Override
     @Transactional
     public boolean add(DoctorDTO dto) {
-        log.info("service.add(Doctor)");
+        log.info("service.insert(Doctor)");
         Doctor dbDoctor = new Doctor();
         fillDTODataToEntity(dto, dbDoctor);
         try {
-            daoDoctor.add(dbDoctor);
+            daoDoctor.insert(dbDoctor);
             log.info("!!! done");
         } catch (Exception ex) {
-            log.info("something wrong with insert");
+            log.error("Exception from Service during DB query");
+            ex.printStackTrace();
             return false;
         }
         return true;

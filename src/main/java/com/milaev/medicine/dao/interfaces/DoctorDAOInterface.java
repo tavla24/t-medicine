@@ -14,9 +14,9 @@ public interface DoctorDAOInterface {
 
     Doctor getById(int id);
 
-    boolean add(Doctor acc);
+    boolean insert(Doctor acc);
 
     boolean delete(Doctor acc);
 
-    boolean edit(Doctor acc);
+    boolean update(Doctor acc);
 }

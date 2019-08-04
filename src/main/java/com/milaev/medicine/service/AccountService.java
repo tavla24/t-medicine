@@ -35,15 +35,13 @@ public class AccountService implements AccountServiceInterface {
     @Override
     @Transactional
     public List<AccountDTO> getAll() {
-
-        List<Account> list = daoAccount.allAccounts();
+        List<Account> list = daoAccount.getAll();
         List<AccountDTO> listDAO = new ArrayList<>();
         for (Account item : list) {
             AccountDTO accountDTO = new AccountDTO();
             MapperUtil.toDTOAccount().accept(item, accountDTO);
             listDAO.add(accountDTO);
         }
-
         return listDAO;
     }
 
@@ -73,7 +71,7 @@ public class AccountService implements AccountServiceInterface {
             // TODO is it normal way, or realize by criteria without exceptions
             getByLogin(login);
         } catch (Exception ex) {
-            log.info("unique by NoResultException");
+            report(ex);
             return true;
         }
         return false;
@@ -86,7 +84,7 @@ public class AccountService implements AccountServiceInterface {
         try {
             daoAccount.delete(dbAccount);
         } catch (Exception ex) {
-            log.info("something wrong with delete");
+            report(ex);
             return false;
         }
         return true;
@@ -94,16 +92,16 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     @Transactional
-    public boolean edit(AccountDTO dto, String oldLogin) {
-        log.info("service.edit(Account)");
+    public boolean update(AccountDTO dto, String oldLogin) {
+        log.info("service.update(Account)");
         Account dbAccount = daoAccount.getByLogin(oldLogin);
         Role r = daoRole.getByType(dto.getRole().getType());
         dbAccount.setRole(r);
         MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
-            daoAccount.edit(dbAccount);
+            daoAccount.update(dbAccount);
         } catch (Exception ex) {
-            log.info("something wrong with edit");
+            report(ex);
             return false;
         }
         return true;
@@ -111,8 +109,8 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     @Transactional
-    public boolean add(AccountDTO dto) {
-        log.info("service.add(Account)");
+    public boolean insert(AccountDTO dto) {
+        log.info("service.insert(Account)");
         log.info(dto.toString());
         Role r = daoRole.getByType(dto.getRole().getType());
         Account dbAccount = new Account();
@@ -122,12 +120,17 @@ public class AccountService implements AccountServiceInterface {
         log.info(dbAccount.toString());
         MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
-            daoAccount.add(dbAccount);
+            daoAccount.insert(dbAccount);
         } catch (Exception ex) {
-            log.info("something wrong with insert");
+            report(ex);
             return false;
         }
         return true;
+    }
+
+    private void report(Exception ex){
+        log.error("Exception from Service during DB query");
+        ex.printStackTrace();
     }
 
 }

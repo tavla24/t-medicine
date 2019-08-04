@@ -11,15 +11,15 @@ public interface PatientDAOInterface {
 
     Patient getByLogin(String login);
 
-    Patient getByInsuranceID(String insuranceID);
+    Patient getByInsuranceID(String insuranceId);
 
     Patient getByFullName(String fname, String surname, String patronymic, String specify);
 
     Patient getById(int id);
 
-    boolean add(Patient acc);
+    boolean insert(Patient acc);
 
     boolean delete(Patient acc);
 
-    boolean edit(Patient acc);
+    boolean update(Patient acc);
 }

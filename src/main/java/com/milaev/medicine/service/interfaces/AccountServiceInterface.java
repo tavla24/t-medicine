@@ -15,7 +15,7 @@ public interface AccountServiceInterface {
 
     boolean deleteByLogin(String login);
 
-    boolean edit(AccountDTO dto, String oldLogin);
+    boolean update(AccountDTO dto, String oldLogin);
 
-    boolean add(AccountDTO dto);
+    boolean insert(AccountDTO dto);
 }

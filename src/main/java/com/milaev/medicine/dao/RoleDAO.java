@@ -2,9 +2,12 @@ package com.milaev.medicine.dao;
 
 import java.util.List;
 
+import com.milaev.medicine.model.Account;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,31 +15,27 @@ import com.milaev.medicine.dao.interfaces.RoleDAOInterface;
 import com.milaev.medicine.model.Role;
 
 @Repository
-public class RoleDAO implements RoleDAOInterface {
+public class RoleDAO extends AbstractDAO<Role> implements RoleDAOInterface {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private static Logger log = LoggerFactory.getLogger(RoleDAO.class);
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Role> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Role").list();
+        Query<Role> query = getCurrentSession().createQuery("from Role");
+        return getAll(query);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Role getByType(String type) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Role> query = session.createQuery("from Role where type = :paramName");
-        query.setParameter("paramName", type);
-        return query.getSingleResult();
+        Query<Role> query = getCurrentSession().createQuery("from Role where type = :param1");
+        return getByParamsSingle(query, type);
     }
 
     @Override
     public Role getById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Role.class, id);
+        return getById(id);
     }
 
 }

@@ -5,15 +5,15 @@ import java.util.List;
 import com.milaev.medicine.model.Account;
 
 public interface AccountDAOInterface {
-    List<Account> allAccounts();
-
-    void add(Account acc);
-
-    void delete(Account acc);
-
-    void edit(Account acc);
+    List<Account> getAll();
 
     Account getById(int id);
 
     Account getByLogin(String login);
+
+    boolean insert(Account acc);
+
+    boolean delete(Account acc);
+
+    boolean update(Account acc);
 }

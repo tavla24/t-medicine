@@ -2,108 +2,65 @@ package com.milaev.medicine.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.milaev.medicine.dao.interfaces.AbstractDAOInterface;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.milaev.medicine.dao.interfaces.DoctorDAOInterface;
 import com.milaev.medicine.model.Doctor;
 
 @Repository
-public class DoctorDAO implements DoctorDAOInterface {
+public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface, AbstractDAOInterface<Doctor> {
 
     private static Logger log = LoggerFactory.getLogger(DoctorDAO.class);
-
-    @Autowired
-    private SessionFactory sessionFactory;
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Doctor> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        //return session.createQuery("from Doctor").list();
-        Query<Doctor> query = session.createQuery("from Doctor as d where d.account.role.type = :paramName");
-        query.setParameter("paramName", "DOCTOR");
-        return query.list();
+        Query<Doctor> query = getCurrentSession().createQuery("from Doctor");
+        //Query<Doctor> query = getCurrentSession().createQuery("from Doctor as d where d.account.role.type = :paramName");
+        //query.setParameter("paramName", "DOCTOR");
+
+        return getAll(query);//getByParams(query);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Doctor getByLogin(String login) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Doctor> query = session.createQuery("from Doctor as d where d.account.login = :paramName");
-        query.setParameter("paramName", login);
-        return getSingleResult(query);
+        Query<Doctor> query = getCurrentSession().createQuery("from Doctor as d where d.account.login = :param1");
+        return getByParamsSingle(query, login);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Doctor getByFullName(String fname, String surname, String patronymic, String specify) {
         // TODO specify
-        Session session = sessionFactory.getCurrentSession();
-        Query<Doctor> query = session
+        Query<Doctor> query = getCurrentSession()
                 .createQuery("from Doctor D where D.name = :param1 and D.surname = :param2 and D.patronymic = :param3");
-        query.setParameter("param1", fname);
-        query.setParameter("param2", surname);
-        query.setParameter("param3", patronymic);
-        return query.getSingleResult();
+        // TODO if some equals persons
+        return getByParamsSingle(query, fname, surname, patronymic);
     }
 
     @Override
     public Doctor getById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Doctor.class, id);
+        return getById(id);
     }
 
     @Override
-    public boolean add(Doctor acc) {
-        Session session = sessionFactory.getCurrentSession();
-        try {
-            session.persist(acc);
-        } catch (Exception ex) {
-            // TODO exceptions (double var) dont catched
-            log.error("");
-            return false;
-        }
-        return true;
+    public boolean insert(Doctor acc) {
+        return per(acc);
     }
 
     @Override
     public boolean delete(Doctor acc) {
-        Session session = sessionFactory.getCurrentSession();
-        try {
-            session.delete(acc);
-        } catch (Exception ex) {
-            log.error("");
-            return false;
-        }
-        return true;
+        return del(acc);
     }
 
     @Override
-    public boolean edit(Doctor acc) {
-        Session session = sessionFactory.getCurrentSession();
-        try {
-            session.update(acc);
-        } catch (Exception ex) {
-            log.error("");
-            return false;
-        }
-        return true;
-    }
-
-    public static Doctor getSingleResult(Query<Doctor> query) {
-        query.setMaxResults(1);
-        List<Doctor> list = query.getResultList();
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-
-        return list.get(0);
+    public boolean update(Doctor acc) {
+        return upd(acc);
     }
 
 }

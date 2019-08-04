@@ -74,7 +74,7 @@ public class DoctorsController {
 
         //log.info(sessionAuth.getUserName());
         //log.info(doctorDTO.toString());
-        //doctorService.add(doctorDTO);//, sessionAuth.getUserName()
+        //doctorService.insert(doctorDTO);//, sessionAuth.getUserName()
 
         doctorDTO.getAccount().setLogin(loggedinuser);
         doctorService.updateProfile(doctorDTO);

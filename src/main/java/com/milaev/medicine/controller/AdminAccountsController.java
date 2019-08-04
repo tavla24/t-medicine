@@ -107,7 +107,7 @@ public class AdminAccountsController {
 //        acc.setRole(r);
 //        log.info("AccountEntity: ", acc.toString());
 
-        accountService.add(account);
+        accountService.insert(account);
 
         // point 4
         return "account/list";
@@ -139,7 +139,7 @@ public class AdminAccountsController {
             return "account/registration";
         }
 
-        accountService.edit(account, login);
+        accountService.update(account, login);
 
         return "account/list";
     }

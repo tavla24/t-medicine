@@ -5,7 +5,7 @@ USE hospital;
 # TODO table doctors - is it need?
 # TODO periodic, duration - in other table?
 # TODO unique
-# TODO catch exceptions (delete void or unique add for example)
+# TODO catch exceptions (delete void or unique insert for example)
 # TODO lazy query - how grab objects
 # TODO serialize class into db
 

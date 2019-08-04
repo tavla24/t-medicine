@@ -1,82 +1,66 @@
 package com.milaev.medicine.dao;
 
 import com.milaev.medicine.dao.interfaces.PatientDAOInterface;
-import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.model.Patient;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class PatientDAO implements PatientDAOInterface {
+public class PatientDAO extends AbstractDAO<Patient> implements PatientDAOInterface {
 
     private static Logger log = LoggerFactory.getLogger(PatientDAO.class);
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @Override
+    public Patient getById(int id) {
+        return getById(id);
+    }
 
     @Override
     public List<Patient> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Patient").list();
+        Query<Patient> query = getCurrentSession().createQuery("from Patient");
+        return getAll(query);
     }
 
     @Override
     public List<Patient> getByDoctorLogin(String login) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Patient> query = session.createQuery("from Patient as p where p.doctor.account.login = :paramName");
-        query.setParameter("paramName", login);
-        return query.list();
+        Query<Patient> query = getCurrentSession().createQuery("from Patient as p where p.doctor.account.login = :param1");
+        return getByParams(query, login);
     }
 
     @Override
     public Patient getByLogin(String login) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Patient> query = session.createQuery("from Patient as p where p.account.login = :paramName");
-        query.setParameter("paramName", login);
-        return getSingleResult(query);
+        Query<Patient> query = getCurrentSession().createQuery("from Patient as p where p.account.login = :param1");
+        return getByParamsSingle(query, login);
     }
 
     @Override
-    public Patient getByInsuranceID(String insuranceID) {
-        return null;
+    public Patient getByInsuranceID(String insuranceId) {
+        Query<Patient> query = getCurrentSession()
+                .createQuery("from Patient as p where p.insuranceId = :param1");
+        return getByParamsSingle(query, insuranceId);
     }
 
     @Override
     public Patient getByFullName(String fname, String surname, String patronymic, String specify) {
-        return null;
+        Query<Patient> query = getCurrentSession()
+                .createQuery("from Patient as p where p.name = :param1 and p.surname = :param2 and p.patronymic = :param3");
+        return getByParamsSingle(query, fname, surname, patronymic);
     }
 
     @Override
-    public Patient getById(int id) {
-        return null;
-    }
-
-    @Override
-    public boolean add(Patient acc) {
-        return false;
+    public boolean insert(Patient acc) {
+        return per(acc);
     }
 
     @Override
     public boolean delete(Patient acc) {
-        return false;
+        return del(acc);
     }
 
     @Override
-    public boolean edit(Patient acc) {
-        return false;
-    }
-
-    public static Patient getSingleResult(Query<Patient> query) {
-        query.setMaxResults(1);
-        List<Patient> list = query.getResultList();
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
+    public boolean update(Patient acc) {
+        return upd(acc);
     }
 }
