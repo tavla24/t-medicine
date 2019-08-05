@@ -9,8 +9,6 @@ public interface RecipeDAOInterface {
 
     Recipe getByInsuranceId(String insuranceId);
 
-    Recipe getById(int id);
-
     boolean insert(Recipe acc);
 
     boolean delete(Recipe acc);

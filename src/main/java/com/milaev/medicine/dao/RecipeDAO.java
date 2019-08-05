@@ -35,11 +35,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> implements RecipeDAOInterface
     }
 
     @Override
-    public Recipe getById(int id) {
-        return getById(id);
-    }
-
-    @Override
     public boolean insert(Recipe acc) {
         return per(acc);
     }

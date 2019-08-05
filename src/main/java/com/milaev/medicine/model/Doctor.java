@@ -2,6 +2,7 @@ package com.milaev.medicine.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "doctors")
@@ -11,7 +12,7 @@ public class Doctor extends Person {
     private String specialization;
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
-    private Collection<Patient> patients;
+    private List<Patient> patients;
 
     public String getSpecialization() {
         return specialization;
@@ -21,11 +22,11 @@ public class Doctor extends Person {
         this.specialization = specialization;
     }
 
-    public Collection<Patient> getPatients() {
+    public List<Patient> getPatients() {
         return patients;
     }
 
-    public void setPatients(Collection<Patient> patients) {
+    public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }
 }

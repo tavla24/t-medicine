@@ -1,6 +1,8 @@
 package com.milaev.medicine.model;
 
 import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,7 +22,7 @@ public class RecipeDayNames {
     private Recipe recipe;
 
     @OneToMany(mappedBy = "dayNames", fetch = FetchType.LAZY)
-    private Collection<RecipeDayPart> dayParts;
+    private List<RecipeDayPart> dayParts;
 
     public long getId() {
         return id;
@@ -46,11 +48,11 @@ public class RecipeDayNames {
         this.recipe = recipe;
     }
 
-    public Collection<RecipeDayPart> getDayParts() {
+    public List<RecipeDayPart> getDayParts() {
         return dayParts;
     }
 
-    public void setDayParts(Collection<RecipeDayPart> dayParts) {
+    public void setDayParts(List<RecipeDayPart> dayParts) {
         this.dayParts = dayParts;
     }
 }

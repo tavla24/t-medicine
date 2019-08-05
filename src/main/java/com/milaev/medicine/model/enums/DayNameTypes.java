@@ -1,6 +1,6 @@
-package com.milaev.medicine.test.mvc.model.recipes;
+package com.milaev.medicine.model.enums;
 
-public enum DayNames {
+public enum DayNameTypes {
     MONDAY("Monday"),
     TUESDAY("Tuesday"),
     WEDNESDAY("Wednesday"),
@@ -9,13 +9,13 @@ public enum DayNames {
     SATURDAY("Saturday"),
     SUNDAY("Sunday");
 
-    String dayName;
+    String type;
 
-    private DayNames(String dayName) {
-        this.dayName = dayName;
+    private DayNameTypes(String dayName) {
+        this.type = dayName;
     }
 
     public String getDayName() {
-        return dayName;
+        return type;
     }
 }

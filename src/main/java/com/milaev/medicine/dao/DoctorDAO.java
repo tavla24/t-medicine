@@ -44,11 +44,6 @@ public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface
     }
 
     @Override
-    public Doctor getById(int id) {
-        return getById(id);
-    }
-
-    @Override
     public boolean insert(Doctor acc) {
         return per(acc);
     }

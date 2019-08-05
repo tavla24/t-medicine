@@ -40,10 +40,10 @@ public class AccountDAO extends AbstractDAO<Account> implements AccountDAOInterf
         return upd(acc);
     }
 
-    @Override
-    public Account getById(int id) {
-        return getById(id);
-    }
+//    @Override
+//    public Account getById(int id) {
+//        return getById(id);
+//    }
 
     @Override
     @SuppressWarnings("unchecked")

@@ -5,9 +5,8 @@ import java.util.List;
 import com.milaev.medicine.model.Account;
 
 public interface AccountDAOInterface {
-    List<Account> getAll();
 
-    Account getById(int id);
+    List<Account> getAll();
 
     Account getByLogin(String login);
 

@@ -1,6 +1,7 @@
 package com.milaev.medicine.dto;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.enums.RoleType;
@@ -8,7 +9,7 @@ import com.milaev.medicine.model.enums.RoleType;
 public class RoleDTO {
     private String type;// = RoleType.USER.getUserProfileType();
 
-    private Collection<Account> accounts;
+    private List<Account> accounts;
 
     public String getType() {
         return type;
@@ -18,11 +19,11 @@ public class RoleDTO {
         this.type = type;
     }
 
-    public Collection<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(Collection<Account> accounts) {
+    public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
 }

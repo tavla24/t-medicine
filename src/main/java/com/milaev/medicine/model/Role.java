@@ -21,7 +21,7 @@ public class Role {
     private String type;// = RoleType.USER.getUserProfileType();
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private Collection<Account> accounts;
+    private List<Account> accounts;
 
     public long getId() {
         return id;
@@ -39,11 +39,11 @@ public class Role {
         this.type = roleType;
     }
 
-    public Collection<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
-    public void setAccount(Collection<Account> accounts) {
+    public void setAccount(List<Account> accounts) {
         this.accounts = accounts;
     }
 

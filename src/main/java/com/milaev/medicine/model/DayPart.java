@@ -1,19 +1,31 @@
 package com.milaev.medicine.model;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "recipes_day_parts")
-public class RecipeDayPart {
-
+public class DayPart {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long id;
 
     @Column(name = "part", nullable = false)
-    private String dayPart; // = ""; //DayParts.MORNING.getDayPart();
+    private String part;
 
     @Column(name = "time", nullable = false)
     @Temporal(TemporalType.TIME)
@@ -22,9 +34,9 @@ public class RecipeDayPart {
     @Column(name = "doze", nullable = false)
     private String doze;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "day_name_id", nullable = false)
-    private RecipeDayNames dayNames;
+    private DayName dayName;
 
     public long getId() {
         return id;
@@ -34,12 +46,12 @@ public class RecipeDayPart {
         this.id = id;
     }
 
-    public String getDayPart() {
-        return dayPart;
+    public String getPart() {
+        return part;
     }
 
-    public void setDayPart(String dayPart) {
-        this.dayPart = dayPart;
+    public void setPart(String part) {
+        this.part = part;
     }
 
     public Date getTime() {
@@ -58,11 +70,11 @@ public class RecipeDayPart {
         this.doze = doze;
     }
 
-    public RecipeDayNames getDayNames() {
-        return dayNames;
+    public DayName getDayName() {
+        return dayName;
     }
 
-    public void setDayNames(RecipeDayNames dayNames) {
-        this.dayNames = dayNames;
+    public void setDayName(DayName dayName) {
+        this.dayName = dayName;
     }
 }

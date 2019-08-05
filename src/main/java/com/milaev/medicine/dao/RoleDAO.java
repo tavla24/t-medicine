@@ -33,9 +33,4 @@ public class RoleDAO extends AbstractDAO<Role> implements RoleDAOInterface {
         return getByParamsSingle(query, type);
     }
 
-    @Override
-    public Role getById(int id) {
-        return getById(id);
-    }
-
 }

@@ -15,11 +15,6 @@ public class PatientDAO extends AbstractDAO<Patient> implements PatientDAOInterf
     private static Logger log = LoggerFactory.getLogger(PatientDAO.class);
 
     @Override
-    public Patient getById(int id) {
-        return getById(id);
-    }
-
-    @Override
     public List<Patient> getAll() {
         Query<Patient> query = getCurrentSession().createQuery("from Patient");
         return getAll(query);

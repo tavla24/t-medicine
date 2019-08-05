@@ -1,15 +1,15 @@
 package com.milaev.medicine.model.enums;
 
-public enum DayParts {
+public enum DayPartTypes {
     MORNING("Morning"), DAY("Day"), EVENING("Evening"), NIGHT("Night");
 
-    String dayPart;
+    String type;
 
-    private DayParts(String dayPart) {
-        this.dayPart = dayPart;
+    private DayPartTypes(String dayPart) {
+        this.type = dayPart;
     }
 
     public String getDayPart() {
-        return dayPart;
+        return type;
     }
 }

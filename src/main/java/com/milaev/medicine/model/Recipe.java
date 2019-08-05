@@ -2,6 +2,7 @@ package com.milaev.medicine.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -15,24 +16,27 @@ public class Recipe {
     @Column(nullable = false)
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "healing_id", nullable = false)
     private Healing healing;
 
-    @Column(name = "date_from",nullable = false)
+    @Column(name = "date_from", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
 
-    @Column(name = "date_to",nullable = false)
+    @Column(name = "date_to", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 
     @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
-    private Collection<RecipeDayNames> dayNames;
+    private List<RecipeDayNames> dayNames;
+
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+    private List<Event> events;
 
     public long getId() {
         return id;
@@ -74,11 +78,11 @@ public class Recipe {
         this.dateTo = dateTo;
     }
 
-    public Collection<RecipeDayNames> getDayNames() {
+    public List<RecipeDayNames> getDayNames() {
         return dayNames;
     }
 
-    public void setDayNames(Collection<RecipeDayNames> dayNames) {
+    public void setDayNames(List<RecipeDayNames> dayNames) {
         this.dayNames = dayNames;
     }
 }

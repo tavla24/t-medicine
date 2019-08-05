@@ -24,16 +24,16 @@ public abstract class AbstractDAO<T> {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public Session getCurrentSession() {
+    protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
+    }
+    
+    public T getById(int id) {
+        return getCurrentSession().get(persistentClass, id);
     }
 
     protected List<T> getAll(TypedQuery<T> query) {
         return query.getResultList();
-    }
-
-    protected T getById(int id) {
-        return getCurrentSession().get(persistentClass, id);
     }
 
     protected List<T> getByParams(TypedQuery<T> query, String... params) {
