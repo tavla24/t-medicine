@@ -108,7 +108,7 @@ CREATE TABLE recipes_day_parts
   part VARCHAR(127) NOT NULL,
   time TIME,
   doze VARCHAR(127) NOT NULL,
-  day_name_id INT UNSIGNED UNIQUE,
+  day_name_id INT UNSIGNED,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -230,8 +230,11 @@ INSERT INTO recipes_day_names (name, recipe_id) VALUES
 
 INSERT INTO recipes_day_parts (part, time, doze, day_name_id) VALUES
 ('Morning', '083000', '0.5', 1),
+('Day', '134500', '15', 1),
 ('Evening', '181000', '1', 2),
 ('Day', '134500', '15', 3),
 ('Evening', '180000', '3', 4),
-('Night', '230000', '85', 5);
+('Evening', '190000', '85', 5),
+('Night', '010000', '85', 5),
+('Morning', '070000', '85', 5);
 # ==================================================

@@ -18,7 +18,7 @@ public class DayPartDAO extends AbstractDAO<DayPart> implements DayPartDAOInterf
     @Override
     public List<DayPart> getByDayNameId(Long id) {
         Query<DayPart> query = getCurrentSession().createQuery("from DayPart as f where f.dayName.id = :param1");
-        return getByParams(query, id.toString());
+        return getByParams(query, id);
     }
 
     @Override

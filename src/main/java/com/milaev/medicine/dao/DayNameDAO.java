@@ -18,7 +18,7 @@ public class DayNameDAO extends AbstractDAO<DayName> implements DayNameDAOInterf
     @Override
     public List<DayName> getByRecipeId(Long id) {
         Query<DayName> query = getCurrentSession().createQuery("from DayName as f where f.recipe.id = :param1");
-        return getByParams(query, id.toString());
+        return getByParams(query, id);
     }
 
     @Override

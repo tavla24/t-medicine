@@ -1,7 +1,13 @@
 package com.milaev.medicine.service;
 
+import com.milaev.medicine.dao.DayNameDAO;
+import com.milaev.medicine.dao.DayPartDAO;
 import com.milaev.medicine.dao.RecipeDAO;
+import com.milaev.medicine.dto.DayNameDTO;
+import com.milaev.medicine.dto.DayPartDTO;
 import com.milaev.medicine.dto.RecipeDTO;
+import com.milaev.medicine.model.DayName;
+import com.milaev.medicine.model.DayPart;
 import com.milaev.medicine.model.Recipe;
 import com.milaev.medicine.service.interfaces.RecipeServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
@@ -22,17 +28,46 @@ public class RecipeService implements RecipeServiceInterface {
     @Autowired
     private RecipeDAO daoRecipe;
 
+    @Autowired
+    private DayNameDAO daoDayName;
+
+    @Autowired
+    private DayPartDAO daoDayPart;
+
     @Override
     @Transactional
     public List<RecipeDTO> getAll() {
         List<Recipe> list = daoRecipe.getAll();
-        List<RecipeDTO> listDAO = new ArrayList<>();
+        List<RecipeDTO> listDTO = new ArrayList<>();
         for (Recipe item : list) {
             RecipeDTO dto = new RecipeDTO();
             MapperUtil.toDTORecipe().accept(item, dto);
-            listDAO.add(dto);
+
+            listDTO.add(fillRecipeDTO(dto));
         }
-        return listDAO;
+        return listDTO;
+    }
+
+    private RecipeDTO fillRecipeDTO(RecipeDTO dto){
+        List<DayName> listDN = daoDayName.getByRecipeId(dto.getId());
+        List<DayNameDTO> listDNDTO = new ArrayList<>();
+        for (DayName itemDN : listDN) {
+            DayNameDTO dtoDN = new DayNameDTO();
+            MapperUtil.toDTODayName().accept(itemDN, dtoDN);
+
+            List<DayPart> listDP = daoDayPart.getByDayNameId(dtoDN.getId());
+            List<DayPartDTO> listDPDTO = new ArrayList<>();
+            for (DayPart itemDP : listDP) {
+                DayPartDTO dtoDP = new DayPartDTO();
+                MapperUtil.toDTODayPart().accept(itemDP, dtoDP);
+                listDPDTO.add(dtoDP);
+            }
+            dtoDN.setDayParts(listDPDTO);
+
+            listDNDTO.add(dtoDN);
+        }
+        dto.setDayNames(listDNDTO);
+        return dto;
     }
 
     @Override
@@ -44,7 +79,7 @@ public class RecipeService implements RecipeServiceInterface {
             MapperUtil.toDTORecipe().accept(db, dto);
             MapperUtil.toDTOPatient().accept(db.getPatient(), dto.getPatient());
         }
-        return dto;
+        return fillRecipeDTO(dto);
     }
 
     @Override

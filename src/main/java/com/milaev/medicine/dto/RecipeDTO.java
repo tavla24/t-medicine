@@ -4,6 +4,7 @@ import com.milaev.medicine.model.Healing;
 import com.milaev.medicine.model.Patient;
 
 import java.util.Date;
+import java.util.List;
 
 public class RecipeDTO {
     private Long id;
@@ -11,6 +12,8 @@ public class RecipeDTO {
     private HealingDTO healing;
     private Date dateFrom;
     private Date dateTo;
+
+    private List<DayNameDTO> dayNames;
 
     public Long getId() {
         return id;
@@ -54,5 +57,13 @@ public class RecipeDTO {
 
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public List<DayNameDTO> getDayNames() {
+        return dayNames;
+    }
+
+    public void setDayNames(List<DayNameDTO> dayNames) {
+        this.dayNames = dayNames;
     }
 }

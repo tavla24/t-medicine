@@ -83,7 +83,7 @@
 				<div>
 					<label for="status">Status</label>
 					<div>
-						<form:select path="status" items="${statuses}" multiple="false" id="status"/>
+						<form:select tabindex="1" path="status" items="${statuses}" multiple="false" id="status"/>
 						<div>
 							<form:errors path="status"/>
 						</div>

@@ -2,6 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.RecipeDTO;
+import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.service.interfaces.RecipeServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -46,5 +48,31 @@ public class RecipeController {
         model.addAttribute("insuranceId", insuranceId);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
         return "recipe/list";
+    }
+
+    @GetMapping(value = "/edit/{insuranceId}") // , method = RequestMethod.GET
+    public String listRecipes(@PathVariable String insuranceId, ModelMap model) {
+        log.info("listRecipes()");
+        String loggedinuser = sessionAuth.getUserName();
+        RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
+
+        model.addAttribute("recipes", recipe);
+        model.addAttribute("statuses", HealingType.getTypeList());
+        model.addAttribute("insuranceId", insuranceId);
+        model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        return "recipe/registration";
+    }
+
+    @PostMapping(value = "/edit/{insuranceId}") // , method = RequestMethod.GET
+    public String editRecipes(@PathVariable String insuranceId, ModelMap model) {
+        log.info("listRecipes()");
+        String loggedinuser = sessionAuth.getUserName();
+        RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
+
+        model.addAttribute("recipes", recipe);
+        model.addAttribute("statuses", HealingType.getTypeList());
+        model.addAttribute("insuranceId", insuranceId);
+        model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        return "recipe/registration";
     }
 }

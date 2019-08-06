@@ -52,6 +52,22 @@ public abstract class AbstractDAO<T> {
         //return query.getQResult();
     }
 
+    protected List<T> getByParams(TypedQuery<T> query, Long... params) {
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(String.format("param%d", i + 1), params[i]);
+        }
+        return getQResults(query);
+        //return query.getQResults();
+    }
+
+    protected T getByParamsSingle(TypedQuery<T> query, Long... params) {
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(String.format("param%d", i + 1), params[i]);
+        }
+        return getQResult(query);
+        //return query.getQResult();
+    }
+
     protected boolean per(T acc) {
         try {
             getCurrentSession().persist(acc);
