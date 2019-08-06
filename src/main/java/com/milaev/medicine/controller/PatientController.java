@@ -104,7 +104,7 @@ public class PatientController {
     @GetMapping(value = {"/delete/{insuranceId}"})
     public String deletePatient(@PathVariable String insuranceId) {
         log.info("deletePatient()");
-        patientService.deleteByInsuranceId(insuranceId);
+        patientService.deleteProfile(insuranceId);
         return "redirect:/patient/list";
     }
 
@@ -148,7 +148,7 @@ public class PatientController {
         acc.setRole(role);
         accountService.insert(acc);
 
-        dto.setAccount(acc);
+        //dto.setAccount(acc);
         patientService.updateProfile(dto, "new");
 
         return "redirect:/patient/list";

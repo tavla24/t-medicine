@@ -81,7 +81,7 @@ public class AdminDoctorsController {
 
         log.info("no validation errors");
 
-        doctorService.add(doctorDTO);
+        doctorService.updateProfile(doctorDTO);
 
         return "redirect:/admin/doctor/list";
     }
@@ -90,7 +90,7 @@ public class AdminDoctorsController {
     @GetMapping(value = { "/delete/{login}" })
     public String deleteDoctor(@PathVariable String login) {
         log.info("deleteDoctor()");
-        doctorService.deleteByLogin(login);
+        doctorService.deleteProfile(login);
         return "redirect:/admin/doctor/list";
     }
 
@@ -111,7 +111,7 @@ public class AdminDoctorsController {
             return "doctor/registration";
         }
 
-        doctorService.edit(doctorDTO, login);
+        doctorService.updateProfile(doctorDTO);
 
         return "redirect:/admin/doctor/list";
     }

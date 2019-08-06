@@ -6,7 +6,7 @@ public class PersonDTO {
     private String patronymic;
     private String email;
     private String phone;
-    private AccountDTO account;
+    //private AccountDTO account;
 
     public String getName() {
         return name;
@@ -48,20 +48,20 @@ public class PersonDTO {
         this.phone = phone;
     }
 
-    public AccountDTO getAccount() {
-        if (account == null)
-            account = new AccountDTO();
-        return account;
-    }
-
-    public void setAccount(AccountDTO account) {
-        this.account = account;
-    }
+//    public AccountDTO getAccount() {
+//        if (account == null)
+//            account = new AccountDTO();
+//        return account;
+//    }
+//
+//    public void setAccount(AccountDTO account) {
+//        this.account = account;
+//    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getAccount().toString());
+        //sb.append(getAccount().toString());
         sb.append(String.format("PersonDTO result: name[%s]; surname[%s]; patronymic[%s], email[%s], phone[%s]", name,
                 surname, patronymic, email, phone));
         return sb.toString();

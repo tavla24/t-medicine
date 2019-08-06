@@ -38,6 +38,10 @@ public class RecipeController {
         RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
         List<RecipeDTO> list = new ArrayList<>();
         list.add(recipe);
+
+        //RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
+
+
         model.addAttribute("recipes", list);
         model.addAttribute("insuranceId", insuranceId);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());

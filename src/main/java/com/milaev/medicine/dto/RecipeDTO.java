@@ -6,10 +6,19 @@ import com.milaev.medicine.model.Patient;
 import java.util.Date;
 
 public class RecipeDTO {
+    private Long id;
     private PatientDTO patient;
     private HealingDTO healing;
     private Date dateFrom;
     private Date dateTo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public PatientDTO getPatient() {
         if (patient == null)

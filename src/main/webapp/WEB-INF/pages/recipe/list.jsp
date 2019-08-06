@@ -26,10 +26,8 @@
 					<th>dateTo</th>
 
 					<th>todo: link details</th>
-					<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
+					<sec:authorize access="hasRole('DOCTOR')">
 						<th width="100"></th>
-					</sec:authorize>
-					<sec:authorize access="hasRole('ADMIN')">
 						<th width="100"></th>
 					</sec:authorize>
 				</tr>
@@ -42,11 +40,9 @@
 						<th>${recipe.dateTo}</th>
 
 						<th></th>
-						<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-							<td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ADMIN')">
-							<td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>
+						<sec:authorize access="hasRole('DOCTOR')">
+							<td><a href="<c:url value='/admin/account/edit/${recipe.id}' />">edit</a></td>
+							<td><a href="<c:url value='/admin/account/delete/${recipe.id}' />">delete</a></td>
 						</sec:authorize>
 					</tr>
 				</c:forEach>

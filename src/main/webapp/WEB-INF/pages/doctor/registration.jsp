@@ -19,6 +19,21 @@
         <div>Doctor Registration Form</div>
         <form:form method="POST" modelAttribute="doctor">
 
+            <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
+                <div>
+                    <label for="login">login</label>
+                    <div>
+                        <form:input type="text" path="login" id="login" />
+                        <div>
+                            <form:errors path="login" />
+                        </div>
+                    </div>
+                </div>
+            </sec:authorize>
+
+            <sec:authorize access="hasRole('DOCTOR')">
+                        <form:input type="hidden" path="login"/>
+            </sec:authorize>
 
             <div>
                 <label for="name">First Name</label>
@@ -77,18 +92,6 @@
                     </div>
                 </div>
             </div>
-
-            <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-            <div>
-                <label for="login">login</label>
-                <div>
-                    <form:input type="text" path="account.login" id="login" />
-                    <div>
-                        <form:errors path="account.login" />
-                    </div>
-                </div>
-            </div>
-            </sec:authorize>
 
             <div>
                 <br>

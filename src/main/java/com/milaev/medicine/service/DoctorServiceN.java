@@ -40,7 +40,7 @@ public class DoctorServiceN extends PersonService<Doctor, DoctorDTO> implements 
         // TODO question - is it normal way?
         log.info("fillDTODataToEntity");
         log.info(dto.toString());
-        Account a = daoAccount.getByLogin(dto.getAccount().getLogin());
+        Account a = daoAccount.getByLogin(dto.getLogin());
         log.info("!!! a: {}", a.toString());
         //Role r = daoRole.getByType(a.getRole().getType());
         //log.info("!!! r: {}", r.getType());
@@ -53,5 +53,15 @@ public class DoctorServiceN extends PersonService<Doctor, DoctorDTO> implements 
         // TODO sometime work, sometime not
         entity.setAccount(a);
         log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
+    }
+
+    @Override
+    public void updateProfile(DoctorDTO doctorDTO) {
+
+    }
+
+    @Override
+    public void deleteProfile(String login) {
+
     }
 }

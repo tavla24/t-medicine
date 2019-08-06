@@ -1,7 +1,18 @@
 package com.milaev.medicine.dto;
 
 public class DoctorDTO extends PersonDTO {
+
     private String specialization;
+
+    private String Login;
+
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        Login = login;
+    }
 
     public String getSpecialization() {
         return specialization;

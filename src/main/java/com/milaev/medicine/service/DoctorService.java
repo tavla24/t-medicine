@@ -3,6 +3,7 @@ package com.milaev.medicine.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.milaev.medicine.converter.DoctorConv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class DoctorService implements DoctorServiceInterface {
 
     @Autowired
     private DoctorDAO daoDoctor;
+
     @Autowired
     private AccountDAO daoAccount;
 
@@ -33,9 +35,7 @@ public class DoctorService implements DoctorServiceInterface {
         List<Doctor> list = daoDoctor.getAll();
         List<DoctorDTO> listDAO = new ArrayList<>();
         for (Doctor item : list) {
-            DoctorDTO doctorDTO = new DoctorDTO();
-            MapperUtil.toDTODoctor().accept(item, doctorDTO);
-            listDAO.add(doctorDTO);
+            listDAO.add(DoctorConv.toDTO(item));
         }
         return listDAO;
     }
@@ -46,7 +46,7 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+            doctorDTO = DoctorConv.toDTO(dbDoctor);
         return doctorDTO;
     }
 
@@ -56,7 +56,7 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getByFullName(fname, surname, patronymic, specify);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+            doctorDTO = DoctorConv.toDTO(dbDoctor);
         return doctorDTO;
     }
 
@@ -66,23 +66,21 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getById(id);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            MapperUtil.toDTODoctor().accept(dbDoctor, doctorDTO);
+            doctorDTO = DoctorConv.toDTO(dbDoctor);
         return doctorDTO;
     }
 
 
     @Override
     @Transactional
-    public boolean deleteByLogin(String login) {
+    public void deleteProfile(String login) {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         try {
             daoDoctor.delete(dbDoctor);
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     @Override
@@ -96,66 +94,44 @@ public class DoctorService implements DoctorServiceInterface {
 
     @Override
     @Transactional
-    public void updateProfile(DoctorDTO doctorDTO, String login) {
-        log.info("service.updateProfile(Doctor) login [{}]", login);
-        if (isProfileExist(login))
-            edit(doctorDTO, login);
+    public void updateProfile(DoctorDTO dto) {
+        log.info("service.updateProfile(Doctor) login [{}]", dto.getLogin());
+        Doctor dbDoctor = daoDoctor.getByLogin(dto.getLogin());
+
+        if (dbDoctor == null)
+            add(dto, new Doctor());
         else
-            add(doctorDTO);
+            edit(dto, dbDoctor);
+
     }
 
-    @Override
-    @Transactional
-    public boolean edit(DoctorDTO dto, String oldLogin) {
-        // TODO point 2
-        log.info("service.update(Doctor) login [{}]", oldLogin);
-        //log.info(dto.toString());
-        Doctor dbDoctor = daoDoctor.getByLogin(oldLogin);
-        //dbDoctor.setLogin(oldLogin);
-        fillDTODataToEntity(dto, dbDoctor);
+    private void edit(DoctorDTO dto, Doctor db) {
+        log.info("service.update(Doctor) login [{}]", db.getAccount().getLogin());
+        fillDTODataToEntity(dto, db);
         try {
-            daoDoctor.update(dbDoctor);
+            daoDoctor.update(db);
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
     }
-        return true;
     }
 
-    @Override
-    @Transactional
-    public boolean add(DoctorDTO dto) {
+    private void add(DoctorDTO dto, Doctor db) {
         log.info("service.insert(Doctor)");
-        Doctor dbDoctor = new Doctor();
-        fillDTODataToEntity(dto, dbDoctor);
+        fillDTODataToEntity(dto, db);
         try {
-            daoDoctor.insert(dbDoctor);
-            log.info("!!! done");
+            daoDoctor.insert(db);
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     private void fillDTODataToEntity(DoctorDTO dto, Doctor entity) {
-        // TODO question - is it normal way?
         log.info("fillDTODataToEntity");
-        log.info(dto.toString());
-        Account a = daoAccount.getByLogin(dto.getAccount().getLogin());
-        log.info("!!! a: {}", a.toString());
-        //Role r = daoRole.getByType(a.getRole().getType());
-        //log.info("!!! r: {}", r.getType());
-        //a.setRole(r);
-        //log.info("!!! a: {}", a.toString());
+        Account a = daoAccount.getByLogin(dto.getLogin());
         entity.setAccount(a);
         MapperUtil.toEntityDoctor().accept(dto, entity);
-        log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
-
-        // TODO sometime work, sometime not
-        entity.setAccount(a);
         log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
     }
 }

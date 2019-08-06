@@ -3,10 +3,19 @@ package com.milaev.medicine.dto;
 import java.util.Date;
 
 public class DayPartDTO {
+    private Long id;
     private String part;
     private Date time;
     private String doze;
     private DayNameDTO dayName;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getPart() {
         return part;

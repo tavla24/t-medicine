@@ -61,7 +61,7 @@ public class DoctorsController {
         doctorDTO = doctorService.getByLogin(loggedinuser);
         else {
             doctorDTO = new DoctorDTO();
-            doctorDTO.getAccount().setLogin(loggedinuser);
+            doctorDTO.setLogin(loggedinuser);
         }
 
         model.addAttribute("doctor", doctorDTO);
@@ -81,8 +81,7 @@ public class DoctorsController {
         //log.info(doctorDTO.toString());
         //doctorService.insert(doctorDTO);//, sessionAuth.getUserName()
 
-        doctorDTO.getAccount().setLogin(loggedinuser);
-        doctorService.updateProfile(doctorDTO, loggedinuser);
+        doctorService.updateProfile(doctorDTO);
 
         return "redirect:/doctor/";
     }

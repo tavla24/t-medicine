@@ -5,11 +5,11 @@ import com.milaev.medicine.model.PersistentToken;
 
 public interface TPersistentTokenServiceInterface extends PersistentTokenDAOInterface {
 
-    public PersistentToken getByKey(String key);
+    PersistentToken getByKey(String key);
 
-    public void persist(PersistentToken entity);
+    void persist(PersistentToken entity);
 
-    public void update(PersistentToken entity);
+    void update(PersistentToken entity);
 
-    public void delete(PersistentToken entity);
+    void delete(PersistentToken entity);
 }

@@ -1,6 +1,7 @@
 package com.milaev.medicine.service.interfaces;
 
 import com.milaev.medicine.dto.PatientDTO;
+import com.milaev.medicine.model.Patient;
 
 import java.util.List;
 
@@ -18,16 +19,9 @@ public interface PatientServiceInterface {
 
     PatientDTO getById(int id);
 
-    //boolean isLoginUnique(String login);
-    boolean isProfileExist(String login);
-
-    boolean isInsuranceIdExist(String insuranceId);
+    boolean isProfileExist(String insuranceId);
 
     void updateProfile(PatientDTO dto, String insuranceId);
 
-    boolean deleteByInsuranceId(String insuranceId);
-
-    boolean edit(PatientDTO dto, String insuranceId);
-
-    boolean add(PatientDTO dto);
+    void deleteProfile(String insuranceId);
 }
