@@ -10,7 +10,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String login;
@@ -26,11 +26,11 @@ public class Account {
     @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
     private Person person;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,6 +3,16 @@ package com.milaev.medicine.dto;
 public class DoctorDTO extends PersonDTO {
     private String specialization;
 
+//    private String login;
+//
+//    public String getLogin() {
+//        return login;
+//    }
+//
+//    public void setLogin(String login) {
+//        this.login = login;
+//    }
+
     public String getSpecialization() {
         return specialization;
     }

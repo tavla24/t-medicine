@@ -7,7 +7,7 @@ public class PatientDTO extends PersonDTO {
     private String insuranceId;
     private String diagnosis;
     private String status;// = PatientStatus.ILL.getPatientStatus();
-    private DoctorDTO doctor;
+    //private DoctorDTO doctor;
 
     //private RecipeDTO recipe;
 
@@ -35,14 +35,14 @@ public class PatientDTO extends PersonDTO {
         this.status = status;
     }
 
-    public DoctorDTO getDoctor() {
-        if (doctor == null)
-            doctor = new DoctorDTO();
-        return doctor;
-    }
-
-    public void setDoctor(DoctorDTO doctor) {
-        this.doctor = doctor;
-    }
+//    public DoctorDTO getDoctor() {
+//        if (doctor == null)
+//            doctor = new DoctorDTO();
+//        return doctor;
+//    }
+//
+//    public void setDoctor(DoctorDTO doctor) {
+//        this.doctor = doctor;
+//    }
 
 }

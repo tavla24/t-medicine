@@ -106,7 +106,7 @@ public class AdminAccountsController {
 
         accountService.insert(account);
 
-        return "account/list";
+        return "redirect:/admin/account/list";
     }
 
     // @DeleteMapping(value = { "/delete-user-{login}" })

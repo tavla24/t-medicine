@@ -3,6 +3,8 @@ package com.milaev.medicine.service.interfaces;
 import java.util.List;
 
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.ViewDoctorDTO;
+import com.milaev.medicine.model.Doctor;
 
 public interface DoctorServiceInterface {
 
@@ -17,11 +19,13 @@ public interface DoctorServiceInterface {
     //boolean isLoginUnique(String login);
     boolean isProfileExist(String login);
 
-    void updateProfile(DoctorDTO doctorDTO, String login);
+    void updateProfile(ViewDoctorDTO dto);
+
+    void updateProfile(ViewDoctorDTO dto, String login);
 
     boolean deleteByLogin(String login);
 
-    boolean edit(DoctorDTO dto, String oldLogin);
-
-    boolean add(DoctorDTO dto);
+//    boolean edit(ViewDoctorDTO dto, Doctor db);
+//
+//    boolean add(ViewDoctorDTO dto, Doctor db);
 }

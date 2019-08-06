@@ -12,7 +12,7 @@ public class RecipeDayNames {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     private String dayName;
@@ -24,11 +24,11 @@ public class RecipeDayNames {
     @OneToMany(mappedBy = "dayNames", fetch = FetchType.LAZY)
     private List<RecipeDayPart> dayParts;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

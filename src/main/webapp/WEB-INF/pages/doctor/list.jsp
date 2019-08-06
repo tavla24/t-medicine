@@ -39,23 +39,23 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${doctors}" var="doctor">
+                <c:forEach items="${doctors}" var="dto">
                     <tr>
-                        <th>${doctor.name}</th>
-                        <th>${doctor.surname}</th>
-                        <th>${doctor.patronymic}</th>
+                        <th>${dto.doctor.name}</th>
+                        <th>${dto.doctor.surname}</th>
+                        <th>${dto.doctor.patronymic}</th>
 
-                        <th>${doctor.specialization}</th>
-                        <th>${doctor.email}</th>
-                        <th>${doctor.phone}</th>
-                        <th>${doctor.account.login}</th>
+                        <th>${dto.doctor.specialization}</th>
+                        <th>${dto.doctor.email}</th>
+                        <th>${dto.doctor.phone}</th>
+                        <th>${dto.account.login}</th>
 
                         <th></th>
                         <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                            <td><a href="<c:url value='/admin/doctor/edit/${doctor.account.login}' />">edit</a></td>
+                            <td><a href="<c:url value='/admin/doctor/edit/${dto.account.login}' />">edit</a></td>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/admin/doctor/delete/${doctor.account.login}' />">delete</a></td>
+                            <td><a href="<c:url value='/admin/doctor/delete/${dto.account.login}' />">delete</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

@@ -4,6 +4,7 @@ import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dao.interfaces.PersonDAOInterface;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.ViewDoctorDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
@@ -37,21 +38,13 @@ public class DoctorServiceN extends PersonService<Doctor, DoctorDTO> implements 
     @Override
     @Transactional
     public void fillDTODataToEntity(DoctorDTO dto, Doctor entity) {
-        // TODO question - is it normal way?
-        log.info("fillDTODataToEntity");
-        log.info(dto.toString());
-        Account a = daoAccount.getByLogin(dto.getAccount().getLogin());
-        log.info("!!! a: {}", a.toString());
-        //Role r = daoRole.getByType(a.getRole().getType());
-        //log.info("!!! r: {}", r.getType());
-        //a.setRole(r);
-        //log.info("!!! a: {}", a.toString());
-        entity.setAccount(a);
-        MapperUtil.toEntityDoctor().accept(dto, entity);
-        log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
+    }
 
-        // TODO sometime work, sometime not
-        entity.setAccount(a);
-        log.info("!!! entity role: {}", entity.getAccount().getRole().getType());
+    @Override
+    public void updateProfile(ViewDoctorDTO dto) {
+    }
+
+    @Override
+    public void updateProfile(ViewDoctorDTO dto, String login) {
     }
 }

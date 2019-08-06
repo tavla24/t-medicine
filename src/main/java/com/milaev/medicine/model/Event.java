@@ -21,7 +21,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
@@ -33,11 +33,11 @@ public class Event {
     @Column(name = "info", nullable = false)
     private String info;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

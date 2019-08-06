@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.milaev.medicine.dto.ViewDoctorDTO;
 import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
@@ -56,33 +57,22 @@ public class DoctorsController {
         log.info("editDoctor()");
         String loggedinuser = sessionAuth.getUserName();
 
-        DoctorDTO doctorDTO;
-        if (doctorService.isProfileExist(loggedinuser))
-        doctorDTO = doctorService.getByLogin(loggedinuser);
-        else {
-            doctorDTO = new DoctorDTO();
-            doctorDTO.getAccount().setLogin(loggedinuser);
-        }
+        ViewDoctorDTO dto = new ViewDoctorDTO(doctorService.getByLogin(loggedinuser), accountService.getByLogin(loggedinuser));
 
-        model.addAttribute("doctor", doctorDTO);
+        model.addAttribute("dto", dto);
         model.addAttribute("loggedinuser", loggedinuser);
         return "doctor/registration";
     }
 
     @PostMapping("/edit")
-    public String updateDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model) {
+    public String updateDoctor(@Valid ViewDoctorDTO dto, BindingResult result, ModelMap model) {
         log.info("updateDoctor()");
         if (result.hasErrors()) {
             return "doctor/registration";
         }
-        String loggedinuser = sessionAuth.getUserName();
+        //String loggedinuser = sessionAuth.getUserName();
 
-        //log.info(sessionAuth.getUserName());
-        //log.info(doctorDTO.toString());
-        //doctorService.insert(doctorDTO);//, sessionAuth.getUserName()
-
-        doctorDTO.getAccount().setLogin(loggedinuser);
-        doctorService.updateProfile(doctorDTO, loggedinuser);
+        doctorService.updateProfile(dto);
 
         return "redirect:/doctor/";
     }

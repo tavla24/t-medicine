@@ -1,9 +1,12 @@
 package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
+import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.ViewDoctorDTO;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.service.PersonService;
+import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +42,9 @@ public class AdminDoctorsController {
     @Qualifier("doctorService")
     DoctorServiceInterface doctorService;
 
+    @Autowired
+    AccountServiceInterface accountService;
+
     @GetMapping(value = "/") // , method = RequestMethod.GET
     public String main(ModelMap model) {
         log.info("main()");
@@ -49,6 +55,7 @@ public class AdminDoctorsController {
     public String listDoctors(ModelMap model) {
         log.info("listDoctors()");
         List<DoctorDTO> doctors = doctorService.getAll();
+        ViewDoctorDTO dto = new ViewDoctorDTO(doctorService.getAll(), accountService.getByLogin(loggedinuser));
         model.addAttribute("doctors", doctors);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
         return "doctor/list";
@@ -58,18 +65,18 @@ public class AdminDoctorsController {
     public String newDoctor(ModelMap model) {
         log.info("newDoctor()");
         if (!model.containsAttribute("doctor")) {
-            DoctorDTO doctorDTO = new DoctorDTO();
-            model.addAttribute("doctor", doctorDTO);
+            ViewDoctorDTO dto = new ViewDoctorDTO();
+            model.addAttribute("dto", dto);
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
         return "doctor/registration";
     }
 
     @PostMapping(value = {"/new"})
-    public String saveDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model,
+    public String saveDoctor(@Valid ViewDoctorDTO dto, BindingResult result, ModelMap model,
                              RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
-        redirectAttributes.addFlashAttribute("doctor", doctorDTO);
+        redirectAttributes.addFlashAttribute("dto", dto);
         redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
         log.info("saveDoctor()");
 
@@ -81,7 +88,7 @@ public class AdminDoctorsController {
 
         log.info("no validation errors");
 
-        doctorService.add(doctorDTO);
+        doctorService.updateProfile(dto, dto.getAccount().getLogin());
 
         return "redirect:/admin/doctor/list";
     }
@@ -97,21 +104,21 @@ public class AdminDoctorsController {
     @GetMapping(value = { "/edit/{login}" })
     public String editDoctor(@PathVariable String login, ModelMap model) {
         log.info("editDoctor()");
-        DoctorDTO doctor = doctorService.getByLogin(login);
-        model.addAttribute("doctor", doctor);
+        ViewDoctorDTO dto = new ViewDoctorDTO(doctorService.getByLogin(login), accountService.getByLogin(login));
+        model.addAttribute("dto", dto);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
         return "doctor/registration";
     }
 
     @PostMapping("/edit/{login}")
-    public String updateDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model,
+    public String updateDoctor(@Valid ViewDoctorDTO dto, BindingResult result, ModelMap model,
                                @PathVariable String login) {
         log.info("updateDoctor()");
         if (result.hasErrors()) {
             return "doctor/registration";
         }
 
-        doctorService.edit(doctorDTO, login);
+        doctorService.updateProfile(dto, login);
 
         return "redirect:/admin/doctor/list";
     }

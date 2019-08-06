@@ -30,9 +30,7 @@ public class MapperUtil {
 
     private static ModelMapper mapper;
 
-    public static BiConsumer<PatientDTO, Patient> toEntityPatient() {
-        return mapper::map;
-    }
+    public static BiConsumer<PatientDTO, Patient> toEntityPatient() { return mapper::map; }
     public static BiConsumer<Patient, PatientDTO> toDTOPatient() {
         return mapper::map;
     }

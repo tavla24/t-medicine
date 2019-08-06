@@ -92,7 +92,7 @@ public class PatientController {
         //log.info(sessionAuth.getUserName());
         //log.info(doctorDTO.toString());
         DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);//, sessionAuth.getUserName()
-        dto.setDoctor(doctorDTO);
+        //dto.setDoctor(doctorDTO);
 
         //dto.getAccount().setLogin(loggedinuser);
         patientService.updateProfile(dto, insuranceId);
@@ -138,7 +138,7 @@ public class PatientController {
 
         log.info("no validation errors");
         DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);
-        dto.setDoctor(doctorDTO);
+        //dto.setDoctor(doctorDTO);
 
         AccountDTO acc = new AccountDTO();
         acc.setLogin(dto.getEmail());
@@ -148,7 +148,7 @@ public class PatientController {
         acc.setRole(role);
         accountService.insert(acc);
 
-        dto.setAccount(acc);
+        //dto.setAccount(acc);
         patientService.updateProfile(dto, "new");
 
         return "redirect:/patient/list";

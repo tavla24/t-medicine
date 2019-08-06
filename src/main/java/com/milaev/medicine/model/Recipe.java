@@ -14,7 +14,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinColumn(name = "patient_id", nullable = false)
@@ -38,11 +38,11 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
     private List<Event> events;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

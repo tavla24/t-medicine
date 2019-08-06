@@ -6,7 +6,7 @@ public class DayPartDTO {
     private String part;
     private Date time;
     private String doze;
-    private DayNameDTO dayName;
+    //private DayNameDTO dayName;
 
     public String getPart() {
         return part;
@@ -32,14 +32,14 @@ public class DayPartDTO {
         this.doze = doze;
     }
 
-    public DayNameDTO getDayName() {
-        if (dayName == null)
-            dayName = new DayNameDTO();
-        return dayName;
-    }
-
-    public void setDayName(DayNameDTO dayName) {
-        this.dayName = dayName;
-    }
+//    public DayNameDTO getDayName() {
+//        if (dayName == null)
+//            dayName = new DayNameDTO();
+//        return dayName;
+//    }
+//
+//    public void setDayName(DayNameDTO dayName) {
+//        this.dayName = dayName;
+//    }
 
 }
