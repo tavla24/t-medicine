@@ -15,7 +15,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "type", nullable = false, unique = true)
     private String type;// = RoleType.USER.getUserProfileType();
@@ -23,11 +23,11 @@ public class Role {
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<Account> accounts;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

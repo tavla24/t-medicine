@@ -21,6 +21,7 @@
 
 		<version.jstl>1.2</version.jstl>
 		<version.javax.servlet-api>4.0.1</version.javax.servlet-api>
+		<version.javax.annotation-api>1.3.2</version.javax.annotation-api>
 		<version.spring-core>5.1.8.RELEASE</version.spring-core>
 		<version.spring-context>5.1.8.RELEASE</version.spring-context>
 		<version.spring-beans>5.1.8.RELEASE</version.spring-beans>
@@ -60,6 +61,13 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${version.javax.servlet-api}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>${version.javax.annotation-api}</version>
 		</dependency>
 
 

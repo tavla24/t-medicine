@@ -22,7 +22,7 @@ public class DayPart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "part", nullable = false)
     private String part;
@@ -34,15 +34,15 @@ public class DayPart {
     @Column(name = "doze", nullable = false)
     private String doze;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST }
     @JoinColumn(name = "day_name_id", nullable = false)
     private DayName dayName;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

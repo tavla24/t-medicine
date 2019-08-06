@@ -12,7 +12,7 @@ public class Healing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -21,11 +21,11 @@ public class Healing {
     @OneToOne(mappedBy = "healing", fetch = FetchType.LAZY)
     private Recipe recipe;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

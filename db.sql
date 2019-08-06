@@ -133,73 +133,55 @@ CREATE TABLE persistent_logins (
 ALTER TABLE accounts 
   ADD CONSTRAINT accounts_roles_fk 
   FOREIGN KEY (role_id) 
-  REFERENCES roles(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+  REFERENCES roles(id);
+#     ON UPDATE CASCADE
+#     ON DELETE RESTRICT;
      
 ALTER TABLE persons 
   ADD CONSTRAINT persons_accounts_fk 
   FOREIGN KEY (account_id) 
-  REFERENCES accounts(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+  REFERENCES accounts(id);
 
 ALTER TABLE doctors
   ADD CONSTRAINT doctors_persons_fk
     FOREIGN KEY (id)
-      REFERENCES persons(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
+      REFERENCES persons(id);
 
 ALTER TABLE patients
   ADD CONSTRAINT patients_persons_fk
     FOREIGN KEY (id)
-      REFERENCES persons(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
+      REFERENCES persons(id);
 
 
 ALTER TABLE patients
   ADD CONSTRAINT patients_doctors_fk
     FOREIGN KEY (doctor_id)
-      REFERENCES doctors(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
+      REFERENCES doctors(id);
   
 ALTER TABLE recipes 
   ADD CONSTRAINT recipes_patients_fk 
   FOREIGN KEY (patient_id) 
-  REFERENCES patients(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+  REFERENCES patients(id);
 
 ALTER TABLE recipes_day_names
   ADD CONSTRAINT recipes_day_names_recipes_fk
     FOREIGN KEY (recipe_id)
-      REFERENCES recipes(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
+      REFERENCES recipes(id);
 
 ALTER TABLE recipes_day_parts
   ADD CONSTRAINT recipes_day_parts_names_fk
     FOREIGN KEY (day_name_id)
-      REFERENCES recipes_day_names(id)
-      ON UPDATE CASCADE
-      ON DELETE RESTRICT;
+      REFERENCES recipes_day_names(id);
   
 ALTER TABLE recipes 
   ADD CONSTRAINT recipes_healings_fk 
   FOREIGN KEY (healing_id) 
-  REFERENCES healings(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+  REFERENCES healings(id);
   
 ALTER TABLE events 
   ADD CONSTRAINT events_recipes_fk 
   FOREIGN KEY (recipe_id) 
-  REFERENCES recipes(id)
-     ON UPDATE CASCADE
-     ON DELETE RESTRICT;
+  REFERENCES recipes(id);
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
