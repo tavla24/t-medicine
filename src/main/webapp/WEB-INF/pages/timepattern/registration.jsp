@@ -8,6 +8,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <script src="http://code.jquery.com/jquery-2.2.4.js"
+            type="text/javascript"></script>
+    <script src="../../js/progress.js" type="text/javascript"></script>
     <title>Patient Registration Form</title>
 </head>
 
