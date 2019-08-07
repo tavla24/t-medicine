@@ -3,11 +3,11 @@ package com.milaev.medicine.controller;
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.DayNameDTO;
 import com.milaev.medicine.dto.DayPartDTO;
-import com.milaev.medicine.dto.RecipeDTO;
+import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
 import com.milaev.medicine.model.enums.HealingType;
-import com.milaev.medicine.service.interfaces.RecipeServiceInterface;
+import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -35,14 +34,14 @@ public class RecipeController {
     MessageSource messageSource;
 
     @Autowired
-    RecipeServiceInterface recipeService;
+    RecipeSimpleServiceInterface recipeService;
 
     @GetMapping(value = "/list/{insuranceId}") // , method = RequestMethod.GET
     public String listPatients(@PathVariable String insuranceId, ModelMap model) {
         log.info("listPatients()");
         String loggedinuser = sessionAuth.getUserName();
-        RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
-        List<RecipeDTO> list = new ArrayList<>();
+        RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
+        List<RecipeSimpleDTO> list = new ArrayList<>();
         list.add(recipe);
 
         //RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
@@ -58,7 +57,7 @@ public class RecipeController {
     public String listRecipes(@PathVariable String insuranceId, ModelMap model) {
         log.info("listRecipes()");
         String loggedinuser = sessionAuth.getUserName();
-        RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
+        RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
 
         model.addAttribute("recipes", recipe);
         model.addAttribute("statuses", HealingType.getTypeList());
@@ -71,7 +70,7 @@ public class RecipeController {
     public String editTimePattern(@PathVariable String insuranceId, ModelMap model) {
         log.info("editTimePattern()");
         String loggedinuser = sessionAuth.getUserName();
-        RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
+        RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
 
         List<DayNameDTO> lDayNames = new ArrayList<>();
 

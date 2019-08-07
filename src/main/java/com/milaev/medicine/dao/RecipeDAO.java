@@ -16,9 +16,6 @@ public class RecipeDAO extends AbstractDAO<Recipe> implements RecipeDAOInterface
 
     private static Logger log = LoggerFactory.getLogger(RecipeDAO.class);
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
     @Override
     public List<Recipe> getAll() {
         Query<Recipe> query = getCurrentSession().createQuery("from Recipe");

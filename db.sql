@@ -94,6 +94,21 @@ CREATE TABLE recipes
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
+CREATE TABLE recipes_simple
+(
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  patient_id INT UNSIGNED NOT NULL,
+  healing_name VARCHAR(255) NOT NULL,
+  healing_type VARCHAR(127) NOT NULL,
+  healthful BOOL NOT NULL,
+  date_from DATE NOT NULL,
+  date_to DATE NOT NULL,
+  doze VARCHAR(127) NOT NULL,
+  day_names VARCHAR(255) NOT NULL,
+  day_parts VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET=UTF8;
+
 CREATE TABLE recipes_day_names
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -157,6 +172,11 @@ ALTER TABLE patients
   ADD CONSTRAINT patients_doctors_fk
     FOREIGN KEY (doctor_id)
       REFERENCES doctors(id);
+
+ALTER TABLE recipes_simple
+  ADD CONSTRAINT recipes_simple_patients_fk
+    FOREIGN KEY (patient_id)
+      REFERENCES patients(id);
   
 ALTER TABLE recipes 
   ADD CONSTRAINT recipes_patients_fk 
@@ -211,6 +231,10 @@ INSERT INTO doctors (id, specialization) VALUES
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 (2, 4, 'dalnozorkost', '98723509', 'ILL'),
 (3, 4, 'astigmatizm', '87635832', 'ILL');
+
+INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
+(2, 'ochki', 'PROCEDURE', false, '2019-01-01', '2019-09-15', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+(3, 'drug bitter', 'DRUG', false, '2019-06-25', '2019-08-11', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
 
 INSERT INTO healings (name, type) VALUES
 ('ochki', 'PROCEDURE'),

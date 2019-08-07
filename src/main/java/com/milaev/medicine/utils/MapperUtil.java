@@ -4,26 +4,11 @@ import java.util.function.BiConsumer;
 
 import javax.annotation.PostConstruct;
 
-import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.dto.DayNameDTO;
-import com.milaev.medicine.dto.DayPartDTO;
-import com.milaev.medicine.dto.PatientDTO;
-import com.milaev.medicine.dto.RecipeDTO;
-import com.milaev.medicine.model.Account;
-import com.milaev.medicine.model.DayName;
-import com.milaev.medicine.model.DayPart;
-import com.milaev.medicine.model.Patient;
-import com.milaev.medicine.model.Recipe;
+import com.milaev.medicine.dto.*;
+import com.milaev.medicine.model.*;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import com.milaev.medicine.dto.DoctorDTO;
-import com.milaev.medicine.dto.EventDTO;
-import com.milaev.medicine.dto.HealingDTO;
-import com.milaev.medicine.model.Doctor;
-import com.milaev.medicine.model.Event;
-import com.milaev.medicine.model.Healing;
 
 @Component
 public class MapperUtil {
@@ -55,6 +40,13 @@ public class MapperUtil {
         return mapper::map;
     }
     public static BiConsumer<Recipe, RecipeDTO> toDTORecipe() {
+        return mapper::map;
+    }
+
+    public static BiConsumer<RecipeSimpleDTO, RecipeSimple> toEntityRecipeSimple() {
+        return mapper::map;
+    }
+    public static BiConsumer<RecipeSimple, RecipeSimpleDTO> toDTORecipeSimple() {
         return mapper::map;
     }
     
@@ -106,6 +98,10 @@ public class MapperUtil {
         mapper.createTypeMap(RecipeDTO.class, Recipe.class).setPropertyCondition(Conditions.isNotNull())
                 .addMappings(map -> map.skip(Recipe::setId));
         mapper.createTypeMap(Recipe.class, RecipeDTO.class).setPropertyCondition(Conditions.isNotNull());
+
+        mapper.createTypeMap(RecipeSimpleDTO.class, RecipeSimple.class).setPropertyCondition(Conditions.isNotNull());
+                //.addMappings(map -> map.skip(RecipeSimple::setId));
+        mapper.createTypeMap(RecipeSimple.class, RecipeSimpleDTO.class).setPropertyCondition(Conditions.isNotNull());
         
         mapper.createTypeMap(DayNameDTO.class, DayName.class).setPropertyCondition(Conditions.isNotNull())
                 .addMappings(map -> map.skip(DayName::setId));

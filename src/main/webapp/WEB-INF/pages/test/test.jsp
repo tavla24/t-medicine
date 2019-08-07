@@ -1,35 +1,93 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <script src="http://code.jquery.com/jquery-2.2.4.js"
-            type="text/javascript"></script>
-    <script src="../../js/progress.js" type="text/javascript"></script>
-    <title>Ajax Form</title>
+    <title>Devcolibri.com exam REST</title>
 </head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    var prefix = '/t-medicine/test';
+
+    var RestGet = function() {
+        $.ajax({
+            type: 'GET',
+            url:  prefix + '/' + Date.now(),
+            dataType: 'json',
+            async: true,
+            success: function(result) {
+                alert('Время: ' + result.time
+                        + ', сообщение: ' + result.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        });
+    }
+
+    var RestPut = function() {
+        var JSONObject= {
+            'time': Date.now(),
+            'message': 'Это пример вызова PUT метода'
+        };
+
+        $.ajax({
+            type: 'PUT',
+            url:  prefix,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(JSONObject),
+            dataType: 'json',
+            async: true,
+            success: function(result) {
+                alert('Время: ' + result.time
+                        + ', сообщенеи: ' + result.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        });
+    }
+
+    var RestPost = function() {
+        $.ajax({
+            type: 'POST',
+            url:  prefix,
+            dataType: 'json',
+            async: true,
+            success: function(result) {
+                alert('Время: ' + result.time
+                        + ', сообщение: ' + result.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        });
+    }
+
+    var RestDelete = function() {
+        $.ajax({
+            type: 'DELETE',
+            url:  prefix + '/' + Date.now(),
+            dataType: 'json',
+            async: true,
+            success: function(result) {
+                alert('Время: ' + result.time
+                        + ', сообщение: ' + result.message);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        });
+    }
+</script>
 
 <body>
 
-<form:form method="POST" modelAttribute="source" >
-    <%--
-    <c:forEach items="${source}" var="item" varStatus="loop">
-        <form:input type="text" path="item.name" /><br />
-        <form:input type="text" path="item.login" /><br />
-    </c:forEach>
-    --%>
-    <form:input type="text" path="name" /><br />
-    <form:input type="text" path="login" /><br />
-</form:form>
+    <h3>Это простой пример использования REST c помощью Ajax</h3>
 
-<input type="button" value="send" id="ajbutt">
+    <button type="button" onclick="RestGet()">Метод GET</button>
+    <button type="button" onclick="RestPost()">Метод POST</button>
+    <button type="button" onclick="RestDelete()">Метод DELETE</button>
+    <button type="button" onclick="RestPut()">Метод PUT</button>
 
-<%@include file="../zfooter.jsp" %>
 </body>
-
 </html>
