@@ -1,5 +1,6 @@
 package com.milaev.medicine.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.query.Query;
@@ -20,6 +21,27 @@ public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {
     public List<Event> getByRecipeId(Long id) {
         Query<Event> query = getCurrentSession().createQuery("from Event as f where f.recipe.id = :param1");
         return getByParams(query, id.toString());
+    }
+
+    @Override
+    public List<Event> getRecipesByTime() {
+        Query<Event> query = getCurrentSession().createQuery("from Event as f order by f.date");
+        return getQResults(query);
+    }
+
+    @Override
+    public List<Event> getRecipesByTime(Date date) {
+        Query<Event> query = getCurrentSession().createQuery("from Event as f where f.Date > :param1 order by f.date");
+        query.setParameter("param1", date);
+        return getQResults(query);
+    }
+
+    @Override
+    public List<Event> getRecipesByTime(Date dateFrom, Date dateTo) {
+        Query<Event> query = getCurrentSession().createQuery("from Event as f where f.Date > :param1 and f.Date < :param2 order by f.date");
+        query.setParameter("param1", dateFrom);
+        query.setParameter("param1", dateTo);
+        return getQResults(query);
     }
 
     @Override

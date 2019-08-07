@@ -55,6 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/doctor/**", "/patient/**", "/recipe/**").hasRole("DOCTOR");
 
+        http.authorizeRequests().antMatchers("/nurse/**").hasRole("NURSE");
+
         http.authorizeRequests().and().formLogin().loginPage("/login").loginProcessingUrl("/logincmd")
                 .defaultSuccessUrl("/access_granted").usernameParameter("login").passwordParameter("password");
 

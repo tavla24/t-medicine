@@ -41,7 +41,7 @@
 
 						<th></th>
 						<sec:authorize access="hasRole('DOCTOR')">
-							<td><a href="<c:url value='/recipe/edit/${recipe.patient.insuranceId}' />">edit</a></td>
+							<td><a href="<c:url value='/recipe/edit/pattern/${recipe.patient.insuranceId}' />">details</a></td>
 							<td><a href="<c:url value='/recipe/delete/${recipe.patient.insuranceId}' />">delete</a></td>
 						</sec:authorize>
 					</tr>
