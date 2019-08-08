@@ -7,7 +7,7 @@ import java.util.List;
 public interface RecipeSimpleDAOInterface {
     List<RecipeSimple> getAll();
 
-    RecipeSimple getByInsuranceId(String insuranceId);
+    List<RecipeSimple> getByInsuranceId(String insuranceId);
 
     void insert(RecipeSimple acc);
 

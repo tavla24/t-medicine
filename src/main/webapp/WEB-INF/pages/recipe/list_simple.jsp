@@ -42,13 +42,14 @@
 
                 <th></th>
                 <sec:authorize access="hasRole('DOCTOR')">
-                    <td><a href="<c:url value='/recipe/edit/${recipe.id}' />">details</a></td>
+                    <td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>
                     <td><a href="<c:url value='/recipe/delete/${insuranceId}/${recipe.id}' />">delete</a></td>
                 </sec:authorize>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <span><a href="<c:url value="/recipe/edit/${insuranceId}/0" />">New recipe</a></span> <br>
 </div>
 <%@include file="../zfooter.jsp"%>
 </body>

@@ -30,7 +30,8 @@ public class TestController {
 
     @GetMapping(value = "/test") // , method = RequestMethod.GET
     public String test3(ModelMap model) {
-        RecipeSimpleDTO dto = recipeService.getByInsuranceId("98723509");
+        List<RecipeSimpleDTO> dtoList = recipeService.getByInsuranceId("98723509");
+        RecipeSimpleDTO dto = dtoList.get(0);
         dto.convToDayNamesList();
         dto.convToDayPartsList();
         dto.translate();

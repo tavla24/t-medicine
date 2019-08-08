@@ -10,7 +10,7 @@ public interface RecipeSimpleServiceInterface {
 
     List<RecipeSimpleDTO> getAll();
 
-    RecipeSimpleDTO getByInsuranceId(String insuranceId);
+    List<RecipeSimpleDTO> getByInsuranceId(String insuranceId);
 
     RecipeSimpleDTO getById(Long id);
 

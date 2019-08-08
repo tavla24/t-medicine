@@ -40,24 +40,24 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     @Transactional
     public List<RecipeSimpleDTO> getAll() {
         List<RecipeSimple> list = daoRecipeSimple.getAll();
-        List<RecipeSimpleDTO> listDTO = new ArrayList<>();
-        for (RecipeSimple item : list) {
-            RecipeSimpleDTO dto = new RecipeSimpleDTO();
-            MapperUtil.toDTORecipeSimple().accept(item, dto);
-        }
-        return listDTO;
+        return fillDTO(list);
     }
 
     @Override
     @Transactional
-    public RecipeSimpleDTO getByInsuranceId(String insuranceId) {
-        RecipeSimple db = daoRecipeSimple.getByInsuranceId(insuranceId);
-        RecipeSimpleDTO dto = new RecipeSimpleDTO();
-        if (db != null) {
-            MapperUtil.toDTORecipeSimple().accept(db, dto);
-            //MapperUtil.toDTOPatient().accept(db.getPatient(), dto.getPatient());
+    public List<RecipeSimpleDTO> getByInsuranceId(String insuranceId) {
+        List<RecipeSimple> list = daoRecipeSimple.getByInsuranceId(insuranceId);
+        return fillDTO(list);
+    }
+
+    private List<RecipeSimpleDTO> fillDTO(List<RecipeSimple> dbList){
+        List<RecipeSimpleDTO> listDTO = new ArrayList<>();
+        for (RecipeSimple item : dbList) {
+            RecipeSimpleDTO dto = new RecipeSimpleDTO();
+            MapperUtil.toDTORecipeSimple().accept(item, dto);
+            listDTO.add(dto);
         }
-        return dto;
+        return listDTO;
     }
 
     @Override
@@ -74,12 +74,14 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     @Transactional
     public void updateProfile(RecipeSimpleDTO dto){
         log.info("service.updateProfile(Recipe) insureId [{}]; id [{}]", dto.getPatient().getInsuranceId(), dto.getId());
-        RecipeSimple db = daoRecipeSimple.getById(dto.getId());
+        dto.convListToDayTypes();
+        dto.convListToDayNames();
+        //RecipeSimple db = daoRecipeSimple.getById(dto.getId());
 
-        if (db == null)
+        if (dto.getId() == null)
             insert(dto, new RecipeSimple());
         else
-            update(dto, db);
+            update(dto, daoRecipeSimple.getById(dto.getId()));
 
         // TODO update events
     }
@@ -120,7 +122,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
 
     private void fillDTODataToEntity(RecipeSimpleDTO dto, RecipeSimple db) {
         log.info("fillDTODataToEntity");
-        Patient a = daoPatient.getByLogin(dto.getPatient().getInsuranceId());
+        Patient a = daoPatient.getByInsuranceId(dto.getPatient().getInsuranceId());
         db.setPatient(a);
         MapperUtil.toEntityRecipeSimple().accept(dto, db);
     }

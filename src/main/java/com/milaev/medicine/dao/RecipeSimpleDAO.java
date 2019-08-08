@@ -21,10 +21,10 @@ public class RecipeSimpleDAO extends AbstractDAO<RecipeSimple> implements Recipe
     }
 
     @Override
-    public RecipeSimple getByInsuranceId(String insuranceId) {
+    public List<RecipeSimple> getByInsuranceId(String insuranceId) {
         Query<RecipeSimple> query = getCurrentSession()
                 .createQuery("from RecipeSimple as p where p.patient.insuranceId = :param1");
-        return getByParamsSingle(query, insuranceId);
+        return getByParams(query, insuranceId);
     }
 
     @Override

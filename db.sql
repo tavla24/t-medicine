@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS patients;
-DROP TABLE IF EXISTS dto;
+DROP TABLE IF EXISTS recipes;
 DROP TABLE IF EXISTS recipes_day_parts;
 DROP TABLE IF EXISTS recipes_day_names;
 DROP TABLE IF EXISTS healings;
@@ -84,7 +84,7 @@ CREATE TABLE healings
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
-CREATE TABLE dto
+CREATE TABLE recipes
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   patient_id INT UNSIGNED NOT NULL,
@@ -178,7 +178,7 @@ ALTER TABLE recipes_simple
     FOREIGN KEY (patient_id)
       REFERENCES patients(id);
   
-ALTER TABLE dto
+ALTER TABLE recipes 
   ADD CONSTRAINT recipes_patients_fk 
   FOREIGN KEY (patient_id) 
   REFERENCES patients(id);
@@ -186,14 +186,14 @@ ALTER TABLE dto
 ALTER TABLE recipes_day_names
   ADD CONSTRAINT recipes_day_names_recipes_fk
     FOREIGN KEY (recipe_id)
-      REFERENCES dto(id);
+      REFERENCES recipes(id);
 
 ALTER TABLE recipes_day_parts
   ADD CONSTRAINT recipes_day_parts_names_fk
     FOREIGN KEY (day_name_id)
       REFERENCES recipes_day_names(id);
   
-ALTER TABLE dto
+ALTER TABLE recipes 
   ADD CONSTRAINT recipes_healings_fk 
   FOREIGN KEY (healing_id) 
   REFERENCES healings(id);
@@ -201,7 +201,7 @@ ALTER TABLE dto
 ALTER TABLE events 
   ADD CONSTRAINT events_recipes_fk 
   FOREIGN KEY (recipe_id) 
-  REFERENCES dto(id);
+  REFERENCES recipes(id);
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
@@ -233,17 +233,21 @@ INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 (3, 4, 'astigmatizm', '87635832', 'ILL');
 
 INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
-(2, 'ochki', 'PROCEDURE', false, '2019-01-01', '2019-09-15', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
-(3, 'drug bitter', 'DRUG', false, '2019-06-25', '2019-08-11', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
+#(2, 'ochki', 'PROCEDURE', false, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y'), '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+#(3, 'drug bitter', 'DRUG', false, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'), '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
+(2, 'ochki', 'PROCEDURE', false, '2019-02-01', '2019-06-05', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+(3, 'drug bitter', 'DRUG', false, '2019-04-03', '2018-08-07', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
 
 INSERT INTO healings (name, type) VALUES
 ('ochki', 'PROCEDURE'),
 ('drug bitter', 'DRUG'),
 ('drug sweed', 'DRUG');
 
-INSERT INTO dto (patient_id, healing_id, date_from, date_to) VALUES
-(2, 1, '2019-01-01', '2019-09-15'),
-(3, 2, '2019-06-25', '2019-08-11');
+INSERT INTO recipes (patient_id, healing_id, date_from, date_to) VALUES
+#(2, 1, '2019-01-01', '2019-09-15'),
+#(3, 2, '2019-06-25', '2019-08-11');
+(2, 1, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y')),
+(3, 2, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'));
 
 INSERT INTO recipes_day_names (name, recipe_id) VALUES
 ('Monday', 1),

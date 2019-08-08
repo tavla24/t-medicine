@@ -1,5 +1,7 @@
 package com.milaev.medicine.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -39,12 +41,14 @@ public class RecipeSimple {
     @Column(name = "day_parts", nullable = false)
     private String dayParts;
 
-    @Column(name = "date_from", nullable = false)
+    @Column(name = "date_from", nullable = false)//, nullable = false
     @Temporal(TemporalType.DATE)
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateFrom;
 
-    @Column(name = "date_to", nullable = false)
+    @Column(name = "date_to", nullable = false)//, nullable = false
     @Temporal(TemporalType.DATE)
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateTo;
 
     public Long getId() {

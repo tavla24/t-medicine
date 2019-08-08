@@ -3,6 +3,7 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 
@@ -40,11 +41,12 @@
 
         <div>
             <label for="name">Periodic:</label>from
-            <form:input type="text" path="dateFrom" id="name" />
+            <fmt:formatDate value="${dto.dateFrom}" var="dateFromString" pattern="yyyy-MM-dd" />
+            <form:input type="date" path="dateFrom" id="name" value="${dateFromString}" />
             <div>
                 <form:errors path="dateFrom" />
             </div>to
-            <form:input type="text" path="dateTo" id="name" />
+            <form:input type="date" path="dateTo" id="name" />
             <div>
                 <form:errors path="dateTo" />
             </div>

@@ -4,20 +4,20 @@ import java.util.List;
 
 public class DTOContainer <T> {
 
-        private List<T> dtos;
+        private List<T> list;
 
         public DTOContainer(){}
 
-        public DTOContainer(List<T> dtos) {
-            this.dtos = dtos;
+        public DTOContainer(List<T> list) {
+            this.list = list;
         }
 
         public List<T> getDtos() {
-            return dtos;
+            return list;
         }
 
-        public void setDtos(List<T> dtos) {
-            this.dtos = dtos;
+        public void setDtos(List<T> list) {
+            this.list = list;
         }
 }
 
