@@ -43,7 +43,7 @@ public class TestController {
         model.addAttribute("sourceDayNames", sourceDayNames);
         model.addAttribute("sourceDayParts", sourceDayParts);
         model.addAttribute("recipes", dto);
-        return "recipe/registration";
+        return "recipe/registration_simple";
     }
 
     @PostMapping(value = "/test") // , method = RequestMethod.GET

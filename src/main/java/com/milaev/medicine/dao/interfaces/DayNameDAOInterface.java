@@ -8,9 +8,9 @@ public interface DayNameDAOInterface {
     
     List<DayName> getByRecipeId(Long id);
 
-    boolean insert(DayName acc);
+    void insert(DayName acc);
 
-    boolean delete(DayName acc);
+    void delete(DayName acc);
 
-    boolean update(DayName acc);
+    void update(DayName acc);
 }

@@ -9,5 +9,5 @@ public interface RoleServiceInterface {
 
     Role getByType(String type);
 
-    Role getById(int id);
+    Role getById(Long id);
 }

@@ -18,9 +18,10 @@
     <div>Patient Registration Form</div>
     <form:form method="POST" modelAttribute="dto">
         <form:input type="hidden" path="id" id="id" />
+        <form:input type="hidden" path="patient.insuranceId" id="patient.insuranceId" />
 
         <div>
-            <label>Patient:</label> ${dto.patient.name} ${dto.patient.surname}
+            <label>Patient:</label> ${dto.patient.name} ${dto.patient.surname} ${dto.patient.patronymic}
         </div>
 
         <div>
@@ -35,7 +36,7 @@
                 <br><label for="status">Doze:</label>
                 <form:input type="text" path="doze" id="doze" />
             </div>
-         </div>
+        </div>
 
         <div>
             <label for="name">Periodic:</label>from
@@ -49,17 +50,17 @@
             </div>
         </div>
 
-    <div>
-        <form:checkbox path="healthful" />
-    </div>
+        <div>
+            <form:checkbox path="healthful" />
+        </div>
 
-    <div>
-        <form:checkboxes path="dayPartsList" items="${sourceDayParts}" />
-    </div>
+        <div>
+            <form:checkboxes path="dayPartsList" items="${sourceDayParts}" />
+        </div>
 
-    <div>
-        <form:select path="dayNamesList" items="${sourceDayNames}" multiple="true" />
-    </div>
+        <div>
+            <form:select path="dayNamesList" items="${sourceDayNames}" multiple="true" />
+        </div>
 
         <div>
             <br>

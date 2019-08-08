@@ -62,7 +62,7 @@ public class DoctorService implements DoctorServiceInterface {
 
     @Override
     @Transactional
-    public DoctorDTO getById(int id) {
+    public DoctorDTO getById(Long id) {
         Doctor dbDoctor = daoDoctor.getById(id);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
@@ -99,13 +99,13 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getByLogin(dto.getLogin());
 
         if (dbDoctor == null)
-            add(dto, new Doctor());
+            insert(dto, new Doctor());
         else
-            edit(dto, dbDoctor);
+            update(dto, dbDoctor);
 
     }
 
-    private void edit(DoctorDTO dto, Doctor db) {
+    private void update(DoctorDTO dto, Doctor db) {
         log.info("service.update(Doctor) login [{}]", db.getAccount().getLogin());
         fillDTODataToEntity(dto, db);
         try {
@@ -113,10 +113,10 @@ public class DoctorService implements DoctorServiceInterface {
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-    }
+        }
     }
 
-    private void add(DoctorDTO dto, Doctor db) {
+    private void insert(DoctorDTO dto, Doctor db) {
         log.info("service.insert(Doctor)");
         fillDTODataToEntity(dto, db);
         try {

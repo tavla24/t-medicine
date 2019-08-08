@@ -28,7 +28,7 @@ public abstract class AbstractDAO<T> {
         return sessionFactory.getCurrentSession();
     }
     
-    public T getById(int id) {
+    public T getById(Long id) {
         return getCurrentSession().get(persistentClass, id);
     }
 
@@ -68,38 +68,32 @@ public abstract class AbstractDAO<T> {
         //return query.getQResult();
     }
 
-    protected boolean per(T acc) {
+    protected void per(T acc) {
         try {
             getCurrentSession().persist(acc);
         } catch (Exception ex) {
             // TODO exceptions (double var) dont catched
             log.error("Exception /persist/ from DAO during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    protected boolean del(T acc) {
+    protected void del(T acc) {
         try {
             getCurrentSession().delete(acc);
         } catch (Exception ex) {
             log.error("Exception /delete/ from DAO during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    protected boolean upd(T acc) {
+    protected void upd(T acc) {
         try {
             getCurrentSession().update(acc);
         } catch (Exception ex) {
             log.error("Exception /update/ from DAO during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     protected static <T> T getQResult(TypedQuery<T> query) {

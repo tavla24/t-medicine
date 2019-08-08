@@ -8,9 +8,9 @@ public interface HealingDAOInterface {
     
     List<Healing> getByRecipeId(Long id);
 
-    boolean insert(Healing acc);
+    void insert(Healing acc);
 
-    boolean delete(Healing acc);
+    void delete(Healing acc);
 
-    boolean update(Healing acc);
+    void update(Healing acc);
 }

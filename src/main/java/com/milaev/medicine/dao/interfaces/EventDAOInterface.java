@@ -15,9 +15,9 @@ public interface EventDAOInterface {
 
     List<Event> getRecipesByTime(Date dateFrom, Date dateTo);
 
-    boolean insert(Event acc);
+    void insert(Event acc);
 
-    boolean delete(Event acc);
+    void delete(Event acc);
 
-    boolean update(Event acc);
+    void update(Event acc);
 }

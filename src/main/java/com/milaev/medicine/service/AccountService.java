@@ -56,7 +56,7 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     @Transactional
-    public AccountDTO getById(int id) {
+    public AccountDTO getById(Long id) {
         Account dbAccount = daoAccount.getById(id);
         AccountDTO accountDTO = new AccountDTO();
         MapperUtil.toDTOAccount().accept(dbAccount, accountDTO);
@@ -79,20 +79,18 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     @Transactional
-    public boolean deleteByLogin(String login) {
+    public void deleteByLogin(String login) {
         Account dbAccount = daoAccount.getByLogin(login);
         try {
             daoAccount.delete(dbAccount);
         } catch (Exception ex) {
             report(ex);
-            return false;
         }
-        return true;
     }
 
     @Override
     @Transactional
-    public boolean update(AccountDTO dto, String oldLogin) {
+    public void update(AccountDTO dto, String oldLogin) {
         log.info("service.update(Account)");
         Account dbAccount = daoAccount.getByLogin(oldLogin);
         Role r = daoRole.getByType(dto.getRole().getType());
@@ -102,14 +100,12 @@ public class AccountService implements AccountServiceInterface {
             daoAccount.update(dbAccount);
         } catch (Exception ex) {
             report(ex);
-            return false;
         }
-        return true;
     }
 
     @Override
     @Transactional
-    public boolean insert(AccountDTO dto) {
+    public void insert(AccountDTO dto) {
         log.info("service.insert(Account)");
         log.info(dto.toString());
         Role r = daoRole.getByType(dto.getRole().getType());
@@ -123,9 +119,7 @@ public class AccountService implements AccountServiceInterface {
             daoAccount.insert(dbAccount);
         } catch (Exception ex) {
             report(ex);
-            return false;
         }
-        return true;
     }
 
     private void report(Exception ex){

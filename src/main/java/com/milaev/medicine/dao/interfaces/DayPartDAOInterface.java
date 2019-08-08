@@ -8,9 +8,9 @@ public interface DayPartDAOInterface {
     
     List<DayPart> getByDayNameId(Long id);
 
-    boolean insert(DayPart acc);
+    void insert(DayPart acc);
 
-    boolean delete(DayPart acc);
+    void delete(DayPart acc);
 
-    boolean update(DayPart acc);
+    void update(DayPart acc);
 }

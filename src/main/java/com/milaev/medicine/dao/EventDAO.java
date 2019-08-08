@@ -45,18 +45,18 @@ public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {
     }
 
     @Override
-    public boolean insert(Event acc) {
-        return per(acc);
+    public void insert(Event acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(Event acc) {
-        return del(acc);
+    public void delete(Event acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(Event acc) {
-        return upd(acc);
+    public void update(Event acc) {
+        upd(acc);
     }
 
 }

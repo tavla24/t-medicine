@@ -28,17 +28,17 @@ public class RecipeSimpleDAO extends AbstractDAO<RecipeSimple> implements Recipe
     }
 
     @Override
-    public boolean insert(RecipeSimple acc) {
-        return per(acc);
+    public void insert(RecipeSimple acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(RecipeSimple acc) {
-        return del(acc);
+    public void delete(RecipeSimple acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(RecipeSimple acc) {
-        return upd(acc);
+    public void update(RecipeSimple acc) {
+        upd(acc);
     }
 }

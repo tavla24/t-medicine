@@ -23,18 +23,18 @@ public class HealingDAO extends AbstractDAO<Healing> implements HealingDAOInterf
     }
 
     @Override
-    public boolean insert(Healing acc) {
-        return per(acc);
+    public void insert(Healing acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(Healing acc) {
-        return del(acc);
+    public void delete(Healing acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(Healing acc) {
-        return upd(acc);
+    public void update(Healing acc) {
+        upd(acc);
     }
 
 }

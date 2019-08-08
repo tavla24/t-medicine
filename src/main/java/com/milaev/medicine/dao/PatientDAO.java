@@ -47,17 +47,17 @@ public class PatientDAO extends AbstractDAO<Patient> implements PatientDAOInterf
     }
 
     @Override
-    public boolean insert(Patient acc) {
-        return per(acc);
+    public void insert(Patient acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(Patient acc) {
-        return del(acc);
+    public void delete(Patient acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(Patient acc) {
-        return upd(acc);
+    public void update(Patient acc) {
+        upd(acc);
     }
 }

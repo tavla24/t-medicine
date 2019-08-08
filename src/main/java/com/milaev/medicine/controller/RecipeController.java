@@ -1,12 +1,13 @@
 package com.milaev.medicine.controller;
 
+
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
-import com.milaev.medicine.dto.DayNameDTO;
-import com.milaev.medicine.dto.DayPartDTO;
+import com.milaev.medicine.dto.DTOContainer;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
 import com.milaev.medicine.model.enums.HealingType;
+import com.milaev.medicine.service.interfaces.RecipeServiceInterface;
 import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,54 +44,69 @@ public class RecipeController {
         RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
         List<RecipeSimpleDTO> list = new ArrayList<>();
         list.add(recipe);
+        DTOContainer<RecipeSimpleDTO> container = new DTOContainer(list);
 
         //RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
 
-
-        model.addAttribute("recipes", list);
+        model.addAttribute("container", container);
         model.addAttribute("insuranceId", insuranceId);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "recipe/list";
+        return "recipe/list_simple2";
     }
 
-    @GetMapping(value = "/edit/{insuranceId}") // , method = RequestMethod.GET
-    public String listRecipes(@PathVariable String insuranceId, ModelMap model) {
-        log.info("listRecipes()");
-        String loggedinuser = sessionAuth.getUserName();
-        RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
+    @GetMapping(value = "/edit/{id}") // , method = RequestMethod.GET
+    public String editRecipes(@PathVariable String id, ModelMap model) {
+        log.info("editRecipes()");
+        Long recipeId = 0L;
 
-        model.addAttribute("recipes", recipe);
-        model.addAttribute("statuses", HealingType.getTypeList());
-        model.addAttribute("insuranceId", insuranceId);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "recipe/registration";
-    }
-
-    @GetMapping(value = "/edit/pattern/{insuranceId}") // , method = RequestMethod.GET
-    public String editTimePattern(@PathVariable String insuranceId, ModelMap model) {
-        log.info("editTimePattern()");
-        String loggedinuser = sessionAuth.getUserName();
-        RecipeSimpleDTO recipe = recipeService.getByInsuranceId(insuranceId);
-
-        List<DayNameDTO> lDayNames = new ArrayList<>();
-
-        for(String dayName: DayNameTypes.getTypeList()) {
-            DayNameDTO nDayName = new DayNameDTO();
-            nDayName.setName(dayName);
-            List<DayPartDTO> lDayTypes = new ArrayList<>();
-            for(String dayPart: DayPartTypes.getTypeList()) {
-                DayPartDTO nDayPart = new DayPartDTO();
-                nDayPart.setPart(dayPart);
-                lDayTypes.add(nDayPart);
-            }
-            nDayName.setDayParts(lDayTypes);
-            lDayNames.add(nDayName);
+        try {
+            recipeId = Long.parseLong(id);
+        }catch (Exception ex){
+            System.out.println("parseLong failed!");
+            ex.printStackTrace();
         }
 
-        model.addAttribute("recipes", recipe);
-        model.addAttribute("source", lDayNames);
-        model.addAttribute("insuranceId", insuranceId);
-        model.addAttribute("loggedinuser", loggedinuser);
-        return "timepattern/registration";
+        String loggedinuser = sessionAuth.getUserName();
+        RecipeSimpleDTO dto = recipeService.getById(recipeId);
+        dto.convToDayNamesList();
+        dto.convToDayPartsList();
+        //dto.translate();
+
+        List<String> sourceHealingTypes = HealingType.getTypeList();
+        List<String> sourceDayNames = DayNameTypes.getTypeList();
+        List<String> sourceDayParts = DayPartTypes.getTypeList();
+
+        model.addAttribute("sourceHealingTypes", sourceHealingTypes);
+        model.addAttribute("sourceDayNames", sourceDayNames);
+        model.addAttribute("sourceDayParts", sourceDayParts);
+        model.addAttribute("recipes", dto);
+        model.addAttribute("id", recipeId);
+        model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        return "recipe/registration_simple";
+    }
+
+    @PostMapping(value = "/edit/{id}") // , method = RequestMethod.GET
+    public String editRecipesPost(@Valid RecipeSimpleDTO dto, @PathVariable String id, BindingResult result, ModelMap model) {
+        log.info("editRecipesPost()");
+        recipeService.updateProfile(dto);
+        return String.format("recipe/list/%d", dto.getPatient().getInsuranceId());
+    }
+
+    @GetMapping(value = "/delete/{insuranceId}/{id}") // , method = RequestMethod.GET
+    public String deleteRecipes(@Valid RecipeSimpleDTO dto, @PathVariable String insuranceId, @PathVariable String id, BindingResult result, ModelMap model) {
+        log.info("deleteRecipes()");
+        dto.getPatient().setInsuranceId(insuranceId);
+        //dto.setId(id);
+        recipeService.delete(dto);
+        return String.format("redirect:/recipe/list/%s", insuranceId);
+    }
+
+    @PostMapping(value = "/list/{insuranceId}") // , method = RequestMethod.GET @Valid @ModelAttribute("container") @Valid @ModelAttribute("container")
+    public String deleteRecipesDel(DTOContainer<RecipeSimpleDTO> dto, BindingResult result, ModelMap model) {
+        log.info("deleteRecipesDel()");
+        //dto.getPatient().setInsuranceId(insuranceId);
+        //dto.setId(id);
+        //recipeService.delete(dto);
+        return String.format("redirect:/recipe/list/0");
     }
 }

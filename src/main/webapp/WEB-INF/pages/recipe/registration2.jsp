@@ -15,11 +15,11 @@
     <span><strong>${loggedinuser}</strong>, welcome </span>
 
     <div>Patient Registration Form</div>
-    <form:form method="POST" modelAttribute="recipes">
+    <form:form method="POST" modelAttribute="dto">
         <form:input type="hidden" path="id" id="id" />
 
         <div>
-            <label>Patient:</label> ${recipes.patient.name} ${recipes.patient.surname}
+            <label>Patient:</label> ${dto.patient.name} ${dto.patient.surname}
         </div>
 
         <div>
@@ -55,7 +55,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${recipes.dayNames}" var="dayName">
+            <c:forEach items="${dto.dayNames}" var="dayName">
                 <tr>
                     <th>${dayName.name}</th>
                     <th>
@@ -64,8 +64,8 @@
                         </c:forEach>
                     </th>
                     <sec:authorize access="hasRole('DOCTOR')">
-                        <td><a href="<c:url value='/recipe/edit/${recipes.patient.insuranceId}' />" method="POST">edit</a></td>
-                        <td><a href="<c:url value='/recipe/delete/${recipes.patient.insuranceId}' />" method="POST">delete</a></td>
+                        <td><a href="<c:url value='/recipe/edit/${dto.patient.insuranceId}' />" method="POST">edit</a></td>
+                        <td><a href="<c:url value='/recipe/delete/${dto.patient.insuranceId}' />" method="POST">delete</a></td>
                     </sec:authorize>
                 </tr>
             </c:forEach>

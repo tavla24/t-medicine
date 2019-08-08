@@ -26,22 +26,22 @@ public class AccountDAO extends AbstractDAO<Account> implements AccountDAOInterf
     }
 
     @Override
-    public boolean insert(Account acc) {
-        return per(acc);
+    public void insert(Account acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(Account acc) {
-        return del(acc);
+    public void delete(Account acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(Account acc) {
-        return upd(acc);
+    public void update(Account acc) {
+        upd(acc);
     }
 
 //    @Override
-//    public Account getById(int id) {
+//    public Account getById(Long id) {
 //        return getById(id);
 //    }
 

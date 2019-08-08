@@ -74,7 +74,7 @@ public abstract class PersonService<E extends Person, D>{
         return dto;
     }
 
-    public D getById(int id){
+    public D getById(Long id){
         E db = getDAO().getById(id);
         D dto = null;
         try {
@@ -89,16 +89,14 @@ public abstract class PersonService<E extends Person, D>{
         return dto;
     }
 
-    public boolean deleteByLogin(String login) {
+    public void deleteByLogin(String login) {
         E db = getDAO().getByLogin(login);
         try {
             getDAO().delete(db);
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public boolean isProfileExist(String login) {
@@ -116,7 +114,7 @@ public abstract class PersonService<E extends Person, D>{
             add(dto);
     }
 
-    public boolean edit(D dto, String oldLogin) {
+    public void edit(D dto, String oldLogin) {
         log.info("service.update(Doctor) login [{}]", oldLogin);
         //log.info(dto.toString());
         E db = getDAO().getByLogin(oldLogin);
@@ -127,12 +125,10 @@ public abstract class PersonService<E extends Person, D>{
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    public boolean add(D dto){
+    public void add(D dto){
         log.info("service.insert(Doctor)");
         E db = null;
         try {
@@ -149,9 +145,7 @@ public abstract class PersonService<E extends Person, D>{
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public abstract void fillDTODataToEntity(D dto, E entity);

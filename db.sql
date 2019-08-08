@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS patients;
-DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS dto;
 DROP TABLE IF EXISTS recipes_day_parts;
 DROP TABLE IF EXISTS recipes_day_names;
 DROP TABLE IF EXISTS healings;
@@ -84,7 +84,7 @@ CREATE TABLE healings
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
-CREATE TABLE recipes
+CREATE TABLE dto
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   patient_id INT UNSIGNED NOT NULL,
@@ -178,7 +178,7 @@ ALTER TABLE recipes_simple
     FOREIGN KEY (patient_id)
       REFERENCES patients(id);
   
-ALTER TABLE recipes 
+ALTER TABLE dto
   ADD CONSTRAINT recipes_patients_fk 
   FOREIGN KEY (patient_id) 
   REFERENCES patients(id);
@@ -186,14 +186,14 @@ ALTER TABLE recipes
 ALTER TABLE recipes_day_names
   ADD CONSTRAINT recipes_day_names_recipes_fk
     FOREIGN KEY (recipe_id)
-      REFERENCES recipes(id);
+      REFERENCES dto(id);
 
 ALTER TABLE recipes_day_parts
   ADD CONSTRAINT recipes_day_parts_names_fk
     FOREIGN KEY (day_name_id)
       REFERENCES recipes_day_names(id);
   
-ALTER TABLE recipes 
+ALTER TABLE dto
   ADD CONSTRAINT recipes_healings_fk 
   FOREIGN KEY (healing_id) 
   REFERENCES healings(id);
@@ -201,7 +201,7 @@ ALTER TABLE recipes
 ALTER TABLE events 
   ADD CONSTRAINT events_recipes_fk 
   FOREIGN KEY (recipe_id) 
-  REFERENCES recipes(id);
+  REFERENCES dto(id);
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
@@ -241,7 +241,7 @@ INSERT INTO healings (name, type) VALUES
 ('drug bitter', 'DRUG'),
 ('drug sweed', 'DRUG');
 
-INSERT INTO recipes (patient_id, healing_id, date_from, date_to) VALUES
+INSERT INTO dto (patient_id, healing_id, date_from, date_to) VALUES
 (2, 1, '2019-01-01', '2019-09-15'),
 (3, 2, '2019-06-25', '2019-08-11');
 

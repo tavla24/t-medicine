@@ -10,9 +10,9 @@ public interface AccountDAOInterface {
 
     Account getByLogin(String login);
 
-    boolean insert(Account acc);
+    void insert(Account acc);
 
-    boolean delete(Account acc);
+    void delete(Account acc);
 
-    boolean update(Account acc);
+    void update(Account acc);
 }

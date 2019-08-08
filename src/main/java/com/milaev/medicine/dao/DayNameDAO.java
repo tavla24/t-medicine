@@ -22,18 +22,18 @@ public class DayNameDAO extends AbstractDAO<DayName> implements DayNameDAOInterf
     }
 
     @Override
-    public boolean insert(DayName acc) {
-        return per(acc);
+    public void insert(DayName acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(DayName acc) {
-        return del(acc);
+    public void delete(DayName acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(DayName acc) {
-        return upd(acc);
+    public void update(DayName acc) {
+        upd(acc);
     }
 
 }

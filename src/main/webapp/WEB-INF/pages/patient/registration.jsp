@@ -65,9 +65,7 @@
                 </div>
             </div>
 
-
-
-            <!--
+            <%--
             <div>
                 <label for="status">Status</label>
                 <div>
@@ -77,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            -->
+            --%>
 
             <div>
 				<div>

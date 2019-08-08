@@ -17,7 +17,7 @@ public interface PatientServiceInterface {
 
     PatientDTO getByFullName(String fname, String surname, String patronymic, String specify);
 
-    PatientDTO getById(int id);
+    PatientDTO getById(Long id);
 
     boolean isProfileExist(String insuranceId);
 

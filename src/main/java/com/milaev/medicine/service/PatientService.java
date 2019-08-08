@@ -89,7 +89,7 @@ public class PatientService implements PatientServiceInterface {
 
     @Override
     @Transactional
-    public PatientDTO getById(int id) {
+    public PatientDTO getById(Long id) {
         Patient db = daoPatient.getById(id);
         PatientDTO dto = new PatientDTO();
         if (db != null)

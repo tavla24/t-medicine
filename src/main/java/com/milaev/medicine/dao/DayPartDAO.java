@@ -22,18 +22,18 @@ public class DayPartDAO extends AbstractDAO<DayPart> implements DayPartDAOInterf
     }
 
     @Override
-    public boolean insert(DayPart acc) {
-        return per(acc);
+    public void insert(DayPart acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(DayPart acc) {
-        return del(acc);
+    public void delete(DayPart acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(DayPart acc) {
-        return upd(acc);
+    public void update(DayPart acc) {
+        upd(acc);
     }
 
 }

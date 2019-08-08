@@ -15,9 +15,9 @@ public interface PatientDAOInterface {
 
     Patient getByFullName(String fname, String surname, String patronymic, String specify);
 
-    boolean insert(Patient acc);
+    void insert(Patient acc);
 
-    boolean delete(Patient acc);
+    void delete(Patient acc);
 
-    boolean update(Patient acc);
+    void update(Patient acc);
 }

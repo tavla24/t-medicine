@@ -12,11 +12,13 @@ public interface RecipeSimpleServiceInterface {
 
     RecipeSimpleDTO getByInsuranceId(String insuranceId);
 
-    RecipeSimpleDTO getById(int id);
+    RecipeSimpleDTO getById(Long id);
 
-    boolean insert(RecipeSimpleDTO acc);
+    public void updateProfile(RecipeSimpleDTO dto);
 
-    boolean delete(String insuranceId);
+    void delete(RecipeSimpleDTO dto);
 
-    boolean update(RecipeSimpleDTO acc);
+//    void insert(RecipeSimpleDTO acc);
+//
+//    void update(RecipeSimpleDTO acc);
 }

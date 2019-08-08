@@ -44,18 +44,18 @@ public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface
     }
 
     @Override
-    public boolean insert(Doctor acc) {
-        return per(acc);
+    public void insert(Doctor acc) {
+        per(acc);
     }
 
     @Override
-    public boolean delete(Doctor acc) {
-        return del(acc);
+    public void delete(Doctor acc) {
+        del(acc);
     }
 
     @Override
-    public boolean update(Doctor acc) {
-        return upd(acc);
+    public void update(Doctor acc) {
+        upd(acc);
     }
 
 }

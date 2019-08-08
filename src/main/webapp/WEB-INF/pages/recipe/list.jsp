@@ -33,7 +33,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${recipes}" var="recipe">
+				<c:forEach items="${dto}" var="recipe">
 					<tr>
 						<th>${recipe.healing.type}:${recipe.healing.name}</th>
 						<th>${recipe.dateFrom}</th>

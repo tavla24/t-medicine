@@ -12,7 +12,7 @@ public interface DoctorServiceInterface {
 
     DoctorDTO getByFullName(String fname, String surname, String patronymic, String specify);
 
-    DoctorDTO getById(int id);
+    DoctorDTO getById(Long id);
 
     boolean isProfileExist(String login);
 

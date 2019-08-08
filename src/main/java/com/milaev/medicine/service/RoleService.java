@@ -35,7 +35,7 @@ public class RoleService implements RoleServiceInterface {
 
     @Override
     @Transactional
-    public Role getById(int id) {
+    public Role getById(Long id) {
         return dao.getById(id);
     }
 

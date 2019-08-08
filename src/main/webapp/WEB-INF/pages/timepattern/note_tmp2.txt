@@ -20,11 +20,11 @@
     <span><strong>${loggedinuser}</strong>, welcome </span>
 
     <div>Patient Registration Form</div>
-    <form:form method="POST" modelAttribute="recipes">
+    <form:form method="POST" modelAttribute="dto">
         <form:input type="hidden" path="id" id="id" />
 
         <div>
-            <label>Patient:</label> ${recipes.patient.name} ${recipes.patient.surname}
+            <label>Patient:</label> ${dto.patient.name} ${dto.patient.surname}
         </div>
 
         <table>
@@ -40,12 +40,12 @@
                     <th>
                                 <%
                                     List<String> listS1 = new ArrayList<>();
-                                    for (DayNameDTO item: (request.getParameter("recipes")).getDayNames()){
+                                    for (DayNameDTO item: (request.getParameter("dto")).getDayNames()){
 
                                     }
                                     pageContext.setAttribute("names", listS1);
                                 %>
-                        <c:forEach items="${recipes.dayNames}" var="dn">
+                        <c:forEach items="${dto.dayNames}" var="dn">
                             <c:set var="list" >
                         </c:forEach>
                         <form:checkboxes path="dayNames" items="${source}" />
@@ -61,8 +61,8 @@
 
                     </th>
                     <sec:authorize access="hasRole('DOCTOR')">
-                        <td><a href="<c:url value='/recipe/edit/${recipes.patient.insuranceId}' />" method="POST">edit</a></td>
-                        <td><a href="<c:url value='/recipe/delete/${recipes.patient.insuranceId}' />" method="POST">delete</a></td>
+                        <td><a href="<c:url value='/recipe/edit/${dto.patient.insuranceId}' />" method="POST">edit</a></td>
+                        <td><a href="<c:url value='/recipe/delete/${dto.patient.insuranceId}' />" method="POST">delete</a></td>
                     </sec:authorize>
                 </tr>
             </tbody>

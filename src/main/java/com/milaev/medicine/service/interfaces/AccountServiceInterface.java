@@ -9,13 +9,13 @@ public interface AccountServiceInterface {
 
     AccountDTO getByLogin(String login);
 
-    AccountDTO getById(int id);
+    AccountDTO getById(Long id);
 
     boolean isLoginUnique(String login);
 
-    boolean deleteByLogin(String login);
+    void deleteByLogin(String login);
 
-    boolean update(AccountDTO dto, String oldLogin);
+    void update(AccountDTO dto, String oldLogin);
 
-    boolean insert(AccountDTO dto);
+    void insert(AccountDTO dto);
 }
