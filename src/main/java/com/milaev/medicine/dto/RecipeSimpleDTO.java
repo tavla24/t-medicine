@@ -36,6 +36,8 @@ public class RecipeSimpleDTO {
     }
 
     public PatientDTO getPatient() {
+        if (patient == null)
+            patient = new PatientDTO();
         return patient;
     }
 
