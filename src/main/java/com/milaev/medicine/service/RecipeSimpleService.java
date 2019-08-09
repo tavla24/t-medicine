@@ -79,7 +79,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
             update(dto, daoRecipeSimple.getById(dto.getId()));
 
         // TODO update events
-        eventService.updateEvents(dto.getId());
+        //eventService.updateEvents(dto.getId());
     }
 
     @Override

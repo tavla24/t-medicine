@@ -8,6 +8,7 @@ import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
 import com.milaev.medicine.model.enums.HealingType;
+import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.service.interfaces.PatientServiceInterface;
 import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import org.slf4j.Logger;
@@ -44,6 +45,10 @@ public class RecipeController {
 
     @Autowired
     PatientServiceInterface patientService;
+
+    @Autowired
+    private EventServiceInterface eventService;
+
 
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
@@ -129,6 +134,7 @@ public class RecipeController {
     public String editRecipePost(@PathVariable String insuranceId, @PathVariable Long id, @Valid RecipeSimpleDTO dto, BindingResult result, ModelMap model) {
         log.info("editRecipesPost()");
         recipeService.updateProfile(dto);
+        eventService.updateEvents(dto.getId());
         return String.format("redirect:/recipe/list/%s", dto.getPatient().getInsuranceId());
     }
 
