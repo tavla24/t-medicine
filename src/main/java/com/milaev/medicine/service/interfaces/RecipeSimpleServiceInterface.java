@@ -14,7 +14,7 @@ public interface RecipeSimpleServiceInterface {
 
     RecipeSimpleDTO getById(Long id);
 
-    public void updateProfile(RecipeSimpleDTO dto);
+    void updateProfile(RecipeSimpleDTO dto);
 
     void delete(RecipeSimpleDTO dto);
 

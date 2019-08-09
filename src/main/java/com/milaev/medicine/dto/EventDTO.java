@@ -3,11 +3,19 @@ package com.milaev.medicine.dto;
 import java.util.Date;
 
 public class EventDTO {
+    private Long id;
     private RecipeSimpleDTO recipe;
     private Date datestamp;
     private String status;
     private String info;
-    
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public RecipeSimpleDTO getRecipe() {
         if (recipe == null)
             recipe = new RecipeSimpleDTO();
@@ -34,6 +42,5 @@ public class EventDTO {
     public void setInfo(String info) {
         this.info = info;
     }
-    
-    
+
 }

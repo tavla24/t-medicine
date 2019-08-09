@@ -18,9 +18,21 @@ public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {
     private static Logger log = LoggerFactory.getLogger(EventDAO.class);
 
     @Override
+    public List<Event> getAll() {
+        Query<Event> query = getCurrentSession().createQuery("from Event");
+        return getAll(query);
+    }
+
+    @Override
     public List<Event> getByRecipeId(Long id) {
         Query<Event> query = getCurrentSession().createQuery("from Event as f where f.recipe.id = :param1");
-        return getByParams(query, id.toString());
+        return getByParams(query, id);
+    }
+
+    @Override
+    public List<Event> getByInsuranceId(String insuranceId) {
+        Query<Event> query = getCurrentSession().createQuery("from Event as f where f.recipe.patient.insuranceId = :param1");
+        return getByParams(query, insuranceId);
     }
 
     @Override
