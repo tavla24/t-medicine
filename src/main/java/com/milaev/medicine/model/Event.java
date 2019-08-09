@@ -24,7 +24,7 @@ public class Event {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST
     @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
+    private RecipeSimple recipe;
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date datestamp;
@@ -41,11 +41,11 @@ public class Event {
         this.id = id;
     }
 
-    public Recipe getRecipe() {
+    public RecipeSimple getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(RecipeSimple recipe) {
         this.recipe = recipe;
     }
 

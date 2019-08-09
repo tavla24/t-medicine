@@ -244,10 +244,10 @@ INSERT INTO healings (name, type) VALUES
 ('drug sweed', 'DRUG');
 
 INSERT INTO recipes (patient_id, healing_id, date_from, date_to) VALUES
-#(2, 1, '2019-01-01', '2019-09-15'),
-#(3, 2, '2019-06-25', '2019-08-11');
-(2, 1, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y')),
-(3, 2, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'));
+(2, 1, '2019-02-01', '2019-06-05'),
+(3, 2, '2019-04-03', '2019-08-07');
+#(2, 1, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y')),
+#(3, 2, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'));
 
 INSERT INTO recipes_day_names (name, recipe_id) VALUES
 ('Monday', 1),

@@ -46,7 +46,7 @@
             <div>
                 <form:errors path="dateFrom" />
             </div>to
-            <form:input type="date" path="dateTo" id="name" />
+            <form:input type="time" path="dateTo" id="name" />
             <div>
                 <form:errors path="dateTo" />
             </div>

@@ -3,17 +3,17 @@ package com.milaev.medicine.dto;
 import java.util.Date;
 
 public class EventDTO {
-    private RecipeDTO recipe;
+    private RecipeSimpleDTO recipe;
     private Date datestamp;
     private String status;
     private String info;
     
-    public RecipeDTO getRecipe() {
+    public RecipeSimpleDTO getRecipe() {
         if (recipe == null)
-            recipe = new RecipeDTO();
+            recipe = new RecipeSimpleDTO();
         return recipe;
     }
-    public void setRecipe(RecipeDTO recipe) {
+    public void setRecipe(RecipeSimpleDTO recipe) {
         this.recipe = recipe;
     }
     public Date getDatestamp() {
