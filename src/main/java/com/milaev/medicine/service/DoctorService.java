@@ -87,9 +87,7 @@ public class DoctorService implements DoctorServiceInterface {
     @Transactional
     public boolean isProfileExist(String login) {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
-        if (dbDoctor == null)
-            return false;
-        return true;
+        return dbDoctor != null;
     }
 
     @Override

@@ -9,7 +9,6 @@ import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
 import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.service.interfaces.PatientServiceInterface;
-import com.milaev.medicine.service.interfaces.RecipeServiceInterface;
 import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

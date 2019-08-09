@@ -8,7 +8,7 @@ public enum DayPartTypes {
 
     String type;
 
-    private DayPartTypes(String dayPart) {
+    DayPartTypes(String dayPart) {
         this.type = dayPart;
     }
 

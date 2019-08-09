@@ -75,7 +75,7 @@ public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
     @Override
     public PersistentToken getByKey(String key) {
-        return (PersistentToken) sessionFactory.getCurrentSession().get(PersistentToken.class, key);
+        return sessionFactory.getCurrentSession().get(PersistentToken.class, key);
     }
 
     @Override

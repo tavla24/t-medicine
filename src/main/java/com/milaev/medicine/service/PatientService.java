@@ -101,9 +101,7 @@ public class PatientService implements PatientServiceInterface {
     @Transactional
     public boolean isProfileExist(String insuranceId) {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
-        if (db == null)
-            return false;
-        return true;
+        return db != null;
     }
 
     @Override

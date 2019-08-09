@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import com.milaev.medicine.model.enums.PatientStatus;
 
+import java.util.List;
+
 @Entity
 @Table(name = "patients")
 public class Patient extends Person {
@@ -20,8 +22,8 @@ public class Patient extends Person {
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "patient", fetch = FetchType.LAZY)
-    private Recipe recipe;
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<RecipeSimple> recipe;
 
     public String getInsuranceId() {
         return insuranceId;
@@ -55,11 +57,11 @@ public class Patient extends Person {
         this.doctor = doctor;
     }
 
-    public Recipe getRecipe() {
+    public List<RecipeSimple> getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(List<RecipeSimple> recipe) {
         this.recipe = recipe;
     }
 }

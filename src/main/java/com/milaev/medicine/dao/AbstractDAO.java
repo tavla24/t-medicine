@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDAO<T> {
@@ -109,7 +110,8 @@ public abstract class AbstractDAO<T> {
     protected static <T> List<T> getQResults(TypedQuery<T> query) {
         List<T> list = query.getResultList();
         if (list == null || list.isEmpty()) {
-            return null;
+//            return null;
+            return new ArrayList<T>();
         }
 
         return list;

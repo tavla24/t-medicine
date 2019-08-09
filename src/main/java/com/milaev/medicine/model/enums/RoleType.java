@@ -8,7 +8,7 @@ public enum RoleType {
 
     String userProfileType;
 
-    private RoleType(String userProfileType) {
+    RoleType(String userProfileType) {
         this.userProfileType = userProfileType;
     }
 

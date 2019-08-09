@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.milaev.medicine.dao.interfaces.EventDAOInterface;
-import com.milaev.medicine.model.DayPart;
 import com.milaev.medicine.model.Event;
 
 @Repository

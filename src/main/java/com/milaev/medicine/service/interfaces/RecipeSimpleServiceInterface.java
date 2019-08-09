@@ -1,8 +1,6 @@
 package com.milaev.medicine.service.interfaces;
 
-import com.milaev.medicine.dto.RecipeDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
-import com.milaev.medicine.model.Recipe;
 
 import java.util.List;
 

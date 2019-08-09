@@ -88,6 +88,9 @@ public class EventService implements EventServiceInterface {
     @Override
     @Transactional
     public void updateEvents(Long recipeId) {
+        if (recipeId == null)
+            return;
+
         RecipeSimple recipe = daoRecipeSimple.getById(recipeId);
         RecipeSimpleDTO recipeDTO = new RecipeSimpleDTO();
         MapperUtil.toDTORecipeSimple().accept(recipe, recipeDTO);
@@ -97,16 +100,27 @@ public class EventService implements EventServiceInterface {
     @Override
     @Transactional
     public void updateEvents(RecipeSimpleDTO dto) {
+        if (dto.getId() == null)
+            return;
+
         List<EventDTO> eventsDTOList = getByRecipeId(dto.getId());
         for (EventDTO item: eventsDTOList)
             if (item.getDatestamp().before(new Date()))
                 delete(item);
 
         DaysOfWeekContainer dowc = new DaysOfWeekContainer();
-        //dowc.fill(dto.getDateFrom(), dto.getDateTo(), dto.getDayNamesList());
+        dowc.fill(dto.getDateFrom(), dto.getDateTo(), dto.getDayOfWeekList());
 
-        for (DayOfWeekContainer item : dowc.getList())
-            System.out.println(item.getList());
+        for (DayOfWeekContainer item : dowc.getList()){
+            List<Date> dayList = item.getList();
+                for (Date date: dayList){
+                    EventDTO eventDTO = new EventDTO();
+                    eventDTO.setRecipe(dto);
+                    eventDTO.setDatestamp(date);
+                    eventDTO.setStatus("Active");
+                    updateProfile(eventDTO);
+                }
+            }
     }
 
     @Override

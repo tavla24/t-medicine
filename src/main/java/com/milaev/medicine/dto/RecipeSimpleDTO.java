@@ -1,5 +1,6 @@
 package com.milaev.medicine.dto;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class RecipeSimpleDTO {
     private String dayParts;
 
     private List<String> dayNamesList;
+    private List<DayOfWeek> dayOfWeekList;
     private List<String> dayNamesListLocale;
     private List<String> dayPartsList;
 
@@ -167,5 +169,17 @@ public class RecipeSimpleDTO {
         dayNamesListLocale = new ArrayList<>();
         for (String str: dayNamesList)
             dayNamesListLocale.add(str.toLowerCase());
+    }
+
+    public List<DayOfWeek> getDayOfWeekList() {
+        convToDayNamesList();
+        convToDayPartsList();
+        dayOfWeekList = new ArrayList<>();
+        for(DayOfWeek itemDOW: DayOfWeek.values())
+            for (String itemS: getDayNamesList())
+                if (itemDOW.name().toLowerCase().equals(itemS.toLowerCase()))
+                    dayOfWeekList.add(itemDOW);
+
+        return dayOfWeekList;
     }
 }

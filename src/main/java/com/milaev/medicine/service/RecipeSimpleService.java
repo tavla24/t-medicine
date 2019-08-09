@@ -1,13 +1,11 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.dao.DayNameDAO;
-import com.milaev.medicine.dao.DayPartDAO;
 import com.milaev.medicine.dao.PatientDAO;
 import com.milaev.medicine.dao.RecipeSimpleDAO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.Patient;
-import com.milaev.medicine.model.Recipe;
 import com.milaev.medicine.model.RecipeSimple;
+import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import org.slf4j.Logger;
@@ -31,10 +29,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     private PatientDAO daoPatient;
 
     @Autowired
-    private DayNameDAO daoDayName;
-
-    @Autowired
-    private DayPartDAO daoDayPart;
+    private EventServiceInterface eventService;
 
     @Override
     @Transactional
@@ -84,6 +79,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
             update(dto, daoRecipeSimple.getById(dto.getId()));
 
         // TODO update events
+        eventService.updateEvents(dto.getId());
     }
 
     @Override
@@ -110,7 +106,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     }
 
     private void update(RecipeSimpleDTO dto, RecipeSimple db) {
-        log.info("service.insert(RecipeSimple)");
+        log.info("service.update(RecipeSimple)");
         fillDTODataToEntity(dto, db);
         try {
             daoRecipeSimple.update(db);

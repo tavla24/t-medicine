@@ -8,7 +8,7 @@ public enum HealingType {
 
     String type;
 
-    private HealingType(String type) {
+    HealingType(String type) {
         this.type = type;
     }
 

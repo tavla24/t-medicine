@@ -15,7 +15,7 @@ public class RecipeSimple {
     @Column(nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST }
+    @ManyToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST }
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 

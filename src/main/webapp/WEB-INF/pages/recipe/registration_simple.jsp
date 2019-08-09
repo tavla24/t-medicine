@@ -46,7 +46,9 @@
             <div>
                 <form:errors path="dateFrom" />
             </div>to
-            <form:input type="time" path="dateTo" id="name" />
+            <fmt:formatDate value="${dto.dateTo}" var="dateToString" pattern="yyyy-MM-dd" />
+            <form:input type="date" path="dateTo" id="name" value="${dateToString}" />
+            <%--<form:input type="date" path="dateTo" id="name" />--%>
             <div>
                 <form:errors path="dateTo" />
             </div>

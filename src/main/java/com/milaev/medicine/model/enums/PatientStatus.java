@@ -8,7 +8,7 @@ public enum PatientStatus {
 
     String status;
 
-    private PatientStatus(String status) {
+    PatientStatus(String status) {
         this.status = status;
     }
 

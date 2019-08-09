@@ -22,7 +22,7 @@
                 alert(jqXHR.status + ' ' + jqXHR.responseText);
             }
         });
-    }
+    };
 
     var RestPut = function() {
         var JSONObject= {
@@ -45,7 +45,7 @@
                 alert(jqXHR.status + ' ' + jqXHR.responseText);
             }
         });
-    }
+    };
 
     var RestPost = function() {
         $.ajax({
@@ -61,7 +61,7 @@
                 alert(jqXHR.status + ' ' + jqXHR.responseText);
             }
         });
-    }
+    };
 
     var RestDelete = function() {
         $.ajax({

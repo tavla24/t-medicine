@@ -14,7 +14,7 @@ public enum DayNameTypes {
 
     String type;
 
-    private DayNameTypes(String dayName) {
+    DayNameTypes(String dayName) {
         this.type = dayName;
     }
 

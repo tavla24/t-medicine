@@ -1,6 +1,5 @@
 package com.milaev.medicine.dto;
 
-import com.milaev.medicine.model.Recipe;
 import com.milaev.medicine.model.enums.PatientStatus;
 
 public class PatientDTO extends PersonDTO {

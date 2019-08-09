@@ -101,9 +101,7 @@ public abstract class PersonService<E extends Person, D>{
 
     public boolean isProfileExist(String login) {
         E db = getDAO().getByLogin(login);
-        if (db == null)
-            return false;
-        return true;
+        return db != null;
     }
 
     public void updateProfile(D dto, String login){
