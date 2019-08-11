@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum DayPartTypes {
-    MORNING("Morning"), DAY("Day"), EVENING("Evening"), NIGHT("Night");
+    MORNING(6), DAY(12), EVENING(18), NIGHT(24);
 
-    String type;
+    int time;
 
-    DayPartTypes(String dayPart) {
-        this.type = dayPart;
+    DayPartTypes(int time) {
+        this.time = time;
     }
 
-    public String getDayPart() {
-        return type;
+    public int getDayPartTime() {
+        return time;
     }
 
     public static List<String> getTypeList() {
         List<String> list = new ArrayList<>();
-        for (DayPartTypes type : DayPartTypes.values()) {
-            list.add(type.name());
+        for (DayPartTypes item : DayPartTypes.values()) {
+            list.add(item.name());
         }
         return list;
     }

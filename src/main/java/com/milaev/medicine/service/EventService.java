@@ -6,6 +6,7 @@ import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
+import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import com.milaev.medicine.utils.datetime.DayOfWeekContainer;
@@ -105,7 +106,7 @@ public class EventService implements EventServiceInterface {
 
         List<EventDTO> eventsDTOList = getByRecipeId(dto.getId());
         for (EventDTO item: eventsDTOList)
-            if (item.getDatestamp().before(new Date()))
+            if (item.getDatestamp().after(new Date()))
                 delete(item);
 
         DaysOfWeekContainer dowc = new DaysOfWeekContainer();
@@ -117,7 +118,7 @@ public class EventService implements EventServiceInterface {
                     EventDTO eventDTO = new EventDTO();
                     eventDTO.setRecipe(dto);
                     eventDTO.setDatestamp(date);
-                    eventDTO.setStatus("Active");
+                    eventDTO.setStatus(EventStatus.PLAN.name());
                     updateProfile(eventDTO);
                 }
             }

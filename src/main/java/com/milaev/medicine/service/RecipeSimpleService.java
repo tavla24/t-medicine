@@ -69,7 +69,7 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     @Transactional
     public void updateProfile(RecipeSimpleDTO dto){
         log.info("service.updateProfile(Recipe) insureId [{}]; id [{}]", dto.getPatient().getInsuranceId(), dto.getId());
-        dto.convListToDayTypes();
+        dto.convListToDayParts();
         dto.convListToDayNames();
         //RecipeSimple db = daoRecipeSimple.getById(dto.getId());
 

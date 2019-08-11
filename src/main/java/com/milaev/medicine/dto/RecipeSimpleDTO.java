@@ -27,7 +27,7 @@ public class RecipeSimpleDTO {
     private List<String> dayNamesListLocale;
     private List<String> dayPartsList;
 
-    private String splitter = ";";
+    public static final String SPLITTER = ";";
 
     public Long getId() {
         return id;
@@ -96,65 +96,65 @@ public class RecipeSimpleDTO {
     }
 
     public String getDayNames() {
-        if (dayNames == null)
-            dayNames = "";
         return dayNames;
     }
 
     public void setDayNames(String dayNames) {
         this.dayNames = dayNames;
+        convToDayNamesList();
     }
 
     public String getDayParts() {
-        if (dayParts == null)
-            dayParts = "";
         return dayParts;
     }
 
     public void setDayParts(String dayParts) {
         this.dayParts = dayParts;
+        convToDayPartsList();
     }
 
     public List<String> getDayNamesList() {
-        if(dayNamesList == null)
-            dayNamesList = new ArrayList<>();
         return dayNamesList;
     }
 
     public void setDayNamesList(List<String> dayNamesList) {
         this.dayNamesList = dayNamesList;
+        convListToDayNames();
     }
 
     public List<String> getDayPartsList() {
-        if(dayPartsList == null)
-            dayPartsList = new ArrayList<>();
         return dayPartsList;
     }
 
     public void setDayPartsList(List<String> dayPartsList) {
         this.dayPartsList = dayPartsList;
+        convListToDayParts();
     }
 
-    public void convToDayNamesList(){
-        this.dayNamesList = Arrays.asList(getDayNames().split(splitter));
+    public void convToDayNamesList() {
+        this.dayNamesList = new ArrayList<>();
+        if (getDayNames() != null)
+            this.dayNamesList = Arrays.asList(getDayNames().split(SPLITTER));
     }
 
-    public void convToDayPartsList(){
-        this.dayPartsList = Arrays.asList(getDayParts().split(splitter));
+    public void convToDayPartsList() {
+        this.dayPartsList = new ArrayList<>();
+        if (getDayParts() != null)
+            this.dayPartsList = Arrays.asList(getDayParts().split(SPLITTER));
     }
 
-    public void convListToDayNames(){
+    public void convListToDayNames() {
         StringBuilder sb = new StringBuilder();
-        for(String item: dayNamesList)
-            sb.append(String.format("%s%s", item, splitter));
-        dayNames = sb.toString();
+        for (String item : this.dayNamesList)
+            sb.append(String.format("%s%s", item, SPLITTER));
+        this.dayNames = sb.toString();
     }
 
-    public void convListToDayTypes(){
+    public void convListToDayParts() {
         StringBuilder sb = new StringBuilder();
-        for(String item: dayPartsList)
-            sb.append(String.format("%s%s", item, splitter));
-        dayParts = sb.toString();
+        for (String item : this.dayPartsList)
+            sb.append(String.format("%s%s", item, SPLITTER));
+        this.dayParts = sb.toString();
     }
 
     public List<String> getDayNamesListLocale() {
@@ -165,9 +165,9 @@ public class RecipeSimpleDTO {
         this.dayNamesListLocale = dayNamesListLocale;
     }
 
-    public void translate(){
+    public void translate() {
         dayNamesListLocale = new ArrayList<>();
-        for (String str: dayNamesList)
+        for (String str : dayNamesList)
             dayNamesListLocale.add(str.toLowerCase());
     }
 
@@ -175,8 +175,8 @@ public class RecipeSimpleDTO {
         convToDayNamesList();
         convToDayPartsList();
         dayOfWeekList = new ArrayList<>();
-        for(DayOfWeek itemDOW: DayOfWeek.values())
-            for (String itemS: getDayNamesList())
+        for (DayOfWeek itemDOW : DayOfWeek.values())
+            for (String itemS : getDayNamesList())
                 if (itemDOW.name().toLowerCase().equals(itemS.toLowerCase()))
                     dayOfWeekList.add(itemDOW);
 

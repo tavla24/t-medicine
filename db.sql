@@ -199,9 +199,9 @@ ALTER TABLE recipes
   REFERENCES healings(id);
   
 ALTER TABLE events 
-  ADD CONSTRAINT events_recipes_fk 
+  ADD CONSTRAINT events_recipes_simple_fk
   FOREIGN KEY (recipe_id) 
-  REFERENCES recipes(id);
+  REFERENCES recipes_simple(id);
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
