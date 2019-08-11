@@ -9,9 +9,9 @@ public interface RecipeSimpleDAOInterface {
 
     List<RecipeSimple> getByInsuranceId(String insuranceId);
 
-    void insert(RecipeSimple acc);
+    RecipeSimple insert(RecipeSimple acc);
 
-    void delete(RecipeSimple acc);
+    RecipeSimple delete(RecipeSimple acc);
 
-    void update(RecipeSimple acc);
+    RecipeSimple update(RecipeSimple acc);
 }

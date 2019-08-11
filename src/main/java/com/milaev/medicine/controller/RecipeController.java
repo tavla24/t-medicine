@@ -111,8 +111,8 @@ public class RecipeController {
 
         PatientDTO patientDTO = patientService.getByInsuranceId(insuranceId);
         RecipeSimpleDTO dto = recipeService.getById(id);
-        dto.convToDayNamesList();
-        dto.convToDayPartsList();
+        //dto.convToDayNamesList();
+        //dto.convToDayPartsList();
         dto.setPatient(patientDTO);
         //dto.translate();
 
@@ -134,7 +134,7 @@ public class RecipeController {
     public String editRecipePost(@PathVariable String insuranceId, @PathVariable Long id, @Valid RecipeSimpleDTO dto, BindingResult result, ModelMap model) {
         log.info("editRecipesPost()");
         recipeService.updateProfile(dto);
-        eventService.updateEvents(dto.getId());
+//        eventService.updateEvents(dto.getId());
         return String.format("redirect:/recipe/list/%s", dto.getPatient().getInsuranceId());
     }
 

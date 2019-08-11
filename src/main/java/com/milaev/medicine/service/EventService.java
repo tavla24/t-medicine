@@ -3,6 +3,7 @@ package com.milaev.medicine.service;
 import com.milaev.medicine.dao.EventDAO;
 import com.milaev.medicine.dao.RecipeSimpleDAO;
 import com.milaev.medicine.dto.EventDTO;
+import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
@@ -51,6 +52,14 @@ public class EventService implements EventServiceInterface {
     @Transactional
     public List<EventDTO> getByInsuranceId(String insuranceId) {
         List<Event> list = daoEvent.getByInsuranceId(insuranceId);
+        return fillDTO(list);
+    }
+
+    @Override
+    @Transactional
+    public List<EventDTO> getByFilter(EventFilterDTO filter) {
+        filter.createQuery();
+        List<Event> list = daoEvent.getByFilter(filter.getQueryString(), filter.getQueryParams());
         return fillDTO(list);
     }
 
@@ -110,7 +119,7 @@ public class EventService implements EventServiceInterface {
                 delete(item);
 
         DaysOfWeekContainer dowc = new DaysOfWeekContainer();
-        dowc.fill(dto.getDateFrom(), dto.getDateTo(), dto.getDayOfWeekList());
+        dowc.fill(dto.getDateFrom(), dto.getDateTo(), dto.getDayOfWeekList(), dto.getPartOfDayList());
 
         for (DayOfWeekContainer item : dowc.getList()){
             List<Date> dayList = item.getList();
@@ -159,9 +168,11 @@ public class EventService implements EventServiceInterface {
     }
 
     private void fillDTODataToEntity(EventDTO dto, Event db) {
+        // TODO point 1 - why nulls??
         log.info("fillDTODataToEntity");
         RecipeSimple a = daoRecipeSimple.getById(dto.getRecipe().getId());
         db.setRecipe(a);
+        log.info("fillDTODataToEntity [{}]", a.getDoze());
         MapperUtil.toEntityEvent().accept(dto, db);
     }
 }

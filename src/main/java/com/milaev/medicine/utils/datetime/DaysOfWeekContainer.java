@@ -1,5 +1,7 @@
 package com.milaev.medicine.utils.datetime;
 
+import com.milaev.medicine.model.enums.DayPartTypes;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,14 +11,14 @@ public class DaysOfWeekContainer {
 
     private List<DayOfWeekContainer> list = new ArrayList<>();
 
-    public void fill(Date from, Date to, DayOfWeek... daysOfWeek) {
-        for (DayOfWeek item : daysOfWeek)
-            list.add((new DayOfWeekContainer(item)).fill(from, to));
-    }
+//    public void fill(Date from, Date to, DayOfWeek... daysOfWeek) {
+//        for (DayOfWeek item : daysOfWeek)
+//            list.add((new DayOfWeekContainer(item)).fill(from, to));
+//    }
 
-    public void fill(Date from, Date to, List<DayOfWeek> daysOfWeek) {
+    public void fill(Date from, Date to, List<DayOfWeek> daysOfWeek, List<DayPartTypes> dayPartsList) {
         for (DayOfWeek item : daysOfWeek)
-            list.add((new DayOfWeekContainer(item)).fill(from, to));
+            list.add((new DayOfWeekContainer(item)).fill(from, to, dayPartsList));
     }
 
     public List<DayOfWeekContainer> getList() {

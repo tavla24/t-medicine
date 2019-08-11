@@ -29,6 +29,12 @@ public class DateUtils {
         ldt = setTime(ldt, hour, minute);
         return asDate(ldt);
     }
+
+    public static Date setTimeInc(Date date, int hour, int minute) {
+        LocalDateTime ldt = asLocalDateTime(date);
+        ldt = setTimeInc(ldt, hour, minute);
+        return asDate(ldt);
+    }
     
     public static Date dropTime(Date date) {
         return setTime(date, 0, 0);
@@ -36,6 +42,10 @@ public class DateUtils {
 
     public static LocalDateTime setTime(LocalDateTime dateTime, int hour, int minute) {
         return dateTime.withHour(hour).withMinute(minute);
+    }
+
+    public static LocalDateTime setTimeInc(LocalDateTime dateTime, int hour, int minute) {
+        return dateTime.plusHours(hour).plusMinutes(minute);
     }
     
     public static LocalDateTime dropTime(LocalDateTime dateTime) {

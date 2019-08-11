@@ -69,17 +69,18 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
     @Transactional
     public void updateProfile(RecipeSimpleDTO dto){
         log.info("service.updateProfile(Recipe) insureId [{}]; id [{}]", dto.getPatient().getInsuranceId(), dto.getId());
-        dto.convListToDayParts();
-        dto.convListToDayNames();
+        //dto.convListToDayParts();
+        //dto.convListToDayNames();
         //RecipeSimple db = daoRecipeSimple.getById(dto.getId());
 
+        RecipeSimpleDTO rezDTO;
         if (dto.getId() == null)
-            insert(dto, new RecipeSimple());
+            rezDTO = insert(dto, new RecipeSimple());
         else
-            update(dto, daoRecipeSimple.getById(dto.getId()));
+            rezDTO = update(dto, daoRecipeSimple.getById(dto.getId()));
 
         // TODO update events
-        //eventService.updateEvents(dto.getId());
+        eventService.updateEvents(rezDTO.getId());
     }
 
     @Override
@@ -94,26 +95,36 @@ public class RecipeSimpleService implements RecipeSimpleServiceInterface {
         }
     }
 
-    private void insert(RecipeSimpleDTO dto, RecipeSimple db) {
+    private RecipeSimpleDTO insert(RecipeSimpleDTO dto, RecipeSimple db) {
         log.info("service.insert(RecipeSimple)");
         fillDTODataToEntity(dto, db);
         try {
-            daoRecipeSimple.insert(db);
+            db = daoRecipeSimple.insert(db);
+            dto = new RecipeSimpleDTO();
+            if (db != null)
+                MapperUtil.toDTORecipeSimple().accept(db, dto);
+            return dto;
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
         }
+        return null;
     }
 
-    private void update(RecipeSimpleDTO dto, RecipeSimple db) {
+    private RecipeSimpleDTO update(RecipeSimpleDTO dto, RecipeSimple db) {
         log.info("service.update(RecipeSimple)");
         fillDTODataToEntity(dto, db);
         try {
-            daoRecipeSimple.update(db);
+            db = daoRecipeSimple.update(db);
+            dto = new RecipeSimpleDTO();
+            if (db != null)
+                MapperUtil.toDTORecipeSimple().accept(db, dto);
+            return dto;
         } catch (Exception ex) {
             log.error("Exception from Service during DB query");
             ex.printStackTrace();
         }
+        return null;
     }
 
     private void fillDTODataToEntity(RecipeSimpleDTO dto, RecipeSimple db) {

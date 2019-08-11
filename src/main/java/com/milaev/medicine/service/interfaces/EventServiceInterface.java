@@ -1,6 +1,7 @@
 package com.milaev.medicine.service.interfaces;
 
 import com.milaev.medicine.dto.EventDTO;
+import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 public interface EventServiceInterface {
 
     List<EventDTO> getAll();
+
+    List<EventDTO> getByFilter(EventFilterDTO filter);
 
     List<EventDTO> getByRecipeId(Long id);
 

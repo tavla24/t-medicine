@@ -10,14 +10,14 @@ import com.milaev.medicine.model.enums.DayPartTypes;
 
 public class DayOfWeekContainer {
     private DayOfWeek dayOfWeek;
-    private List<DayPartTypes> dayPartsList;
+    //private List<DayPartTypes> dayPartsList;
     private List<Date> list = new ArrayList<>();
 
     public DayOfWeekContainer(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public DayOfWeekContainer fill(Date from, Date to) {
+    public DayOfWeekContainer fill(Date from, Date to, List<DayPartTypes> dayPartsList) {
         LocalDateTime ldFrom = DateUtils.asLocalDateTime(from);
         LocalDateTime ldTo = DateUtils.asLocalDateTime(to);
 
@@ -46,13 +46,13 @@ public class DayOfWeekContainer {
         return list;
     }
 
-    public List<DayPartTypes> getDayPartsList() {
-        return dayPartsList;
-    }
-
-    public void setDayPartsList(List<DayPartTypes> dayPartsList) {
-        this.dayPartsList = dayPartsList;
-    }
+//    public List<DayPartTypes> getDayPartsList() {
+//        return dayPartsList;
+//    }
+//
+//    public void setDayPartsList(List<DayPartTypes> dayPartsList) {
+//        this.dayPartsList = dayPartsList;
+//    }
 
     
 }

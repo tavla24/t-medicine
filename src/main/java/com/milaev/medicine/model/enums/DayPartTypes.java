@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum DayPartTypes {
-    MORNING(6), DAY(12), EVENING(18), NIGHT(24);
+    MORNING(9), DAY(15), EVENING(21), NIGHT(3);
 
     int time;
 

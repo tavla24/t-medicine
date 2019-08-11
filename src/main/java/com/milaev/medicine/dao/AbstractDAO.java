@@ -1,7 +1,9 @@
 package com.milaev.medicine.dao;
 
+import com.milaev.medicine.model.Event;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractDAO<T> {
 
@@ -28,13 +31,23 @@ public abstract class AbstractDAO<T> {
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
-    
+
     public T getById(Long id) {
         return getCurrentSession().get(persistentClass, id);
     }
 
     protected List<T> getAll(TypedQuery<T> query) {
         return query.getResultList();
+    }
+
+    protected List<T> getByQuery(String queryString, Map<String, Object> queryParams) {
+        Query<T> query = getCurrentSession().createQuery(queryString);
+        for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        return getQResults(query);
+        //return query.getQResults();
     }
 
     protected List<T> getByParams(TypedQuery<T> query, String... params) {
@@ -69,32 +82,35 @@ public abstract class AbstractDAO<T> {
         //return query.getQResult();
     }
 
-    protected void per(T acc) {
+    protected T per(T db) {
         try {
-            getCurrentSession().persist(acc);
+            getCurrentSession().persist(db);
         } catch (Exception ex) {
             // TODO exceptions (double var) dont catched
             log.error("Exception /persist/ from DAO during DB query");
             ex.printStackTrace();
         }
+        return db;
     }
 
-    protected void del(T acc) {
+    protected T del(T db) {
         try {
-            getCurrentSession().delete(acc);
+            getCurrentSession().delete(db);
         } catch (Exception ex) {
             log.error("Exception /delete/ from DAO during DB query");
             ex.printStackTrace();
         }
+        return db;
     }
 
-    protected void upd(T acc) {
+    protected T upd(T db) {
         try {
-            getCurrentSession().update(acc);
+            getCurrentSession().update(db);
         } catch (Exception ex) {
             log.error("Exception /update/ from DAO during DB query");
             ex.printStackTrace();
         }
+        return db;
     }
 
     protected static <T> T getQResult(TypedQuery<T> query) {

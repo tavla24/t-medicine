@@ -1,5 +1,7 @@
 package com.milaev.medicine.dto;
 
+import com.milaev.medicine.model.enums.DayPartTypes;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +25,12 @@ public class RecipeSimpleDTO {
     private String dayParts;
 
     private List<String> dayNamesList;
-    private List<DayOfWeek> dayOfWeekList;
-    private List<String> dayNamesListLocale;
     private List<String> dayPartsList;
+
+    private List<DayOfWeek> dayOfWeekList;
+    private List<DayPartTypes> partOfDayList;
+    
+    private List<String> dayNamesListLocale;
 
     public static final String SPLITTER = ";";
 
@@ -131,26 +136,26 @@ public class RecipeSimpleDTO {
         convListToDayParts();
     }
 
-    public void convToDayNamesList() {
-        this.dayNamesList = new ArrayList<>();
-        if (getDayNames() != null)
-            this.dayNamesList = Arrays.asList(getDayNames().split(SPLITTER));
+    private void convToDayNamesList() {
+        dayNamesList = new ArrayList<>();
+        if (dayNames != null)
+            dayNamesList = Arrays.asList(dayNames.split(SPLITTER));
     }
 
-    public void convToDayPartsList() {
-        this.dayPartsList = new ArrayList<>();
-        if (getDayParts() != null)
-            this.dayPartsList = Arrays.asList(getDayParts().split(SPLITTER));
+    private void convToDayPartsList() {
+        dayPartsList = new ArrayList<>();
+        if (dayParts != null)
+            dayPartsList = Arrays.asList(dayParts.split(SPLITTER));
     }
 
-    public void convListToDayNames() {
+    private void convListToDayNames() {
         StringBuilder sb = new StringBuilder();
         for (String item : this.dayNamesList)
             sb.append(String.format("%s%s", item, SPLITTER));
         this.dayNames = sb.toString();
     }
 
-    public void convListToDayParts() {
+    private void convListToDayParts() {
         StringBuilder sb = new StringBuilder();
         for (String item : this.dayPartsList)
             sb.append(String.format("%s%s", item, SPLITTER));
@@ -173,7 +178,6 @@ public class RecipeSimpleDTO {
 
     public List<DayOfWeek> getDayOfWeekList() {
         convToDayNamesList();
-        convToDayPartsList();
         dayOfWeekList = new ArrayList<>();
         for (DayOfWeek itemDOW : DayOfWeek.values())
             for (String itemS : getDayNamesList())
@@ -181,5 +185,16 @@ public class RecipeSimpleDTO {
                     dayOfWeekList.add(itemDOW);
 
         return dayOfWeekList;
+    }
+
+    public List<DayPartTypes> getPartOfDayList() {
+        convToDayPartsList();
+        partOfDayList = new ArrayList<>();
+        for (DayPartTypes itemDPT : DayPartTypes.values())
+            for (String itemS : getDayPartsList())
+                if (itemDPT.name().toLowerCase().equals(itemS.toLowerCase()))
+                    partOfDayList.add(itemDPT);
+
+        return partOfDayList;
     }
 }

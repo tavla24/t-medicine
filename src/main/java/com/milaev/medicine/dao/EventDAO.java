@@ -2,6 +2,7 @@ package com.milaev.medicine.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
@@ -13,13 +14,18 @@ import com.milaev.medicine.model.Event;
 
 @Repository
 public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {
-    
+
     private static Logger log = LoggerFactory.getLogger(EventDAO.class);
 
     @Override
     public List<Event> getAll() {
         Query<Event> query = getCurrentSession().createQuery("from Event");
         return getAll(query);
+    }
+
+    @Override
+    public List<Event> getByFilter(String queryString, Map<String, Object> queryParams) {
+        return getByQuery(queryString, queryParams);
     }
 
     @Override

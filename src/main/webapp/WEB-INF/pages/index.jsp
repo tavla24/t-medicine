@@ -19,6 +19,7 @@
 		<span>Only for users with DOCTOR role (for example: login [doctor] password [4444])</span> <br>
         <span><a href="<c:url value="/doctor/" />">Doctor panel</a></span> <br>
 		<span><a href="<c:url value="/test/test" />">test</a></span> <br>
+		<span><a href="<c:url value="/event/list" />">events list</a></span> <br>
 	</div>
 </body>
 

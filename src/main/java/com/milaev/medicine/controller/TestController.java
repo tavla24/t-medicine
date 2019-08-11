@@ -32,8 +32,8 @@ public class TestController {
     public String test3(ModelMap model) {
         List<RecipeSimpleDTO> dtoList = recipeService.getByInsuranceId("98723509");
         RecipeSimpleDTO dto = dtoList.get(0);
-        dto.convToDayNamesList();
-        dto.convToDayPartsList();
+        //dto.convToDayNamesList();
+        //dto.convToDayPartsList();
         dto.translate();
 
         List<String> sourceHealingTypes = HealingType.getTypeList();
