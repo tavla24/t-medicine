@@ -1,6 +1,7 @@
 package com.milaev.medicine.config.security;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +22,12 @@ public class GlobalControllerAdvice extends DefaultHandlerExceptionResolver {
 
     // TODO realize
 
-    @ExceptionHandler(FileNotFoundException.class)
+    @ExceptionHandler(IOException.class)
     public ModelAndView myError(Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
-        mav.setViewName("error");
+        mav.addObject("errorMessage", "IOException occurred");
+        mav.setViewName("error/error");
         return mav;
     }
 }

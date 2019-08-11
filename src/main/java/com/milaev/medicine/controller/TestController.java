@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,6 +52,16 @@ public class TestController {
     public String test3Post(@Valid RecipeSimpleDTO dto, BindingResult result, ModelMap model,
                             RedirectAttributes redirectAttributes) {
         return "recipe/registration";
+    }
+
+    @GetMapping(value = "/error") // , method = RequestMethod.GET
+    public String testErr(ModelMap model) throws IOException {
+        List<User> lUser = new ArrayList<>();
+        lUser.add(new User("My name (list)", "My login (list)"));
+        throw new IOException("Folder not found!");
+        //model.addAttribute("source", lUser);
+        //model.addAttribute("source", new User("My name", "My login"));
+        //return "test/test";
     }
 
 
