@@ -2,7 +2,6 @@ package com.milaev.medicine.service;
 
 import com.milaev.medicine.dao.interfaces.PersonDAOInterface;
 import com.milaev.medicine.model.Person;
-import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.utils.MapperUtil2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

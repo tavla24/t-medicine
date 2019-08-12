@@ -1,6 +1,5 @@
 package com.milaev.medicine.dao;
 
-import com.milaev.medicine.model.Event;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

@@ -1,7 +1,5 @@
 package com.milaev.medicine.dto;
 
-import com.milaev.medicine.model.enums.PatientStatus;
-
 public class PatientDTO extends PersonDTO {
     private String insuranceId;
     private String diagnosis;

@@ -2,11 +2,6 @@ package com.milaev.medicine.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import com.milaev.medicine.model.Person;
-import com.milaev.medicine.model.Role;
-
-import java.util.List;
-
 public class AccountDTO {
     @NotBlank
     private String login;

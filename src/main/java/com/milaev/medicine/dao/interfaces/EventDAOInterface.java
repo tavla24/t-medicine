@@ -1,10 +1,10 @@
 package com.milaev.medicine.dao.interfaces;
 
+import com.milaev.medicine.model.Event;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import com.milaev.medicine.model.Event;
 
 public interface EventDAOInterface {
 

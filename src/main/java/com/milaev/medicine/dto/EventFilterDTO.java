@@ -20,6 +20,8 @@ public class EventFilterDTO {
     private String queryString;
     private Map<String, Object> queryParams;
 
+    // TODO filt by date/name/...
+
     public Long getId() {
         return id;
     }
@@ -102,7 +104,7 @@ public class EventFilterDTO {
 
     public void createQuery() {
         StringBuilder sb = new StringBuilder();
-        sb.append("from Event");
+        sb.append("from Event as f");
 
         List<String> queryStringBuilder = new ArrayList<>();
         queryParams = new HashMap<>();
@@ -142,11 +144,12 @@ public class EventFilterDTO {
 
         for (int i = 0; i < queryStringBuilder.size(); i++) {
             if (i == 0)
-                sb.append(" as f where");
+                sb.append(" where");
             sb.append(queryStringBuilder.get(i));
             if (i < queryStringBuilder.size() - 1)
                 sb.append(" and");
         }
+        sb.append(" order by f.datestamp");
 
         queryString = sb.toString();
     }

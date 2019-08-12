@@ -1,16 +1,15 @@
 package com.milaev.medicine.service;
 
-import java.util.Date;
-
+import com.milaev.medicine.dao.interfaces.PersistentTokenDAOInterface;
+import com.milaev.medicine.model.PersistentToken;
+import com.milaev.medicine.service.interfaces.TPersistentTokenServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.dao.interfaces.PersistentTokenDAOInterface;
-import com.milaev.medicine.model.PersistentToken;
-import com.milaev.medicine.service.interfaces.TPersistentTokenServiceInterface;
+import java.util.Date;
 
 @Service
 public class PersistentTokenService implements TPersistentTokenServiceInterface {

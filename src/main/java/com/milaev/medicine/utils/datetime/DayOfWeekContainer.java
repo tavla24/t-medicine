@@ -1,12 +1,12 @@
 package com.milaev.medicine.utils.datetime;
 
+import com.milaev.medicine.model.enums.DayPartTypes;
+
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.milaev.medicine.model.enums.DayPartTypes;
 
 public class DayOfWeekContainer {
     private DayOfWeek dayOfWeek;

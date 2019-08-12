@@ -1,13 +1,9 @@
 package com.milaev.medicine.model;
 
-import java.util.Collection;
-import java.util.List;
+import com.milaev.medicine.model.enums.RoleType;
 
 import javax.persistence.*;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import com.milaev.medicine.model.enums.RoleType;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")

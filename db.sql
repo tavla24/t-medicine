@@ -205,25 +205,24 @@ ALTER TABLE events
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
-('ROOT'), ('ADMIN'), ('USER'), ('DOCTOR'), ('NURSE'), ('PATIENT');
+('ADMIN'), ('USER'), ('DOCTOR'), ('NURSE'), ('PATIENT');
 
 INSERT INTO accounts (login, password, role_id) VALUES 
-('root', '1111', 1),
-('admin', '2222', 2),
-('user', '3333', 3),
-('doctor', '4444', 4),
-('nurse', '5555', 5),
-('patient', '6666', 6);
+('admin', '2222', 1),
+('user', '3333', 2),
+('doctor', '4444', 3),
+('nurse', '5555', 4),
+('patient', '6666', 5);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
 ('Ivanov', 'Sergey', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1);
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Petrov', 'Arseniy', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 5);
+('Petrov', 'Arseniy', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 4);
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Sidorov', 'Konstantin', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 6);
+('Sidorov', 'Konstantin', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 5);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Bochkareva', 'Ekaterina', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 4);
+('Bochkareva', 'Ekaterina', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 3);
 
 INSERT INTO doctors (id, specialization) VALUES
 (4, 'okulist');
@@ -235,8 +234,8 @@ INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
 #(2, 'ochki', 'PROCEDURE', false, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y'), '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
 #(3, 'drug bitter', 'DRUG', false, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'), '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
-(2, 'ochki', 'PROCEDURE', false, '2019-02-01', '2019-06-05', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
-(3, 'drug bitter', 'DRUG', false, '2019-04-03', '2018-08-07', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
+(2, 'ochki', 'PROCEDURE', false, '2019-08-12', '2019-08-30', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+(3, 'drug bitter', 'DRUG', false, '2019-08-14', '2019-08-25', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
 
 INSERT INTO healings (name, type) VALUES
 ('ochki', 'PROCEDURE'),

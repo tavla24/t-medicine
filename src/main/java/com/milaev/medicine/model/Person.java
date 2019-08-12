@@ -2,8 +2,6 @@ package com.milaev.medicine.model;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "persons")
 @Inheritance(strategy = InheritanceType.JOINED)

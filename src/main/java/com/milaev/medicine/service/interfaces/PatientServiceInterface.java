@@ -1,7 +1,6 @@
 package com.milaev.medicine.service.interfaces;
 
 import com.milaev.medicine.dto.PatientDTO;
-import com.milaev.medicine.model.Patient;
 
 import java.util.List;
 

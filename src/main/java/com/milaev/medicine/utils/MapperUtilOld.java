@@ -1,10 +1,10 @@
 package com.milaev.medicine.utils;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MapperUtilOld<E, D> {
     private final Class<E> classE;

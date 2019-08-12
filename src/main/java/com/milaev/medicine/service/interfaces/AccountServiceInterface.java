@@ -1,8 +1,8 @@
 package com.milaev.medicine.service.interfaces;
 
-import java.util.List;
-
 import com.milaev.medicine.dto.AccountDTO;
+
+import java.util.List;
 
 public interface AccountServiceInterface {
     List<AccountDTO> getAll();

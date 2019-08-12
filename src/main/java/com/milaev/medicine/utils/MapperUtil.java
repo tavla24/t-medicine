@@ -1,14 +1,13 @@
 package com.milaev.medicine.utils;
 
-import java.util.function.BiConsumer;
-
-import javax.annotation.PostConstruct;
-
 import com.milaev.medicine.dto.*;
 import com.milaev.medicine.model.*;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.util.function.BiConsumer;
 
 @Component
 public class MapperUtil {

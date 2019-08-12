@@ -1,18 +1,10 @@
 package com.milaev.medicine.utils;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.function.BiConsumer;
-
-import javax.annotation.PostConstruct;
-
-import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.model.Account;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
 
-import com.milaev.medicine.dto.DoctorDTO;
-import com.milaev.medicine.model.Doctor;
+import java.lang.reflect.ParameterizedType;
+import java.util.function.BiConsumer;
 
 //@Component
 public class MapperUtil2<E, D> {

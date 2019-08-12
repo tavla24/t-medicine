@@ -1,8 +1,5 @@
 package com.milaev.medicine.config.security;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +19,11 @@ public class GlobalControllerAdvice extends DefaultHandlerExceptionResolver {
 
     // TODO realize
 
-    @ExceptionHandler(IOException.class)
+    @ExceptionHandler(Exception.class)
     public ModelAndView myError(Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
-        mav.addObject("errorMessage", "IOException occurred");
+        mav.addObject("errorMessage", "Exception occurred");
         mav.setViewName("error/error");
         return mav;
     }

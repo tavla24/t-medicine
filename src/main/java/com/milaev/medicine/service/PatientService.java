@@ -1,18 +1,11 @@
 package com.milaev.medicine.service;
 
 import com.milaev.medicine.converter.PatientConv;
-import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dao.PatientDAO;
-import com.milaev.medicine.dao.RoleDAO;
-import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.PatientDTO;
-import com.milaev.medicine.dto.RoleDTO;
-import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.model.Patient;
-import com.milaev.medicine.model.Role;
-import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.interfaces.PatientServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import org.slf4j.Logger;

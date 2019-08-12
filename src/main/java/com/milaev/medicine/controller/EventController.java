@@ -4,8 +4,6 @@ import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.model.enums.EventStatus;
-import com.milaev.medicine.model.enums.HealingType;
-import com.milaev.medicine.model.enums.PatientStatus;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,8 @@
 package com.milaev.medicine.dao.interfaces;
 
-import java.util.List;
-
 import com.milaev.medicine.model.Account;
+
+import java.util.List;
 
 public interface AccountDAOInterface {
 

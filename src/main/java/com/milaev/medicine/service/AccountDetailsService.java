@@ -1,13 +1,10 @@
 package com.milaev.medicine.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.milaev.medicine.dto.AccountDTO;
+import com.milaev.medicine.model.Account;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.milaev.medicine.model.Account;
+import java.util.ArrayList;
+import java.util.List;
+
+//import org.apache.log4j.Logger;
 
 @Service
 public class AccountDetailsService implements UserDetailsService {

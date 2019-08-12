@@ -51,6 +51,9 @@ public class RecipeSimple {
     //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateTo;
 
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})//, cascade = { CascadeType.MERGE, CascadeType.PERSIST } orphanRemoval = true
+    private List<Event> events;
+
     public Long getId() {
         return id;
     }
@@ -129,5 +132,13 @@ public class RecipeSimple {
 
     public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

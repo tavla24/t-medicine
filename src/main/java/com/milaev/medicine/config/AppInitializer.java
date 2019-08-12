@@ -1,11 +1,10 @@
 package com.milaev.medicine.config;
 
-import javax.servlet.Filter;
-
+import com.milaev.medicine.config.security.WebSecurityConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.milaev.medicine.config.security.WebSecurityConfig;
+import javax.servlet.Filter;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     // TODO AbstractAnnotationConfigDispatcherServletInitializer vs

@@ -1,8 +1,8 @@
 package com.milaev.medicine.service.interfaces;
 
-import java.util.List;
-
 import com.milaev.medicine.dto.DoctorDTO;
+
+import java.util.List;
 
 public interface DoctorServiceInterface {
 

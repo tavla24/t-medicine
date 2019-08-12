@@ -1,8 +1,7 @@
 package com.milaev.medicine.dao.interfaces;
 
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-
 import com.milaev.medicine.model.PersistentToken;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 public interface PersistentTokenDAOInterface extends PersistentTokenRepository {
 

@@ -1,16 +1,15 @@
 package com.milaev.medicine.dao;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.milaev.medicine.dao.interfaces.EventDAOInterface;
+import com.milaev.medicine.model.Event;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.milaev.medicine.dao.interfaces.EventDAOInterface;
-import com.milaev.medicine.model.Event;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {

@@ -2,8 +2,6 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.DoctorDTO;
-import com.milaev.medicine.model.Doctor;
-import com.milaev.medicine.service.PersonService;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

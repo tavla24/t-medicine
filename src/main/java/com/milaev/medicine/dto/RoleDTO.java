@@ -1,10 +1,8 @@
 package com.milaev.medicine.dto;
 
-import java.util.Collection;
-import java.util.List;
-
 import com.milaev.medicine.model.Account;
-import com.milaev.medicine.model.enums.RoleType;
+
+import java.util.List;
 
 public class RoleDTO {
     private String type;// = RoleType.USER.getUserProfileType();

@@ -1,9 +1,7 @@
 package com.milaev.medicine.dao.interfaces;
 
 import com.milaev.medicine.model.Person;
-import org.hibernate.Session;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public interface PersonDAOInterface<T extends Person> {

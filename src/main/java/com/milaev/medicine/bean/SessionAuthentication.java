@@ -1,8 +1,6 @@
 package com.milaev.medicine.bean;
 
-import java.util.Collection;
-import java.util.Iterator;
-
+import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
+import java.util.Collection;
+import java.util.Iterator;
 
 @Component
 public class SessionAuthentication implements SessionAuthenticationInterface {

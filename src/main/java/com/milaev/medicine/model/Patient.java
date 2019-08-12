@@ -1,9 +1,6 @@
 package com.milaev.medicine.model;
 
 import javax.persistence.*;
-
-import com.milaev.medicine.model.enums.PatientStatus;
-
 import java.util.List;
 
 @Entity

@@ -1,15 +1,13 @@
 package com.milaev.medicine.dao;
 
-import java.util.List;
-
-import com.milaev.medicine.dao.interfaces.PersonDAOInterface;
+import com.milaev.medicine.dao.interfaces.DoctorDAOInterface;
+import com.milaev.medicine.model.Doctor;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.milaev.medicine.dao.interfaces.DoctorDAOInterface;
-import com.milaev.medicine.model.Doctor;
+import java.util.List;
 
 @Repository
 public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface {

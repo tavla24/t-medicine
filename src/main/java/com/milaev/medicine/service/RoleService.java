@@ -1,17 +1,16 @@
 package com.milaev.medicine.service;
 
-import java.util.List;
-
+import com.milaev.medicine.controller.AdminAccountsController;
+import com.milaev.medicine.dao.RoleDAO;
+import com.milaev.medicine.model.Role;
+import com.milaev.medicine.service.interfaces.RoleServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.controller.AdminAccountsController;
-import com.milaev.medicine.dao.RoleDAO;
-import com.milaev.medicine.model.Role;
-import com.milaev.medicine.service.interfaces.RoleServiceInterface;
+import java.util.List;
 
 @Service
 public class RoleService implements RoleServiceInterface {

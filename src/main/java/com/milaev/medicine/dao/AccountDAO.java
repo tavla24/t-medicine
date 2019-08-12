@@ -1,17 +1,13 @@
 package com.milaev.medicine.dao;
 
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.milaev.medicine.dao.interfaces.AccountDAOInterface;
+import com.milaev.medicine.model.Account;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.milaev.medicine.dao.interfaces.AccountDAOInterface;
-import com.milaev.medicine.model.Account;
+import java.util.List;
 
 @Repository
 public class AccountDAO extends AbstractDAO<Account> implements AccountDAOInterface {

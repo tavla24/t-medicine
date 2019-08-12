@@ -1,8 +1,11 @@
 package com.milaev.medicine.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.milaev.medicine.dao.AccountDAO;
+import com.milaev.medicine.dao.RoleDAO;
+import com.milaev.medicine.dto.AccountDTO;
+import com.milaev.medicine.model.Account;
+import com.milaev.medicine.model.Role;
+import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.milaev.medicine.dao.AccountDAO;
-import com.milaev.medicine.dao.RoleDAO;
-import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.model.Account;
-import com.milaev.medicine.model.Role;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AccountService implements AccountServiceInterface {

@@ -1,7 +1,6 @@
 package com.milaev.medicine.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
