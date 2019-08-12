@@ -23,14 +23,14 @@ public class PasswordEncoderImp implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        String rez = rawPassword.toString();
+        String rez = String.format("PW_%s", rawPassword.toString());
         log.info("passwordEncoder: encode " + rez);
         return rez;
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        boolean rez = encodedPassword.equals(rawPassword.toString());
+        boolean rez = encodedPassword.equals(encode(rawPassword.toString()));
         log.info("passwordEncoder: matches " + rez);
         return rez;
     }

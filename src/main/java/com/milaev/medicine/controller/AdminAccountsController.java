@@ -7,7 +7,9 @@ import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,6 +35,10 @@ public class AdminAccountsController {
 
     @Autowired
     private AccountServiceInterface accountService;
+
+    @Autowired
+    @Qualifier("passwordEncoder")
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     MessageSource messageSource;
@@ -101,6 +107,7 @@ public class AdminAccountsController {
 //        acc.setRole(r);
 //        log.info("AccountEntity: ", acc.toString());
 
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountService.insert(account);
 
         return "account/list";

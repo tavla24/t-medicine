@@ -208,11 +208,11 @@ INSERT INTO roles (type) VALUES
 ('ADMIN'), ('USER'), ('DOCTOR'), ('NURSE'), ('PATIENT');
 
 INSERT INTO accounts (login, password, role_id) VALUES 
-('admin', '2222', 1),
-('user', '3333', 2),
-('doctor', '4444', 3),
-('nurse', '5555', 4),
-('patient', '6666', 5);
+('admin', 'PW_2222', 1),
+('user', 'PW_3333', 2),
+('doctor', 'PW_4444', 3),
+('nurse', 'PW_5555', 4),
+('patient', 'PW_6666', 5);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
 ('Ivanov', 'Sergey', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1);
