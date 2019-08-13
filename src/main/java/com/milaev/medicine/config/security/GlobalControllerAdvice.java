@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
+import java.io.IOException;
+
 @ControllerAdvice
 public class GlobalControllerAdvice extends DefaultHandlerExceptionResolver {
 
@@ -19,7 +21,7 @@ public class GlobalControllerAdvice extends DefaultHandlerExceptionResolver {
 
     // TODO realize
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(IOException.class)
     public ModelAndView myError(Exception exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);

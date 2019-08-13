@@ -20,7 +20,10 @@ public class SecurityController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        return "index";
+        if (!sessionAuth.isAnonimusSession()) {
+            model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        }
+        return "index2";
     }
 
     @RequestMapping("/login") // , method = RequestMethod.GET

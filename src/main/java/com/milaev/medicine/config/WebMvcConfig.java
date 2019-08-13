@@ -19,7 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/res/**").addResourceLocations("/res/");
+        registry.addResourceHandler("/res/**").addResourceLocations("res/");
     }
 
     @Bean(name = "viewResolver")
