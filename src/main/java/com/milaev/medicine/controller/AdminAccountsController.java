@@ -55,7 +55,7 @@ public class AdminAccountsController {
         List<AccountDTO> accounts = accountService.getAll();
         model.addAttribute("accounts", accounts);
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/list";
+        return "account/list2";
     }
 
     @GetMapping("/new")
@@ -70,7 +70,7 @@ public class AdminAccountsController {
             model.addAttribute("roles", RoleType.getRoleTypesList());
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
-        return "account/registration";
+        return "account/registration2";
     }
 
     @PostMapping("/new")
@@ -110,7 +110,7 @@ public class AdminAccountsController {
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountService.insert(account);
 
-        return "account/list";
+        return "account/list2";
     }
 
     // @DeleteMapping(value = { "/delete-user-{login}" })
@@ -128,7 +128,7 @@ public class AdminAccountsController {
         model.addAttribute("account", account);
         model.addAttribute("roles", RoleType.getRoleTypesList());
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/registration";
+        return "account/registration2";
     }
 
     @PostMapping("/edit/{login}")
@@ -136,11 +136,11 @@ public class AdminAccountsController {
             @PathVariable String login) {
         log.info("updateUser()");
         if (result.hasErrors()) {
-            return "account/registration";
+            return "account/registration2";
         }
 
         accountService.update(account, login);
 
-        return "account/list";
+        return "account/list2";
     }
 }

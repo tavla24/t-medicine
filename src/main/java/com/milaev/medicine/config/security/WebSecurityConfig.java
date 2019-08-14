@@ -52,7 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // .authenticated();
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 
-        http.authorizeRequests().antMatchers("/doctor/**", "/patient/**", "/recipe/**").hasRole("DOCTOR");
+        http.authorizeRequests().antMatchers("/doctor/**").hasRole("DOCTOR");
+
+        http.authorizeRequests().antMatchers("/patient/**", "/recipe/**").hasAnyRole("ADMIN", "DOCTOR");
 
         http.authorizeRequests().antMatchers("/nurse/**").hasRole("NURSE");
 

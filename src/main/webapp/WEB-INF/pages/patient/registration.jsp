@@ -1,123 +1,92 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec"
+           uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<html>
+<t:content title="Patient registration">
+    <jsp:attribute name="header">
+        <t:header>
+        <jsp:body>
+            <t:title_login title=""/>
+        </jsp:body>
+        </t:header>
+    </jsp:attribute>
+    <jsp:body>
+        <br>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Patient Registration Form</title>
-</head>
-
-<body>
-    <div>
-        <span><strong>${loggedinuser}</strong>, welcome </span>
-
-        <div>Patient Registration Form</div>
         <form:form method="POST" modelAttribute="patient">
+            <div class="form-group">
 
-            <div>
-                <label for="name">First Name</label>
-                <div>
-                    <form:input type="text" path="name" id="name" />
-                    <div>
-                        <form:errors path="name" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="name">First Name</label>
+                        <form:input type="text" path="name" id="name" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="name"/>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label for="surname">Surname</label>
-                <div>
-                    <form:input type="text" path="surname" id="surname" />
-                    <div>
-                        <form:errors path="surname" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="surname">Surname</label>
+                        <form:input type="text" path="surname" id="surname" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="surname"/>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label for="patronymic">Patronymic</label>
-                <div>
-                    <form:input type="text" path="patronymic" id="patronymic" />
-                    <div>
-                        <form:errors path="patronymic" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="patronymic">Patronymic</label>
+                        <form:input type="text" path="patronymic" id="patronymic" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="patronymic"/>
                     </div>
                 </div>
-            </div>
 
-
-            <div>
-                <label for="insuranceId">Insurance Id</label>
-                <div>
-                    <form:input type="text" path="insuranceId" id="insuranceId" />
-                    <div>
-                        <form:errors path="insuranceId" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="insuranceId">Insurance Id</label>
+                        <form:input type="text" path="insuranceId" id="insuranceId"
+                                    class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="insuranceId"/>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label for="diagnosis">Diagnosis</label>
-                <div>
-                    <form:input type="text" path="diagnosis" id="diagnosis" />
-                    <div>
-                        <form:errors path="diagnosis" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="diagnosis">Diagnosis</label>
+                        <form:input type="text" path="diagnosis" id="diagnosis" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="diagnosis"/>
                     </div>
                 </div>
-            </div>
 
-            <%--
-            <div>
-                <label for="status">Status</label>
-                <div>
-                    <form:input type="text" path="status" id="status" />
-                    <div>
-                        <form:errors path="status" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="status">Status</label>
+                        <form:select tabindex="1" path="status" items="${statuses}" multiple="false" id="status"
+                                     class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="status"/>
                     </div>
                 </div>
-            </div>
-            --%>
 
-            <div>
-				<div>
-					<label for="status">Status</label>
-					<div>
-						<form:select tabindex="1" path="status" items="${statuses}" multiple="false" id="status"/>
-						<div>
-							<form:errors path="status"/>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-
-            <div>
-                <label for="email">email</label>
-                <div>
-                    <form:input type="text" path="email" id="email" />
-                    <div>
-                        <form:errors path="email" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="email">email</label>
+                        <form:input type="text" path="email" id="email" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="email"/>
                     </div>
                 </div>
-            </div>
-            <div>
-                <label for="phone">phone</label>
-                <div>
-                    <form:input type="text" path="phone" id="phone" />
-                    <div>
-                        <form:errors path="phone" />
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <label for="phone">phone</label>
+                        <form:input type="text" path="phone" id="phone" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="phone"/>
                     </div>
                 </div>
             </div>
 
-            <div>
-                <br>
-                <input type="submit" value="Register" />
+            <br>
+            <div class="text-center">
+                <input type="submit" value="Register" class="btn btn-success  mb-2 mr-2 btn-sm"/>
             </div>
         </form:form>
-    </div>
-    <%@include file="../zfooter.jsp" %>
-</body>
 
-</html>
+    </jsp:body>
+</t:content>

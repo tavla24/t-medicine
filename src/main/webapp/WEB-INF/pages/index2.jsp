@@ -30,6 +30,6 @@
                     </div>
                 </form>
             </div>
-        </div><!-- /.row -->
+        </div>
     </jsp:body>
 </t:content>

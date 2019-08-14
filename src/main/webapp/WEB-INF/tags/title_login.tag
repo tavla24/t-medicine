@@ -31,14 +31,14 @@
                 <a class="nav-link" href="<c:url value="/event/list" />">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/patient/" />">Patients</a>
+                <a class="nav-link" href="<c:url value="/patient/list" />">Patients</a>
             </li>
         </ul>
     </sec:authorize>
     <sec:authorize access="hasRole('DOCTOR')">
         <ul class="nav navbar-nav navbar-custom">
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/patient/" />">Patients</a>
+                <a class="nav-link" href="<c:url value="/patient/list" />">Patients</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/doctor/edit" />">Edit profile</a>

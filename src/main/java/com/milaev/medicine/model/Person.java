@@ -80,8 +80,6 @@ public class Person {
     }
 
     public Account getAccount() {
-//        if (account == null)
-//            account = new Account();
         return account;
     }
 

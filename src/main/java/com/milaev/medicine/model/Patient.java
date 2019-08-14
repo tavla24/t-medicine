@@ -19,7 +19,7 @@ public class Patient extends Person {
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
     private List<RecipeSimple> recipe;
 
     public String getInsuranceId() {

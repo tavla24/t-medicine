@@ -17,7 +17,7 @@
 		<div>
 			<span class="lead">List of Users, ${loggedinuser}</span>
 		</div>
-		<table>
+		<table >
 			<thead>
 				<tr>
 					<th>Login</th>

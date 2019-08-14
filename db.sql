@@ -84,16 +84,6 @@ CREATE TABLE healings
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
-CREATE TABLE recipes
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  patient_id INT UNSIGNED NOT NULL,
-  healing_id INT UNSIGNED NOT NULL,
-  date_from DATE NOT NULL,
-  date_to DATE NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
 CREATE TABLE recipes_simple
 (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -106,24 +96,6 @@ CREATE TABLE recipes_simple
   doze VARCHAR(127) NOT NULL,
   day_names VARCHAR(255) NOT NULL,
   day_parts VARCHAR(255) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-CREATE TABLE recipes_day_names
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name VARCHAR(127) NOT NULL,
-  recipe_id INT UNSIGNED,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-CREATE TABLE recipes_day_parts
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  part VARCHAR(127) NOT NULL,
-  time TIME,
-  doze VARCHAR(127) NOT NULL,
-  day_name_id INT UNSIGNED,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -177,27 +149,7 @@ ALTER TABLE recipes_simple
   ADD CONSTRAINT recipes_simple_patients_fk
     FOREIGN KEY (patient_id)
       REFERENCES patients(id);
-  
-ALTER TABLE recipes 
-  ADD CONSTRAINT recipes_patients_fk 
-  FOREIGN KEY (patient_id) 
-  REFERENCES patients(id);
 
-ALTER TABLE recipes_day_names
-  ADD CONSTRAINT recipes_day_names_recipes_fk
-    FOREIGN KEY (recipe_id)
-      REFERENCES recipes(id);
-
-ALTER TABLE recipes_day_parts
-  ADD CONSTRAINT recipes_day_parts_names_fk
-    FOREIGN KEY (day_name_id)
-      REFERENCES recipes_day_names(id);
-  
-ALTER TABLE recipes 
-  ADD CONSTRAINT recipes_healings_fk 
-  FOREIGN KEY (healing_id) 
-  REFERENCES healings(id);
-  
 ALTER TABLE events 
   ADD CONSTRAINT events_recipes_simple_fk
   FOREIGN KEY (recipe_id) 
@@ -242,26 +194,4 @@ INSERT INTO healings (name, type) VALUES
 ('drug bitter', 'DRUG'),
 ('drug sweed', 'DRUG');
 
-INSERT INTO recipes (patient_id, healing_id, date_from, date_to) VALUES
-(2, 1, '2019-02-01', '2019-06-05'),
-(3, 2, '2019-04-03', '2019-08-07');
-#(2, 1, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y')),
-#(3, 2, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'));
-
-INSERT INTO recipes_day_names (name, recipe_id) VALUES
-('Monday', 1),
-('Thursday', 1),
-('Friday', 2),
-('Saturday', 2),
-('Sunday', 2);
-
-INSERT INTO recipes_day_parts (part, time, doze, day_name_id) VALUES
-('Morning', '083000', '0.5', 1),
-('Day', '134500', '15', 1),
-('Evening', '181000', '1', 2),
-('Day', '134500', '15', 3),
-('Evening', '180000', '3', 4),
-('Evening', '190000', '85', 5),
-('Night', '010000', '85', 5),
-('Morning', '070000', '85', 5);
 # ==================================================

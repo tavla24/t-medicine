@@ -6,7 +6,6 @@
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:title_login title=""/>
         </jsp:body>
         </t:header>
     </jsp:attribute>
@@ -23,15 +22,14 @@
                         <input type="hidden" name="${_csrf.parameterName}"
                                value="${_csrf.token}" />
                         <div class="input-group">
-                            <input class="form-control"  type="text" id="username" name="login" placeholder="Enter Username" required>
+                            <input class="form-control mb-2 mr-2"  type="text" id="username" name="login" placeholder="Enter Username" required>
                         </div>
-                        <br>
                         <div class="input-group">
-                            <input class="form-control"  type="password" id="password" name="password" placeholder="Enter Password" required>
+                            <input class="form-control mb-2 mr-2"  type="password" id="password" name="password" placeholder="Enter Password" required>
                         </div>
                         <br>
                         <div class="text-right">
-                            <button type="submit" class="btn btn-success mr-2 btn-sm">Log in...</button>
+                            <button type="submit" class="btn btn-success  mb-2 mr-2 btn-sm">Log in...</button>
                         </div>
                     </form>
 

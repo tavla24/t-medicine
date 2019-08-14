@@ -23,7 +23,7 @@ public class Account {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
     private Person person;
 
     public Long getId() {
@@ -51,8 +51,6 @@ public class Account {
     }
 
     public Role getRole() {
-//        if (this.role == null)
-//            this.role = new Role();
         return role;
     }
 
@@ -61,8 +59,6 @@ public class Account {
     }
 
     public Person getPerson() {
-//        if (person == null)
-//            person = new Person();
         return person;
     }
 
