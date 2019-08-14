@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec"
-           uri="http://www.springframework.org/security/tags"%>
+           uri="http://www.springframework.org/security/tags" %>
 
 <%@tag description="Simple Title and Login button panel" pageEncoding="UTF-8" %>
 <%@attribute name="title" required="true" %>
@@ -14,13 +14,15 @@
     <c:url var="v_login" value="Log out..."/>
 </c:if>
 
-<div class="d-flex">
-    <span class="navbar-text">${title}</span>
-</div>
+<ul class="nav navbar-nav mr-auto">
+    <li class="nav-item">
+        <span class="navbar-text">${title}</span>
+    </li>
+</ul>
 
-<c:if test="${loggedinuser != null}">
-    <sec:authorize access="hasRole('ADMIN')">
-        <ul class="nav navbar-nav navbar-custom">
+<ul class="nav navbar-nav ml-auto">
+    <c:if test="${loggedinuser != null}">
+        <sec:authorize access="hasRole('ADMIN')">
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/admin/account/list" />">Accounts</a>
             </li>
@@ -33,29 +35,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/patient/list" />">Patients</a>
             </li>
-        </ul>
-    </sec:authorize>
-    <sec:authorize access="hasRole('DOCTOR')">
-        <ul class="nav navbar-nav navbar-custom">
+        </sec:authorize>
+        <sec:authorize access="hasRole('DOCTOR')">
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/patient/list" />">Patients</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/doctor/edit" />">Edit profile</a>
             </li>
-        </ul>
-    </sec:authorize>
-    <sec:authorize access="hasRole('NURSE')">
-        <ul class="nav navbar-nav navbar-custom">
+        </sec:authorize>
+        <sec:authorize access="hasRole('NURSE')">
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/event/list" />">Events</a>
             </li>
-        </ul>
-    </sec:authorize>
-</c:if>
+        </sec:authorize>
+    </c:if>
 
-<div class="d-flex ">
-    <div class="d-flex flex-row-reverse">
+    <li class="nav-item">
         <form class="form m-1 form-inline" method="POST" action="${post_login}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <c:if test="${loggedinuser == null}">
@@ -63,7 +59,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="aria-login" for="login"><i class="fa fa-user"></i></span>
                     </div>
-                    <input type="text" required class="form-control col-xs-2" id="login" name="login" placeholder="Login"
+                    <input type="text" required class="form-control col-xs-2" id="login" name="login"
+                           placeholder="Login"
                            aria-describedby="aria-login">
                 </div>
 
@@ -78,5 +75,5 @@
             </c:if>
             <button type="submit" class="btn btn-success mr-2 btn-sm">${v_login}</button>
         </form>
-    </div>
-</div>
+    </li>
+</ul>

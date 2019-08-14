@@ -5,7 +5,7 @@ import com.milaev.medicine.model.Account;
 import java.util.List;
 
 public class RoleDTO {
-    private String type;// = RoleType.USER.getUserProfileType();
+    private String type;
 
     private List<Account> accounts;
 

@@ -28,4 +28,18 @@ public class RoleDAO extends AbstractDAO<Role> implements RoleDAOInterface {
         return getByParamsSingle(query, type);
     }
 
+    @Override
+    public void insert(Role acc) {
+        per(acc);
+    }
+
+    @Override
+    public void delete(Role acc) {
+        del(acc);
+    }
+
+    @Override
+    public void update(Role acc) {
+        upd(acc);
+    }
 }

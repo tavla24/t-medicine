@@ -42,14 +42,20 @@ public class MapperUtil {
         return mapper::map;
     }
     
-
     public static BiConsumer<EventDTO, Event> toEntityEvent() {
         return mapper::map;
     }
     public static BiConsumer<Event, EventDTO> toDTOEvent() {
         return mapper::map;
     }
-    
+
+    public static BiConsumer<RoleDTO, Role> toEntityRole() {
+        return mapper::map;
+    }
+    public static BiConsumer<Role, RoleDTO> toDTORole() {
+        return mapper::map;
+    }
+
     @PostConstruct
     public void postConstruct() {
         mapper = new ModelMapper();
@@ -74,6 +80,10 @@ public class MapperUtil {
         mapper.createTypeMap(EventDTO.class, Event.class).setPropertyCondition(Conditions.isNotNull())
                 .addMappings(map -> map.skip(Event::setId));
         mapper.createTypeMap(Event.class, EventDTO.class).setPropertyCondition(Conditions.isNotNull());
+
+        mapper.createTypeMap(RoleDTO.class, Role.class).setPropertyCondition(Conditions.isNotNull())
+                .addMappings(map -> map.skip(Role::setId));
+        mapper.createTypeMap(Role.class, RoleDTO.class).setPropertyCondition(Conditions.isNotNull());
 
     }
 }

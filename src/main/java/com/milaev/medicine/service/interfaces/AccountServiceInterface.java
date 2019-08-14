@@ -1,6 +1,7 @@
 package com.milaev.medicine.service.interfaces;
 
 import com.milaev.medicine.dto.AccountDTO;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface AccountServiceInterface {
     void update(AccountDTO dto, String oldLogin);
 
     void insert(AccountDTO dto);
+
+    ModelAndView getListMAV();
 }

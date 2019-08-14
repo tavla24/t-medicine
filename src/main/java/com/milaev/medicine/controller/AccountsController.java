@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/admin/account")
-public class AdminAccountsController {
+@RequestMapping("/account")
+public class AccountsController {
 
-    private static Logger log = LoggerFactory.getLogger(AdminAccountsController.class);
+    private static Logger log = LoggerFactory.getLogger(AccountsController.class);
 
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
@@ -39,16 +39,10 @@ public class AdminAccountsController {
 
     @Autowired
     @Qualifier("passwordEncoder")
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    MessageSource messageSource;
-
-    @GetMapping(value = "/") // , method = RequestMethod.GET
-    public String main(ModelMap model) {
-        log.info("main()");
-        return "account/mainpanel";
-    }
+    private MessageSource messageSource;
 
     @GetMapping(value = "/list") // , method = RequestMethod.GET
     public ModelAndView listUsers(ModelMap model) {
@@ -59,26 +53,26 @@ public class AdminAccountsController {
     @GetMapping("/new")
     public String newUser(ModelMap model) {
         log.info("newUser()");
+        String loggedinuser = sessionAuth.getUserName();
+
         AccountDTO account = new AccountDTO();
-
         if (!model.containsAttribute("account")) {
-            log.info("!model.containsAttribute(\"account\")");
             model.addAttribute("account", account);
-
             model.addAttribute("roles", RoleType.getRoleTypesList());
-            model.addAttribute("loggedinuser", sessionAuth.getUserName());
+            model.addAttribute("loggedinuser", loggedinuser);
         }
+
         return "account/registration";
     }
 
     @PostMapping("/new")
     public String saveAccount(@Valid AccountDTO account, BindingResult result, ModelMap model,
-            RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes) {
+        log.info("saveAccount()");
         redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
         redirectAttributes.addFlashAttribute("account", account);
         redirectAttributes.addFlashAttribute("roles", RoleType.getRoleTypesList());
         redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
-        log.info("saveAccount()");
 
         // TODO validate unique datas
         if (!accountService.isLoginUnique(account.getLogin())) {
@@ -86,24 +80,14 @@ public class AdminAccountsController {
             FieldError loginErr = new FieldError("account", "login",
                     messageSource.getMessage("non.unique.login", new String[] { account.getLogin() }, Locale.ENGLISH));
             result.addError(loginErr);
-            log.info(result.getAllErrors().toString());
 
-            return "redirect:/admin/account/new";
-            // return "account/registration";
+            return "redirect:/account/new";
         }
 
         if (result.hasErrors()) {
             log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
-            return "redirect:/admin/account/new";
+            return "redirect:/account/new";
         }
-
-        log.info("no validation errors");
-        log.info("AccountDTO: ", account.toString());
-//        Account acc = accountService.dtoToEntity(account);
-//        Role r = roleService.getByType(acc.getRole());
-//        acc.setRole(r);
-//        log.info("AccountEntity: ", acc.toString());
 
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountService.insert(account);
@@ -111,34 +95,32 @@ public class AdminAccountsController {
         return "account/list";
     }
 
-    // @DeleteMapping(value = { "/delete-user-{login}" })
-    @GetMapping(value = { "/delete/{login}" })
+    @GetMapping("/delete/{login}")
     public String deleteUser(@PathVariable String login) {
         log.info("deleteUser()");
         accountService.deleteByLogin(login);
-        return "redirect:/admin/account/list";
+        return "redirect:/account/list";
     }
 
-    @GetMapping(value = { "/edit/{login}" })
+    @GetMapping("/edit/{login}")
     public String editUser(@PathVariable String login, ModelMap model) {
         log.info("editUser()");
+        String loggedinuser = sessionAuth.getUserName();
         AccountDTO account = accountService.getByLogin(login);
         model.addAttribute("account", account);
         model.addAttribute("roles", RoleType.getRoleTypesList());
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
+        model.addAttribute("loggedinuser", loggedinuser);
         return "account/registration";
     }
 
     @PostMapping("/edit/{login}")
     public String updateUser(@Valid AccountDTO account, BindingResult result, ModelMap model,
-            @PathVariable String login) {
+                             @PathVariable String login) {
         log.info("updateUser()");
         if (result.hasErrors()) {
             return "account/registration";
         }
-
         accountService.update(account, login);
-
         return "account/list";
     }
 }

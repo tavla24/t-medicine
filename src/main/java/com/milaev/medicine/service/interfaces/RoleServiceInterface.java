@@ -1,13 +1,14 @@
 package com.milaev.medicine.service.interfaces;
 
+import com.milaev.medicine.dto.RoleDTO;
 import com.milaev.medicine.model.Role;
 
 import java.util.List;
 
 public interface RoleServiceInterface {
-    List<Role> getAll();
+    List<RoleDTO> getAll();
 
-    Role getByType(String type);
+    RoleDTO getByType(String type);
 
-    Role getById(Long id);
+    RoleDTO getById(Long id);
 }

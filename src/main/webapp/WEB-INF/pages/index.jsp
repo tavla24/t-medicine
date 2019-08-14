@@ -1,27 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<html>
+<t:content title="Main Page">
+    <jsp:attribute name="header">
+        <t:header>
+        <jsp:body>
+            <t:navmenu title=""/>
+        </jsp:body>
+        </t:header>
+    </jsp:attribute>
+    <jsp:body>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 container-fluid">
+                <p class="text-center" style="margin-top: 50px"> Enter insurance Id or login</p>
+            </div>
+        </div>
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Guests page</title>
-</head>
-
-<body>
-	<div>
-		<span><a href="<c:url value="/login" />">Login</a></span> <br>
-		<span><a href="<c:url value="/logout" />">Logout</a></span> <br>
-		<span>Only for users with ADMIN role  (for example: login [admin] password [2222])</span> <br>
-        <span><a href="<c:url value="/admin/account/" />">Admin panel</a></span> <br>
-		<span>Only for users with DOCTOR role (for example: login [doctor] password [4444])</span> <br>
-        <span><a href="<c:url value="/doctor/" />">Doctor panel</a></span> <br>
-		<span><a href="<c:url value="/test/test" />">test</a></span> <br>
-		<span><a href="<c:url value="/test/error" />">error</a></span> <br>
-		<span><a href="<c:url value="/event/list" />">events list</a></span> <br>
-	</div>
-</body>
-
-</html>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="/todo" method="POST" >
+                    <div class="input-group">
+                    <input type="text" id="insId" name="insId" class="form-control"
+                           placeholder="Enter ensurance id" required>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success mr-2 btn-sm">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </jsp:body>
+</t:content>

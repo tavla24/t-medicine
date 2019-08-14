@@ -1,49 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<html>
+<t:content title="LogIn">
+    <jsp:attribute name="header">
+        <t:header>
+        <jsp:body>
+        </jsp:body>
+        </t:header>
+    </jsp:attribute>
+    <jsp:body>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 container-fluid">
+                    <c:url var="loginUrl" value="/logincmd" />
+                    <form action="${loginUrl}" method="POST" style="margin-top: 50px">
+                        <c:if test="${param.error != null}">
+                            <div>
+                                <p>Invalid username or password.</p>
+                            </div>
+                        </c:if>
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}" />
+                        <div class="input-group">
+                            <input class="form-control mb-2 mr-2"  type="text" id="username" name="login" placeholder="Enter Username" required>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control mb-2 mr-2"  type="password" id="password" name="password" placeholder="Enter Password" required>
+                        </div>
+                        <br>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success  mb-2 mr-2 btn-sm">Log in...</button>
+                        </div>
+                    </form>
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login page</title>
-</head>
-
-<body>
-	<div>
-	<c:url var="loginUrl" value="/logincmd" />
-		<form action="${loginUrl}" method="POST">
-			<c:if test="${param.error != null}">
-				<div>
-					<p>Invalid username and password.</p>
-				</div>
-			</c:if>
-			<c:if test="${param.logout != null}">
-				<div>
-					<p>You have been logged out successfully.</p>
-				</div>
-			</c:if>
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-			<div>
-				<input type="text" id="username" name="login"
-					placeholder="Enter Username" required>
-			</div>
-			<div>
-				<input type="password" id="password" name="password"
-					placeholder="Enter Password" required>
-			</div>
-			<div>
-				<label><input type="checkbox" id="rememberme"
-					name="remember-me">Remember Me</label>
-			</div>
-			<div>
-				<button type="submit">Log in...</button>
-			</div>
-		</form>
-	</div>
-	<%@include file="../zfooter.jsp" %>
-</body>
-
-</html>
+                </div>
+            </div>
+    </jsp:body>
+</t:content>

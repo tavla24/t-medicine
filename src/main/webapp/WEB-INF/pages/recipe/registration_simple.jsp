@@ -10,7 +10,7 @@
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:title_login title=""/>
+            <t:navmenu title=""/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

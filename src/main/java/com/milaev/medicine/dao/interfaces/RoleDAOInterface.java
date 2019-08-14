@@ -10,4 +10,10 @@ public interface RoleDAOInterface {
 
     Role getByType(String type);
 
+    void insert(Role acc);
+
+    void delete(Role acc);
+
+    void update(Role acc);
+
 }

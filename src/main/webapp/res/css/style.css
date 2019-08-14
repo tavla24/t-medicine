@@ -1,0 +1,50 @@
+body{
+    min-width: 320px;
+    font-size: 14px;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #626262;
+}
+
+a{
+    color: #b4ad9e
+}
+
+a:hover{
+    color: #898377;
+}
+
+/*bg-success #28a745*/
+header .navbar-color{
+    background-color: #fff;
+}
+
+header .navbar-dark .navbar-nav .nav-link{
+    color: #b4ad9e
+}
+
+header .navbar-brand{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 30px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+header .nav-item{
+    text-transform: uppercase;
+    margin-left: 15px;
+    color: #b4ad9e
+}
+
+header .nav-item a::after{
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: #ffffff;
+    height: 1px;
+    transform: scale(0);
+    transition: all .3s;
+}
+
+header .nav-item a:hover::after{
+    transform: scale(1);
+}

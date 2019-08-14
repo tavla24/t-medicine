@@ -38,16 +38,6 @@ public class AccountDTO {
         this.role = role;
     }
 
-//    public PersonDTO getPerson() {
-//        if (this.person == null)
-//            this.person = new PersonDTO();
-//        return person;
-//    }
-//
-//    public void setPerson(PersonDTO person) {
-//        this.person = person;
-//    }
-
     @Override
     public String toString() {
         return String.format("accounts result: login[%s]; password[%s]; role[%s]", login, password, getRole().getType());

@@ -1,20 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<html>
+<t:content title="Access Denied">
+    <jsp:attribute name="header">
+        <t:header>
+        <jsp:body>
+            <t:navmenu title=""/>
+        </jsp:body>
+        </t:header>
+    </jsp:attribute>
+    <jsp:body>
+        <div class="row d-flex justify-content-center">
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Access Denied page</title>
-</head>
-
-<body>
-	<div>
-		<span><strong>${loggedinuser}</strong> access denied </span> <br>
-	</div>
-	<%@include file="../zfooter.jsp" %>
-</body>
-
-</html>
+            <div class="col-md-6 container-fluid">
+                <p class="text-center" style="margin-top: 50px"> <span>Sorry, access denied for <strong>${loggedinuser}</strong></span> <br></p>
+            </div>
+        </div>
+    </jsp:body>
+</t:content>

@@ -23,7 +23,7 @@ public class SecurityController {
         if (!sessionAuth.isAnonimusSession()) {
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/login") // , method = RequestMethod.GET
@@ -31,7 +31,7 @@ public class SecurityController {
         log.info("loginPage()");
         if (sessionAuth.isAnonimusSession()) {
             log.info("return \"login\"");
-            return "security/login2";
+            return "security/login";
         } else {
             log.info("return \"redirect:/access_granted\"");
             return "redirect:/access_granted";
@@ -42,7 +42,7 @@ public class SecurityController {
     public String accessGrantedPage(ModelMap model) {
         log.info("accessGrantedPage()");
         model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "security/access_granted2";
+        return "security/access_granted";
     }
 
     @RequestMapping("/access_denied") // , method = RequestMethod.GET

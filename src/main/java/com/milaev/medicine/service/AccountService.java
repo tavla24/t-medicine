@@ -1,5 +1,6 @@
 package com.milaev.medicine.service;
 
+import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.AccountDTO;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +23,28 @@ public class AccountService implements AccountServiceInterface {
 
     private static Logger log = LoggerFactory.getLogger(AccountService.class);
 
-    // TODO in official docs created by autowired
-    // @Autowired
-    // private ModelMapper modelMapper;
-
     @Autowired
     private AccountDAO daoAccount;
 
     @Autowired
     private RoleDAO daoRole;
+
+    @Autowired
+    private SessionAuthenticationInterface sessionAuth;
+
+    @Override
+    public ModelAndView getListMAV(){
+        String loggedinuser = sessionAuth.getUserName();
+
+        List<AccountDTO> accounts = getAll();
+
+        ModelAndView mav = new ModelAndView();
+
+        mav.addObject("accounts", accounts);
+        mav.addObject("loggedinuser", loggedinuser);
+        mav.setViewName("account/list");
+        return mav;
+    }
 
     @Override
     @Transactional
@@ -37,9 +52,7 @@ public class AccountService implements AccountServiceInterface {
         List<Account> list = daoAccount.getAll();
         List<AccountDTO> listDAO = new ArrayList<>();
         for (Account item : list) {
-            AccountDTO accountDTO = new AccountDTO();
-            MapperUtil.toDTOAccount().accept(item, accountDTO);
-            listDAO.add(accountDTO);
+            listDAO.add(fillDTO(item));
         }
         return listDAO;
     }
@@ -48,29 +61,21 @@ public class AccountService implements AccountServiceInterface {
     @Transactional
     public AccountDTO getByLogin(String login) {
         Account dbAccount = daoAccount.getByLogin(login);
-        AccountDTO accountDTO = new AccountDTO();
-        MapperUtil.toDTOAccount().accept(dbAccount, accountDTO);
-        return accountDTO;
+        return fillDTO(dbAccount);
     }
 
     @Override
     @Transactional
     public AccountDTO getById(Long id) {
         Account dbAccount = daoAccount.getById(id);
-        AccountDTO accountDTO = new AccountDTO();
-        MapperUtil.toDTOAccount().accept(dbAccount, accountDTO);
-        return accountDTO;
+        return fillDTO(dbAccount);
     }
 
     @Override
     @Transactional
     public boolean isLoginUnique(String login) {
         log.info("service.isLoginUnique for login {}", login);
-        try {
-            // TODO is it normal way, or realize by criteria without exceptions
-            getByLogin(login);
-        } catch (Exception ex) {
-            report(ex);
+        if (getByLogin(login) == null) {
             return true;
         }
         return false;
@@ -92,7 +97,7 @@ public class AccountService implements AccountServiceInterface {
     public void update(AccountDTO dto, String oldLogin) {
         log.info("service.update(Account)");
         Account dbAccount = daoAccount.getByLogin(oldLogin);
-        Role r = daoRole.getByType(dto.getRole().getType());
+        Role r = getOrInsert(dto.getRole().getType());
         dbAccount.setRole(r);
         MapperUtil.toEntityAccount().accept(dto, dbAccount);
         try {
@@ -106,11 +111,8 @@ public class AccountService implements AccountServiceInterface {
     @Transactional
     public void insert(AccountDTO dto) {
         log.info("service.insert(Account)");
-        log.info(dto.toString());
-        Role r = daoRole.getByType(dto.getRole().getType());
         Account dbAccount = new Account();
-        // TODO question for Anatoliy - why cant be new Role()
-        // e.t. exception "role_id" cannot be null
+        Role r = getOrInsert(dto.getRole().getType());
         dbAccount.setRole(r);
         log.info(dbAccount.toString());
         MapperUtil.toEntityAccount().accept(dto, dbAccount);
@@ -121,9 +123,27 @@ public class AccountService implements AccountServiceInterface {
         }
     }
 
-    private void report(Exception ex){
+    private AccountDTO fillDTO(Account db) {
+        if (db != null) {
+            AccountDTO dto = new AccountDTO();
+            MapperUtil.toDTOAccount().accept(db, dto);
+            return dto;
+        }
+        return null;
+    }
+
+    private Role getOrInsert(String type){
+        Role r = daoRole.getByType(type);
+        if(r == null) {
+            r = new Role();
+            r.setType(type);
+            daoRole.insert(r);
+        }
+        return r;
+    }
+
+    private void report(Exception ex) {
         log.error("Exception from Service during DB query");
         ex.printStackTrace();
     }
-
 }
