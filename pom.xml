@@ -41,10 +41,13 @@
 		<version.log4j-slf4j-impl>2.12.0</version.log4j-slf4j-impl>
 		<version.lombok>1.18.8</version.lombok>
 		<version.modelmapper>2.3.5</version.modelmapper>
-		<version.junit>4.11</version.junit>
+		<version.junit>4.12</version.junit>
 		<version.validation-api>2.0.1.Final</version.validation-api>
 		<version.hibernate-validator>6.0.17.Final</version.hibernate-validator>
 		<version.joda-time>2.10.3</version.joda-time>
+		<version.mockito-all>1.10.19</version.mockito-all>
+		<version.spring-test>5.1.9.RELEASE</version.spring-test>
+		<version.junit-jupiter-api>5.5.1</version.junit-jupiter-api>
 	</properties>
 
 	<dependencies>
@@ -258,7 +261,31 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
-    </dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${version.mockito-all}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${version.spring-test}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${version.junit-jupiter-api}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>t-medicine</finalName>

@@ -1,6 +1,5 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.controller.AdminAccountsController;
 import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.RoleDTO;
 import com.milaev.medicine.model.Role;
@@ -18,7 +17,7 @@ import java.util.List;
 @Service
 public class RoleService implements RoleServiceInterface {
 
-    private static Logger log = LoggerFactory.getLogger(AdminAccountsController.class);
+    private static Logger log = LoggerFactory.getLogger(RoleService.class);
 
     @Autowired
     private RoleDAO daoRole;

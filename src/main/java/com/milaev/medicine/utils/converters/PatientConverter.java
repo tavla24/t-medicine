@@ -1,10 +1,10 @@
-package com.milaev.medicine.converter;
+package com.milaev.medicine.utils.converters;
 
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.model.Patient;
 import com.milaev.medicine.utils.MapperUtil;
 
-public class PatientConv {
+public class PatientConverter {
 
     public static PatientDTO toDTO(Patient db){
         PatientDTO dto = new PatientDTO();

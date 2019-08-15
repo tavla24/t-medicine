@@ -10,6 +10,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface AccountServiceInterface {
+
+    String PAGE_LIST = "account/list";
+    String PAGE_REGISTRATION = "account/registration";
+
     List<AccountDTO> getAll();
 
     AccountDTO getByLogin(String login);

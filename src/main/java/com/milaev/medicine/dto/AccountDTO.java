@@ -1,13 +1,11 @@
 package com.milaev.medicine.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 public class AccountDTO {
-    @NotBlank
     private String login;
-    @NotBlank
     private String password;
-    // TODO @NotEmpty
     private RoleDTO role;
 
     //private PersonDTO person;

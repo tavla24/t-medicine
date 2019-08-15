@@ -1,6 +1,6 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.converter.PatientConv;
+import com.milaev.medicine.utils.converters.PatientConverter;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dao.PatientDAO;
 import com.milaev.medicine.dto.PatientDTO;
@@ -34,7 +34,7 @@ public class PatientService implements PatientServiceInterface {
         List<Patient> list = daoPatient.getAll();
         List<PatientDTO> listDAO = new ArrayList<>();
         for (Patient item : list) {
-            listDAO.add(PatientConv.toDTO(item));
+            listDAO.add(PatientConverter.toDTO(item));
         }
         return listDAO;
     }
@@ -45,7 +45,7 @@ public class PatientService implements PatientServiceInterface {
         Patient db = daoPatient.getByLogin(login);
         PatientDTO dto = new PatientDTO();
         if (db != null)
-            dto = PatientConv.toDTO(db);
+            dto = PatientConverter.toDTO(db);
         return dto;
     }
 
@@ -55,7 +55,7 @@ public class PatientService implements PatientServiceInterface {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
         PatientDTO dto = new PatientDTO();
         if (db != null)
-            dto = PatientConv.toDTO(db);
+            dto = PatientConverter.toDTO(db);
         return dto;
     }
 
@@ -65,7 +65,7 @@ public class PatientService implements PatientServiceInterface {
         Patient db = daoPatient.getByFullName(fname, surname, patronymic, specify);
         PatientDTO dto = new PatientDTO();
         if (db != null)
-            dto = PatientConv.toDTO(db);
+            dto = PatientConverter.toDTO(db);
         return dto;
     }
 
@@ -75,7 +75,7 @@ public class PatientService implements PatientServiceInterface {
         List<Patient> list = daoPatient.getByDoctorLogin(login);
         List<PatientDTO> listDAO = new ArrayList<>();
         for (Patient item : list) {
-            listDAO.add(PatientConv.toDTO(item));
+            listDAO.add(PatientConverter.toDTO(item));
         }
         return listDAO;
     }
@@ -86,7 +86,7 @@ public class PatientService implements PatientServiceInterface {
         Patient db = daoPatient.getById(id);
         PatientDTO dto = new PatientDTO();
         if (db != null)
-            dto = PatientConv.toDTO(db);
+            dto = PatientConverter.toDTO(db);
         return dto;
     }
 

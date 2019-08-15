@@ -16,7 +16,7 @@ import java.util.Properties;
 @Configuration
 //@ComponentScan("com.milaev.medicine")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:db.properties")
+@PropertySource(value = "classpath:db/db.properties")
 public class HibernateConfig {
     private Environment environment;
 

@@ -36,17 +36,17 @@
                     <th>${account.password}</th>
                     <th>${account.role.type}</th>
                     <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                        <td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>
+                        <td><a href="<c:url value='/account/edit/${account.login}' />">edit</a></td>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>
+                        <td><a href="<c:url value='/account/delete/${account.login}' />">delete</a></td>
                     </sec:authorize>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
             <br>
-            <a class="col-12 btn btn-success" href="<c:url value="/admin/account/new" />">Create new account</a>
+            <a class="col-12 btn btn-success" href="<c:url value="/account/new" />">Create new account</a>
         </div>
 
     </jsp:body>

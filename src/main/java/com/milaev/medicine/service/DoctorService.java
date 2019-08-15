@@ -1,6 +1,6 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.converter.DoctorConv;
+import com.milaev.medicine.utils.converters.DoctorConverter;
 import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dto.DoctorDTO;
@@ -34,7 +34,7 @@ public class DoctorService implements DoctorServiceInterface {
         List<Doctor> list = daoDoctor.getAll();
         List<DoctorDTO> listDAO = new ArrayList<>();
         for (Doctor item : list) {
-            listDAO.add(DoctorConv.toDTO(item));
+            listDAO.add(DoctorConverter.toDTO(item));
         }
         return listDAO;
     }
@@ -45,7 +45,7 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            doctorDTO = DoctorConv.toDTO(dbDoctor);
+            doctorDTO = DoctorConverter.toDTO(dbDoctor);
         return doctorDTO;
     }
 
@@ -55,7 +55,7 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getByFullName(fname, surname, patronymic, specify);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            doctorDTO = DoctorConv.toDTO(dbDoctor);
+            doctorDTO = DoctorConverter.toDTO(dbDoctor);
         return doctorDTO;
     }
 
@@ -65,7 +65,7 @@ public class DoctorService implements DoctorServiceInterface {
         Doctor dbDoctor = daoDoctor.getById(id);
         DoctorDTO doctorDTO = new DoctorDTO();
         if (dbDoctor != null)
-            doctorDTO = DoctorConv.toDTO(dbDoctor);
+            doctorDTO = DoctorConverter.toDTO(dbDoctor);
         return doctorDTO;
     }
 
