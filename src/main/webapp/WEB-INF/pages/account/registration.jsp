@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="role">Select role</label>
-                            <form:select path="role.type" items="${roles}" multiple="false" id="role"
+                            <form:select path="role.type" items="${account.role.roles}" multiple="false" id="role"
                                          class="form-control form-control-sm mb-2 mr-2"/>
                             <form:errors path="role.type"/>
                         </div>

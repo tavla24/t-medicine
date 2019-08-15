@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/account")
@@ -44,101 +41,45 @@ public class AdminAccountsController {
     @Autowired
     MessageSource messageSource;
 
-    @GetMapping(value = "/") // , method = RequestMethod.GET
-    public String main(ModelMap model) {
+    @GetMapping("/")
+    public String main() {
         log.info("main()");
         return "account/mainpanel";
     }
 
-    @GetMapping(value = "/list") // , method = RequestMethod.GET
-    public ModelAndView listUsers(ModelMap model) {
-        log.info("listUsers()");
-        return accountService.getListMAV();
+    @GetMapping("/list")
+    public ModelAndView listAccounts() {
+        log.info("listAccounts()");
+        return accountService.mavAccountsList();
     }
 
     @GetMapping("/new")
-    public String newUser(ModelMap model) {
-        log.info("newUser()");
-        AccountDTO account = new AccountDTO();
-
-        if (!model.containsAttribute("account")) {
-            log.info("!model.containsAttribute(\"account\")");
-            model.addAttribute("account", account);
-
-            model.addAttribute("roles", RoleType.getRoleTypesList());
-            model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        }
-        return "account/registration";
+    public ModelAndView newAccount(ModelMap model) {
+        log.info("newAccount()");
+        return accountService.mavNewAccount(model);
     }
 
     @PostMapping("/new")
-    public String saveAccount(@Valid AccountDTO account, BindingResult result, ModelMap model,
-            RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
-        redirectAttributes.addFlashAttribute("account", account);
-        redirectAttributes.addFlashAttribute("roles", RoleType.getRoleTypesList());
-        redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
+    public ModelAndView newAccount(@Valid AccountDTO account, BindingResult result, RedirectAttributes redirectAttributes) {
         log.info("saveAccount()");
-
-        // TODO validate unique datas
-        if (!accountService.isLoginUnique(account.getLogin())) {
-            log.info("non Unique Login");
-            FieldError loginErr = new FieldError("account", "login",
-                    messageSource.getMessage("non.unique.login", new String[] { account.getLogin() }, Locale.ENGLISH));
-            result.addError(loginErr);
-            log.info(result.getAllErrors().toString());
-
-            return "redirect:/admin/account/new";
-            // return "account/registration";
-        }
-
-        if (result.hasErrors()) {
-            log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
-            return "redirect:/admin/account/new";
-        }
-
-        log.info("no validation errors");
-        log.info("AccountDTO: ", account.toString());
-//        Account acc = accountService.dtoToEntity(account);
-//        Role r = roleService.getByType(acc.getRole());
-//        acc.setRole(r);
-//        log.info("AccountEntity: ", acc.toString());
-
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        accountService.insert(account);
-
-        return "account/list";
+        return accountService.mavNewAccount(account, result, redirectAttributes);
     }
 
-    // @DeleteMapping(value = { "/delete-user-{login}" })
-    @GetMapping(value = { "/delete/{login}" })
-    public String deleteUser(@PathVariable String login) {
-        log.info("deleteUser()");
-        accountService.deleteByLogin(login);
-        return "redirect:/admin/account/list";
+    @GetMapping("/delete/{login}")
+    public ModelAndView deleteAccount(@PathVariable String login) {
+        log.info("deleteAccount()");
+        return accountService.mavDeleteAccount(login);
     }
 
-    @GetMapping(value = { "/edit/{login}" })
-    public String editUser(@PathVariable String login, ModelMap model) {
-        log.info("editUser()");
-        AccountDTO account = accountService.getByLogin(login);
-        model.addAttribute("account", account);
-        model.addAttribute("roles", RoleType.getRoleTypesList());
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "account/registration";
+    @GetMapping("/edit/{login}")
+    public ModelAndView editAccount(@PathVariable String login) {
+        log.info("editAccount()");
+        return accountService.mavEditAccount(login);
     }
 
     @PostMapping("/edit/{login}")
-    public String updateUser(@Valid AccountDTO account, BindingResult result, ModelMap model,
-            @PathVariable String login) {
-        log.info("updateUser()");
-        if (result.hasErrors()) {
-            return "account/registration";
-        }
-
-        accountService.update(account, login);
-
-        return "account/list";
+    public ModelAndView editAccount(@Valid AccountDTO account, BindingResult result, @PathVariable String login) {
+        log.info("editAccount()");
+        return accountService.mavEditAccount(account, result, login);
     }
 }

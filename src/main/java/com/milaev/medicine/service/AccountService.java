@@ -6,17 +6,30 @@ import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Role;
+import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
+import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class AccountService implements AccountServiceInterface {
@@ -30,19 +43,109 @@ public class AccountService implements AccountServiceInterface {
     private RoleDAO daoRole;
 
     @Autowired
+    private AccountServiceInterface accountService;
+
+    @Autowired
+    @Qualifier("passwordEncoder")
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
     private SessionAuthenticationInterface sessionAuth;
 
+    private static final String PAGE_LIST = "account/list";
+    private static final String PAGE_REGISTRATION = "account/registration";
+    private static final String PAGE_NEW = "account/new";
+
     @Override
-    public ModelAndView getListMAV(){
-        String loggedinuser = sessionAuth.getUserName();
-
+    @Transactional
+    public ModelAndView mavAccountsList(){
+        log.info("mavAccountsList()");
+        ModelAndView mav = getPreparedMAV();
         List<AccountDTO> accounts = getAll();
-
-        ModelAndView mav = new ModelAndView();
-
         mav.addObject("accounts", accounts);
+        return PageURLContext.getPage(mav, PAGE_LIST);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavNewAccount(ModelMap model) {
+        log.info("mavNewAccount()");
+        ModelAndView mav = getPreparedMAV();
+
+        AccountDTO account = new AccountDTO();
+        if (!model.containsAttribute("account")) {
+            mav.addObject("account", account);
+        } else
+            mav.addAllObjects(model);
+        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavNewAccount(AccountDTO account, BindingResult result,
+                              RedirectAttributes redirectAttributes) {
+        log.info("mavNewAccount()");
+        ModelAndView mav = getPreparedMAV();
+
+        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
+        redirectAttributes.addFlashAttribute("account", account);
+
+        // TODO validate unique datas
+        if (!accountService.isLoginUnique(account.getLogin())) {
+            log.info("non Unique Login");
+            FieldError loginErr = new FieldError("account", "login",
+                    messageSource.getMessage("non.unique.login", new String[] { account.getLogin() }, Locale.ENGLISH));
+            result.addError(loginErr);
+            log.info(result.getAllErrors().toString());
+            //RedirectView redirectView = new RedirectView("/admin/account/new");
+            //redirectView.setContextRelative(true);
+            //mav.setView(redirectView);
+            return PageURLContext.getPageRedirect(mav, PAGE_NEW);
+        }
+
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        accountService.insert(account);
+
+        return PageURLContext.getPageRedirect(mav, PAGE_LIST);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavDeleteAccount(String login) {
+        log.info("mavDeleteAccount()");
+        accountService.deleteByLogin(login);
+        return PageURLContext.getPageRedirect(new ModelAndView(), PAGE_LIST);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavEditAccount(String login) {
+        log.info("mavEditAccount()");
+        ModelAndView mav = getPreparedMAV();
+
+        AccountDTO account = accountService.getByLogin(login);
+        mav.addObject("account", account);
+        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavEditAccount(AccountDTO account, BindingResult result, String login) {
+        log.info("mavEditAccount()");
+        if (result.hasErrors()) {
+            return PageURLContext.getPage(new ModelAndView(), PAGE_REGISTRATION);
+        }
+        accountService.update(account, login);
+        return PageURLContext.getPage(new ModelAndView(), PAGE_LIST);
+    }
+
+    private ModelAndView getPreparedMAV(){
+        String loggedinuser = sessionAuth.getUserName();
+        ModelAndView mav = new ModelAndView();
         mav.addObject("loggedinuser", loggedinuser);
-        mav.setViewName("account/list");
         return mav;
     }
 
