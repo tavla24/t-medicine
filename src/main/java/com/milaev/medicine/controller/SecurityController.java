@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@SessionAttributes("XXXX")
 public class SecurityController {
 
     private static Logger log = LoggerFactory.getLogger(SecurityController.class);

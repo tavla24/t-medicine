@@ -21,7 +21,6 @@ public class AccountValidatorTest {
     @Autowired
     private AccountValidator accountValidator;
 
-    // mocked dependencies
     @Autowired
     private AccountServiceInterface accountService;
 

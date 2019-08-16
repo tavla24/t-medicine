@@ -37,7 +37,12 @@ public class SessionAuthentication implements SessionAuthenticationInterface {
     private String getPrincipal() {
         log.info("getPrincipal()");
         String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = "anonymmousUser";
+        if (a != null)
+            principal = a.getPrincipal();
 
         if (principal instanceof UserDetails) {
             log.info("getPrincipal(): instanceof UserDetails");

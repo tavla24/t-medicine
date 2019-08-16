@@ -1,7 +1,6 @@
 package com.milaev.medicine.config;
 
 import com.milaev.medicine.dto.validators.AccountValidator;
-import com.milaev.medicine.service.AccountService;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
