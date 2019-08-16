@@ -25,6 +25,7 @@ import javax.servlet.Filter;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -44,22 +45,25 @@ public class SecurityControllerTest {
 
     private MockMvc mvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(wac)
-                .defaultRequest(get("/").with(user("admin").roles("ADMIN")))
-                .addFilters(springSecurityFilterChain)
+//                .defaultRequest(get("/").with(user("admin").roles("ADMIN")))
+//                .addFilters(springSecurityFilterChain)
+                //.apply(springSecurity())
                 .build();
     }
 
-//    @Test
-//    public void requestProtectedUrlWithAdmin() throws Exception {
-//        mvc
-//                .perform(get("/admin"))
-//                // Ensure we got past Security
-//                .andExpect(status().isNotFound())
-//                // Ensure it appears we are authenticated with user
-//                .andExpect(authenticated().withUsername("user"));
-//    }
+    @Test
+    public void requestProtectedUrlWithAdmin() throws Exception {
+        mvc
+                //.perform(get("/admin"))
+                .perform(get("/admin/doctor/").with(user("admin").password("3333").roles("ADMIN")))
+                .andDo(print())
+                // Ensure we got past Security
+                .andExpect(status().isNotFound())
+                // Ensure it appears we are authenticated with user
+                .andExpect(authenticated().withUsername("admin"));
+    }
 }

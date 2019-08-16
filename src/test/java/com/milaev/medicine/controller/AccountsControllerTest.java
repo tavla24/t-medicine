@@ -52,5 +52,4 @@ public class AccountsControllerTest {
 
         ModelAndView mav = result.getModelAndView();
     }
-
 }
