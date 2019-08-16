@@ -51,19 +51,25 @@ public class SecurityControllerTest {
                 .webAppContextSetup(wac)
 //                .defaultRequest(get("/").with(user("admin").roles("ADMIN")))
 //                .addFilters(springSecurityFilterChain)
-                //.apply(springSecurity())
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
-    public void requestProtectedUrlWithAdmin() throws Exception {
+    public void requestAdminWithCorrectPassword() throws Exception {
         mvc
-                //.perform(get("/admin"))
+                .perform(get("/admin/doctor/").with(user("admin").password("2222").roles("ADMIN")))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(authenticated().withUsername("admin"));
+    }
+
+    @Test
+    public void requestAdminWithWrongPassword() throws Exception {
+        mvc
                 .perform(get("/admin/doctor/").with(user("admin").password("3333").roles("ADMIN")))
                 .andDo(print())
-                // Ensure we got past Security
                 .andExpect(status().isNotFound())
-                // Ensure it appears we are authenticated with user
                 .andExpect(authenticated().withUsername("admin"));
     }
 }
