@@ -14,6 +14,8 @@ public interface AccountServiceInterface {
     String PAGE_LIST = "account/list";
     String PAGE_REGISTRATION = "account/registration";
 
+    String URI_LIST = "/account/list";
+
     List<AccountDTO> getAll();
 
     AccountDTO getByLogin(String login);
@@ -28,16 +30,15 @@ public interface AccountServiceInterface {
 
     void insert(AccountDTO dto);
 
-    ModelAndView mavAccountsList();
+    ModelAndView mavList();
 
-    ModelAndView mavNewAccount(ModelMap model);
+    ModelAndView mavNew();
 
-    ModelAndView mavNewAccount(@Valid AccountDTO account, BindingResult result,
-                             RedirectAttributes redirectAttributes);
+    ModelAndView mavNew(AccountDTO dto, BindingResult result);
 
-    ModelAndView mavDeleteAccount(String login);
+    ModelAndView mavDelete(String login);
 
-    ModelAndView mavEditAccount(String login);
+    ModelAndView mavEdit(String login);
 
-    ModelAndView mavEditAccount(AccountDTO account, BindingResult result, String login);
+    ModelAndView mavEdit(AccountDTO dto, BindingResult result, String login);
 }

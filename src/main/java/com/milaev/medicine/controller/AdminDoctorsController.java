@@ -2,6 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.validators.DoctorValidator;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +12,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -27,90 +28,51 @@ public class AdminDoctorsController {
     private static Logger log = LoggerFactory.getLogger(AdminDoctorsController.class);
 
     @Autowired
-    private SessionAuthenticationInterface sessionAuth;
-
-    @Autowired
-    MessageSource messageSource;
-
-    @Autowired
-    //@Qualifier("doctorServiceN")
     @Qualifier("doctorService")
-    DoctorServiceInterface doctorService;
+    private DoctorServiceInterface doctorService;
 
-    @GetMapping(value = "/") // , method = RequestMethod.GET
-    public String main(ModelMap model) {
-        log.info("main()");
-        return "doctor/mainpanel";
+    @Autowired
+    private DoctorValidator doctorValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(doctorValidator);
     }
 
     @GetMapping(value = "/list") // , method = RequestMethod.GET
-    public String listDoctors(ModelMap model) {
-        log.info("listDoctors()");
-        List<DoctorDTO> doctors = doctorService.getAll();
-        model.addAttribute("doctors", doctors);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "doctor/list";
+    public ModelAndView listDoctors() {
+        log.info("[/admin/doctor] get request for url /list");
+        return doctorService.mavList();
     }
 
     @GetMapping(value = {"/new"})
-    public String newDoctor(ModelMap model) {
-        log.info("newDoctor()");
-        if (!model.containsAttribute("doctor")) {
-            DoctorDTO doctorDTO = new DoctorDTO();
-            model.addAttribute("doctor", doctorDTO);
-            model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        }
-        return "doctor/registration";
+    public ModelAndView newDoctor() {
+        log.info("[/admin/doctor] get request for url /new");
+        return doctorService.mavNew();
     }
 
     @PostMapping(value = {"/new"})
-    public String saveDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model,
-                             RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.account", result);
-        redirectAttributes.addFlashAttribute("doctor", doctorDTO);
-        redirectAttributes.addFlashAttribute("loggedinuser", sessionAuth.getUserName());
-        log.info("saveDoctor()");
-
-        if (result.hasErrors()) {
-            log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
-            return "redirect:/admin/doctor/new";
-        }
-
-        log.info("no validation errors");
-
-        doctorService.updateProfile(doctorDTO);
-
-        return "redirect:/admin/doctor/list";
+    public ModelAndView newDoctor(@Validated DoctorDTO dto, BindingResult result) {
+        log.info("[/admin/doctor] post request for url /new");
+        return doctorService.mavNew(dto, result);
     }
 
-    // @DeleteMapping(value = { "/delete-user-{login}" })
     @GetMapping(value = { "/delete/{login}" })
-    public String deleteDoctor(@PathVariable String login) {
-        log.info("deleteDoctor()");
-        doctorService.deleteProfile(login);
-        return "redirect:/admin/doctor/list";
+    public ModelAndView deleteDoctor(@PathVariable String login) {
+        log.info("[/admin/doctor] get request for url /delete/{}", login);
+        return doctorService.mavDelete(login);
     }
 
     @GetMapping(value = { "/edit/{login}" })
-    public String editDoctor(@PathVariable String login, ModelMap model) {
-        log.info("editDoctor()");
-        DoctorDTO doctor = doctorService.getByLogin(login);
-        model.addAttribute("doctor", doctor);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "doctor/registration";
+    public ModelAndView editDoctor(@PathVariable String login) {
+        log.info("[/admin/doctor] get request for url /edit/{}", login);
+        return doctorService.mavEdit(login);
     }
 
     @PostMapping("/edit/{login}")
-    public String updateDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model,
-                               @PathVariable String login) {
-        log.info("updateDoctor()");
-        if (result.hasErrors()) {
-            return "doctor/registration";
-        }
-
-        doctorService.updateProfile(doctorDTO);
-
-        return "redirect:/admin/doctor/list";
+    public ModelAndView editDoctor(@Validated DoctorDTO dto, BindingResult result,
+                                     @PathVariable String login) {
+        log.info("[/admin/doctor] post request for url /edit/{}", login);
+        return doctorService.mavEdit(dto, result);
     }
 }

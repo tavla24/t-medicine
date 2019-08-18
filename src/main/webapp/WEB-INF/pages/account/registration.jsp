@@ -17,7 +17,10 @@
         <br>
 
         <div>
-            <form:form method="POST" modelAttribute="account">
+            <form:form method="POST" modelAttribute="dto">
+                <form:input type="hidden" path="edit" id="edit"/>
+                <form:input type="hidden" path="oldLogin" id="oldLogin"/>
+                <form:input type="hidden" path="oldPassword" id="oldPassword"/>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
@@ -38,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="role">Select role</label>
-                            <form:select path="role.type" items="${account.role.roles}" multiple="false" id="role"
+                            <form:select path="role.type" items="${dto.role.roles}" multiple="false" id="role"
                                          class="form-control form-control-sm mb-2 mr-2"/>
                             <form:errors path="role.type" class="text-danger"/>
                         </div>

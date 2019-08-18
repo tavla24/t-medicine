@@ -1,6 +1,9 @@
 package com.milaev.medicine.dto;
 
+import com.milaev.medicine.model.enums.EventStatus;
+
 import java.util.Date;
+import java.util.List;
 
 public class EventDTO {
     private Long id;
@@ -41,6 +44,10 @@ public class EventDTO {
     }
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public List<String> getEventStatusList(){
+        return EventStatus.getStatusList();
     }
 
 }

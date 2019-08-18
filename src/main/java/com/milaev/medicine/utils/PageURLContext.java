@@ -27,7 +27,7 @@ public class PageURLContext {
 
     public static String getPage(String url, boolean redirect){
         if (redirect)
-            url = "redirect:/".concat(url);
+            url = "redirect:".concat(url);
         return url;
     }
 }

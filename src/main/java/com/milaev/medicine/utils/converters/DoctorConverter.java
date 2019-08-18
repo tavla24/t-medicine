@@ -12,8 +12,7 @@ public class DoctorConverter {
         return dto;
     }
 
-    public static Doctor toEntity(DoctorDTO dto){
-        Doctor db = new Doctor();
+    public static Doctor toEntity(DoctorDTO dto, Doctor db){
         MapperUtil.toEntityDoctor().accept(dto, db);
         return db;
     }

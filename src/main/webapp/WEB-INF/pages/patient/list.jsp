@@ -39,7 +39,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${patients}" var="patient">
+                <c:forEach items="${dto}" var="patient">
                     <tr>
                         <th>${patient.name}</th>
                         <th>${patient.surname}</th>
@@ -63,10 +63,12 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <sec:authorize access="hasRole('DOCTOR')">
+
+            <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
                 <br>
                 <a class="col-12 btn btn-success" href="<c:url value="/patient/new" />">Register new patient</a>
             </sec:authorize>
+
         </div>
     </jsp:body>
 </t:content>

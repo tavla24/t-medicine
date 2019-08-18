@@ -17,20 +17,22 @@
         <br>
 
         <div>
-            <form:form method="POST" modelAttribute="doctor">
-                <%--
-                            <sec:authorize access="hasRole('ADMIN')">
-                                <div class="row">
-                                <div class="col-md-6 offset-md-3">
+            <form:form method="POST" modelAttribute="dto">
+                <sec:authorize access="hasRole('ADMIN')">
+                    <c:if test="${!dto.edit}">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
                                 <div class="form-group">
-                                    <label for="login">login</label>
-                                    <form:input type="text" path="login" id="login" class="form-control form-control-sm" />
-                                    <form:errors path="login" />
-                                        </div>
-                                    </div>
+                                    <label for="login">Login</label>
+                                    <form:input type="text" path="login" id="login"
+                                                class="form-control form-control-sm mb-2 mr-2"/>
+                                    <form:errors path="login" class="text-danger"/>
                                 </div>
-                            </sec:authorize>
-                --%>
+                            </div>
+                        </div>
+                    </c:if>
+                </sec:authorize>
+
                 <sec:authorize access="hasRole('DOCTOR')">
                     <form:input type="hidden" path="login"/>
                 </sec:authorize>
@@ -38,18 +40,18 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
-
                             <label for="name">First Name</label>
-                            <form:input type="text" path="name" id="name" class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="name"/>
+                            <form:input type="text" path="name" id="name"
+                                        class="form-control form-control-sm mb-2 mr-2"/>
+                            <form:errors path="name" class="text-danger"/>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="surname">Surname</label>
-                            <form:input type="text" path="surname" id="surname" class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="surname"/>
+                            <form:input type="text" path="surname" id="surname"
+                                        class="form-control form-control-sm mb-2 mr-2"/>
+                            <form:errors path="surname" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
@@ -57,31 +59,31 @@
                             <label for="patronymic">Patronymic</label>
                             <form:input type="text" path="patronymic" id="patronymic"
                                         class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="patronymic"/>
+                            <form:errors path="patronymic" class="text-danger"/>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="specialization">Specialization</label>
                             <form:input type="text" path="specialization" id="specialization"
                                         class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="specialization"/>
+                            <form:errors path="specialization" class="text-danger"/>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="email">email</label>
-                            <form:input type="text" path="email" id="email" class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="email"/>
+                            <form:input type="text" path="email" id="email"
+                                        class="form-control form-control-sm mb-2 mr-2"/>
+                            <form:errors path="email" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="phone">phone</label>
-                            <form:input type="text" path="phone" id="phone" class="form-control form-control-sm mb-2 mr-2"/>
-                            <form:errors path="phone"/>
+                            <form:input type="text" path="phone" id="phone" placeholder="X-XXX-XXXXXXX"
+                                        class="form-control form-control-sm mb-2 mr-2"/>
+                            <form:errors path="phone" class="text-danger"/>
                         </div>
                     </div>
                 </div>

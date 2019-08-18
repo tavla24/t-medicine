@@ -35,7 +35,7 @@ public class TestController {
         RecipeSimpleDTO dto = dtoList.get(0);
         //dto.convToDayNamesList();
         //dto.convToDayPartsList();
-        dto.translate();
+        //dto.translate();
 
         List<String> sourceHealingTypes = HealingType.getTypeList();
         List<String> sourceDayNames = DayNameTypes.getTypeList();
@@ -51,7 +51,7 @@ public class TestController {
     @PostMapping(value = "/test") // , method = RequestMethod.GET
     public String test3Post(@Valid RecipeSimpleDTO dto, BindingResult result, ModelMap model,
                             RedirectAttributes redirectAttributes) {
-        return "recipe/registration";
+        return "recipe/registration_simple";
     }
 
     @GetMapping(value = "/error") // , method = RequestMethod.GET

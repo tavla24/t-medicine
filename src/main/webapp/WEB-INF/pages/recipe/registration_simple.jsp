@@ -33,11 +33,11 @@
                         <label for="healingName">Healing</label>
                         <form:input type="text" path="healingName" id="healingName"
                                     class="form-control form-control-sm mb-2 mr-2"/>
-                        <form:errors path="healingName"/>
+                        <form:errors path="healingName" class="text-danger"/>
 
-                        <form:select tabindex="0" path="healingType" items="${sourceHealingTypes}" multiple="false"
+                        <form:select tabindex="0" path="healingType" items="${dto.sourceHealingTypes}" multiple="false"
                                      id="healingType" class="form-control form-control-sm mb-2 mr-2"/>
-                        <form:errors path="healingType"/>
+                        <form:errors path="healingType" class="text-danger"/>
                     </div>
                 </div>
 
@@ -45,6 +45,7 @@
                     <div class="col-md-6 offset-md-3">
                         <label for="doze">Doze:</label>
                         <form:input type="text" path="doze" id="doze" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:errors path="doze" class="text-danger"/>
                     </div>
                 </div>
             </div>
@@ -52,20 +53,22 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <div class="d-flex">
-                        <label for="name" class="mb-2 mr-2 flex-fill p-2">Periodic:</label>
+                        <label for="dateFrom" class="mb-2 mr-2 flex-fill p-2">Periodic:</label>
 
-                        <label for="name" class="mb-2 mr-2 flex-fill p-2"> from </label>
+                        <label for="dateFrom" class="mb-2 mr-2 flex-fill p-2"> from </label>
                         <fmt:formatDate value="${dto.dateFrom}" var="dateFromString" pattern="yyyy-MM-dd"/>
-                        <form:input type="date" path="dateFrom" id="name" value="${dateFromString}"
+                        <form:input type="date" path="dateFrom" id="dateFrom" value="${dateFromString}"
                                     class="form-control form-control-sm mb-2 mr-2 flex-fill p-2"/>
-                        <form:errors path="dateFrom"/>
 
-                        <label for="name" class="mb-2 mr-2 flex-fill p-2"> to </label>
+
+                        <label for="dateTo" class="mb-2 mr-2 flex-fill p-2"> to </label>
                         <fmt:formatDate value="${dto.dateTo}" var="dateToString" pattern="yyyy-MM-dd"/>
-                        <form:input type="date" path="dateTo" id="name" value="${dateToString}"
+                        <form:input type="date" path="dateTo" id="dateTo" value="${dateToString}"
                                     class="form-control form-control-sm mb-2 mr-2 flex-fill p-2"/>
-                        <form:errors path="dateTo"/>
+
                         </div>
+                        <div><form:errors path="dateFrom" class="text-danger"/></div>
+                        <div><form:errors path="dateTo" class="text-danger"/></div>
                     </div>
                 </div>
 
@@ -74,17 +77,19 @@
                     <div class="d-flex">
                         <label for="dayPattern" class="mb-2 mr-2 flex-fill p-2">Day pattern:</label>
                         <div class="form-check form-check-inline">
-                        <form:checkboxes path="dayPartsList" items="${sourceDayParts}"
+                        <form:checkboxes path="dayPartsList" items="${dto.sourceDayParts}"
                                          class="form-check-input flex-fill mb-2 mr-2" id="dayPattern" style="margin-right:5px"/>
                         </div>
                     </div>
+                    <form:errors path="dayPartsList" class="text-danger"/><br>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <form:select path="dayNamesList" items="${sourceDayNames}" multiple="true"
+                    <form:select path="dayNamesList" items="${dto.sourceDayNames}" multiple="true"
                                  class="form-control form-control-sm"/>
+                    <form:errors path="dayNamesList" class="text-danger"/>
                 </div>
             </div>
 

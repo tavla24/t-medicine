@@ -6,9 +6,13 @@ import javax.validation.constraints.NotEmpty;
 public class AccountDTO {
     private String login;
     private String password;
+
+    private String oldLogin;
+    private String oldPassword;
+
     private RoleDTO role;
 
-    //private PersonDTO person;
+    private boolean edit;
 
     public String getLogin() {
         return login;
@@ -26,6 +30,22 @@ public class AccountDTO {
         this.password = password;
     }
 
+    public String getOldLogin() {
+        return oldLogin;
+    }
+
+    public void setOldLogin(String oldLogin) {
+        this.oldLogin = oldLogin;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
     public RoleDTO getRole() {
         if (this.role == null)
             this.role = new RoleDTO();
@@ -34,6 +54,22 @@ public class AccountDTO {
 
     public void setRole(RoleDTO role) {
         this.role = role;
+    }
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
+
+    public boolean isOldLoginEmpty() {
+        return oldLogin.isEmpty();
+    }
+
+    public boolean isLoginEqualsOldLogin() {
+        return oldLogin.equals(login);
     }
 
     @Override

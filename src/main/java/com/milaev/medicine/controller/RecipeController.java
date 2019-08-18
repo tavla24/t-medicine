@@ -5,6 +5,7 @@ import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.DTOContainer;
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
+import com.milaev.medicine.dto.validators.RecipeSimpleValidator;
 import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
 import com.milaev.medicine.model.enums.HealingType;
@@ -19,8 +20,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -34,116 +37,54 @@ public class RecipeController {
     private static Logger log = LoggerFactory.getLogger(RecipeController.class);
 
     @Autowired
-    private SessionAuthenticationInterface sessionAuth;
+    private RecipeSimpleServiceInterface recipeService;
 
     @Autowired
-    MessageSource messageSource;
-
-    @Autowired
-    RecipeSimpleServiceInterface recipeService;
-
-    @Autowired
-    PatientServiceInterface patientService;
-
-    @Autowired
-    private EventServiceInterface eventService;
-
+    RecipeSimpleValidator recipeSimpleValidator;
 
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+
+        webDataBinder.setValidator(recipeSimpleValidator);
     }
 
-    @GetMapping(value = "/list/{insuranceId}") // , method = RequestMethod.GET
-    public String listPatients(@PathVariable String insuranceId, ModelMap model) {
-        log.info("listPatients()");
-        String loggedinuser = sessionAuth.getUserName();
-        List<RecipeSimpleDTO> dtoList = recipeService.getByInsuranceId(insuranceId);
-        //DTOContainer<RecipeSimpleDTO> container = new DTOContainer(list);
-
-        //RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
-
-        model.addAttribute("dto", dtoList);
-        model.addAttribute("insuranceId", insuranceId);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "recipe/list_simple";
+    @GetMapping(value = "/list/{insuranceId}")
+    public ModelAndView listRecipes(@PathVariable String insuranceId) {
+        log.info("[/recipe] get request for url /list/{}", insuranceId);
+        return recipeService.mavList(insuranceId);
     }
 
-    @GetMapping(value = "/new/{insuranceId}") // , method = RequestMethod.GET
-    public String newRecipe(@PathVariable String insuranceId, ModelMap model) {
-        log.info("newRecipe()");
-
-        String loggedinuser = sessionAuth.getUserName();
-
-        PatientDTO patientDTO = patientService.getByInsuranceId(insuranceId);
-        RecipeSimpleDTO dto = new RecipeSimpleDTO();
-        dto.setPatient(patientDTO);
-
-        List<String> sourceHealingTypes = HealingType.getTypeList();
-        List<String> sourceDayNames = DayNameTypes.getTypeList();
-        List<String> sourceDayParts = DayPartTypes.getTypeList();
-
-        model.addAttribute("sourceHealingTypes", sourceHealingTypes);
-        model.addAttribute("sourceDayNames", sourceDayNames);
-        model.addAttribute("sourceDayParts", sourceDayParts);
-        model.addAttribute("dto", dto);
-        model.addAttribute("id", 0);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "recipe/registration_simple";
+    @GetMapping(value = "/new/{insuranceId}")
+    public ModelAndView newRecipe(@PathVariable String insuranceId) {
+        log.info("[/recipe] get request for url /new/{}", insuranceId);
+        return recipeService.mavNew(insuranceId);
     }
 
-    @GetMapping(value = "/edit/{insuranceId}/{id}") // , method = RequestMethod.GET
-    public String editRecipe(@PathVariable String insuranceId, @PathVariable Long id, ModelMap model) {
-        log.info("editRecipes()");
-//        Long recipeId = 0L;
-//
-//        try {
-//            recipeId = Long.parseLong(id);
-//        }catch (Exception ex){
-//            System.out.println("parseLong failed!");
-//            ex.printStackTrace();
-//        }
-
-        String loggedinuser = sessionAuth.getUserName();
-
-        PatientDTO patientDTO = patientService.getByInsuranceId(insuranceId);
-        RecipeSimpleDTO dto = recipeService.getById(id);
-        //dto.convToDayNamesList();
-        //dto.convToDayPartsList();
-        dto.setPatient(patientDTO);
-        //dto.translate();
-
-        List<String> sourceHealingTypes = HealingType.getTypeList();
-        List<String> sourceDayNames = DayNameTypes.getTypeList();
-        List<String> sourceDayParts = DayPartTypes.getTypeList();
-
-        model.addAttribute("sourceHealingTypes", sourceHealingTypes);
-        model.addAttribute("sourceDayNames", sourceDayNames);
-        model.addAttribute("sourceDayParts", sourceDayParts);
-        model.addAttribute("dto", dto);
-        model.addAttribute("id", id);
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "recipe/registration_simple";
+    @PostMapping(value = "/new/{insuranceId}")
+    public ModelAndView newRecipe(@PathVariable String insuranceId, @Validated RecipeSimpleDTO dto, BindingResult result) {
+        log.info("[/recipe] post request for url /new/{}", insuranceId);
+        return recipeService.mavNew(dto, result);
     }
 
-    @PostMapping(value = "/edit/{insuranceId}/{id}") // , method = RequestMethod.GET @PathVariable String id,
-    //@PostMapping(value = "/edit") // , method = RequestMethod.GET
-    public String editRecipePost(@PathVariable String insuranceId, @PathVariable Long id, @Valid RecipeSimpleDTO dto, BindingResult result, ModelMap model) {
-        log.info("editRecipesPost()");
-        recipeService.updateProfile(dto);
-//        eventService.updateEvents(dto.getId());
-        return String.format("redirect:/recipe/list/%s", dto.getPatient().getInsuranceId());
+    @GetMapping(value = "/edit/{insuranceId}/{id}")
+    public ModelAndView editRecipe(@PathVariable String insuranceId, @PathVariable Long id) {
+        log.info("[/recipe] get request for url /edit/{}/{}", insuranceId, id);
+        return recipeService.mavEdit(insuranceId, id);
+    }
+
+    @PostMapping(value = "/edit/{insuranceId}/{id}")
+    public ModelAndView editRecipe(@PathVariable String insuranceId, @PathVariable Long id, @Validated RecipeSimpleDTO dto, BindingResult result) {
+        log.info("[/recipe] post request for url /edit/{}/{}", insuranceId, id);
+        return recipeService.mavEdit(dto, result);
     }
 
     @GetMapping(value = "/delete/{insuranceId}/{id}") // , method = RequestMethod.GET
-    public String deleteRecipe(@Valid RecipeSimpleDTO dto, @PathVariable String insuranceId, @PathVariable String id, BindingResult result, ModelMap model) {
-        log.info("deleteRecipes()");
-        dto.getPatient().setInsuranceId(insuranceId);
-        //dto.setId(id);
-        recipeService.delete(dto);
-        return String.format("redirect:/recipe/list/%s", insuranceId);
+    public ModelAndView deleteRecipe(@Valid RecipeSimpleDTO dto, @PathVariable String insuranceId, @PathVariable String id) {
+        log.info("[/recipe] get request for url /delete/{}/{}", insuranceId, id);
+        return recipeService.mavDelete(dto, insuranceId);
     }
 
 

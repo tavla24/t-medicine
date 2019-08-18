@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import static org.mockito.Mockito.mock;
 
-@Configuration
+//@Configuration
 public class TestConfig {
 
     @Bean

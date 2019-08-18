@@ -9,7 +9,14 @@ public class PatientConverter {
     public static PatientDTO toDTO(Patient db){
         PatientDTO dto = new PatientDTO();
         MapperUtil.toDTOPatient().accept(db, dto);
-        dto.getDoctor().setLogin(db.getDoctor().getAccount().getLogin());
+        //dto.getDoctor().setLogin(db.getDoctor().getAccount().getLogin());
+        dto.setDoctor(DoctorConverter.toDTO(db.getDoctor()));
+        dto.setOldInsuranceId(db.getInsuranceId());
         return dto;
+    }
+
+    public static Patient toEntity(PatientDTO dto, Patient db){
+        MapperUtil.toEntityPatient().accept(dto, db);
+        return db;
     }
 }

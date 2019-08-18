@@ -6,7 +6,9 @@ public class PersonDTO {
     private String patronymic;
     private String email;
     private String phone;
-    //private AccountDTO account;
+
+    private String oldEmail;
+    private String oldPhone;
 
     public String getName() {
         return name;
@@ -48,15 +50,37 @@ public class PersonDTO {
         this.phone = phone;
     }
 
-//    public AccountDTO getAccount() {
-//        if (account == null)
-//            account = new AccountDTO();
-//        return account;
-//    }
-//
-//    public void setAccount(AccountDTO account) {
-//        this.account = account;
-//    }
+    public String getOldEmail() {
+        return oldEmail;
+    }
+
+    public void setOldEmail(String oldEmail) {
+        this.oldEmail = oldEmail;
+    }
+
+    public String getOldPhone() {
+        return oldPhone;
+    }
+
+    public void setOldPhone(String oldPhone) {
+        this.oldPhone = oldPhone;
+    }
+
+    public boolean isOldPhoneEmpty() {
+        return oldPhone.isEmpty();
+    }
+
+    public boolean isPhoneEqualsOld() {
+        return oldPhone.equals(phone);
+    }
+
+    public boolean isOldEmailEmpty() {
+        return oldEmail.isEmpty();
+    }
+
+    public boolean isEmailEqualsOld() {
+        return oldEmail.equals(email);
+    }
 
     @Override
     public String toString() {

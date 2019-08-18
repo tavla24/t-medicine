@@ -29,12 +29,17 @@ public class AccountValidatorTest {
 
     @BeforeAll
     public static void setup() {
+        when(acc.getOldLogin().isEmpty()).thenReturn(false);
+
+        when(acc.isOldLoginEmpty()).thenReturn(false);
+        when(acc.isLoginEqualsOldLogin()).thenReturn(false);
         when(acc.getLogin()).thenReturn(login);
+        when(acc.getOldLogin()).thenReturn(login);
     }
 
     @Test
     public void validateAccountWithNewLogin() {
-        when(accountService.getByLogin(login)).thenReturn(null);
+        when(accountService.isLoginUnique(login)).thenReturn(false);
         Errors errors = mock(Errors.class);
         accountValidator.validate(acc, errors);
         verify(errors, never()).rejectValue(eq("login"), any(), any());
@@ -42,10 +47,10 @@ public class AccountValidatorTest {
 
     @Test
     public void validateAccountWithAlreadyUsedLogin() {
-        when(accountService.getByLogin(login)).thenReturn(acc);
+        when(accountService.isLoginUnique(login)).thenReturn(true);
         Errors errors = mock(Errors.class);
         accountValidator.validate(acc, errors);
-        verify(errors, times(1))
+        verify(errors, times(2))
                 .rejectValue(eq("login"), any(), any(), any());
     }
 

@@ -14,9 +14,9 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 import javax.servlet.ServletException;
 
 @ControllerAdvice
-public class GlobalAdviceController extends DefaultHandlerExceptionResolver {
+public class ZlobalAdviceController extends DefaultHandlerExceptionResolver {
 
-    private static Logger log = LoggerFactory.getLogger(GlobalAdviceController.class);
+    private static Logger log = LoggerFactory.getLogger(ZlobalAdviceController.class);
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ModelAndView handle(Exception ex) {
@@ -34,7 +34,7 @@ public class GlobalAdviceController extends DefaultHandlerExceptionResolver {
 
     @ExceptionHandler(NullResultFromDBException.class)
     public ModelAndView nullResultFromDB(Exception ex) {
-        log.debug("Global exception occurred.");
+        log.debug("Uncorrect request to database.");
         return fillPageContentDefault(ex);
     }
 

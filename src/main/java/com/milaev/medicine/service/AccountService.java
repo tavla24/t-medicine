@@ -1,44 +1,31 @@
 package com.milaev.medicine.service;
 
-import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.dto.validators.AccountValidator;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Role;
-import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.exceptions.AccountValidationException;
-import com.milaev.medicine.service.exceptions.DTOValidationException;
 import com.milaev.medicine.service.exceptions.NullResultFromDBException;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
-import com.milaev.medicine.utils.MapperUtil;
 import com.milaev.medicine.utils.PageURLContext;
+import com.milaev.medicine.utils.converters.AccountConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
-public class AccountService implements AccountServiceInterface {
+public class AccountService extends AbstractService implements AccountServiceInterface {
 
     private static Logger log = LoggerFactory.getLogger(AccountService.class);
 
@@ -52,92 +39,79 @@ public class AccountService implements AccountServiceInterface {
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private SessionAuthenticationInterface sessionAuth;
-
     @Override
     @Transactional
-    public ModelAndView mavAccountsList() {
+    public ModelAndView mavList() {
         log.info("called AccountService.mavAccountsList");
         ModelAndView mav = getPreparedMAV();
-        mav.addObject("accounts", getAll());
+        mav.addObject("dto", getAll());
         return PageURLContext.getPage(mav, PAGE_LIST);
     }
 
     @Override
     @Transactional
-    public ModelAndView mavNewAccount(ModelMap model) {
+    public ModelAndView mavNew() {
         log.info("called AccountService.mavNewAccount");
         ModelAndView mav = getPreparedMAV();
 
-        if (!model.containsAttribute("account")) {
-            mav.addObject("account", new AccountDTO());
-        } else
-            mav.addAllObjects(model);
+        mav.addObject("dto", new AccountDTO());
 
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
     @Override
     @Transactional
-    public ModelAndView mavNewAccount(@Valid AccountDTO account, BindingResult result,
-                                      RedirectAttributes redirectAttributes) {
+    public ModelAndView mavNew(AccountDTO dto, BindingResult result) {
         log.info("called AccountService.mavNewAccount with dto");
         ModelAndView mav = getPreparedMAV();
+        checkDTO(dto, result, mav);
 
-        if (result.hasErrors()) {
-            log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
-            throw new AccountValidationException(account, result, mav);
-        }
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        insert(dto);
 
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        insert(account);
-
-        return PageURLContext.getPageRedirect(mav, PAGE_LIST);
+        return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
     @Override
     @Transactional
-    public ModelAndView mavDeleteAccount(String login) {
+    public ModelAndView mavDelete(String login) {
         log.info("called AccountService.mavDeleteAccount()");
         deleteByLogin(login);
-
-        return PageURLContext.getPageRedirect(new ModelAndView(), PAGE_LIST);
+        return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
     }
 
     @Override
     @Transactional
-    public ModelAndView mavEditAccount(String login) {
+    public ModelAndView mavEdit(String login) {
         log.info("called AccountService.mavEditAccount");
         ModelAndView mav = getPreparedMAV();
 
-        AccountDTO account = getByLogin(login);
-        if (account == null)
-            throw new NullResultFromDBException();
-        mav.addObject("account", account);
+        AccountDTO dto = getByLogin(login);
+        dto.setEdit(true);
+        mav.addObject("dto", dto);
 
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
     @Override
     @Transactional
-    public ModelAndView mavEditAccount(AccountDTO account, BindingResult result, String login) {
+    public ModelAndView mavEdit(AccountDTO dto, BindingResult result, String login) {
         log.info("called AccountService.mavEditAccount with dto");
-        if (result.hasErrors()) {
-            return PageURLContext.getPage(new ModelAndView(), PAGE_REGISTRATION);
-        }
-        update(account, login);
+        ModelAndView mav = getPreparedMAV();
+        checkDTO(dto, result, mav);
 
-        return PageURLContext.getPageRedirect(new ModelAndView(), PAGE_LIST);
+        update(dto, login);
+
+        return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
-    private ModelAndView getPreparedMAV() {
-        log.info("called AccountService.getPreparedMAV");
-        String loggedinuser = sessionAuth.getUserName();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("loggedinuser", loggedinuser);
-        return mav;
+    private void checkDTO(AccountDTO dto, BindingResult result,
+                          ModelAndView mav) {
+        if (result.hasErrors()) {
+            log.info("hasErrors()");
+            log.info(result.getAllErrors().toString());
+            throw new AccountValidationException(dto, result, mav);
+        }
     }
 
     @Override
@@ -156,26 +130,31 @@ public class AccountService implements AccountServiceInterface {
     @Transactional
     public AccountDTO getByLogin(String login) {
         log.info("called AccountService.getByLogin for login {}", login);
-        Account dbAccount = daoAccount.getByLogin(login);
-        return fillDTO(dbAccount);
+        return fillDTO(getEntityByLogin(login));
+    }
+
+
+    private Account getEntityByLogin(String login) {
+        Account db = daoAccount.getByLogin(login);
+        if (db == null)
+            throw new NullResultFromDBException();
+        return db;
     }
 
     @Override
     @Transactional
     public AccountDTO getById(Long id) {
         log.info("called AccountService.getById for id {}", id);
-        Account dbAccount = daoAccount.getById(id);
-        return fillDTO(dbAccount);
+        Account db = daoAccount.getById(id);
+        return fillDTO(db);
     }
 
     @Override
     @Transactional
     public boolean isLoginUnique(String login) {
         log.info("called AccountService.isLoginUnique for login {}", login);
-        if (getByLogin(login) == null) {
-            return true;
-        }
-        return false;
+        Account db = daoAccount.getByLogin(login);
+        return db == null;
     }
 
     @Override
@@ -183,8 +162,7 @@ public class AccountService implements AccountServiceInterface {
     public void deleteByLogin(String login) {
         log.info("called AccountService.deleteByLogin for login {}", login);
         try {
-            Account dbAccount = daoAccount.getByLogin(login);
-            daoAccount.delete(dbAccount);
+            daoAccount.delete(getEntityByLogin(login));
         } catch (Exception ex) {
             report(ex);
         }
@@ -194,14 +172,14 @@ public class AccountService implements AccountServiceInterface {
     @Transactional
     public void update(AccountDTO dto, String oldLogin) {
         log.info("called AccountService.update for login {}", oldLogin);
+        Account db = getEntityByLogin(oldLogin);
+        Role role = getOrInsert(dto.getRole().getType());
+        if (!db.getPassword().equals(dto.getPassword()))
+            dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        db.setRole(role);
+        AccountConverter.toEntity(dto, db);
         try {
-            Account dbAccount = daoAccount.getByLogin(oldLogin);
-            Role r = getOrInsert(dto.getRole().getType());
-            if (!dbAccount.getPassword().equals(dto.getPassword()))
-                dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-            dbAccount.setRole(r);
-            MapperUtil.toEntityAccount().accept(dto, dbAccount);
-            daoAccount.update(dbAccount);
+            daoAccount.update(db);
         } catch (Exception ex) {
             report(ex);
         }
@@ -211,12 +189,12 @@ public class AccountService implements AccountServiceInterface {
     @Transactional
     public void insert(AccountDTO dto) {
         log.info("called AccountService.update with dto");
+        Account db = new Account();
+        Role role = getOrInsert(dto.getRole().getType());
+        db.setRole(role);
+        AccountConverter.toEntity(dto, db);
         try {
-            Account dbAccount = new Account();
-            Role r = getOrInsert(dto.getRole().getType());
-            dbAccount.setRole(r);
-            MapperUtil.toEntityAccount().accept(dto, dbAccount);
-            daoAccount.insert(dbAccount);
+            daoAccount.insert(db);
         } catch (Exception ex) {
             report(ex);
         }
@@ -225,8 +203,7 @@ public class AccountService implements AccountServiceInterface {
     private AccountDTO fillDTO(Account db) {
         log.info("called AccountService.fillDTO with db");
         if (db != null) {
-            AccountDTO dto = new AccountDTO();
-            MapperUtil.toDTOAccount().accept(db, dto);
+            AccountDTO dto = AccountConverter.toDTO(db);
             return dto;
         }
         return null;
@@ -234,13 +211,14 @@ public class AccountService implements AccountServiceInterface {
 
     private Role getOrInsert(String type) {
         log.info("called AccountService.getOrInsert for type {}", type);
-        Role r = daoRole.getByType(type);
-        if (r == null) {
-            r = new Role();
-            r.setType(type);
-            daoRole.insert(r);
+        Role db = daoRole.getByType(type);
+
+        if (db == null) {
+            db = new Role();
+            db.setType(type);
+            daoRole.insert(db);
         }
-        return r;
+        return db;
     }
 
     private void report(Exception ex) {

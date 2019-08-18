@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // http.authorizeRequests().and().csrf();
 
         // .anonymous().and();
-        http.authorizeRequests().antMatchers("/", "/test/**", "/event/**").permitAll().anyRequest();
+        http.authorizeRequests().antMatchers("/**", "/test/**", "/event/**").permitAll().anyRequest();
 
         http.authorizeRequests().antMatchers("/root/**").hasAnyRole("ROOT", "ADMIN");
         // .access("hasRole('ADMIN') or hasRole('ROOT')");

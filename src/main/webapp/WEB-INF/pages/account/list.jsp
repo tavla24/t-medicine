@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${accounts}" var="account">
+            <c:forEach items="${dto}" var="account">
                 <tr>
                     <th>${account.login}</th>
                     <th>${account.password}</th>

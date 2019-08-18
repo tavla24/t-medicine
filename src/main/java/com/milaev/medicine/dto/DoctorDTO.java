@@ -4,14 +4,16 @@ public class DoctorDTO extends PersonDTO {
 
     private String specialization;
 
-    private String Login;
+    private String login;
+
+    private boolean edit;
 
     public String getLogin() {
-        return Login;
+        return login;
     }
 
     public void setLogin(String login) {
-        Login = login;
+        this.login = login;
     }
 
     public String getSpecialization() {
@@ -20,6 +22,14 @@ public class DoctorDTO extends PersonDTO {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
     }
 
     @Override

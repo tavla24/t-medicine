@@ -2,6 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.validators.DoctorValidator;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import org.slf4j.Logger;
@@ -12,9 +13,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -25,57 +30,27 @@ public class DoctorsController {
     private static Logger log = LoggerFactory.getLogger(DoctorsController.class);
 
     @Autowired
-    private SessionAuthenticationInterface sessionAuth;
-
-    @Autowired
-    MessageSource messageSource;
-
-    @Autowired
     @Qualifier("doctorService")
     DoctorServiceInterface doctorService;
 
     @Autowired
-    AccountServiceInterface accountService;
+    DoctorValidator doctorValidator;
 
-    @GetMapping(value = "/") // , method = RequestMethod.GET
-    public String main(ModelMap model) {
-        log.info("main()");
-        model.addAttribute("loggedinuser", sessionAuth.getUserName());
-        return "doctor/mainpanel";
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(doctorValidator);
     }
 
     @GetMapping(value = {"/edit"})
-    public String editDoctor(ModelMap model) {
-        log.info("editDoctor()");
-        String loggedinuser = sessionAuth.getUserName();
-
-        DoctorDTO doctorDTO;
-        if (doctorService.isProfileExist(loggedinuser))
-        doctorDTO = doctorService.getByLogin(loggedinuser);
-        else {
-            doctorDTO = new DoctorDTO();
-            doctorDTO.setLogin(loggedinuser);
-        }
-
-        model.addAttribute("doctor", doctorDTO);
-        model.addAttribute("loggedinuser", loggedinuser);
-        return "doctor/registration";
+    public ModelAndView editDoctor(ModelMap model) {
+        log.info("[/doctor] get request for url /edit");
+        return doctorService.mavEdit("");
     }
 
     @PostMapping("/edit")
-    public String updateDoctor(@Valid DoctorDTO doctorDTO, BindingResult result, ModelMap model) {
-        log.info("updateDoctor()");
-        if (result.hasErrors()) {
-            return "doctor/registration";
-        }
-        String loggedinuser = sessionAuth.getUserName();
-
-        //log.info(sessionAuth.getUserName());
-        //log.info(doctorDTO.toString());
-        //doctorService.insert(doctorDTO);//, sessionAuth.getUserName()
-
-        doctorService.updateProfile(doctorDTO);
-
-        return "redirect:/doctor/";
+    public ModelAndView updateDoctor(@Validated DoctorDTO dto, BindingResult result) {
+        //return "redirect:/";
+        log.info("[/doctor] post request for url /edit");
+        return doctorService.mavEdit(dto, result);
     }
 }

@@ -1,5 +1,6 @@
 package com.milaev.medicine.dto;
 
+import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.model.enums.PatientStatus;
 import com.milaev.medicine.utils.datetime.DateUtils;
@@ -95,7 +96,7 @@ public class EventFilterDTO {
     }
 
     public List<String> getStatuses() {
-        return PatientStatus.getPatientStatusList();
+        return EventStatus.getStatusList();
     }
 
     public List<String> getHealingTypes() {

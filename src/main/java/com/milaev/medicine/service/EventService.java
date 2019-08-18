@@ -8,8 +8,10 @@ import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
+import com.milaev.medicine.service.exceptions.RecipeSimpleValidationException;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
+import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.datetime.DayOfWeekContainer;
 import com.milaev.medicine.utils.datetime.DaysOfWeekContainer;
 import org.slf4j.Logger;
@@ -17,13 +19,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class EventService implements EventServiceInterface {
+public class EventService extends AbstractService implements EventServiceInterface {
 
     private static Logger log = LoggerFactory.getLogger(EventService.class);
 
@@ -32,6 +36,71 @@ public class EventService implements EventServiceInterface {
 
     @Autowired
     private RecipeSimpleDAO daoRecipeSimple;
+
+
+
+
+    @Override
+    public ModelAndView mavList() {
+        log.info("called EventService.mavList");
+        ModelAndView mav = getPreparedMAV();
+        mav.addObject("filter", new EventFilterDTO());
+        mav.addObject("dto", getAll());
+        return PageURLContext.getPage(mav, PAGE_LIST);
+    }
+
+    @Override
+    public ModelAndView mavList(EventFilterDTO filter, BindingResult result) {
+        log.info("called EventService.mavList");
+        ModelAndView mav = getPreparedMAV();
+        mav.addObject("filter", filter);
+        mav.addObject("dto", getByFilter(filter));
+        return PageURLContext.getPage(mav, PAGE_LIST);
+    }
+
+    @Override
+    public ModelAndView mavEdit(Long id) {
+        log.info("called RecipeSimpleService.mavEdit");
+        ModelAndView mav = getPreparedMAV();
+        //mav.addObject("statuses", EventStatus.getStatusList());
+        mav.addObject("dto", getById(id));
+        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
+    }
+
+    @Override
+    public ModelAndView mavEdit(EventDTO dto, BindingResult result) {
+        log.info("called RecipeSimpleService.mavEdit with dto");
+        ModelAndView mav = getPreparedMAV();
+        checkDTO(dto, result, mav);
+
+        //dto.setId(id);
+        updateProfile(dto);
+
+        //mav.addObject("statuses", EventStatus.getStatusList());
+        mav.addObject("dto", dto);
+        return PageURLContext.getPageRedirect(mav, URI_LIST);
+    }
+
+    private void checkDTO(EventDTO dto, BindingResult result,
+                          ModelAndView mav){
+        if (result.hasErrors()) {
+            log.info("hasErrors()");
+            log.info(result.getAllErrors().toString());
+            throw new RecipeSimpleValidationException(dto, result, mav);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     @Transactional

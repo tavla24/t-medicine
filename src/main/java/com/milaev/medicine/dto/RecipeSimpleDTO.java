@@ -1,6 +1,8 @@
 package com.milaev.medicine.dto;
 
+import com.milaev.medicine.model.enums.DayNameTypes;
 import com.milaev.medicine.model.enums.DayPartTypes;
+import com.milaev.medicine.model.enums.HealingType;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -29,8 +31,6 @@ public class RecipeSimpleDTO {
 
     private List<DayOfWeek> dayOfWeekList;
     private List<DayPartTypes> partOfDayList;
-    
-    private List<String> dayNamesListLocale;
 
     public static final String SPLITTER = ";";
 
@@ -162,20 +162,6 @@ public class RecipeSimpleDTO {
         this.dayParts = sb.toString();
     }
 
-    public List<String> getDayNamesListLocale() {
-        return dayNamesListLocale;
-    }
-
-    public void setDayNamesListLocale(List<String> dayNamesListLocale) {
-        this.dayNamesListLocale = dayNamesListLocale;
-    }
-
-    public void translate() {
-        dayNamesListLocale = new ArrayList<>();
-        for (String str : dayNamesList)
-            dayNamesListLocale.add(str.toLowerCase());
-    }
-
     public List<DayOfWeek> getDayOfWeekList() {
         convToDayNamesList();
         dayOfWeekList = new ArrayList<>();
@@ -196,5 +182,17 @@ public class RecipeSimpleDTO {
                     partOfDayList.add(itemDPT);
 
         return partOfDayList;
+    }
+
+    public List<String> getSourceHealingTypes(){
+        return HealingType.getTypeList();
+    }
+
+    public List<String> getSourceDayNames(){
+        return DayNameTypes.getTypeList();
+    }
+
+    public List<String> getSourceDayParts(){
+        return DayPartTypes.getTypeList();
     }
 }

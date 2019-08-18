@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${doctors}" var="doctor">
+            <c:forEach items="${dto}" var="doctor">
                 <tr>
                     <th>${doctor.name}</th>
                     <th>${doctor.surname}</th>
@@ -46,13 +46,17 @@
                     <th>${doctor.phone}</th>
                     <th>${doctor.login}</th>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>
+                        <td><a href="<c:url value='/admin/doctor/edit/${doctor.login2}' />">edit</a></td>
                         <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>
                     </sec:authorize>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
+            <sec:authorize access="hasRole('ADMIN')">
+                <br>
+                <a class="col-12 btn btn-success" href="<c:url value="/admin/doctor/new" />">Create new doctor profile</a>
+            </sec:authorize>
         </div>
 
     </jsp:body>

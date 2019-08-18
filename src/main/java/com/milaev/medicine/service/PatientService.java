@@ -1,5 +1,13 @@
 package com.milaev.medicine.service;
 
+import com.milaev.medicine.dao.AccountDAO;
+import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.model.Account;
+import com.milaev.medicine.model.enums.PatientStatus;
+import com.milaev.medicine.model.enums.RoleType;
+import com.milaev.medicine.service.exceptions.NullResultFromDBException;
+import com.milaev.medicine.service.exceptions.PatientValidationException;
+import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.PatientConverter;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dao.PatientDAO;
@@ -13,12 +21,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("patientService")
-public class PatientService implements PatientServiceInterface {
+public class PatientService extends AbstractService implements PatientServiceInterface {
 
     private static Logger log = LoggerFactory.getLogger(PatientService.class);
 
@@ -28,6 +38,130 @@ public class PatientService implements PatientServiceInterface {
     @Autowired
     private DoctorDAO daoDoctor;
 
+    @Autowired
+    private AccountDAO daoAccount;
+
+
+    @Override
+    @Transactional
+    public ModelAndView mavList() {
+        log.info("called PatientService.mavList");
+        ModelAndView mav = getPreparedMAV();
+        String loggedinuser = (String) mav.getModel().get("loggedinuser");
+
+        Account account = getCurrentAccount(loggedinuser);
+        if (account.getRole().getType().equals(RoleType.ADMIN.name()))
+            mav.addObject("dto", getAll());
+        else
+            mav.addObject("dto", getByDoctor(loggedinuser));
+
+        return PageURLContext.getPage(mav, PAGE_LIST);
+    }
+
+    private Account getCurrentAccount(String loggedinuser) {
+        Account account = daoAccount.getByLogin(loggedinuser);
+        if (account == null)
+            throw new NullResultFromDBException();
+        return account;
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavNew() {
+        log.info("called PatientService.mavNew");
+        ModelAndView mav = getPreparedMAV();
+        String loggedinuser = (String) mav.getModel().get("loggedinuser");
+
+        PatientDTO dto = new PatientDTO();
+//        Account account = getCurrentAccount(loggedinuser);
+//        if (account.getRole().equals(RoleType.DOCTOR.name())){
+        Doctor doctor = daoDoctor.getByLogin(loggedinuser);
+        if (doctor != null)
+            dto.getDoctor().setLogin(doctor.getAccount().getLogin());
+
+        mav.addObject("dto", dto);
+        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavNew(PatientDTO dto, BindingResult result) {
+        log.info("called PatientService.mavNew with dto");
+        ModelAndView mav = getPreparedMAV();
+        checkDTO(dto, result, mav);
+        updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, URI_LIST);
+
+//        DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);
+//        dto.setDoctor(doctorDTO);
+//
+//        AccountDTO acc = new AccountDTO();
+//        acc.setLogin(dto.getEmail());
+//        acc.setPassword(dto.getInsuranceId());
+//        RoleDTO role = new RoleDTO();
+//        role.setType(RoleType.PATIENT.getUserProfileType());
+//        acc.setRole(role);
+//
+//        accountService.insert(acc);
+//
+//        //dto.setAccount(acc);
+//        patientService.updateProfile(dto, "new");
+//
+//        return "redirect:/patient/list";
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavDelete(String insuranceId) {
+        log.info("called PatientService.mavDelete");
+        deleteProfile(insuranceId);
+        return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavEdit(String insuranceId) {
+        log.info("called PatientService.mavEdit");
+        ModelAndView mav = getPreparedMAV();
+        mav.addObject("dto", getByInsuranceId(insuranceId));
+        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
+    }
+
+    @Override
+    @Transactional
+    public ModelAndView mavEdit(PatientDTO dto, BindingResult result) {
+        log.info("called PatientService.mavEdit with dto");
+        ModelAndView mav = getPreparedMAV();
+        checkDTO(dto, result, mav);
+        updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, URI_MAIN);
+//        return null;
+//        log.info("updatePatient()");
+//        if (result.hasErrors()) {
+//            return "patient/registration";
+//        }
+//        String loggedinuser = sessionAuth.getUserName();
+//
+//        //log.info(sessionAuth.getUserName());
+//        //log.info(doctorDTO.toString());
+//        DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);//, sessionAuth.getUserName()
+//        dto.setDoctor(doctorDTO);
+//
+//        //dto.getAccount().setLogin(loggedinuser);
+//        patientService.updateProfile(dto, insuranceId);
+//
+//        return "patient/list";
+    }
+
+    private void checkDTO(PatientDTO dto, BindingResult result,
+                          ModelAndView mav) {
+        if (result.hasErrors()) {
+            log.info("hasErrors()");
+            log.info(result.getAllErrors().toString());
+            throw new PatientValidationException(dto, result, mav);
+        }
+    }
+
     @Override
     @Transactional
     public List<PatientDTO> getAll() {
@@ -35,6 +169,9 @@ public class PatientService implements PatientServiceInterface {
         List<PatientDTO> listDAO = new ArrayList<>();
         for (Patient item : list) {
             listDAO.add(PatientConverter.toDTO(item));
+//            PatientDTO dto = PatientConverter.toDTO(item);
+//            dto.getDoctor().setLogin(item.getAccount().getLogin());
+//            listDAO.add(dto);
         }
         return listDAO;
     }
@@ -53,20 +190,9 @@ public class PatientService implements PatientServiceInterface {
     @Transactional
     public PatientDTO getByInsuranceId(String insuranceId) {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
-        PatientDTO dto = new PatientDTO();
-        if (db != null)
-            dto = PatientConverter.toDTO(db);
-        return dto;
-    }
-
-    @Override
-    @Transactional
-    public PatientDTO getByFullName(String fname, String surname, String patronymic, String specify) {
-        Patient db = daoPatient.getByFullName(fname, surname, patronymic, specify);
-        PatientDTO dto = new PatientDTO();
-        if (db != null)
-            dto = PatientConverter.toDTO(db);
-        return dto;
+        if (db == null)
+            throw new NullResultFromDBException();
+        return PatientConverter.toDTO(db);
     }
 
     @Override
@@ -111,9 +237,9 @@ public class PatientService implements PatientServiceInterface {
 
     @Override
     @Transactional
-    public void updateProfile(PatientDTO dto, String insuranceId) {
-        log.info("service.updateProfile(Patient) insuranceId [{}]", insuranceId);
-        Patient db = daoPatient.getByInsuranceId(insuranceId);
+    public void updateProfile(PatientDTO dto) {
+        log.info("service.updateProfile");
+        Patient db = daoPatient.getByInsuranceId(dto.getOldInsuranceId());
 
         if (db == null)
             add(dto, new Patient());
@@ -123,7 +249,7 @@ public class PatientService implements PatientServiceInterface {
 
     private void edit(PatientDTO dto, Patient db) {
         log.info("service.update(Patient) insuranceId [{}]", dto.getInsuranceId());
-        fillDTODataToEntity(dto, db);
+        fillEntity(dto, db);
         try {
             daoPatient.update(db);
         } catch (Exception ex) {
@@ -134,7 +260,7 @@ public class PatientService implements PatientServiceInterface {
 
     private void add(PatientDTO dto, Patient db) {
         log.info("service.insert(Doctor)");
-        fillDTODataToEntity(dto, db);
+        fillEntity(dto, db);
         try {
             daoPatient.insert(db);
         } catch (Exception ex) {
@@ -143,10 +269,10 @@ public class PatientService implements PatientServiceInterface {
         }
     }
 
-    private void fillDTODataToEntity(PatientDTO dto, Patient entity) {
-        log.info("fillDTODataToEntity");
+    private void fillEntity(PatientDTO dto, Patient entity) {
+        log.info("fillEntity");
         Doctor d = daoDoctor.getByLogin(dto.getDoctor().getLogin());
-        MapperUtil.toEntityPatient().accept(dto, entity);
         entity.setDoctor(d);
+        PatientConverter.toEntity(dto, entity);
     }
 }

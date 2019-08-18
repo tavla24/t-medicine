@@ -53,8 +53,8 @@ CREATE TABLE persons
   name VARCHAR(255) NOT NULL,
   surname VARCHAR(255) NOT NULL,
   patronymic VARCHAR(255),
-  email VARCHAR(255) UNIQUE,
-  phone VARCHAR(255) UNIQUE,
+  email VARCHAR(255),
+  phone VARCHAR(255),
   account_id INT UNSIGNED UNIQUE,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
@@ -164,24 +164,23 @@ INSERT INTO accounts (login, password, role_id) VALUES
 ('user', 'PW_3333', 2),
 ('doctor', 'PW_4444', 3),
 ('nurse', 'PW_5555', 4),
-('patient', 'PW_6666', 5);
+('patient', 'PW_6666', 5),
+('doctor2', 'PW_4444', 3);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Ivanov', 'Sergey', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1);
-INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Petrov', 'Arseniy', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 4);
-INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Sidorov', 'Konstantin', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 5);
-
-INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Bochkareva', 'Ekaterina', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 3);
+('Sergey', 'Ivanov', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1),
+('Arseniy', 'Petrov', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 4),
+('Konstantin', 'Sidorov', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 5),
+('Ekaterina', 'Bochkareva', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 3),
+('Natalia', 'Chernova', 'Igorevna', 'chern@mail.ru', '+79111584423', 6);
 
 INSERT INTO doctors (id, specialization) VALUES
-(4, 'okulist');
+(4, 'okulist'),
+(5, 'terapevt');
 
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 (2, 4, 'dalnozorkost', '98723509', 'ILL'),
-(3, 4, 'astigmatizm', '87635832', 'ILL');
+(3, 5, 'astigmatizm', '87635832', 'ILL');
 
 INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
 #(2, 'ochki', 'PROCEDURE', false, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y'), '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),

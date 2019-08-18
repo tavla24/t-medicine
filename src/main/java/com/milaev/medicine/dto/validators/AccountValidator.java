@@ -31,12 +31,13 @@ public class AccountValidator implements Validator {
     public void validate(Object target, Errors errors) {
         AccountDTO dto = (AccountDTO) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "account.empty.login");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "account.empty.password");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "account.login.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "account.password.empty");
 
-        AccountDTO acc = accountService.getByLogin(dto.getLogin());
-        if (acc != null)
-            errors.rejectValue("login", "account.unique.login", new String[] { dto.getLogin() }, null);
+        if (dto.isOldLoginEmpty() && (!accountService.isLoginUnique(dto.getLogin())))
+            errors.rejectValue("login", "account.login.unique", new String[] { dto.getLogin() }, null);
+        else if (!dto.isLoginEqualsOldLogin() && (!accountService.isLoginUnique(dto.getLogin())))
+            errors.rejectValue("login", "account.login.unique", new String[] { dto.getLogin() }, null);
 
     }
 }

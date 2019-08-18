@@ -21,13 +21,13 @@ public class Person {
     @Column(name = "patronymic")
     private String patronymic;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email")//, unique = true)
     private String email;
 
-    @Column(name = "phone", unique = true)
+    @Column(name = "phone")//, unique = true)
     private String phone;
 
-    @OneToOne//(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", unique = true)
     private Account account;
 

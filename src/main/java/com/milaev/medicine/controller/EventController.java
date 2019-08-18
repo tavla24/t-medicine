@@ -12,8 +12,10 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +31,7 @@ public class EventController {
     private SessionAuthenticationInterface sessionAuth;
 
     @Autowired
-    MessageSource messageSource;
+    private MessageSource messageSource;
 
     @Autowired
     private EventServiceInterface eventService;
@@ -42,35 +44,15 @@ public class EventController {
     }
 
     @GetMapping(value = "/list") // , method = RequestMethod.GET
-    public String listEvents(ModelMap model) {
-        log.info("listPatients()");
-        String loggedinuser = sessionAuth.getUserName();
-        List<EventDTO> dtoList = eventService.getAll();
-        //DTOContainer<RecipeSimpleDTO> container = new DTOContainer(list);
-
-        //RecipeDTO recipe = recipeService.getByInsuranceId(insuranceId);
-
-        EventFilterDTO filter = new EventFilterDTO();
-
-        model.addAttribute("filter", filter);
-//        model.addAttribute("statuses", PatientStatus.getPatientStatusList());
-//        model.addAttribute("healingTypes", HealingType.getTypeList());
-        model.addAttribute("dto", dtoList);
-        model.addAttribute("loggedinuser", loggedinuser);
-        return "event/list";
+    public ModelAndView listEvents(ModelMap model) {
+        log.info("[/event] get request for url /list");
+        return eventService.mavList();
     }
 
     @PostMapping(value = "/list") // , method = RequestMethod.GET
-    public String listEventsPost(@ModelAttribute("filter") EventFilterDTO filter, ModelMap model) {
-        log.info("listEventsPost()");
-        String loggedinuser = sessionAuth.getUserName();
-
-        List<EventDTO> dtoList = eventService.getByFilter(filter);
-
-        model.addAttribute("filter", filter);
-        model.addAttribute("dto", dtoList);
-        model.addAttribute("loggedinuser", loggedinuser);
-        return "event/list";
+    public ModelAndView listEvents(@ModelAttribute("filter") EventFilterDTO filter, BindingResult result) {
+        log.info("[/event] post request for url /list");
+        return eventService.mavList(filter, result);
     }
 
     @GetMapping(value = "/edit/{id}") // , method = RequestMethod.GET

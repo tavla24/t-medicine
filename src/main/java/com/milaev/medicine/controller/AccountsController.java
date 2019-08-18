@@ -37,36 +37,36 @@ public class AccountsController {
     @GetMapping("/list")
     public ModelAndView listAccounts() {
         log.info("[account] get request for url /list");
-        return accountService.mavAccountsList();
+        return accountService.mavList();
     }
 
     @GetMapping("/new")
-    public ModelAndView newAccount(ModelMap model) {
+    public ModelAndView newAccount() {
         log.info("[account] get request for url /new");
-        return accountService.mavNewAccount(model);
+        return accountService.mavNew();
     }
 
     @PostMapping("/new")
-    public ModelAndView newAccount(@Validated AccountDTO account, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView newAccount(@Validated AccountDTO account, BindingResult result) {
         log.info("[account] post request for url /new");
-        return accountService.mavNewAccount(account, result, redirectAttributes);
+        return accountService.mavNew(account, result);
     }
 
     @GetMapping("/delete/{login}")
     public ModelAndView deleteAccount(@PathVariable String login) {
         log.info("[account] get request for url /delete/{}", login);
-        return accountService.mavDeleteAccount(login);
+        return accountService.mavDelete(login);
     }
 
     @GetMapping("/edit/{login}")
     public ModelAndView editAccount(@PathVariable String login) {
         log.info("[account] get request for url /edit/{}", login);
-        return accountService.mavEditAccount(login);
+        return accountService.mavEdit(login);
     }
 
     @PostMapping("/edit/{login}")
     public ModelAndView editAccount(@Validated AccountDTO account, BindingResult result, @PathVariable String login) {
         log.info("[account] post request for url /edit/{}", login);
-        return accountService.mavEditAccount(account, result, login);
+        return accountService.mavEdit(account, result, login);
     }
 }
