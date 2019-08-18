@@ -16,7 +16,7 @@
         <br>
         <div class="table-responsive-sm">
             <table class="table table-striped table-hover table-bordered table-sm">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th>Healing</th>
                     <th>dateFrom</th>

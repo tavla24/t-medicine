@@ -93,11 +93,23 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="form-check text-center">
+
+                    <label for="healthful" class="form-check-label" >Close recipe</label>
+                    <form:checkbox path="healthful" id="healthful" class="form-check-input mb-2 mr-2" style="margin-left: -110px"/>
+                    </div>
+                    <form:errors path="healthful" class="text-danger"/>
+                </div>
+            </div>
 
             <br>
+            <c:if test="${!dto.healthful}">
             <div class="text-center">
                 <input type="submit" value="Save" class="btn btn-success mr-2 btn-sm"/>
             </div>
+            </c:if>
         </form:form>
 
     </jsp:body>

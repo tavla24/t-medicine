@@ -4,7 +4,7 @@
 
 <style type="text/css">
     .texcon {
-        padding-top: 5px;
+        padding-top: 4px;
         font-size: 12px;
     }
 
@@ -17,8 +17,6 @@
         width: 200px;
         height: 100px;
     }
-
-
 </style>
 
 <t:content title="Main Page">
@@ -30,7 +28,7 @@
         </t:header>
     </jsp:attribute>
     <jsp:body>
-
+        <div class="text-center texblock"><h3>Recent Medical News</h3></div>
         <div class="container texblock">
             <img src="res/img/image01.jpeg" class="rounded float-left imgcon" alt="Cinque Terre">
             <div>

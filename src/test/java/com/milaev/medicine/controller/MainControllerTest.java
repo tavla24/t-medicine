@@ -45,9 +45,7 @@ public class MainControllerTest {
 
     @Test
     public void homeShouldRedirectToUsersPage() throws Exception {
-
         MvcResult result = mvc.perform(get("/")).andDo(print())
-                //.andExpect(status().isFound())
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andReturn();

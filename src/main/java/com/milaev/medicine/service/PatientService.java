@@ -41,7 +41,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
     @Autowired
     private AccountDAO daoAccount;
 
-
     @Override
     @Transactional
     public ModelAndView mavList() {
@@ -73,8 +72,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         String loggedinuser = (String) mav.getModel().get("loggedinuser");
 
         PatientDTO dto = new PatientDTO();
-//        Account account = getCurrentAccount(loggedinuser);
-//        if (account.getRole().equals(RoleType.DOCTOR.name())){
         Doctor doctor = daoDoctor.getByLogin(loggedinuser);
         if (doctor != null)
             dto.getDoctor().setLogin(doctor.getAccount().getLogin());
@@ -91,23 +88,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         checkDTO(dto, result, mav);
         updateProfile(dto);
         return PageURLContext.getPageRedirect(mav, URI_LIST);
-
-//        DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);
-//        dto.setDoctor(doctorDTO);
-//
-//        AccountDTO acc = new AccountDTO();
-//        acc.setLogin(dto.getEmail());
-//        acc.setPassword(dto.getInsuranceId());
-//        RoleDTO role = new RoleDTO();
-//        role.setType(RoleType.PATIENT.getUserProfileType());
-//        acc.setRole(role);
-//
-//        accountService.insert(acc);
-//
-//        //dto.setAccount(acc);
-//        patientService.updateProfile(dto, "new");
-//
-//        return "redirect:/patient/list";
     }
 
     @Override
@@ -135,22 +115,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         checkDTO(dto, result, mav);
         updateProfile(dto);
         return PageURLContext.getPageRedirect(mav, URI_MAIN);
-//        return null;
-//        log.info("updatePatient()");
-//        if (result.hasErrors()) {
-//            return "patient/registration";
-//        }
-//        String loggedinuser = sessionAuth.getUserName();
-//
-//        //log.info(sessionAuth.getUserName());
-//        //log.info(doctorDTO.toString());
-//        DoctorDTO doctorDTO = doctorService.getByLogin(loggedinuser);//, sessionAuth.getUserName()
-//        dto.setDoctor(doctorDTO);
-//
-//        //dto.getAccount().setLogin(loggedinuser);
-//        patientService.updateProfile(dto, insuranceId);
-//
-//        return "patient/list";
     }
 
     private void checkDTO(PatientDTO dto, BindingResult result,
@@ -169,9 +133,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         List<PatientDTO> listDAO = new ArrayList<>();
         for (Patient item : list) {
             listDAO.add(PatientConverter.toDTO(item));
-//            PatientDTO dto = PatientConverter.toDTO(item);
-//            dto.getDoctor().setLogin(item.getAccount().getLogin());
-//            listDAO.add(dto);
         }
         return listDAO;
     }

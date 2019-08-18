@@ -32,8 +32,6 @@ public class RecipeSimpleDTO {
     private List<DayOfWeek> dayOfWeekList;
     private List<DayPartTypes> partOfDayList;
 
-    public static final String SPLITTER = ";";
-
     public Long getId() {
         return id;
     }
@@ -183,6 +181,8 @@ public class RecipeSimpleDTO {
 
         return partOfDayList;
     }
+
+    public static final String SPLITTER = ";";
 
     public List<String> getSourceHealingTypes(){
         return HealingType.getTypeList();

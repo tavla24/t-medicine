@@ -16,9 +16,9 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 import javax.servlet.ServletException;
 
 @ControllerAdvice
-public class ZlobalAdviceController extends DefaultHandlerExceptionResolver {
+public class GlobalAdviceController extends DefaultHandlerExceptionResolver {
 
-    private static Logger log = LoggerFactory.getLogger(ZlobalAdviceController.class);
+    private static Logger log = LoggerFactory.getLogger(GlobalAdviceController.class);
 
     @ExceptionHandler(AccountValidationException.class)
     public ModelAndView accountValidationError(AccountValidationException ex) {

@@ -5,6 +5,8 @@ import com.milaev.medicine.dao.RecipeSimpleDAO;
 import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
+import com.milaev.medicine.dto.assistants.EventFilterDTOAssistant;
+import com.milaev.medicine.dto.assistants.RecipeSimpleDTOAssistant;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
@@ -37,6 +39,12 @@ public class EventService extends AbstractService implements EventServiceInterfa
 
     @Autowired
     private RecipeSimpleDAO daoRecipeSimple;
+
+    @Autowired
+    EventFilterDTOAssistant eventFilterDTOAssistant;
+
+    @Autowired
+    RecipeSimpleDTOAssistant recipeSimpleDTOAssistant;
 
     @Override
     @Transactional
@@ -84,17 +92,13 @@ public class EventService extends AbstractService implements EventServiceInterfa
         log.info("called EventService.mavEdit with dto");
         ModelAndView mav = getPreparedMAV();
         checkDTO(dto, result, mav);
-
-        //dto.setId(id);
         updateProfile(dto);
-
-        //mav.addObject("statuses", EventStatus.getStatusList());
         mav.addObject("dto", dto);
         return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
     private void checkDTO(EventDTO dto, BindingResult result,
-                          ModelAndView mav){
+                          ModelAndView mav) {
         if (result.hasErrors()) {
             log.info("hasErrors()");
             log.info(result.getAllErrors().toString());
@@ -126,12 +130,22 @@ public class EventService extends AbstractService implements EventServiceInterfa
     @Override
     @Transactional
     public List<EventDTO> getByFilter(EventFilterDTO filter) {
-        filter.createQuery();
-        List<Event> list = daoEvent.getByFilter(filter.getQueryString(), filter.getQueryParams());
+        eventFilterDTOAssistant.createQuery(filter);
+        List<Event> list = daoEvent.getByFilter(eventFilterDTOAssistant.getQueryString(), eventFilterDTOAssistant.getQueryParams());
         return fillDTO(list);
     }
 
-    private List<EventDTO> fillDTO(List<Event> dbList){
+    @Override
+    @Transactional
+    public boolean isAllEventsDone(String insuranceId) {
+        List<EventDTO> list = getByInsuranceId(insuranceId);
+        for (EventDTO item : list)
+            if (item.getStatus().equals(EventStatus.PLAN.name()))
+                return false;
+        return true;
+    }
+
+    private List<EventDTO> fillDTO(List<Event> dbList) {
         List<EventDTO> listDTO = new ArrayList<>();
         for (Event item : dbList) {
             EventDTO dto = new EventDTO();
@@ -181,24 +195,37 @@ public class EventService extends AbstractService implements EventServiceInterfa
         if (dto.getId() == null)
             return;
 
+        deleteChangedEvents(dto);
+
+        if (!dto.isHealthful()) {
+            createChangedEvents(dto);
+        }
+    }
+
+    private void deleteChangedEvents(RecipeSimpleDTO dto) {
         List<EventDTO> eventsDTOList = getByRecipeId(dto.getId());
-        for (EventDTO item: eventsDTOList)
-            if (item.getDatestamp().after(new Date()))
+        for (EventDTO item : eventsDTOList)
+            //if (item.getDatestamp().after(new Date()))
+            if (item.getStatus().equals(EventStatus.PLAN.name()))
                 delete(item);
+    }
 
+    private void createChangedEvents(RecipeSimpleDTO dto) {
         DaysOfWeekContainer dowc = new DaysOfWeekContainer();
-        dowc.fill(dto.getDateFrom(), dto.getDateTo(), dto.getDayOfWeekList(), dto.getPartOfDayList());
+        Date startDate = new Date();
+        startDate = (dto.getDateFrom().after(startDate)) ? dto.getDateFrom() : startDate;
+        dowc.fill(startDate, dto.getDateTo(), dto.getDayOfWeekList(), dto.getPartOfDayList());
 
-        for (DayOfWeekContainer item : dowc.getList()){
+        for (DayOfWeekContainer item : dowc.getList()) {
             List<Date> dayList = item.getList();
-                for (Date date: dayList){
-                    EventDTO eventDTO = new EventDTO();
-                    eventDTO.setRecipe(dto);
-                    eventDTO.setDatestamp(date);
-                    eventDTO.setStatus(EventStatus.PLAN.name());
-                    updateProfile(eventDTO);
-                }
+            for (Date date : dayList) {
+                EventDTO eventDTO = new EventDTO();
+                eventDTO.setRecipe(dto);
+                eventDTO.setDatestamp(date);
+                eventDTO.setStatus(EventStatus.PLAN.name());
+                updateProfile(eventDTO);
             }
+        }
     }
 
     @Override
@@ -236,7 +263,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
     }
 
     private void fillDTODataToEntity(EventDTO dto, Event db) {
-        // TODO point 1 - why nulls??
         log.info("fillDTODataToEntity");
         RecipeSimple a = daoRecipeSimple.getById(dto.getRecipe().getId());
         db.setRecipe(a);

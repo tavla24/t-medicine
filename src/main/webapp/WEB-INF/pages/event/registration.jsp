@@ -48,8 +48,8 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="datetime">DateTime</label>
-                            <fmt:formatDate value="${dto.datestamp}" var="dateString" pattern="yyyy-MM-dd"/>
-                            <form:input type="date" path="datestamp" id="datetime" value="${dateString}" readonly="true"
+                            <fmt:formatDate value="${dto.datestamp}" var="dateString" pattern="yyyy-MM-dd HH:mm"/>
+                            <form:input type="BOTH" path="datestamp" id="datetime" value="${dateString}" readonly="true"
                                         class="form-control form-control-sm mb-2 mr-2"/>
                         </div>
                     </div>

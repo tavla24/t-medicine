@@ -58,21 +58,21 @@ public class SecurityControllerTest {
     }
 
     @Test
-    public void requestAdminWithCorrectPassword() throws Exception {
+    public void requestAdmin() throws Exception {
         mvc
-                .perform(get("/admin/doctor/new").with(user("doctor").roles("ADMIN")))
+                .perform(get("/admin/doctor/list").with(user("admin").roles("ADMIN")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(authenticated().withRoles("ADMIN"));
     }
 
     @Test
-    public void requestAdminWithWrongPassword() throws Exception {
+    public void requestAdminWithWrongRole() throws Exception {
         mvc
-                .perform(get("/admin/doctor/list").with(user("sdgsdg").roles("sdgsdgsdg")))
+                .perform(get("/admin/doctor/list").with(user("admin").roles("DOCTOR")))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(authenticated().withUsername("aharhah"));
+                .andExpect(status().is4xxClientError())
+                .andExpect(authenticated().withUsername("admin"));
 
     }
 }

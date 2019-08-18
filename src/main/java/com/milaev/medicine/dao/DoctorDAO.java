@@ -31,16 +31,6 @@ public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface
         return getByParamsSingle(query, login);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Doctor getByFullName(String fname, String surname, String patronymic, String specify) {
-        // TODO specify
-        Query<Doctor> query = getCurrentSession()
-                .createQuery("from Doctor D where D.name = :param1 and D.surname = :param2 and D.patronymic = :param3");
-        // TODO if some equals persons
-        return getByParamsSingle(query, fname, surname, patronymic);
-    }
-
     @Override
     public void insert(Doctor acc) {
         per(acc);

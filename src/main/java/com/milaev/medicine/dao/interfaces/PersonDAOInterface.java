@@ -4,19 +4,9 @@ import com.milaev.medicine.model.Person;
 
 import java.util.List;
 
-public interface PersonDAOInterface<T extends Person> {
+public interface PersonDAOInterface {
 
-    List<T> getAll();
+    List<Person> getByPhone(String phone);
 
-    T getById(Long id);
-
-    T getByLogin(String login);
-
-    T getByFullName(String fname, String surname, String patronymic, String specify);
-
-    void insert(T acc);
-
-    void delete(T acc);
-
-    void update(T acc);
+    List<Person> getByEmail(String email);
 }

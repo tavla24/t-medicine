@@ -45,7 +45,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
     @Autowired
     private EventServiceInterface eventService;
 
-
     @Override
     @Transactional
     public ModelAndView mavList(String insuranceId) {

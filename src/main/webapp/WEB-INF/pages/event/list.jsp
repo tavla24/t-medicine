@@ -19,7 +19,7 @@
             <form:form method="POST" modelAttribute="filter">
                 <div class="table-responsive-sm">
                     <table class="table table-striped table-hover table-bordered table-sm">
-                        <thead class="thead-dark">
+                        <thead class="thead-light">
                         <tr>
                             <th class="col-5">Name</th>
                             <th class="col-7">Surname</th>
@@ -44,7 +44,7 @@
 
                 <div class="table-responsive-sm">
                     <table class="table table-striped table-hover table-bordered table-sm">
-                        <thead class="thead-dark">
+                        <thead class="thead-light">
                         <tr>
                             <th class="col-2">Status</th>
                             <th class="col-2">Healing type</th>
@@ -102,7 +102,7 @@
         <br>
         <div class="table-responsive-sm">
             <table class="table table-striped table-hover table-bordered table-sm">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th>Patient</th>
                     <th>DateTime</th>
@@ -110,10 +110,6 @@
                     <th>Healing</th>
                     <%--<th>info</th>--%>
                     <th class="col-1"></th>
-
-                    <sec:authorize access="hasRole('DOCTOR')">
-                        <th class="col-1"></th>
-                    </sec:authorize>
                 </tr>
                 </thead>
                 <tbody>

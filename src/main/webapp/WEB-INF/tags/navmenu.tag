@@ -24,7 +24,7 @@
     <c:if test="${loggedinuser != null}">
         <sec:authorize access="hasRole('ADMIN')">
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value="/account/list" />">Accounts</a>
+                <a class="nav-link" href="<c:url value="/admin/account/list" />">Accounts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/admin/doctor/list" />">Doctors</a>
@@ -39,6 +39,9 @@
         <sec:authorize access="hasRole('DOCTOR')">
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/patient/list" />">Patients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<c:url value="/event/list" />">Events</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="/doctor/edit" />">Edit profile</a>

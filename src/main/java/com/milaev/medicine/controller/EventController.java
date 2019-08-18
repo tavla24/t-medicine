@@ -36,12 +36,18 @@ public class EventController {
     EventValidator eventValidator;
 
     @InitBinder("dto")
-    public void initBinder(WebDataBinder webDataBinder) {
+    public void initBinderDateTime(WebDataBinder webDataBinder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateFormat.setLenient(false);
+        webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        webDataBinder.setValidator(eventValidator);
+    }
+
+    @InitBinder("filter")
+    public void initBinderFilter(WebDataBinder webDataBinder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-
-        webDataBinder.setValidator(eventValidator);
     }
 
     @GetMapping(value = "/list")

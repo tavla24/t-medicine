@@ -1,8 +1,28 @@
+html{
+    height: 100%;
+}
+
 body{
     min-width: 320px;
     font-size: 14px;
     font-family: 'Nanum Gothic', sans-serif;
     color: #626262;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header{
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+}
+.main-content{
+    /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 1 0 auto;
+}
+footer{
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
 }
 
 a{
@@ -13,7 +33,17 @@ a:hover{
     color: #898377;
 }
 
+.rletter{
+    color: #e30074;
+}
+
 /*bg-success #28a745*/
+/*
+.btn-success{
+    background-color: #e30074;
+    border-color: #e30074;
+}
+*/
 header .navbar-color{
     background-color: #fff;
 }
@@ -26,6 +56,9 @@ header .navbar-brand{
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 30px;
     color: #000;
+}
+
+.upper{
     text-transform: uppercase;
 }
 
@@ -39,7 +72,7 @@ header .nav-item a::after{
     content: '';
     display: block;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #000;
     height: 1px;
     transform: scale(0);
     transition: all .3s;
@@ -47,4 +80,10 @@ header .nav-item a::after{
 
 header .nav-item a:hover::after{
     transform: scale(1);
+}
+
+footer{
+    background-color: #f0f0f0;
+    padding: 40px 0;
+    color: #000000;
 }

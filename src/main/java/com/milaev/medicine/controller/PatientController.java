@@ -44,8 +44,8 @@ public class PatientController {
         binder.setValidator(patientValidator);
     }
 
-    @GetMapping(value = "/list") // , method = RequestMethod.GET
-    public ModelAndView listPatients(ModelMap model) {
+    @GetMapping(value = "/list")
+    public ModelAndView listPatients() {
         log.info("[/patient] get request for url /list");
         return patientService.mavList();
     }

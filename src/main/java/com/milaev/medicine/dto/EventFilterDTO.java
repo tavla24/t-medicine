@@ -1,6 +1,5 @@
 package com.milaev.medicine.dto;
 
-import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.model.enums.PatientStatus;
 import com.milaev.medicine.utils.datetime.DateUtils;
@@ -18,11 +17,6 @@ public class EventFilterDTO {
     private String status;
     private String healingType;
     private boolean sortByTime;
-
-    private String queryString;
-    private Map<String, Object> queryParams;
-
-    // TODO filt by date/name/...
 
     public Long getId() {
         return id;
@@ -105,76 +99,10 @@ public class EventFilterDTO {
     }
 
     public List<String> getStatuses() {
-        return EventStatus.getStatusList();
+        return PatientStatus.getPatientStatusList();
     }
 
     public List<String> getHealingTypes() {
         return HealingType.getTypeList();
-    }
-
-    public void createQuery() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("from Event as f");
-
-        List<String> queryStringBuilder = new ArrayList<>();
-        queryParams = new HashMap<>();
-
-        if (isValid(name)) {
-            queryStringBuilder.add(" f.recipe.patient.name = :p_name");
-            queryParams.put("p_name", name);
-        }
-        if (isValid(surname)) {
-            queryStringBuilder.add(" f.recipe.patient.surname = :p_surname");
-            queryParams.put("p_surname", surname);
-        }
-        if (nextHours != null) {
-            Date currDateTime = new Date();
-            Date nextDateTime = DateUtils.setTimeInc(currDateTime, nextHours, 0);
-            queryStringBuilder.add(" f.datestamp > :p_date_now and f.datestamp < :p_date_next");
-            queryParams.put("p_date_now", currDateTime);
-            queryParams.put("p_date_next", nextDateTime);
-        } else {
-            if (dateFrom != null) {
-                queryStringBuilder.add(" f.datestamp > :p_date_from");
-                queryParams.put("p_date_from", dateFrom);
-            }
-            if (dateTo != null) {
-                queryStringBuilder.add(" f.datestamp < :p_date_to");
-                queryParams.put("p_date_to", dateTo);
-            }
-        }
-        if (isValid(status)) {
-            queryStringBuilder.add(" f.status = :p_status");
-            queryParams.put("p_status", status);
-        }
-        if (isValid(healingType)) {
-            queryStringBuilder.add(" f.recipe.healingType = :p_healing_type");
-            queryParams.put("p_healing_type", healingType);
-        }
-
-        for (int i = 0; i < queryStringBuilder.size(); i++) {
-            if (i == 0)
-                sb.append(" where");
-            sb.append(queryStringBuilder.get(i));
-            if (i < queryStringBuilder.size() - 1)
-                sb.append(" and");
-        }
-
-        if (sortByTime)
-            sb.append(" order by f.datestamp");
-
-        queryString = sb.toString();
-    }
-
-    private boolean isValid(String str){
-        return (str != null) && (!str.isEmpty());
-    }
-
-    public String getQueryString() {
-        return queryString;
-    }
-
-    public Map<String, Object> getQueryParams() {
-        return queryParams;
     }
 }

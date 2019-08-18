@@ -31,4 +31,11 @@ public class DaysOfWeekContainer {
                 return item.getList();
         return new ArrayList<Date>();
     }
+
+    public int getDateTimeCount(){
+        int counter = 0;
+        for(DayOfWeekContainer item: list)
+            counter += item.getList().size();
+        return counter;
+    }
 }

@@ -34,6 +34,8 @@ public interface EventServiceInterface {
 
     List<EventDTO> getByInsuranceId(String insuranceId);
 
+    boolean isAllEventsDone(String insuranceId);
+
     EventDTO getById(Long id);
 
     void updateEvents(Long recipeId);

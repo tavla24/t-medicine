@@ -16,7 +16,7 @@
         <br>
         <div class="table-responsive-sm">
             <table class="table table-striped table-hover table-bordered table-sm">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th>Name</th>
                     <th>Surname</th>
@@ -49,7 +49,7 @@
                         <th>${patient.diagnosis}</th>
                             <%--<th>${patient.status}</th>--%>
 
-                        <th>${patient.doctor.name}</th>
+                        <th>${patient.doctor.surname}</th>
 
                             <%--<th>${patient.email}</th>
                            <th>${patient.phone}</th>--%>
