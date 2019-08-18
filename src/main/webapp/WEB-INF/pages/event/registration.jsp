@@ -56,10 +56,11 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <label for="status">Status</label>
-                            <form:select path="status" multiple="false" id="status" items="${dto.eventStatusList}" readonly="true"
+                            <form:select path="status" multiple="false" id="status" items="${dto.eventStatusList}"
                                          class="form-control form-control-sm"/>
                             <label for="info">Comment:</label>
                             <form:input type="text" path="info" id="info" class="form-control form-control-sm mb-2 mr-2"/>
+                            <form:errors path="info" class="text-danger"/>
                         </div>
                     </div>
                 </div>

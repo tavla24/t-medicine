@@ -48,8 +48,9 @@
                         <tr>
                             <th class="col-2">Status</th>
                             <th class="col-2">Healing type</th>
-                            <th class="col-3">From date</th>
-                            <th class="col-3">To date</th>
+                            <th class="col-2">From date</th>
+                            <th class="col-2">To date</th>
+                            <th class="col-2">Sort by time</th>
                             <th class="col-2">In next hours</th>
                         </tr>
                         </thead>
@@ -82,6 +83,8 @@
                                     <form:input type="date" path="dateTo" id="dateTo" value="${dateToString}"
                                                 class="form-control form-control-sm"/>
                                 </th>
+                                <th><form:checkbox min="0" path="sortByTime" id="sortByTime" name="sortByTime"
+                                                class="form-control form-control-sm"/>
                                 <th><form:input type="number" min="0" path="nextHours" id="nextHours"
                                                 class="form-control form-control-sm"/></th>
                             </div>

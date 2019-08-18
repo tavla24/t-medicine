@@ -32,8 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     @Autowired
-    // TODO = public void configureGlobalSecurity(AuthenticationManagerBuilder auth)
-    // throws Exception {...}? + how/why?
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // auth.userDetailsService(accountDetailsService);
         auth.authenticationProvider(authenticationProvider());
@@ -41,22 +39,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // http.authorizeRequests().and().csrf();
 
-        // .anonymous().and();
-        http.authorizeRequests().antMatchers("/**", "/test/**", "/event/**").permitAll().anyRequest();
+        http.authorizeRequests().antMatchers("/**", "/test/**", "/event/list/*").permitAll().anyRequest();
 
         http.authorizeRequests().antMatchers("/root/**").hasAnyRole("ROOT", "ADMIN");
-        // .access("hasRole('ADMIN') or hasRole('ROOT')");
 
-        // .authenticated();
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 
         http.authorizeRequests().antMatchers("/doctor/**").hasRole("DOCTOR");
 
         http.authorizeRequests().antMatchers("/patient/**", "/recipe/**").hasAnyRole("ADMIN", "DOCTOR");
 
-        http.authorizeRequests().antMatchers("/nurse/**").hasRole("NURSE");
+        http.authorizeRequests().antMatchers("/event/**").hasAnyRole("NURSE", "ADMIN");
 
         http.authorizeRequests().and().formLogin().loginPage("/login").loginProcessingUrl("/logincmd")
                 .defaultSuccessUrl("/access_granted").usernameParameter("login").passwordParameter("password");
@@ -67,8 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenRepository(persistentTokenService).tokenValiditySeconds(86400);
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/access_denied");
-
-        // http.authorizeRequests().and().httpBasic();
     }
 
     @Bean

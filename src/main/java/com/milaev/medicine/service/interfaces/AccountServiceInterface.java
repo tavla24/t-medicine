@@ -14,7 +14,7 @@ public interface AccountServiceInterface {
     String PAGE_LIST = "account/list";
     String PAGE_REGISTRATION = "account/registration";
 
-    String URI_LIST = "/account/list";
+    String URI_LIST = "/admin/account/list";
 
     List<AccountDTO> getAll();
 

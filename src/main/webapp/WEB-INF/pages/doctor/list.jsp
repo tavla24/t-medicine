@@ -46,7 +46,7 @@
                     <th>${doctor.phone}</th>
                     <th>${doctor.login}</th>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <td><a href="<c:url value='/admin/doctor/edit/${doctor.login2}' />">edit</a></td>
+                        <td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>
                         <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>
                     </sec:authorize>
                 </tr>

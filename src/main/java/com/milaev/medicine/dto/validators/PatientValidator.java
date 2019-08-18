@@ -42,8 +42,10 @@ public class PatientValidator extends PersonValidator {
         else if (!dto.isInsuranceIdEqualsOld() && (patientService.isProfileExist(dto.getInsuranceId())))
             errors.rejectValue("insuranceId", "patient.insuranceId.unique", new String[] { dto.getInsuranceId() }, null);
 
-        if (!dto.getDoctor().getLogin().isEmpty())
-            if (!accountService.getByLogin(dto.getDoctor().getLogin()).getRole().getType().equals(RoleType.DOCTOR.name()))
+        if (!dto.getDoctor().getLogin().isEmpty()) {
+            if (accountService.isLoginUnique(dto.getDoctor().getLogin()) ||
+              !accountService.getByLogin(dto.getDoctor().getLogin()).getRole().getType().equals(RoleType.DOCTOR.name()))
                 errors.rejectValue("doctor.login", "doctor.login.nonDoctor", new String[]{dto.getDoctor().getLogin()}, null);
+        }
     }
 }

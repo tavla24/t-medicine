@@ -18,6 +18,8 @@ public interface EventServiceInterface {
 
     ModelAndView mavList();
 
+    ModelAndView mavList(String insuranceId);
+
     ModelAndView mavList(EventFilterDTO filter, BindingResult result);
 
     ModelAndView mavEdit(Long id);

@@ -12,7 +12,6 @@ $("#my-div").removeClass('d-none');
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:navmenu title=""/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

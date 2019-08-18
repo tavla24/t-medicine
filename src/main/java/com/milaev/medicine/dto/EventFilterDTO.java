@@ -17,6 +17,7 @@ public class EventFilterDTO {
     private Integer nextHours;
     private String status;
     private String healingType;
+    private boolean sortByTime;
 
     private String queryString;
     private Map<String, Object> queryParams;
@@ -95,6 +96,14 @@ public class EventFilterDTO {
         this.status = status;
     }
 
+    public boolean isSortByTime() {
+        return sortByTime;
+    }
+
+    public void setSortByTime(boolean sortByTime) {
+        this.sortByTime = sortByTime;
+    }
+
     public List<String> getStatuses() {
         return EventStatus.getStatusList();
     }
@@ -150,7 +159,9 @@ public class EventFilterDTO {
             if (i < queryStringBuilder.size() - 1)
                 sb.append(" and");
         }
-        sb.append(" order by f.datestamp");
+
+        if (sortByTime)
+            sb.append(" order by f.datestamp");
 
         queryString = sb.toString();
     }

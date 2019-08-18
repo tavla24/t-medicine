@@ -1,6 +1,8 @@
 package com.milaev.medicine.handler;
 
-import com.milaev.medicine.service.exceptions.NullResultFromDBException;
+import com.milaev.medicine.service.exceptions.*;
+import com.milaev.medicine.service.interfaces.*;
+import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,43 @@ import javax.servlet.ServletException;
 public class ZlobalAdviceController extends DefaultHandlerExceptionResolver {
 
     private static Logger log = LoggerFactory.getLogger(ZlobalAdviceController.class);
+
+    @ExceptionHandler(AccountValidationException.class)
+    public ModelAndView accountValidationError(AccountValidationException ex) {
+        log.debug("accountValidationError executor");
+        return PageURLContext.getPage(fillMAV(ex), AccountServiceInterface.PAGE_REGISTRATION);
+    }
+
+    @ExceptionHandler(DoctorValidationException.class)
+    public ModelAndView doctorValidationError(DoctorValidationException ex) {
+        log.debug("doctorValidationException executor");
+        return PageURLContext.getPage(fillMAV(ex), DoctorServiceInterface.PAGE_REGISTRATION);
+    }
+
+    @ExceptionHandler(EventValidationException.class)
+    public ModelAndView eventValidationError(EventValidationException ex) {
+        log.debug("eventValidationError executor");
+        return PageURLContext.getPage(fillMAV(ex), EventServiceInterface.PAGE_REGISTRATION);
+    }
+
+    @ExceptionHandler(PatientValidationException.class)
+    public ModelAndView patientValidationException(PatientValidationException ex) {
+        log.debug("patientValidationException executor");
+        return PageURLContext.getPage(fillMAV(ex), PatientServiceInterface.PAGE_REGISTRATION);
+    }
+
+    @ExceptionHandler(RecipeSimpleValidationException.class)
+    public ModelAndView accountValidationError(RecipeSimpleValidationException ex) {
+        log.debug("accountValidationError executor");
+        return PageURLContext.getPage(fillMAV(ex), RecipeSimpleServiceInterface.PAGE_REGISTRATION);
+    }
+
+    private ModelAndView fillMAV(DTOValidationException ex){
+        ModelAndView mav = ex.getModel();
+        mav.addObject("org.springframework.validation.BindingResult.dto", ex.getResult());
+        mav.addObject("dto", ex.getDTO());
+        return mav;
+    }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ModelAndView handle(Exception ex) {

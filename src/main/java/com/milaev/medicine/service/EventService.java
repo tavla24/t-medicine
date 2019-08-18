@@ -8,6 +8,7 @@ import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
+import com.milaev.medicine.service.exceptions.EventValidationException;
 import com.milaev.medicine.service.exceptions.RecipeSimpleValidationException;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
@@ -37,10 +38,8 @@ public class EventService extends AbstractService implements EventServiceInterfa
     @Autowired
     private RecipeSimpleDAO daoRecipeSimple;
 
-
-
-
     @Override
+    @Transactional
     public ModelAndView mavList() {
         log.info("called EventService.mavList");
         ModelAndView mav = getPreparedMAV();
@@ -50,6 +49,17 @@ public class EventService extends AbstractService implements EventServiceInterfa
     }
 
     @Override
+    @Transactional
+    public ModelAndView mavList(String insuranceId) {
+        log.info("called EventService.mavList");
+        ModelAndView mav = getPreparedMAV();
+        mav.addObject("filter", new EventFilterDTO());
+        mav.addObject("dto", getByInsuranceId(insuranceId));
+        return PageURLContext.getPage(mav, PAGE_LIST);
+    }
+
+    @Override
+    @Transactional
     public ModelAndView mavList(EventFilterDTO filter, BindingResult result) {
         log.info("called EventService.mavList");
         ModelAndView mav = getPreparedMAV();
@@ -59,8 +69,9 @@ public class EventService extends AbstractService implements EventServiceInterfa
     }
 
     @Override
+    @Transactional
     public ModelAndView mavEdit(Long id) {
-        log.info("called RecipeSimpleService.mavEdit");
+        log.info("called EventService.mavEdit");
         ModelAndView mav = getPreparedMAV();
         //mav.addObject("statuses", EventStatus.getStatusList());
         mav.addObject("dto", getById(id));
@@ -68,8 +79,9 @@ public class EventService extends AbstractService implements EventServiceInterfa
     }
 
     @Override
+    @Transactional
     public ModelAndView mavEdit(EventDTO dto, BindingResult result) {
-        log.info("called RecipeSimpleService.mavEdit with dto");
+        log.info("called EventService.mavEdit with dto");
         ModelAndView mav = getPreparedMAV();
         checkDTO(dto, result, mav);
 
@@ -86,21 +98,9 @@ public class EventService extends AbstractService implements EventServiceInterfa
         if (result.hasErrors()) {
             log.info("hasErrors()");
             log.info(result.getAllErrors().toString());
-            throw new RecipeSimpleValidationException(dto, result, mav);
+            throw new EventValidationException(dto, result, mav);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     @Transactional
