@@ -39,10 +39,30 @@ public class EventControllerTest {
     }
 
     @Test
-    public void testSecurityAnonim() throws Exception {
+    public void testGetList() throws Exception {
         MvcResult result = mvc.perform(get("/event/list")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/pages/event/list.jsp"))
+                .andReturn();
+
+        ModelAndView mav = result.getModelAndView();
+    }
+
+    @Test
+    public void testGetListParam() throws Exception {
+        MvcResult result = mvc.perform(get("/event/list/0")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/event/list.jsp"))
+                .andReturn();
+
+        ModelAndView mav = result.getModelAndView();
+    }
+
+    @Test
+    public void testGetEdit() throws Exception {
+        MvcResult result = mvc.perform(get("/event/edit/0")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/event/registration.jsp"))
                 .andReturn();
 
         ModelAndView mav = result.getModelAndView();

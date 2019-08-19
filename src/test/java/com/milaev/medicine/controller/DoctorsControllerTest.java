@@ -3,6 +3,7 @@ package com.milaev.medicine.controller;
 import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.WebMvcConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
+import com.milaev.medicine.service.exceptions.NullResultFromDBException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,12 +40,28 @@ public class DoctorsControllerTest {
     }
 
     @Test
-    public void testSecurityAnonim() throws Exception {
+    public void testGetList() throws Exception {
+        MvcResult result = mvc.perform(get("/admin/doctor/list")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/doctor/list.jsp"))
+                .andReturn();
+    }
+
+    @Test
+    public void testGetEdit() throws Exception {
         MvcResult result = mvc.perform(get("/doctor/edit")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/pages/doctor/registration.jsp"))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
     }
+
+    @Test
+    public void testGetNew() throws Exception {
+        MvcResult result = mvc.perform(get("/admin/doctor/new")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/doctor/registration.jsp"))
+                .andReturn();
+    }
+
+
 }

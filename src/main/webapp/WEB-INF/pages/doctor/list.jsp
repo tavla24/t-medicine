@@ -8,7 +8,7 @@
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:navmenu title=""/>
+            <t:navmenu title="Doctors list"/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

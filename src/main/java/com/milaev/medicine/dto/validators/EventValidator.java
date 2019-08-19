@@ -4,6 +4,7 @@ import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.model.enums.EventStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -24,7 +25,7 @@ public class EventValidator implements Validator {
     public void validate(Object target, Errors errors) {
         EventDTO dto = (EventDTO) target;
 
-        if ((dto.getStatus() != null) && !dto.getStatus().isEmpty())
+        //if ((dto.getStatus() != null) && !dto.getStatus().isEmpty())
             if(dto.getStatus().equals(EventStatus.CANCEL.name()))
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "info", "event.info.empty");
     }

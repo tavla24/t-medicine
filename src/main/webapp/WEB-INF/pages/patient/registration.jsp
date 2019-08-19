@@ -5,11 +5,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:content title="Patient registration">
+<t:content title="Patients">
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:navmenu title=""/>
+            <t:navmenu title="Patient registration"/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:content title="Access Denied">
+<t:content title="Access">
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:navmenu title=""/>
+            <t:navmenu title="Access Denied"/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

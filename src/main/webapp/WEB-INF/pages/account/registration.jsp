@@ -9,7 +9,7 @@
     <jsp:attribute name="header">
         <t:header>
         <jsp:body>
-            <t:navmenu title=""/>
+            <t:navmenu title="Account registration"/>
         </jsp:body>
         </t:header>
     </jsp:attribute>

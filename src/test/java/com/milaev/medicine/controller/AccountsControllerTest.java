@@ -43,7 +43,7 @@ public class AccountsControllerTest {
     }
 
     @Test
-    public void testSecurityAnonim() throws Exception {
+    public void testGetList() throws Exception {
         MvcResult result = mvc.perform(get("/admin/account/list")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl("/WEB-INF/pages/account/list.jsp"))
@@ -51,4 +51,15 @@ public class AccountsControllerTest {
 
         ModelAndView mav = result.getModelAndView();
     }
+
+    @Test
+    public void testGetNew() throws Exception {
+        MvcResult result = mvc.perform(get("/admin/account/new")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/account/registration.jsp"))
+                .andReturn();
+
+        ModelAndView mav = result.getModelAndView();
+    }
+
 }

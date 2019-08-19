@@ -35,19 +35,19 @@ public class PersonValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "person.phone.empty");
 
-        if (!dto.getEmail().isEmpty()){
+        //if (!dto.getEmail().isEmpty()){
             pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
             matcher = pattern.matcher(dto.getEmail());
             if (!matcher.matches())
                 errors.rejectValue("email","person.email.invalid");
-        }
+        //}
 
-        if (!dto.getPhone().isEmpty()) {
+        //if (!dto.getPhone().isEmpty()) {
             pattern = Pattern.compile(PHONE_PATTERN);
             matcher = pattern.matcher(dto.getPhone());
             if (!matcher.matches())
                 errors.rejectValue("phone", "person.phone.invalid");
-        }
+        //}
 
 //        if (dto.isOldEmailEmpty() && (patientService.isProfileExist(dto.getInsuranceId())))
 //            errors.rejectValue("insuranceId", "patient.insuranceId.unique", new String[] { dto.getInsuranceId() }, null);
