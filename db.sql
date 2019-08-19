@@ -2,13 +2,6 @@ DROP DATABASE IF EXISTS hospital;
 CREATE DATABASE hospital;
 USE hospital;
 
-# TODO table doctors - is it need?
-# TODO periodic, duration - in other table?
-# TODO unique
-# TODO catch exceptions (delete void or unique insert for example)
-# TODO lazy query - how grab objects
-# TODO serialize class into db
-
 DROP TABLE IF EXISTS persistent_logins;
 DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS users;
@@ -73,14 +66,6 @@ CREATE TABLE patients
   diagnosis VARCHAR(255) NOT NULL,
   insuranceid VARCHAR(255) NOT NULL,
   status VARCHAR(127) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB CHARACTER SET=UTF8;
-
-CREATE TABLE healings
-(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  type VARCHAR(127) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARACTER SET=UTF8;
 
@@ -157,40 +142,35 @@ ALTER TABLE events
 
 # for tests ========================================
 INSERT INTO roles (type) VALUES 
-('ADMIN'), ('USER'), ('DOCTOR'), ('NURSE'), ('PATIENT');
+('ADMIN'), ('DOCTOR'), ('NURSE');
 
 INSERT INTO accounts (login, password, role_id) VALUES 
 ('admin', 'PW_2222', 1),
-('user', 'PW_3333', 2),
-('doctor', 'PW_4444', 3),
-('nurse', 'PW_5555', 4),
-('patient', 'PW_6666', 5),
-('doctor2', 'PW_4444', 3);
+('ivanov', 'PW_4444', 2),
+('petrov', 'PW_4444', 2),
+('sidorov', 'PW_5555', 3);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES 
-('Sergey', 'Ivanov', 'Aleksandrovich', 'ivanov@mail.ru', '+79214737482', 1),
-('Arseniy', 'Petrov', 'Konstantinovich', 'petrov@mail.ru', '+79219373549', 4),
-('Konstantin', 'Sidorov', 'Victorovich', 'sidorov@mail.ru', '+79219823575', 5),
-('Ekaterina', 'Bochkareva', 'Sergeevna', 'bochkareva@mail.ru', '+79218365208', 3),
-('Natalia', 'Chernova', 'Igorevna', 'chern@mail.ru', '+79111584423', 6);
+('Sergey', 'Ivanov', 'Aleksandrovich', 'ivanov@mail.ru', '7-921-5486257', 2),
+('Arseniy', 'Petrov', 'Konstantinovich', 'petrov@mail.ru', '7-921-2548763', 3),
+('Konstantin', 'Sidorov', 'Victorovich', 'sidorov@mail.ru', '7-911-4587625', null),
+('Ekaterina', 'Bochkareva', 'Sergeevna', 'bochkareva@mail.ru', '7-968-6145752', null),
+('Natalia', 'Chernova', 'Igorevna', 'chern@mail.ru', '7-963-1354628', null);
 
 INSERT INTO doctors (id, specialization) VALUES
-(4, 'okulist'),
-(5, 'terapevt');
+(1, 'Ophthalmologist'),
+(2, 'Therapist');
 
 INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
-(2, 4, 'dalnozorkost', '98723509', 'ILL'),
-(3, 5, 'astigmatizm', '87635832', 'ILL');
+(3, 1, 'Astigmatism 22dgr', 'FGR1458762', 'ILL'),
+(4, 1, 'Hyperopia LE+4, RE+3.5', 'HFT4245876', 'ILL'),
+(5, 2, 'Loss of muscle tone', 'KDE2458762', 'ILL');
+
 
 INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
-#(2, 'ochki', 'PROCEDURE', false, STR_TO_DATE('01/02/2019', '%m/%d/%Y'), STR_TO_DATE('05/06/2019', '%m/%d/%Y'), '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
-#(3, 'drug bitter', 'DRUG', false, STR_TO_DATE('01/02/2018', '%m/%d/%Y'), STR_TO_DATE('05/06/2018', '%m/%d/%Y'), '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
-(2, 'ochki', 'PROCEDURE', false, '2019-08-12', '2019-08-30', '3 time', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
-(3, 'drug bitter', 'DRUG', false, '2019-08-14', '2019-08-25', '880 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;');
-
-INSERT INTO healings (name, type) VALUES
-('ochki', 'PROCEDURE'),
-('drug bitter', 'DRUG'),
-('drug sweed', 'DRUG');
+(3, 'Wear black glasses', 'PROCEDURE', false, '2019-08-21', '2019-08-27', '10 minutes', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+(4, 'Exercises for eyes', 'PROCEDURE', false, '2019-08-24', '2019-08-30', '3 time for 5 mimutes', 'MONDAY;FRIDAY;', 'MORNING;'),
+(5, 'Multivitamins', 'DRUG', false, '2019-08-23', '2019-08-29', '3 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;'),
+(5, 'Acupuncture', 'PROCEDURE', false, '2019-08-19', '2019-08-26', 'In all body points', 'MONDAY;WEDNESDAY;FRIDAY;SUNDAY;', 'MORNING;NIGHT;');
 
 # ==================================================

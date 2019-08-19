@@ -32,9 +32,9 @@
             <tbody>
             <c:forEach items="${dto}" var="account">
                 <tr>
-                    <th>${account.login}</th>
-                    <th>${account.password}</th>
-                    <th>${account.role.type}</th>
+                    <td>${account.login}</td>
+                    <td>${account.password}</td>
+                    <td>${account.role.type}</td>
                     <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
                         <td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>
                     </sec:authorize>

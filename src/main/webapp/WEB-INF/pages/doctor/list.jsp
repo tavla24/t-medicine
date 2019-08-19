@@ -37,14 +37,14 @@
             <tbody>
             <c:forEach items="${dto}" var="doctor">
                 <tr>
-                    <th>${doctor.name}</th>
-                    <th>${doctor.surname}</th>
-                    <th>${doctor.patronymic}</th>
+                    <td>${doctor.name}</td>
+                    <td>${doctor.surname}</td>
+                    <td>${doctor.patronymic}</td>
 
-                    <th>${doctor.specialization}</th>
-                    <th>${doctor.email}</th>
-                    <th>${doctor.phone}</th>
-                    <th>${doctor.login}</th>
+                    <td>${doctor.specialization}</td>
+                    <td>${doctor.email}</td>
+                    <td>${doctor.phone}</td>
+                    <td>${doctor.login}</td>
                     <sec:authorize access="hasRole('ADMIN')">
                         <td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>
                         <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>

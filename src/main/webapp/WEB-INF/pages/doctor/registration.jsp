@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label for="login">Login</label>
                                     <form:input type="text" path="login" id="login"
-                                                class="form-control form-control-sm mb-2 mr-2"/>
+                                                class="form-control form-control-sm"/>
                                     <form:errors path="login" class="text-danger"/>
                                 </div>
                             </div>
@@ -39,50 +39,50 @@
 
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="name">First Name</label>
                             <form:input type="text" path="name" id="name"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="name" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="surname">Surname</label>
                             <form:input type="text" path="surname" id="surname"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="surname" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="patronymic">Patronymic</label>
                             <form:input type="text" path="patronymic" id="patronymic"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="patronymic" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="specialization">Specialization</label>
                             <form:input type="text" path="specialization" id="specialization"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="specialization" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="email">email</label>
                             <form:input type="text" path="email" id="email"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="email" class="text-danger"/>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 offset-md-3">
+                        <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="phone">phone</label>
                             <form:input type="text" path="phone" id="phone" placeholder="X-XXX-XXXXXXX"
-                                        class="form-control form-control-sm mb-2 mr-2"/>
+                                        class="form-control form-control-sm"/>
                             <form:errors path="phone" class="text-danger"/>
                         </div>
                     </div>

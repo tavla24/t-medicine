@@ -31,33 +31,34 @@
                                         <th>email</th>
                                         <th>Phone</th>
                         --%>
-                    <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
-                        <th class="col-1"></th>
-                        <th class="col-1"></th>
-                        <th class="col-1"></th>
+                        <th class="col-1" width="100%"></th>
+                        <th class="col-1" width="100%"></th>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <th class="col-1" width="100%"></th>
                     </sec:authorize>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${dto}" var="patient">
                     <tr>
-                        <th>${patient.name}</th>
-                        <th>${patient.surname}</th>
-                        <th>${patient.patronymic}</th>
+                        <td>${patient.name}</td>
+                        <td>${patient.surname}</td>
+                        <td>${patient.patronymic}</td>
 
-                        <th>${patient.insuranceId}</th>
-                        <th>${patient.diagnosis}</th>
+                        <td>${patient.insuranceId}</td>
+                        <td>${patient.diagnosis}</td>
                             <%--<th>${patient.status}</th>--%>
 
-                        <th>${patient.doctor.surname}</th>
+                        <td>${patient.doctor.surname}</td>
 
                             <%--<th>${patient.email}</th>
                            <th>${patient.phone}</th>--%>
 
-                        <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
+
                             <td><a href="<c:url value='/patient/edit/${patient.insuranceId}' />">details</a></td>
-                            <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
                             <td><a href="<c:url value='/recipe/list/${patient.insuranceId}' />">recipes</a></td>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

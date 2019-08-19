@@ -21,8 +21,8 @@
                     <th>Healing</th>
                     <th>dateFrom</th>
                     <th>dateTo</th>
-                    <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
-                        <th class="col-1"></th>
+                    <th class="col-1"></th>
+                    <sec:authorize access="hasRole('ADMIN')">
                         <th class="col-1"></th>
                     </sec:authorize>
                 </tr>
@@ -30,11 +30,11 @@
                 <tbody>
                 <c:forEach items="${dto}" var="recipe">
                     <tr>
-                        <th>${recipe.healingType}:${recipe.healingName}</th>
-                        <th>${recipe.dateFrom}</th>
-                        <th>${recipe.dateTo}</th>
-                        <sec:authorize access="hasRole('ADMIN') or hasRole('DOCTOR')">
-                            <td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>
+                        <td>${recipe.healingType}:${recipe.healingName}</td>
+                        <td>${recipe.dateFrom}</td>
+                        <td>${recipe.dateTo}</td>
+                        <td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>
+                        <sec:authorize access="hasRole('ADMIN')">
                             <td><a href="<c:url value='/recipe/delete/${insuranceId}/${recipe.id}' />">delete</a></td>
                         </sec:authorize>
                     </tr>
@@ -42,7 +42,7 @@
                 </tbody>
             </table>
             <br>
-            <a  class="col-12 btn btn-success" href="<c:url value="/recipe/new/${insuranceId}" />">New recipe</a>
+            <a class="col-12 btn btn-success" href="<c:url value="/recipe/new/${insuranceId}" />">New recipe</a>
         </div>
     </jsp:body>
 </t:content>

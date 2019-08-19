@@ -28,14 +28,14 @@
                         <tbody>
                         <tr>
                             <div class="form-group">
-                                <th>
+                                <td>
                                     <form:input type="text" path="name" id="name"
                                                 class="form-control form-control-sm"/>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <form:input type="text" path="surname" id="surname"
                                                 class="form-control form-control-sm"/>
-                                </th>
+                                </td>
                             </div>
                         </tr>
                         </tbody>
@@ -57,33 +57,33 @@
                         <tbody>
                         <tr>
                             <div class="form-group">
-                                <th>
+                                <td>
                                     <form:select path="status" multiple="false" id="status"
                                                  class="form-control form-control-sm">
                                         <form:option value="" label="--- All ---"/>
                                         <form:options items="${filter.statuses}"/>
                                     </form:select>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <form:select path="healingType" multiple="false" id="status"
                                                  class="form-control form-control-sm">
                                         <form:option value="" label="--- All ---"/>
                                         <form:options items="${filter.healingTypes}"/>
                                     </form:select>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <fmt:formatDate value="${filter.dateFrom}" var="dateFromString"
                                                     pattern="yyyy-MM-dd"/>
                                     <form:input type="date" path="dateFrom" id="dateFrom"
                                                 value="${dateFromString}" class="form-control form-control-sm"/>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <fmt:formatDate value="${filter.dateTo}" var="dateToString"
                                                     pattern="yyyy-MM-dd"/>
                                     <form:input type="date" path="dateTo" id="dateTo" value="${dateToString}"
                                                 class="form-control form-control-sm"/>
-                                </th>
-                                <th><form:checkbox min="0" path="sortByTime" id="sortByTime" name="sortByTime"
+                                </td>
+                                <td><form:checkbox min="0" path="sortByTime" id="sortByTime" name="sortByTime"
                                                 class="form-control form-control-sm"/>
                                 <th><form:input type="number" min="0" path="nextHours" id="nextHours"
                                                 class="form-control form-control-sm"/></th>
