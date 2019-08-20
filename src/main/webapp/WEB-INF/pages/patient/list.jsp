@@ -31,10 +31,10 @@
                                         <th>email</th>
                                         <th>Phone</th>
                         --%>
-                        <th class="col-1" width="100%"></th>
-                        <th class="col-1" width="100%"></th>
+                        <th class="col-1"></th>
+                        <th class="col-1"></th>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <th class="col-1" width="100%"></th>
+                        <th class="col-1"></th>
                     </sec:authorize>
                 </tr>
                 </thead>

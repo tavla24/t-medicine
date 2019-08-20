@@ -5,7 +5,6 @@ import com.milaev.medicine.dto.validators.DoctorValidator;
 import com.milaev.medicine.dto.validators.EventValidator;
 import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import static org.mockito.Mockito.mock;
 

@@ -1,21 +1,18 @@
 package com.milaev.medicine.service;
 
 import com.milaev.medicine.dao.AccountDAO;
-import com.milaev.medicine.dto.DoctorDTO;
-import com.milaev.medicine.model.Account;
-import com.milaev.medicine.model.enums.PatientStatus;
-import com.milaev.medicine.model.enums.RoleType;
-import com.milaev.medicine.service.exceptions.NullResultFromDBException;
-import com.milaev.medicine.service.exceptions.PatientValidationException;
-import com.milaev.medicine.utils.PageURLContext;
-import com.milaev.medicine.utils.converters.PatientConverter;
 import com.milaev.medicine.dao.DoctorDAO;
 import com.milaev.medicine.dao.PatientDAO;
 import com.milaev.medicine.dto.PatientDTO;
+import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.model.Patient;
+import com.milaev.medicine.model.enums.RoleType;
+import com.milaev.medicine.service.exceptions.NullResultFromDBException;
+import com.milaev.medicine.service.exceptions.PatientValidationException;
 import com.milaev.medicine.service.interfaces.PatientServiceInterface;
-import com.milaev.medicine.utils.MapperUtil;
+import com.milaev.medicine.utils.PageURLContext;
+import com.milaev.medicine.utils.converters.PatientConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

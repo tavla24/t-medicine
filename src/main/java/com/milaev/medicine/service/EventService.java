@@ -11,7 +11,6 @@ import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.service.exceptions.EventValidationException;
-import com.milaev.medicine.service.exceptions.RecipeSimpleValidationException;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import com.milaev.medicine.utils.PageURLContext;

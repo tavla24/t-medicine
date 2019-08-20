@@ -1,7 +1,6 @@
 package com.milaev.medicine.service.interfaces;
 
 import com.milaev.medicine.dto.RoleDTO;
-import com.milaev.medicine.model.Role;
 
 import java.util.List;
 

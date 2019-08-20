@@ -1,6 +1,5 @@
 package com.milaev.medicine.service.interfaces;
 
-import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.PatientDTO;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;

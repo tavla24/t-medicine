@@ -2,9 +2,9 @@ package com.milaev.medicine.dto;
 
 import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.model.enums.PatientStatus;
-import com.milaev.medicine.utils.datetime.DateUtils;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class EventFilterDTO {
     private Long id;

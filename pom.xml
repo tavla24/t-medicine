@@ -11,8 +11,7 @@
 	<packaging>war</packaging>
 
 	<name>t-medicine Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>http://www.t-medicine.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,11 +42,12 @@
 		<version.modelmapper>2.3.5</version.modelmapper>
 		<version.junit>4.12</version.junit>
 		<version.validation-api>2.0.1.Final</version.validation-api>
-		<version.hibernate-validator>6.0.17.Final</version.hibernate-validator>
 		<version.joda-time>2.10.3</version.joda-time>
 		<version.mockito-all>1.10.19</version.mockito-all>
 		<version.spring-test>5.1.9.RELEASE</version.spring-test>
 		<version.junit-jupiter-api>5.5.1</version.junit-jupiter-api>
+		<version.spring-security-test>5.1.6.RELEASE</version.spring-security-test>
+		<version.sonar-maven-plugin>3.6.0.1398</version.sonar-maven-plugin>
 	</properties>
 
 	<dependencies>
@@ -240,12 +240,12 @@
 			<version>${version.validation-api}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${version.hibernate-validator}</version>
-		</dependency>
+		<!--&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-validator &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.hibernate</groupId>-->
+			<!--<artifactId>hibernate-validator</artifactId>-->
+			<!--<version>${version.hibernate-validator}</version>-->
+		<!--</dependency>-->
 
 
 		<!-- ============================================================ -->
@@ -290,8 +290,16 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
-			<version>5.1.6.RELEASE</version>
+			<version>${version.spring-security-test}</version>
 			<scope>test</scope>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>${version.sonar-maven-plugin}</version>
 		</dependency>
 
 	</dependencies>
@@ -299,9 +307,12 @@
 	<build>
 		<finalName>t-medicine</finalName>
 		<pluginManagement>
-			<!-- lock down plugins versions to avoid using Maven defaults (may be 
-				moved to parent pom) -->
 			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${version.sonar-maven-plugin}</version>
+				</plugin>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>

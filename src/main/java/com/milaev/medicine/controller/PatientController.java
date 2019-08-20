@@ -1,31 +1,17 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
-import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.PatientDTO;
-import com.milaev.medicine.dto.RoleDTO;
 import com.milaev.medicine.dto.validators.PatientValidator;
-import com.milaev.medicine.model.enums.PatientStatus;
-import com.milaev.medicine.model.enums.RoleType;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
-import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.service.interfaces.PatientServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/patient")

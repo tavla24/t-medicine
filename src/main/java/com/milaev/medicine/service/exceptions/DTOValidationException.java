@@ -1,6 +1,5 @@
 package com.milaev.medicine.service.exceptions;
 
-import com.milaev.medicine.dto.AccountDTO;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 

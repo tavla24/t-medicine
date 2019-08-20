@@ -1,8 +1,5 @@
 package com.milaev.medicine.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
 public class AccountDTO {
     private String login;
     private String password;

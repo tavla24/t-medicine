@@ -1,18 +1,14 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.validators.EventValidator;
-import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -21,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/event")

@@ -34,7 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Bean(name = "messageSource")
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames(new String[] { "messages/messages", "messages/validation" });
+        messageSource.setBasenames("messages/messages", "messages/validation");
         return messageSource;
     }
 
