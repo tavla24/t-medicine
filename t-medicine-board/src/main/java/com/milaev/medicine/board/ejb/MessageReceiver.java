@@ -1,7 +1,6 @@
 package com.milaev.medicine.board.ejb;
 
 import com.milaev.medicine.board.ws.BoardEndpointPeers;
-import com.milaev.mq.message.StateChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +9,9 @@ import javax.inject.Inject;
 import javax.jms.*;
 
 @Stateless
-public class Reader implements MessageListener {
+public class MessageReceiver implements MessageListener {
 
-    private static Logger log =  LoggerFactory.getLogger(Reader.class);
+    private static Logger log =  LoggerFactory.getLogger(MessageReceiver.class);
 
     @Inject
     BoardEndpointPeers peers;

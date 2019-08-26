@@ -26,7 +26,7 @@ public class MessageSender {
                 public Message createMessage(Session session) throws JMSException {
                     TextMessage textMessage = session.createTextMessage(text);
                     return textMessage;
-                    
+
 //                    ObjectMessage objectMessage = session.createObjectMessage(new StateChangedEvent(text));
 //                    return objectMessage;
                 }

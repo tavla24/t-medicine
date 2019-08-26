@@ -6,6 +6,8 @@ public class StateChangedResponse implements Serializable {
 
     private String text;
 
+    public StateChangedResponse() {}
+
     public StateChangedResponse(String text) {
         this.text = text;
     }

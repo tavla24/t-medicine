@@ -6,6 +6,8 @@ public class StateChangedEvent implements Serializable {
 
     private String text;
 
+    public StateChangedEvent() {}
+
     public StateChangedEvent(String text) {
         this.text = text;
     }

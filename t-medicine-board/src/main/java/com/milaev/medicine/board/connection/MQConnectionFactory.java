@@ -35,7 +35,7 @@ public class MQConnectionFactory {
             //producer.send(session.createObjectMessage(new StateChangedResponse(text)));
             producer.send(session.createTextMessage(text));
         } catch (JMSException e) {
-            log.error("Unable to send message. Exception: {}", e.getStackTrace());
+            log.error("Unable to send message. Exception:", e);
             closeConnection();
         }
     }
@@ -61,7 +61,7 @@ public class MQConnectionFactory {
 
             connection.start();
         } catch (JMSException e) {
-            log.error("Unable to create connection. Exception: {}", e.getStackTrace());
+            log.error("Unable to create connection. Exception:", e);
             closeConnection();
         }
     }
@@ -76,7 +76,7 @@ public class MQConnectionFactory {
             if (connection != null)
                 connection.close();
         } catch (JMSException e) {
-            log.error("Unable to close connection. Exception: {}", e.getStackTrace());
+            log.error("Unable to close connection. Exception:", e);
         }
     }
 }

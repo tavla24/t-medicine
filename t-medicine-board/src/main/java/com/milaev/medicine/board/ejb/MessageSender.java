@@ -1,7 +1,6 @@
 package com.milaev.medicine.board.ejb;
 
 import com.milaev.medicine.board.connection.MQConnectionFactory;
-import com.milaev.mq.message.StateChangedResponse;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 //@ApplicationScoped
 @Stateless
-public class Sender {
+public class MessageSender {
 
-    private static Logger log =  LoggerFactory.getLogger(Sender.class);
+    private static Logger log =  LoggerFactory.getLogger(MessageSender.class);
 
     @Inject
     private MQConnectionFactory connectionFactory;

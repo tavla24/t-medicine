@@ -1,6 +1,7 @@
 package com.milaev.medicine.board.servlet;
 
-import com.milaev.medicine.board.ejb.Sender;
+import com.milaev.medicine.board.bean.Inquirer;
+import com.milaev.medicine.board.ejb.MessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,11 +19,15 @@ public class MyServlet extends HttpServlet {
     private static Logger log =  LoggerFactory.getLogger(MyServlet.class);
 
     @Inject
-    private Sender sender;
+    private MessageSender sender;
+
+    @Inject
+    Inquirer inquirer;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("doGet");
-        sender.sendMessage("hello from board");
+        //sender.sendMessage("hello from board");
+        inquirer.getResponse();
     }
 }
