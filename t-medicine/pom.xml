@@ -48,9 +48,18 @@
 		<version.junit-jupiter-api>5.5.1</version.junit-jupiter-api>
 		<version.spring-security-test>5.1.6.RELEASE</version.spring-security-test>
 		<version.sonar-maven-plugin>3.6.0.1398</version.sonar-maven-plugin>
+		<version.activemq-spring>5.15.9</version.activemq-spring>
+		<version.spring-jms>5.1.8.RELEASE</version.spring-jms>
+		<version.t-medicine-mq>1.0</version.t-medicine-mq>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.milaev</groupId>
+			<artifactId>t-medicine-mq</artifactId>
+			<version>${version.t-medicine-mq}</version>
+		</dependency>
+
 		<!-- === java === -->
 		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>
@@ -296,10 +305,24 @@
 
 
 		<!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<!--<dependency>-->
+			<!--<groupId>org.sonarsource.scanner.maven</groupId>-->
+			<!--<artifactId>sonar-maven-plugin</artifactId>-->
+			<!--<version>${version.sonar-maven-plugin}</version>-->
+		<!--</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-spring -->
 		<dependency>
-			<groupId>org.sonarsource.scanner.maven</groupId>
-			<artifactId>sonar-maven-plugin</artifactId>
-			<version>${version.sonar-maven-plugin}</version>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+			<version>${version.activemq-spring}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${version.spring-jms}</version>
 		</dependency>
 
 	</dependencies>

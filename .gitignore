@@ -1,7 +1,9 @@
-/.idea/
-/*.iml
-/target/
-/.settings/
-/bin/
-/.classpath
-/.project
+/*/.idea/
+/*/*.iml
+/*/target/
+/*/bin/
+/*/.settings/
+/*/.classpath
+/*/.project
+/*/lib/
+.settings/
