@@ -1,6 +1,8 @@
-package com.milaev.medicine.board.ejb;
+package com.milaev.medicine.board.jms;
 
+import com.milaev.medicine.board.bean.BoardUpdater;
 import com.milaev.medicine.board.ws.BoardEndpointPeers;
+import com.milaev.mq.message.StateChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,9 @@ public class MessageReceiver implements MessageListener {
     @Inject
     BoardEndpointPeers peers;
 
+    @Inject
+    BoardUpdater boardUpdater;
+
     @Override
     public void onMessage(Message message) {
         try {
@@ -28,6 +33,7 @@ public class MessageReceiver implements MessageListener {
 
             log.info(text);
             log.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            boardUpdater.setNewData(true);
             peers.sendMessage(text);
         } catch (JMSException e) {
             e.printStackTrace();

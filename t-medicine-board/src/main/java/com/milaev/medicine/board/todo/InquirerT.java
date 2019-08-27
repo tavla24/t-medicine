@@ -1,5 +1,6 @@
-package com.milaev.medicine.board.bean;
+package com.milaev.medicine.board.todo;
 
+import com.milaev.medicine.board.bean.BoardSourceInquirer;
 import com.milaev.mq.message.StateChangedEvent;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
@@ -12,9 +13,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 
-public class InquirerT <T> {
+public class InquirerT <T> { // TODO is it possible?
 
-    private static Logger log =  LoggerFactory.getLogger(Inquirer.class);
+    private static Logger log =  LoggerFactory.getLogger(BoardSourceInquirer.class);
 
     private static final String BOARD_INFO_SOURCE = "http://localhost:8081/t_medicine_war/board/";
 

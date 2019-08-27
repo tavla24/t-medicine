@@ -19,4 +19,5 @@ public class StateChangedResponse implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
 }

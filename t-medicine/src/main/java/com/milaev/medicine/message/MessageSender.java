@@ -33,7 +33,7 @@ public class MessageSender {
             });
             log.info("Sending {}", text);
         } catch (UncategorizedJmsException ex) {
-            log.error("Unable to send message. Exception: {}", ex.getStackTrace());
+            log.error("Unable to send message. Exception: {}", ex);
         }
     }
 

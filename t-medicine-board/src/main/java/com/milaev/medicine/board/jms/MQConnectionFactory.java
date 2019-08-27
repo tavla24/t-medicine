@@ -1,12 +1,10 @@
-package com.milaev.medicine.board.connection;
+package com.milaev.medicine.board.jms;
 
 import com.milaev.mq.MQDescription;
-import com.milaev.mq.message.StateChangedResponse;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Schedule;
 import javax.inject.Inject;
@@ -41,7 +39,7 @@ public class MQConnectionFactory {
     }
 
     //@PostConstruct
-    @Schedule(second="*", minute="*", hour="*")
+    @Schedule(second="*", minute="*", hour="*", persistent = false)
     public void createConnection(){
         if (connectionFactory != null)
             return;

@@ -1,6 +1,4 @@
-package com.milaev.medicine.board.ejb;
-
-import com.milaev.medicine.board.connection.MQConnectionFactory;
+package com.milaev.medicine.board.jms;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

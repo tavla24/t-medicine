@@ -1,5 +1,6 @@
-package com.milaev.medicine.board.connection;
+package com.milaev.medicine.board.todo;
 
+import com.milaev.medicine.board.jms.MQConnectionFactory;
 import com.milaev.mq.MQDescription;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
