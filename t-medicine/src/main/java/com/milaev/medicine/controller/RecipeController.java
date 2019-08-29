@@ -4,7 +4,7 @@ package com.milaev.medicine.controller;
 import com.milaev.medicine.dto.DTOContainer;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.dto.validators.RecipeSimpleValidator;
-import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
+import com.milaev.medicine.service.RecipeSimpleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class RecipeController {
     private static Logger log = LoggerFactory.getLogger(RecipeController.class);
 
     @Autowired
-    private RecipeSimpleServiceInterface recipeService;
+    private RecipeSimpleService recipeService;
 
     @Autowired
     RecipeSimpleValidator recipeSimpleValidator;

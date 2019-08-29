@@ -10,10 +10,12 @@ public abstract class AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(AbstractService.class);
 
+    public static String URI_MAIN = "/";
+
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
 
-    protected ModelAndView getPreparedMAV() {
+    public ModelAndView getPreparedMAV() {
         log.info("called AbstractService.getPreparedMAV");
         String loggedinuser = sessionAuth.getUserName();
         ModelAndView mav = new ModelAndView();

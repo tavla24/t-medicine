@@ -3,9 +3,9 @@ package com.milaev.medicine.dto.validators;
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.model.enums.PatientStatus;
 import com.milaev.medicine.model.enums.RoleType;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
-import com.milaev.medicine.service.interfaces.EventServiceInterface;
-import com.milaev.medicine.service.interfaces.PatientServiceInterface;
+import com.milaev.medicine.service.AccountService;
+import com.milaev.medicine.service.EventService;
+import com.milaev.medicine.service.PatientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class PatientValidator extends PersonValidator {
     private static Logger log = LoggerFactory.getLogger(PatientValidator.class);
 
     @Autowired
-    private PatientServiceInterface patientService;
+    private PatientService patientService;
 
     @Autowired
-    private EventServiceInterface eventService;
+    private EventService eventService;
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     private static final String INSID_PATTERN = "[A-Z0-9]{10}";
 

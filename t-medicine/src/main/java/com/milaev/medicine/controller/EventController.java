@@ -3,7 +3,8 @@ package com.milaev.medicine.controller;
 import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.validators.EventValidator;
-import com.milaev.medicine.service.interfaces.EventServiceInterface;
+import com.milaev.medicine.service.EventService;
+import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class EventController {
     private static Logger log = LoggerFactory.getLogger(RecipeController.class);
 
     @Autowired
-    private EventServiceInterface eventService;
+    private EventService eventService;
 
     @Autowired
     EventValidator eventValidator;
@@ -48,30 +49,81 @@ public class EventController {
     @GetMapping(value = "/list")
     public ModelAndView listEvents() {
         log.info("[/event] get request for url /list");
-        return eventService.mavList();
+//        ModelAndView mav = eventService.getPreparedMAV();
+//        mav.addObject("filter", new EventFilterDTO());
+//        mav.addObject("dto", eventService.getAll());
+
+        ModelAndView mav = prepareMAV(eventService.getAll());
+        return PageURLContext.getPage(mav, eventService.PAGE_LIST);
+        //return eventService.mavList();
     }
 
     @GetMapping(value = "/list/{insuranceId}")
     public ModelAndView listEvents(@PathVariable String insuranceId) {
         log.info("[/event] get request for url /list/{}", insuranceId);
-        return eventService.mavList();
+//        ModelAndView mav = eventService.getPreparedMAV();
+//        mav.addObject("filter", new EventFilterDTO());
+//        mav.addObject("dto", eventService.getByInsuranceId(insuranceId));
+
+        ModelAndView mav = prepareMAV(eventService.getByInsuranceId(insuranceId));
+        return PageURLContext.getPage(mav, eventService.PAGE_LIST);
+        //return eventService.mavList();
     }
 
     @PostMapping(value = "/list")
-    public ModelAndView listEvents(@ModelAttribute("filter") EventFilterDTO filter, BindingResult result) {
+    public ModelAndView listEvents(@ModelAttribute("filter") EventFilterDTO filter) {
         log.info("[/event] post request for url /list");
-        return eventService.mavList(filter, result);
+//        ModelAndView mav = eventService.getPreparedMAV();
+//        mav.addObject("filter", filter);
+//        mav.addObject("dto", eventService.getByFilter(filter));
+
+        ModelAndView mav = prepareMAV(eventService.getByFilter(filter), filter);
+        return PageURLContext.getPage(mav, eventService.PAGE_LIST);
+        //return eventService.mavList(filter, result);
     }
 
     @GetMapping(value = "/edit/{id}")
     public ModelAndView editEvent(@PathVariable Long id) {
         log.info("[/event] get request for url /edit/{}", id);
-        return eventService.mavEdit(id);
+//        ModelAndView mav = eventService.getPreparedMAV();
+//        mav.addObject("dto", eventService.getById(id));
+
+        ModelAndView mav = prepareMAV(eventService.getById(id));
+        return PageURLContext.getPage(mav, eventService.PAGE_REGISTRATION);
+        //return eventService.mavEdit(id);
     }
 
     @PostMapping(value = "/edit/{id}")
-    public ModelAndView editEvent(@PathVariable Long id, @ModelAttribute("dto") @Validated EventDTO dto, BindingResult resul) {
+    public ModelAndView editEvent(@PathVariable Long id, @ModelAttribute("dto") @Validated EventDTO dto, BindingResult result) {
         log.info("[/event] get request for url /edit/{}", id);
-        return eventService.mavEdit(dto, resul);
+//        ModelAndView mav = eventService.getPreparedMAV();
+//        eventService.checkDTO(dto, result, mav);
+//        eventService.updateProfile(dto);
+//        mav.addObject("dto", dto);
+
+        ModelAndView mav = prepareMAV(dto, null, result);
+        eventService.updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, eventService.URI_LIST);
+        //return eventService.mavEdit(dto, resul);
+    }
+
+    private ModelAndView prepareMAV(Object dto) {
+        return prepareMAV(dto, null);
+    }
+
+    private ModelAndView prepareMAV(Object dto, EventFilterDTO filter) {
+        return prepareMAV(dto, filter, null);
+    }
+
+    private ModelAndView prepareMAV(Object dto, EventFilterDTO filter, BindingResult result) {
+        ModelAndView mav = eventService.getPreparedMAV();
+        if (result != null)
+            eventService.checkDTO((EventDTO) dto, result, mav);
+        mav.addObject("dto", dto);
+        if (filter == null)
+            filter = new EventFilterDTO();
+        mav.addObject("filter", filter);
+
+        return mav;
     }
 }

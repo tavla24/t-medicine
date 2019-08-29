@@ -33,13 +33,12 @@ public class MQConnectionFactory {
             //producer.send(session.createObjectMessage(new StateChangedResponse(text)));
             producer.send(session.createTextMessage(text));
         } catch (JMSException e) {
-            log.error("Unable to send message. Exception:", e);
+            log.error("Unable to send message. (JMSException)");
             closeConnection();
         }
     }
 
-    //@PostConstruct
-    @Schedule(second="*", minute="*", hour="*", persistent = false)
+    @Schedule(second="*/2", minute="*", hour="*", persistent = false)
     public void createConnection(){
         if (connectionFactory != null)
             return;
@@ -59,7 +58,7 @@ public class MQConnectionFactory {
 
             connection.start();
         } catch (JMSException e) {
-            log.error("Unable to create connection. Exception:", e);
+            log.error("Unable to create connection. (JMSException)");
             closeConnection();
         }
     }
@@ -74,7 +73,7 @@ public class MQConnectionFactory {
             if (connection != null)
                 connection.close();
         } catch (JMSException e) {
-            log.error("Unable to close connection. Exception:", e);
+            log.error("Unable to close connection.", e);
         }
     }
 }

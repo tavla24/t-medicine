@@ -1,5 +1,6 @@
 package com.milaev.medicine.board.bean;
 
+import com.milaev.medicine.board.ws.BoardEndpointPeers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,26 +11,37 @@ import javax.inject.Inject;
 @Singleton
 public class BoardUpdater {
 
-    private static Logger log =  LoggerFactory.getLogger(BoardUpdater.class);
+    private static Logger log = LoggerFactory.getLogger(BoardUpdater.class);
 
     @Inject
     BoardSourceInquirer inquirer;
 
-    private boolean newData = true;
+    @Inject
+    BoardDataSource boardDataSource;
 
-    @Schedule(second="*", minute="*", hour="*", persistent = false)
-    public void doAction(){
-        if (newData){
+    @Inject
+    BoardEndpointPeers peers;
+
+    private boolean newData = true;
+    private String msg = "";
+
+    @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
+    public void doAction() {
+        if (newData) {
             log.info("New data present, update needed");
             String jsonInString = inquirer.getJSONResponse();
+
             if (!jsonInString.isEmpty()) {
-                setNewData(false);
+                boardDataSource.setDatasource(inquirer.getResponse());
+                peers.sendMessage(msg);
+                setNewState(false, "");
             }
         }
     }
 
     @Lock(LockType.WRITE)
-    public void setNewData(boolean newData) {
+    public void setNewState(boolean newData, String msg) {
         this.newData = newData;
+        this.msg = msg;
     }
 }

@@ -7,7 +7,6 @@ import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.service.exceptions.DoctorValidationException;
 import com.milaev.medicine.service.exceptions.NullResultFromDBException;
-import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
 import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.DoctorConverter;
 import org.slf4j.Logger;
@@ -22,9 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("doctorService")
-public class DoctorService extends AbstractService implements DoctorServiceInterface {
+public class DoctorService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(DoctorService.class);
+
+    public static String PAGE_LIST = "doctor/list";
+    public static String PAGE_REGISTRATION = "doctor/registration";
+    public static String URI_LIST = "/admin/doctor/list";
 
     @Autowired
     private DoctorDAO daoDoctor;
@@ -32,7 +35,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
     @Autowired
     private AccountDAO daoAccount;
 
-    @Override
     @Transactional
     public ModelAndView mavList() {
         log.info("called DoctorService.mavList");
@@ -41,7 +43,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return PageURLContext.getPage(mav, PAGE_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew() {
         log.info("called DoctorService.mavNew");
@@ -50,7 +51,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew(DoctorDTO dto, BindingResult result) {
         log.info("called DoctorService.mavNew with dto");
@@ -60,7 +60,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(String login) {
         log.info("called DoctorService.mavEdit");
@@ -84,7 +83,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(DoctorDTO dto, BindingResult result) {
         log.info("called DoctorService.mavEdit with dto");
@@ -94,7 +92,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return PageURLContext.getPageRedirect(mav, URI_MAIN);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavDelete(String login) {
         log.info("called DoctorService.mavDelete");
@@ -111,7 +108,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         }
     }
 
-    @Override
     @Transactional
     public List<DoctorDTO> getAll() {
         List<Doctor> list = daoDoctor.getAll();
@@ -122,7 +118,6 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return listDAO;
     }
 
-    @Override
     @Transactional
     public DoctorDTO getByLogin(String login) {
         return fillDTO(getEntityByLogin(login));
@@ -135,14 +130,12 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         return db;
     }
 
-    @Override
     @Transactional
     public DoctorDTO getById(Long id) {
         Doctor dbDoctor = daoDoctor.getById(id);
         return fillDTO(dbDoctor);
     }
 
-    @Override
     @Transactional
     public void deleteProfile(String login) {
         Doctor dbDoctor = getEntityByLogin(login);
@@ -153,14 +146,12 @@ public class DoctorService extends AbstractService implements DoctorServiceInter
         }
     }
 
-    @Override
     @Transactional
     public boolean isProfileExist(String login) {
         Doctor dbDoctor = daoDoctor.getByLogin(login);
         return dbDoctor != null;
     }
 
-    @Override
     @Transactional
     public void updateProfile(DoctorDTO dto) {
         log.info("service.updateProfile(Doctor) login [{}]", dto.getLogin());

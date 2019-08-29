@@ -1,8 +1,5 @@
 package com.milaev.medicine.message;
 
-import javax.jms.*;
-
-import com.milaev.mq.message.StateChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +7,11 @@ import org.springframework.jms.UncategorizedJmsException;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 
 @Component
 public class MessageSender {
@@ -33,7 +35,7 @@ public class MessageSender {
             });
             log.info("Sending {}", text);
         } catch (UncategorizedJmsException ex) {
-            log.error("Unable to send message. Exception: {}", ex);
+            log.error("Unable to send message.", ex);
         }
     }
 

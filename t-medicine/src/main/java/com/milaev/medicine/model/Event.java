@@ -18,7 +18,7 @@ public class Event {
     private Date datestamp;
     @Column(name = "status", nullable = false)
     private String status;
-    @Column(name = "info", nullable = false)
+    @Column(name = "info")
     private String info;
 
     public Long getId() {

@@ -2,7 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.dto.validators.PatientValidator;
-import com.milaev.medicine.service.interfaces.PatientServiceInterface;
+import com.milaev.medicine.service.PatientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class PatientController {
     private static Logger log = LoggerFactory.getLogger(PatientController.class);
 
     @Autowired
-    private PatientServiceInterface patientService;
+    private PatientService patientService;
 
     @Autowired
     private PatientValidator patientValidator;

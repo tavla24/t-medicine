@@ -1,7 +1,7 @@
 package com.milaev.medicine.handler;
 
+import com.milaev.medicine.service.*;
 import com.milaev.medicine.service.exceptions.*;
-import com.milaev.medicine.service.interfaces.*;
 import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,31 +23,31 @@ public class GlobalAdviceController extends DefaultHandlerExceptionResolver {
     @ExceptionHandler(AccountValidationException.class)
     public ModelAndView accountValidationError(AccountValidationException ex) {
         log.debug("accountValidationError executor");
-        return PageURLContext.getPage(fillMAV(ex), AccountServiceInterface.PAGE_REGISTRATION);
+        return PageURLContext.getPage(fillMAV(ex), AccountService.PAGE_REGISTRATION);
     }
 
     @ExceptionHandler(DoctorValidationException.class)
     public ModelAndView doctorValidationError(DoctorValidationException ex) {
         log.debug("doctorValidationException executor");
-        return PageURLContext.getPage(fillMAV(ex), DoctorServiceInterface.PAGE_REGISTRATION);
+        return PageURLContext.getPage(fillMAV(ex), DoctorService.PAGE_REGISTRATION);
     }
 
     @ExceptionHandler(EventValidationException.class)
     public ModelAndView eventValidationError(EventValidationException ex) {
         log.debug("eventValidationError executor");
-        return PageURLContext.getPage(fillMAV(ex), EventServiceInterface.PAGE_REGISTRATION);
+        return PageURLContext.getPage(fillMAV(ex), EventService.PAGE_REGISTRATION);
     }
 
     @ExceptionHandler(PatientValidationException.class)
     public ModelAndView patientValidationException(PatientValidationException ex) {
         log.debug("patientValidationException executor");
-        return PageURLContext.getPage(fillMAV(ex), PatientServiceInterface.PAGE_REGISTRATION);
+        return PageURLContext.getPage(fillMAV(ex), PatientService.PAGE_REGISTRATION);
     }
 
     @ExceptionHandler(RecipeSimpleValidationException.class)
     public ModelAndView accountValidationError(RecipeSimpleValidationException ex) {
         log.debug("accountValidationError executor");
-        return PageURLContext.getPage(fillMAV(ex), RecipeSimpleServiceInterface.PAGE_REGISTRATION);
+        return PageURLContext.getPage(fillMAV(ex), RecipeSimpleService.PAGE_REGISTRATION);
     }
 
     private ModelAndView fillMAV(DTOValidationException ex){

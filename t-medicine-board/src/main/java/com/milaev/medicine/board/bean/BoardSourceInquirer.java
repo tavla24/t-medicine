@@ -1,6 +1,6 @@
 package com.milaev.medicine.board.bean;
 
-import com.milaev.mq.message.StateChangedEvent;
+import com.milaev.mq.data.ExchangeData;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
-import javax.ejb.Stateful;
-import javax.ejb.Stateless;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -17,6 +15,9 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Singleton
 public class BoardSourceInquirer {
@@ -31,10 +32,10 @@ public class BoardSourceInquirer {
     private Response response;
     private ObjectMapper mapper = new ObjectMapper();
 
-    public StateChangedEvent getResponse(){
-        StateChangedEvent event = getObjectByJSON(getJSONResponse());
-        log.info(event.getText());
-        return event;
+    public List<ExchangeData> getResponse(){
+        List<ExchangeData> list = getObjectByJSON(getJSONResponse());
+        log.info("Received data list");
+        return list;
     }
 
     public String getJSONResponse(){
@@ -43,7 +44,7 @@ public class BoardSourceInquirer {
         try {
             response = invocation.invoke();
         } catch (ProcessingException e) {
-            log.error("Unable to connect to board info source", e);
+            log.error("Unable to connect to board info source. (ProcessingException)");
             return jsonInString;
         }
 
@@ -56,14 +57,14 @@ public class BoardSourceInquirer {
         return jsonInString;
     }
 
-    public StateChangedEvent getObjectByJSON(String jsonInString){
-        StateChangedEvent event = null;
+    public List<ExchangeData> getObjectByJSON(String jsonInString){
+        List<ExchangeData> list = new ArrayList<>();
         try {
-            event = mapper.readValue(jsonInString, StateChangedEvent.class);
+            list = Arrays.asList(mapper.readValue(jsonInString, ExchangeData[].class));
         } catch (IOException e) {
             log.error("Unable to convert JSON string to Object", e);
         }
-        return event;
+        return list;
     }
 
     @PostConstruct

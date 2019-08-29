@@ -2,7 +2,6 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
 import com.milaev.medicine.message.MessageSender;
-import com.milaev.mq.message.StateChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class SecurityController {
 
     @GetMapping("/")
     public String index(Model model) {
-        messageSender.sendMessage("hello from Spring");
+        //messageSender.sendMessage("hello from Spring");
         if (!sessionAuth.isAnonimusSession()) {
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }

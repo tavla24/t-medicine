@@ -1,5 +1,6 @@
 package com.milaev.medicine.board.jms;
 
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -7,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //@ApplicationScoped
-@Stateless
+@Singleton
 public class MessageSender {
 
     private static Logger log =  LoggerFactory.getLogger(MessageSender.class);

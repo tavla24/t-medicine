@@ -16,11 +16,11 @@ public interface EventDAOInterface {
 
     List<Event> getByInsuranceId(String insuranceId);
 
-    List<Event> getRecipesByTime();
+    List<Event> getEventsByTime();
 
-    List<Event> getRecipesByTime(Date dateFrom);
+    List<Event> getEventsByTime(Date dateFrom);
 
-    List<Event> getRecipesByTime(Date dateFrom, Date dateTo);
+    List<Event> getEventsByTime(Date dateFrom, Date dateTo);
 
     void insert(Event acc);
 

@@ -10,7 +10,6 @@ import com.milaev.medicine.model.Patient;
 import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.exceptions.NullResultFromDBException;
 import com.milaev.medicine.service.exceptions.PatientValidationException;
-import com.milaev.medicine.service.interfaces.PatientServiceInterface;
 import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.PatientConverter;
 import org.slf4j.Logger;
@@ -25,9 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("patientService")
-public class PatientService extends AbstractService implements PatientServiceInterface {
+public class PatientService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(PatientService.class);
+
+    public static String PAGE_LIST = "patient/list";
+    public static String PAGE_REGISTRATION = "patient/registration";
+    public static String URI_LIST = "/patient/list";
 
     @Autowired
     private PatientDAO daoPatient;
@@ -38,7 +41,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
     @Autowired
     private AccountDAO daoAccount;
 
-    @Override
     @Transactional
     public ModelAndView mavList() {
         log.info("called PatientService.mavList");
@@ -61,7 +63,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return account;
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew() {
         log.info("called PatientService.mavNew");
@@ -77,7 +78,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew(PatientDTO dto, BindingResult result) {
         log.info("called PatientService.mavNew with dto");
@@ -87,7 +87,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavDelete(String insuranceId) {
         log.info("called PatientService.mavDelete");
@@ -95,7 +94,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(String insuranceId) {
         log.info("called PatientService.mavEdit");
@@ -104,7 +102,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(PatientDTO dto, BindingResult result) {
         log.info("called PatientService.mavEdit with dto");
@@ -123,7 +120,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         }
     }
 
-    @Override
     @Transactional
     public List<PatientDTO> getAll() {
         List<Patient> list = daoPatient.getAll();
@@ -134,7 +130,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return listDAO;
     }
 
-    @Override
     @Transactional
     public PatientDTO getByLogin(String login) {
         Patient db = daoPatient.getByLogin(login);
@@ -144,7 +139,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return dto;
     }
 
-    @Override
     @Transactional
     public PatientDTO getByInsuranceId(String insuranceId) {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
@@ -153,7 +147,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return PatientConverter.toDTO(db);
     }
 
-    @Override
     @Transactional
     public List<PatientDTO> getByDoctor(String login) {
         List<Patient> list = daoPatient.getByDoctorLogin(login);
@@ -164,7 +157,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return listDAO;
     }
 
-    @Override
     @Transactional
     public PatientDTO getById(Long id) {
         Patient db = daoPatient.getById(id);
@@ -174,14 +166,12 @@ public class PatientService extends AbstractService implements PatientServiceInt
         return dto;
     }
 
-    @Override
     @Transactional
     public boolean isProfileExist(String insuranceId) {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
         return db != null;
     }
 
-    @Override
     @Transactional
     public void deleteProfile(String insuranceId) {
         Patient db = daoPatient.getByInsuranceId(insuranceId);
@@ -193,7 +183,6 @@ public class PatientService extends AbstractService implements PatientServiceInt
         }
     }
 
-    @Override
     @Transactional
     public void updateProfile(PatientDTO dto) {
         log.info("service.updateProfile");

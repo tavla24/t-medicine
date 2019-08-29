@@ -2,7 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.validators.AccountValidator;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class AccountsController {
     private static Logger log = LoggerFactory.getLogger(AccountsController.class);
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     @Autowired
     private AccountValidator accountValidator;

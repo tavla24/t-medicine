@@ -1,7 +1,7 @@
 package com.milaev.medicine.dto.validators;
 
 import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class AccountValidator implements Validator {
     private static Logger log = LoggerFactory.getLogger(AccountValidator.class);
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     @Override
     public boolean supports(Class<?> clazz) {

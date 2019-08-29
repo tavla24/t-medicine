@@ -7,15 +7,16 @@ import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.dto.assistants.EventFilterDTOAssistant;
 import com.milaev.medicine.dto.assistants.RecipeSimpleDTOAssistant;
+import com.milaev.medicine.message.MessageSender;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.service.exceptions.EventValidationException;
-import com.milaev.medicine.service.interfaces.EventServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
-import com.milaev.medicine.utils.PageURLContext;
+import com.milaev.medicine.utils.converters.DataExchangeConverter;
 import com.milaev.medicine.utils.datetime.DayOfWeekContainer;
 import com.milaev.medicine.utils.datetime.DaysOfWeekContainer;
+import com.milaev.mq.data.ExchangeData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,13 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class EventService extends AbstractService implements EventServiceInterface {
+public class EventService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(EventService.class);
+
+    public static String PAGE_LIST = "event/list";
+    public static String PAGE_REGISTRATION = "event/registration";
+    public static String URI_LIST = "/event/list";
 
     @Autowired
     private EventDAO daoEvent;
@@ -45,58 +50,10 @@ public class EventService extends AbstractService implements EventServiceInterfa
     @Autowired
     RecipeSimpleDTOAssistant recipeSimpleDTOAssistant;
 
-    @Override
-    @Transactional
-    public ModelAndView mavList() {
-        log.info("called EventService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("filter", new EventFilterDTO());
-        mav.addObject("dto", getAll());
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
+    @Autowired
+    private MessageSender messageSender;
 
-    @Override
-    @Transactional
-    public ModelAndView mavList(String insuranceId) {
-        log.info("called EventService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("filter", new EventFilterDTO());
-        mav.addObject("dto", getByInsuranceId(insuranceId));
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
-
-    @Override
-    @Transactional
-    public ModelAndView mavList(EventFilterDTO filter, BindingResult result) {
-        log.info("called EventService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("filter", filter);
-        mav.addObject("dto", getByFilter(filter));
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
-
-    @Override
-    @Transactional
-    public ModelAndView mavEdit(Long id) {
-        log.info("called EventService.mavEdit");
-        ModelAndView mav = getPreparedMAV();
-        //mav.addObject("statuses", EventStatus.getStatusList());
-        mav.addObject("dto", getById(id));
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Override
-    @Transactional
-    public ModelAndView mavEdit(EventDTO dto, BindingResult result) {
-        log.info("called EventService.mavEdit with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        mav.addObject("dto", dto);
-        return PageURLContext.getPageRedirect(mav, URI_LIST);
-    }
-
-    private void checkDTO(EventDTO dto, BindingResult result,
+    public void checkDTO(EventDTO dto, BindingResult result,
                           ModelAndView mav) {
         if (result.hasErrors()) {
             log.info("hasErrors()");
@@ -105,28 +62,24 @@ public class EventService extends AbstractService implements EventServiceInterfa
         }
     }
 
-    @Override
     @Transactional
     public List<EventDTO> getAll() {
         List<Event> list = daoEvent.getAll();
         return fillDTO(list);
     }
 
-    @Override
     @Transactional
     public List<EventDTO> getByRecipeId(Long id) {
         List<Event> list = daoEvent.getByRecipeId(id);
         return fillDTO(list);
     }
 
-    @Override
     @Transactional
     public List<EventDTO> getByInsuranceId(String insuranceId) {
         List<Event> list = daoEvent.getByInsuranceId(insuranceId);
         return fillDTO(list);
     }
 
-    @Override
     @Transactional
     public List<EventDTO> getByFilter(EventFilterDTO filter) {
         eventFilterDTOAssistant.createQuery(filter);
@@ -134,7 +87,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         return fillDTO(list);
     }
 
-    @Override
     @Transactional
     public boolean isAllEventsDone(String insuranceId) {
         List<EventDTO> list = getByInsuranceId(insuranceId);
@@ -142,6 +94,16 @@ public class EventService extends AbstractService implements EventServiceInterfa
             if (item.getStatus().equals(EventStatus.PLAN.name()))
                 return false;
         return true;
+    }
+
+    @Transactional
+    public List<ExchangeData> getExchangeData() {
+        List<Event> list = daoEvent.getEventsByTime();
+
+        List<ExchangeData> listDTO = new ArrayList<>();
+        for (Event item : list)
+            listDTO.add(DataExchangeConverter.toDTO(item));
+        return listDTO;
     }
 
     private List<EventDTO> fillDTO(List<Event> dbList) {
@@ -154,7 +116,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         return listDTO;
     }
 
-    @Override
     @Transactional
     public EventDTO getById(Long id) {
         Event db = daoEvent.getById(id);
@@ -164,7 +125,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         return dto;
     }
 
-    @Override
     @Transactional
     public void delete(EventDTO dto) {
         Event db = daoEvent.getById(dto.getId());
@@ -176,7 +136,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         }
     }
 
-    @Override
     @Transactional
     public void updateEvents(Long recipeId) {
         if (recipeId == null)
@@ -188,7 +147,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         updateEvents(recipeDTO);
     }
 
-    @Override
     @Transactional
     public void updateEvents(RecipeSimpleDTO dto) {
         if (dto.getId() == null)
@@ -199,6 +157,8 @@ public class EventService extends AbstractService implements EventServiceInterfa
         if (!dto.isHealthful()) {
             createChangedEvents(dto);
         }
+
+        messageSender.sendMessage("events_updated");
     }
 
     private void deleteChangedEvents(RecipeSimpleDTO dto) {
@@ -227,7 +187,6 @@ public class EventService extends AbstractService implements EventServiceInterfa
         }
     }
 
-    @Override
     @Transactional
     public void updateProfile(EventDTO dto) {
         log.info("service.updateProfile(Event) id [{}]", dto.getId());

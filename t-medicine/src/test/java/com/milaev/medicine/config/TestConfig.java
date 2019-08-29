@@ -3,7 +3,7 @@ package com.milaev.medicine.config;
 import com.milaev.medicine.dto.validators.AccountValidator;
 import com.milaev.medicine.dto.validators.DoctorValidator;
 import com.milaev.medicine.dto.validators.EventValidator;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.service.AccountService;
 import org.springframework.context.annotation.Bean;
 
 import static org.mockito.Mockito.mock;
@@ -27,7 +27,7 @@ public class TestConfig {
     }
 
     @Bean
-    public AccountServiceInterface accountService() {
-        return mock(AccountServiceInterface.class);
+    public AccountService accountService() {
+        return mock(AccountService.class);
     }
 }

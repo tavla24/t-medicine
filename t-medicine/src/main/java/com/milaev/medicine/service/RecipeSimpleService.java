@@ -7,9 +7,6 @@ import com.milaev.medicine.model.Patient;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.service.exceptions.NullResultFromDBException;
 import com.milaev.medicine.service.exceptions.RecipeSimpleValidationException;
-import com.milaev.medicine.service.interfaces.EventServiceInterface;
-import com.milaev.medicine.service.interfaces.PatientServiceInterface;
-import com.milaev.medicine.service.interfaces.RecipeSimpleServiceInterface;
 import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.RecipeConverter;
 import org.slf4j.Logger;
@@ -24,9 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service("recipeSimpleService")
-public class RecipeSimpleService extends AbstractService implements RecipeSimpleServiceInterface {
+public class RecipeSimpleService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(RecipeSimpleService.class);
+
+    public static String PAGE_LIST = "recipe/list_simple";
+    public static String PAGE_REGISTRATION = "recipe/registration_simple";
+    public static String URI_LIST = "/recipe/list";
 
     @Autowired
     private RecipeSimpleDAO daoRecipeSimple;
@@ -35,12 +36,11 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
     private PatientDAO daoPatient;
 
     @Autowired
-    private PatientServiceInterface patientService;
+    private PatientService patientService;
 
     @Autowired
-    private EventServiceInterface eventService;
+    private EventService eventService;
 
-    @Override
     @Transactional
     public ModelAndView mavList(String insuranceId) {
         log.info("called RecipeSimpleService.mavList");
@@ -49,7 +49,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return PageURLContext.getPage(mav, PAGE_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew(String insuranceId) {
         log.info("called RecipeSimpleService.mavNew");
@@ -60,7 +59,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew(RecipeSimpleDTO dto, BindingResult result) {
         log.info("called RecipeSimpleService.mavEdit with dto");
@@ -70,7 +68,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return PageURLContext.getPageRedirect(mav, String.format("%s/%s", URI_LIST, dto.getPatient().getInsuranceId()));
     }
 
-    @Override
     @Transactional
     public ModelAndView mavDelete(RecipeSimpleDTO dto, String insuranceId) {
         log.info("called RecipeSimpleService.mavDelete");
@@ -79,7 +76,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return PageURLContext.getPageRedirect(new ModelAndView(),String.format("%s/%s", URI_LIST, dto.getPatient().getInsuranceId()));
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(String insuranceId, Long id) {
         log.info("called RecipeSimpleService.mavEdit");
@@ -89,7 +85,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(RecipeSimpleDTO dto, BindingResult result) {
         log.info("called RecipeSimpleService.mavEdit with dto");
@@ -105,14 +100,12 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         }
     }
 
-    @Override
     @Transactional
     public List<RecipeSimpleDTO> getAll() {
         List<RecipeSimple> list = daoRecipeSimple.getAll();
         return fillDTO(list);
     }
 
-    @Override
     @Transactional
     public List<RecipeSimpleDTO> getByInsuranceId(String insuranceId) {
         List<RecipeSimple> list = daoRecipeSimple.getByInsuranceId(insuranceId);
@@ -127,7 +120,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return listDTO;
     }
 
-    @Override
     @Transactional
     public RecipeSimpleDTO getById(Long id) {
         return fillDTO(getEntityById(id));
@@ -140,7 +132,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         return db;
     }
 
-    @Override
     @Transactional
     public void updateProfile(RecipeSimpleDTO dto){
         log.info("service.updateProfile(Recipe) insureId [{}]; id [{}]", dto.getPatient().getInsuranceId(), dto.getId());
@@ -153,7 +144,6 @@ public class RecipeSimpleService extends AbstractService implements RecipeSimple
         eventService.updateEvents(rezDTO.getId());
     }
 
-    @Override
     @Transactional
     public void delete(RecipeSimpleDTO dto) {
         RecipeSimple db = daoRecipeSimple.getById(dto.getId());

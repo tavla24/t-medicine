@@ -2,7 +2,7 @@ package com.milaev.medicine.dto.validators;
 
 import com.milaev.medicine.config.TestConfig;
 import com.milaev.medicine.dto.AccountDTO;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.service.AccountService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ public class AccountValidatorTest {
     private AccountValidator accountValidator;
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     private static final String login = "admin";
     private static final AccountDTO acc = mock(AccountDTO.class);

@@ -2,7 +2,6 @@ package com.milaev.medicine.service;
 
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.model.Account;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class AccountDetailsService implements UserDetailsService {
     private static Logger log = LoggerFactory.getLogger(AccountDetailsService.class);
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     @Autowired
     @Qualifier("passwordEncoder")

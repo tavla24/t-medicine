@@ -3,7 +3,6 @@ package com.milaev.medicine.service;
 import com.milaev.medicine.dao.RoleDAO;
 import com.milaev.medicine.dto.RoleDTO;
 import com.milaev.medicine.model.Role;
-import com.milaev.medicine.service.interfaces.RoleServiceInterface;
 import com.milaev.medicine.utils.MapperUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class RoleService implements RoleServiceInterface {
+public class RoleService {
 
     private static Logger log = LoggerFactory.getLogger(RoleService.class);
 
     @Autowired
     private RoleDAO daoRole;
 
-    @Override
     @Transactional
     public List<RoleDTO> getAll() {
         List<Role> list = daoRole.getAll();
@@ -33,14 +31,12 @@ public class RoleService implements RoleServiceInterface {
         return listDAO;
     }
 
-    @Override
     @Transactional
     public RoleDTO getByType(String type) {
         Role db = daoRole.getByType(type);
         return fillDTO(db);
     }
 
-    @Override
     @Transactional
     public RoleDTO getById(Long id) {
         Role db = daoRole.getById(id);

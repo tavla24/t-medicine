@@ -2,7 +2,7 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.validators.DoctorValidator;
-import com.milaev.medicine.service.interfaces.DoctorServiceInterface;
+import com.milaev.medicine.service.DoctorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class DoctorsController {
 
     @Autowired
     @Qualifier("doctorService")
-    private DoctorServiceInterface doctorService;
+    protected DoctorService doctorService;
 
     @Autowired
     private DoctorValidator doctorValidator;

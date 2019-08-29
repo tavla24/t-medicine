@@ -2,7 +2,7 @@ package com.milaev.medicine.dto.validators;
 
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.model.enums.RoleType;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
+import com.milaev.medicine.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class DoctorValidator extends PersonValidator {
     private static Logger log = LoggerFactory.getLogger(DoctorValidator.class);
 
     @Autowired
-    private AccountServiceInterface accountService;
+    private AccountService accountService;
 
     @Override
     public boolean supports(Class<?> clazz) {

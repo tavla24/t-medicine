@@ -7,7 +7,6 @@ import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Role;
 import com.milaev.medicine.service.exceptions.AccountValidationException;
 import com.milaev.medicine.service.exceptions.NullResultFromDBException;
-import com.milaev.medicine.service.interfaces.AccountServiceInterface;
 import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.AccountConverter;
 import org.slf4j.Logger;
@@ -24,9 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AccountService extends AbstractService implements AccountServiceInterface {
+public class AccountService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(AccountService.class);
+
+    public static String PAGE_LIST = "account/list";
+    public static String PAGE_REGISTRATION = "account/registration";
+    public static String URI_LIST = "/admin/account/list";
 
     @Autowired
     private AccountDAO daoAccount;
@@ -38,7 +41,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
-    @Override
     @Transactional
     public ModelAndView mavList() {
         log.info("called AccountService.mavAccountsList");
@@ -47,7 +49,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return PageURLContext.getPage(mav, PAGE_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew() {
         log.info("called AccountService.mavNewAccount");
@@ -58,7 +59,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavNew(AccountDTO dto, BindingResult result) {
         log.info("called AccountService.mavNewAccount with dto");
@@ -71,7 +71,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return PageURLContext.getPageRedirect(mav, URI_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavDelete(String login) {
         log.info("called AccountService.mavDeleteAccount()");
@@ -79,7 +78,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(String login) {
         log.info("called AccountService.mavEditAccount");
@@ -92,7 +90,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return PageURLContext.getPage(mav, PAGE_REGISTRATION);
     }
 
-    @Override
     @Transactional
     public ModelAndView mavEdit(AccountDTO dto, BindingResult result, String login) {
         log.info("called AccountService.mavEditAccount with dto");
@@ -113,7 +110,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         }
     }
 
-    @Override
     @Transactional
     public List<AccountDTO> getAll() {
         log.info("called AccountService.getAll");
@@ -125,7 +121,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return listDAO;
     }
 
-    @Override
     @Transactional
     public AccountDTO getByLogin(String login) {
         log.info("called AccountService.getByLogin for login {}", login);
@@ -140,7 +135,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return db;
     }
 
-    @Override
     @Transactional
     public AccountDTO getById(Long id) {
         log.info("called AccountService.getById for id {}", id);
@@ -148,7 +142,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return fillDTO(db);
     }
 
-    @Override
     @Transactional
     public boolean isLoginUnique(String login) {
         log.info("called AccountService.isLoginUnique for login {}", login);
@@ -156,7 +149,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         return db == null;
     }
 
-    @Override
     @Transactional
     public void deleteByLogin(String login) {
         log.info("called AccountService.deleteByLogin for login {}", login);
@@ -167,7 +159,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         }
     }
 
-    @Override
     @Transactional
     public void update(AccountDTO dto, String oldLogin) {
         log.info("called AccountService.update for login {}", oldLogin);
@@ -184,7 +175,6 @@ public class AccountService extends AbstractService implements AccountServiceInt
         }
     }
 
-    @Override
     @Transactional
     public void insert(AccountDTO dto) {
         log.info("called AccountService.update with dto");
