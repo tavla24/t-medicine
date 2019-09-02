@@ -1,6 +1,6 @@
 package com.milaev.medicine.board.jms;
 
-import com.milaev.mq.MQDescription;
+import com.milaev.utils.ResProperties;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.ejb.Startup;
 import javax.ejb.Singleton;
 import javax.jms.*;
+import java.io.IOException;
+import java.util.Properties;
 
 @Startup
 @Singleton
@@ -38,22 +40,31 @@ public class MQConnectionFactory {
         }
     }
 
-    @Schedule(second="*/2", minute="*", hour="*", persistent = false)
+    @Schedule(second="*/5", minute="*", hour="*", persistent = false)
     public void createConnection(){
         if (connectionFactory != null)
             return;
 
         log.info("Create MQConnectionFactory");
-        connectionFactory = new ActiveMQConnectionFactory(MQDescription.DEFAULT_BROKER_URL);
+
+        Properties prop = null;
+        try {
+            prop = (new ResProperties()).getProperties("mq.properties");
+        } catch (IOException e) {
+            log.error("Unable to read property file", e);
+            return;
+        }
+
+        connectionFactory = new ActiveMQConnectionFactory(prop.getProperty("default.broker.url"));
         try {
             connection = connectionFactory.createConnection();
-            connection.setClientID(MQDescription.CONNECTION_NAME);
+            connection.setClientID(prop.getProperty("connection.name"));
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            topic = session.createTopic(MQDescription.EVENT_QUEUE_RESPONSE);
+            topic = session.createTopic(prop.getProperty("event.queue.responce"));
             producer = session.createProducer(topic);
 
-            Topic topicListener = session.createTopic(MQDescription.EVENT_QUEUE);
-            subscriber = session.createDurableSubscriber(topicListener, MQDescription.CONNECTION_NAME);
+            Topic topicListener = session.createTopic(prop.getProperty("event.queue"));
+            subscriber = session.createDurableSubscriber(topicListener, prop.getProperty("connection.name"));
             subscriber.setMessageListener(listener);
 
             connection.start();

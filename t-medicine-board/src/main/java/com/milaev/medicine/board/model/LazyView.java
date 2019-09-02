@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.Date;
 
 @ManagedBean(name="dtLazyView")
 @ViewScoped
@@ -20,6 +21,7 @@ import java.io.Serializable;
 public class LazyView implements Serializable {
 
     private LazyDataModel<ExchangeData> lazyModel;
+    private LazyDataModel<ExchangeData> lazyModelToday;
 
     private ExchangeData selectedExchangeData;
 
@@ -30,10 +32,15 @@ public class LazyView implements Serializable {
     @PostConstruct
     public void init() {
         lazyModel = new LazyExchangeDataModel(boardDataSource.getDatasource());
+        lazyModelToday = new LazyExchangeDataModel(boardDataSource.getDatasource(new Date()));
     }
 
     public LazyDataModel<ExchangeData> getLazyModel() {
         return lazyModel;
+    }
+
+    public LazyDataModel<ExchangeData> getLazyModelToday() {
+        return lazyModelToday;
     }
 
     public ExchangeData getSelectedExchangeData() {

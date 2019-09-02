@@ -7,3 +7,5 @@
 /*/.project
 /*/lib/
 .settings/
+db/
+*.v0

@@ -28,6 +28,29 @@
 <h:body>
 
     <h:form id="form">
+        <!--<p:dataTable var="exchangeData" value="#{dtLazyView.lazyModelToday}" paginator="true" rows="5"-->
+                     <!--paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"-->
+                     <!--rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{dtLazyView.selectedExchangeData}" id="dataTableToday" lazy="true">-->
+
+            <!--<p:ajax event="rowSelect" listener="#{dtLazyView.onRowSelect}" update=":form:dataDetail" oncomplete="PF('dataDialog').show()" />-->
+
+            <!--<p:column headerText="Id" sortBy="#{exchangeData.id}" filterBy="#{exchangeData.id}">-->
+                <!--<h:outputText value="#{exchangeData.id}" />-->
+            <!--</p:column>-->
+            <!--<p:column headerText="Name" sortBy="#{exchangeData.namePatient}" filterBy="#{exchangeData.namePatient}">-->
+                <!--<h:outputText value="#{exchangeData.namePatient}" />-->
+            <!--</p:column>-->
+            <!--<p:column headerText="Diagnosis" sortBy="#{exchangeData.diagnosis}" filterBy="#{exchangeData.diagnosis}">-->
+                <!--<h:outputText value="#{exchangeData.diagnosis}" />-->
+            <!--</p:column>-->
+            <!--<p:column headerText="Date and time" sortBy="#{exchangeData.datestamp}" filterBy="#{exchangeData.datestamp}">-->
+                <!--<h:outputText value="#{exchangeData.datestamp}" />-->
+            <!--</p:column>-->
+            <!--<p:column headerText="Healing type" sortBy="#{exchangeData.healingType}" filterBy="#{exchangeData.healingType}">-->
+                <!--<h:outputText value="#{exchangeData.healingType}" />-->
+            <!--</p:column>-->
+        <!--</p:dataTable>-->
+
         <p:dataTable var="exchangeData" value="#{dtLazyView.lazyModel}" paginator="true" rows="5"
                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                      rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{dtLazyView.selectedExchangeData}" id="dataTable" lazy="true">

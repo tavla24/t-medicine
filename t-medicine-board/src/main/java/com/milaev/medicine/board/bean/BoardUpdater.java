@@ -32,9 +32,13 @@ public class BoardUpdater {
             String jsonInString = inquirer.getJSONResponse();
 
             if (!jsonInString.isEmpty()) {
+                log.info("jsonInString not empty");
                 boardDataSource.setDatasource(inquirer.getResponse());
+                log.info("setDatasource");
                 peers.sendMessage(msg);
+                log.info(" peers.sendMessage(msg), size {}", peers.getPeersCount());
                 setNewState(false, "");
+                log.info("setNewState");
             }
         }
     }

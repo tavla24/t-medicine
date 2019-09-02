@@ -24,7 +24,7 @@ public class BoardSourceInquirer {
 
     private static Logger log =  LoggerFactory.getLogger(BoardSourceInquirer.class);
 
-    private static final String BOARD_INFO_SOURCE = "http://localhost:8081/t_medicine_war/board/";
+    private static final String BOARD_INFO_SOURCE = "http://t-medicine:8080/t-medicine/board/";
 
     private Client client;
     private WebTarget webTarget;

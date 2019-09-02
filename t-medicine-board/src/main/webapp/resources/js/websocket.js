@@ -5,6 +5,7 @@ function init() {
     //dataTableWidgetVar.filter();
 }
 
+console.log("create websocket");
 websocket = new WebSocket(wsUri);
 
 websocket.onopen = function(evt) {

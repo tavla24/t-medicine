@@ -1,0 +1,43 @@
+version: '3'
+services:
+  medsql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 5220
+    volumes:
+      - ./db:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+    networks:
+      - localhost
+
+  medmq:
+    image: rmohr/activemq:5.15.9
+    ports:
+      - "8161:8161"
+#      - "61616:61616"
+    networks:
+      - localhost
+
+  t-medicine:
+    image: tomcat:9.0
+    volumes:
+      - ./t-medicine/target:/usr/local/tomcat/webapps/
+    ports:
+      - "8081:8080"
+    networks:
+      - localhost
+
+  t-medicine-board:
+    image: jboss/wildfly:17.0.1.Final
+    volumes:
+      - ./t-medicine-board/target:/opt/jboss/wildfly/standalone/deployments/
+    ports:
+      - "8080:8080"
+    networks:
+      - localhost
+
+networks:
+  localhost:
+    driver: bridge

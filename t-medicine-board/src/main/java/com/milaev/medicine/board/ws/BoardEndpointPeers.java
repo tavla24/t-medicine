@@ -32,10 +32,15 @@ public class BoardEndpointPeers {
     public void sendMessage(String message){
         for(Session session: sessions) {
             try {
+                log.info("Send message to ws, session id: {}", session.getId());
                 session.getBasicRemote().sendText(String.format("Message from BoardEndpointPeers: %s%n", message));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public int getPeersCount(){
+        return sessions.size();
     }
 }
