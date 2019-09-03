@@ -1,6 +1,6 @@
 package com.milaev.medicine.message;
 
-import com.milaev.mq.MQDescription;
+import com.milaev.mq.MQDescriptionDep;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.PropertySource;
@@ -12,7 +12,7 @@ import javax.jms.JMSException;
 
 @Component
 @PropertySource("classpath:mq.properties")
-public class MessageReceiver implements MQDescription {
+public class MessageReceiver {
 
     static final Logger log = LoggerFactory.getLogger(MessageReceiver.class);
 

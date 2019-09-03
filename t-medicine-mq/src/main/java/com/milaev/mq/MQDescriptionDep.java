@@ -1,6 +1,6 @@
 package com.milaev.mq;
 
-public interface MQDescription {
+public interface MQDescriptionDep {
 
     String DEFAULT_BROKER_URL = "tcp://medmq:61616";
     String EVENT_QUEUE = "medicine.topic?consumer.retroactive=true";

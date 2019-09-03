@@ -1,4 +1,4 @@
-package com.milaev.utils;
+package com.milaev.medicine.board.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

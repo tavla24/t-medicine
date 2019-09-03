@@ -1,4 +1,5 @@
-var wsUri = "ws://localhost:8080/t-medicine-board-1.0-SNAPSHOT/board";
+// var wsUri = "ws://localhost:8080/t-medicine-board-1.0-SNAPSHOT/board";
+var wsUri = "ws://localhost:8080/t-medicine-board/board";
 
 window.addEventListener("load", init, false);
 function init() {

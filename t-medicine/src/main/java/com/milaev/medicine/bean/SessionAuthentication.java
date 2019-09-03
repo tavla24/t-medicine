@@ -29,7 +29,7 @@ public class SessionAuthentication implements SessionAuthenticationInterface {
     }
 
     @Override
-    public boolean isAnonimusSession() {
+    public boolean isAnonymousSession() {
         return isCurrentAuthenticationAnonymous();
     }
 

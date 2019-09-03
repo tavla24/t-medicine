@@ -1,6 +1,6 @@
 package com.milaev.medicine.board.jms;
 
-import com.milaev.utils.ResProperties;
+import com.milaev.medicine.board.utils.ResProperties;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

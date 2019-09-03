@@ -24,7 +24,7 @@ public class SecurityController {
     @GetMapping("/")
     public String index(Model model) {
         //messageSender.sendMessage("hello from Spring");
-        if (!sessionAuth.isAnonimusSession()) {
+        if (!sessionAuth.isAnonymousSession()) {
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
         return "index";
@@ -33,7 +33,7 @@ public class SecurityController {
     @GetMapping("/login")
     public String loginPage() {
         log.info("loginPage()");
-        if (sessionAuth.isAnonimusSession()) {
+        if (sessionAuth.isAnonymousSession()) {
             log.info("return \"login\"");
             return "security/login";
         } else {

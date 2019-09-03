@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="en"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -10,114 +8,84 @@
 <!--<script type="text/javascript" src="resources/js/websocket.js"></script>-->
 <h:head>
     <!--<h:meta charset="UTF-8"/>-->
-    <h:outputStylesheet library="css" name="bootstrap.css"/>
-    <h:outputScript library="js" name="websocket.js"/>
+    <!--<h:outputStylesheet library="css" name="bootstrap.css"/>-->
+    <!--<link rel="stylesheet" href="resources/css/bootstrap.css"/>-->
+    <!--<h:outputScript library="js" name="bootstrap.js"/>-->
     <!--<h:outputScript library="js" name="jquery-3.4.1.js"/>-->
+    <!--<script type="javascript" src="resources/js/bootstrap.js"/>-->
 
-    <!--<script type="text/javascript" target="body">-->
-        <!--$j = jQuery;-->
-        <!--$j(document).ready( function() {-->
-            <!--dataTableWidgetVar.filter();-->
-            <!--document.getElementById("dataTableWidgetVar").filter();-->
-            <!--document.getElementById("carTable").filter();-->
-        <!--});-->
-    <!--</script>-->
+    <h:outputScript library="js" name="websocket.js"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic;display=swap" rel="stylesheet"/>
 
 </h:head>
 
 <h:body>
 
+    <div class="navbar navbar-expand-md navbar-light shadow-sm">
+
+        <i class="fa fa-home" aria-hidden="true" style="font-size: 110%">Bolni<i class="rletter">T</i>chka</i>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    </div>
+
+    <!--<h:form id="form">-->
+    <!--<div class="container" style="width:90%; min-width: 700px; margin:0 auto;">-->
+    <!--<ui:include src="fform.xhtml" />-->
+    <!--<ui:include src="sform.xhtml" />-->
+    <!--</div>-->
+    <!--<ui:include src="dform.xhtml" />-->
+    <!--</h:form>-->
+
     <h:form id="form">
-        <!--<p:dataTable var="exchangeData" value="#{dtLazyView.lazyModelToday}" paginator="true" rows="5"-->
-                     <!--paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"-->
-                     <!--rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{dtLazyView.selectedExchangeData}" id="dataTableToday" lazy="true">-->
+        <div class="container">
 
-            <!--<p:ajax event="rowSelect" listener="#{dtLazyView.onRowSelect}" update=":form:dataDetail" oncomplete="PF('dataDialog').show()" />-->
+            <div class="container text-center">
+                <h1 class="h3 mt-5 mb-1">Bootstrap 4 - Carousel (карусель)</h1>
+                <h2 class="lead mt-0 mb-5">с индикаторами</h2>
 
-            <!--<p:column headerText="Id" sortBy="#{exchangeData.id}" filterBy="#{exchangeData.id}">-->
-                <!--<h:outputText value="#{exchangeData.id}" />-->
-            <!--</p:column>-->
-            <!--<p:column headerText="Name" sortBy="#{exchangeData.namePatient}" filterBy="#{exchangeData.namePatient}">-->
-                <!--<h:outputText value="#{exchangeData.namePatient}" />-->
-            <!--</p:column>-->
-            <!--<p:column headerText="Diagnosis" sortBy="#{exchangeData.diagnosis}" filterBy="#{exchangeData.diagnosis}">-->
-                <!--<h:outputText value="#{exchangeData.diagnosis}" />-->
-            <!--</p:column>-->
-            <!--<p:column headerText="Date and time" sortBy="#{exchangeData.datestamp}" filterBy="#{exchangeData.datestamp}">-->
-                <!--<h:outputText value="#{exchangeData.datestamp}" />-->
-            <!--</p:column>-->
-            <!--<p:column headerText="Healing type" sortBy="#{exchangeData.healingType}" filterBy="#{exchangeData.healingType}">-->
-                <!--<h:outputText value="#{exchangeData.healingType}" />-->
-            <!--</p:column>-->
-        <!--</p:dataTable>-->
-
-        <p:dataTable var="exchangeData" value="#{dtLazyView.lazyModel}" paginator="true" rows="5"
-                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{dtLazyView.selectedExchangeData}" id="dataTable" lazy="true">
-
-            <p:ajax event="rowSelect" listener="#{dtLazyView.onRowSelect}" update=":form:dataDetail" oncomplete="PF('dataDialog').show()" />
-
-            <p:column headerText="Id" sortBy="#{exchangeData.id}" filterBy="#{exchangeData.id}">
-                <h:outputText value="#{exchangeData.id}" />
-            </p:column>
-            <p:column headerText="Name" sortBy="#{exchangeData.namePatient}" filterBy="#{exchangeData.namePatient}">
-                <h:outputText value="#{exchangeData.namePatient}" />
-            </p:column>
-            <p:column headerText="Diagnosis" sortBy="#{exchangeData.diagnosis}" filterBy="#{exchangeData.diagnosis}">
-                <h:outputText value="#{exchangeData.diagnosis}" />
-            </p:column>
-            <p:column headerText="Date and time" sortBy="#{exchangeData.datestamp}" filterBy="#{exchangeData.datestamp}">
-                <h:outputText value="#{exchangeData.datestamp}" />
-            </p:column>
-            <p:column headerText="Healing type" sortBy="#{exchangeData.healingType}" filterBy="#{exchangeData.healingType}">
-                <h:outputText value="#{exchangeData.healingType}" />
-            </p:column>
-        </p:dataTable>
-
-        <p:dialog header="Details" widgetVar="dataDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-            <p:outputPanel id="dataDetail">
-                <p:panelGrid columns="2" rendered="#{not empty dtLazyView.selectedExchangeData}" columnClasses="label,value">
-
-                    <h:outputText value="Date and time:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.datestamp}" />
-
-                    <h:outputText value="Patient:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.namePatient}" />
-
-                    <h:outputText value="Insurance Id:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.insuranceId}" />
-
-                    <h:outputText value="Diagnosis:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.diagnosis}" />
-
-                    <h:outputText value="Email:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.emailPatient}" />
-
-                    <h:outputText value="Phone:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.phonePatient}" />
-
-                    <h:outputText value="Status:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.status}" />
-
-                    <h:outputText value="Healing type:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.healingType}" />
-
-                    <h:outputText value="Healing name:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.healingName}" />
-
-                    <h:outputText value="Doze:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.doze}" />
-
-                    <h:outputText value="Doctor:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.nameDoctor}" />
-
-                    <h:outputText value="Doctor's specialization:" />
-                    <h:outputText value="#{dtLazyView.selectedExchangeData.specialization}" />
-
-                </p:panelGrid>
-            </p:outputPanel>
-        </p:dialog>
+                <div id="carousel" class="carousel slide d-inline-block" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel" data-slide-to="1"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <ui:include src="fform.xhtml"/>
+                            <br/>
+                        </div>
+                        <div class="carousel-item">
+                            <ui:include src="sform.xhtml"/>
+                            <br/>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Предыдущий</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Следующий</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ui:include src="dform.xhtml"/>
     </h:form>
 
 </h:body>
+
 </html>

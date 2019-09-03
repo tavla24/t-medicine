@@ -1,6 +1,6 @@
 package com.milaev.medicine.config.listener;
 
-import com.milaev.mq.MQDescription;
+import com.milaev.mq.MQDescriptionDep;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @Configuration
 @PropertySource("classpath:mq.properties")
-public class MessagingConfiguration implements MQDescription {
+public class MessagingConfiguration {
 
     //@Autowired
     //MQProperties mqProperties;
