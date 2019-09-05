@@ -8,5 +8,6 @@
 /*/lib/
 .settings/
 db/
-t-medicine-board-angular/
+/*/dist/
+/*/node_modules/
 *.v0

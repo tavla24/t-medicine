@@ -1,6 +1,7 @@
 package com.milaev.medicine.board.model;
 
 import com.milaev.medicine.board.bean.BoardDataSource;
+import com.milaev.medicine.board.bean.settings.BoardSettings;
 import com.milaev.mq.data.ExchangeData;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
@@ -27,7 +28,10 @@ public class LazyView implements Serializable {
 
     //@ManagedProperty("#{boardDataSource}")
     @Inject
-    BoardDataSource boardDataSource;
+    private BoardDataSource boardDataSource;
+
+    @Inject
+    private BoardSettings settings;
 
     @PostConstruct
     public void init() {
@@ -41,6 +45,10 @@ public class LazyView implements Serializable {
 
     public LazyDataModel<ExchangeData> getLazyModelToday() {
         return lazyModelToday;
+    }
+
+    public BoardSettings getSettings() {
+        return settings;
     }
 
     public ExchangeData getSelectedExchangeData() {

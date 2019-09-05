@@ -31,7 +31,8 @@
 
 <h:body>
 
-    <div class="navbar navbar-expand-md navbar-light shadow-sm">
+    <header>
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
 
         <i class="fa fa-home" aria-hidden="true" style="font-size: 110%">Bolni<i class="rletter">T</i>chka</i>
 
@@ -40,7 +41,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-    </div>
+    </nav>
+    </header>
 
     <!--<h:form id="form">-->
     <!--<div class="container" style="width:90%; min-width: 700px; margin:0 auto;">-->
@@ -54,8 +56,8 @@
         <div class="container">
 
             <div class="container text-center">
-                <h1 class="h3 mt-5 mb-1">Bootstrap 4 - Carousel (карусель)</h1>
-                <h2 class="lead mt-0 mb-5">с индикаторами</h2>
+                <h1 class="h3 mt-5 mb-4">T-Medicine inforfation board</h1>
+                <!--<h2 class="lead mt-0 mb-5">events list</h2>-->
 
                 <div id="carousel" class="carousel slide d-inline-block" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -64,21 +66,23 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
+                            <h3 class="lead mt-0 mb-2">Todays events list</h3>
                             <ui:include src="fform.xhtml"/>
                             <br/>
                         </div>
                         <div class="carousel-item">
+                            <h3 class="lead mt-0 mb-2">All days events list</h3>
                             <ui:include src="sform.xhtml"/>
                             <br/>
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Предыдущий</span>
+                        <span class="sr-only"></span>
                     </a>
                     <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Следующий</span>
+                        <span class="sr-only"></span>
                     </a>
                 </div>
             </div>

@@ -14,7 +14,9 @@ body{
 
 header{
     /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    font-size: 30px;
     flex: 0 0 auto;
+    color: rgba(0,0,0,.9);
 }
 .main-content{
     /* 1 flex-grow, 0 flex-shrink, auto flex-basis */

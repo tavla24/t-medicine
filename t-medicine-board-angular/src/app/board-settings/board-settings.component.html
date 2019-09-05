@@ -1,0 +1,12 @@
+<div *ngIf="!loading">
+<ul>
+    <li *ngFor="let item of boardSettingsService.boardSettings; let i=index">
+        <span [class.done]="item.show">
+            <input type="checkbox" [checked]="item.show" (change)="onChange(item.id)">
+            <strong>{{ i+1 }}</strong> {{item.title}}
+        </span>
+    </li>
+</ul>
+</div>
+<p *ngIf="loading">Loading....</p>
+

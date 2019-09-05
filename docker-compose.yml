@@ -32,7 +32,8 @@ services:
 
   t-medicine-board:
     #build: ./t-medicine-board
-    image: jboss/wildfly:17.0.1.Final
+    image: jboss/wildfly:10.1.0.Final
+    #image: jboss/wildfly:17.0.1.Final
     volumes:
       - ./t-medicine-board/target:/opt/jboss/wildfly/standalone/deployments/
     ports:
