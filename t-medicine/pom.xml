@@ -51,6 +51,7 @@
 		<version.sonar-maven-plugin>3.6.0.1398</version.sonar-maven-plugin>
 		<version.activemq-spring>5.15.9</version.activemq-spring>
 		<version.spring-jms>5.1.8.RELEASE</version.spring-jms>
+		<version.h2>1.4.199</version.h2>
 		<version.t-medicine-mq>1.0</version.t-medicine-mq>
 	</properties>
 
@@ -192,6 +193,14 @@
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>${version.hibernate-jpa-2.1-api}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${version.h2}</version>
+			<scope>test</scope>
 		</dependency>
 
 

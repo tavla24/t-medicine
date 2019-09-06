@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -42,6 +45,16 @@ public class HibernateTestConfig {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
+
+//    @Bean(destroyMethod = "shutdown")
+//    public EmbeddedDatabase dataSource() {
+//        EmbeddedDatabase dataSource = new EmbeddedDatabaseBuilder().
+//                setType(EmbeddedDatabaseType.H2).
+//                addScript("db-schema.sql").
+//                addScript("db-test-data.sql").
+//                build();
+//        return dataSource;
+//    }
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
