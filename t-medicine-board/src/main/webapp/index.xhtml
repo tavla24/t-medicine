@@ -27,21 +27,28 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic;display=swap" rel="stylesheet"/>
 
+    <title>TMedicine board</title>
 </h:head>
 
 <h:body>
 
     <header>
-    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
 
-        <i class="fa fa-home" aria-hidden="true" style="font-size: 110%">Bolni<i class="rletter">T</i>chka</i>
+            <i class="fa fa-home" aria-hidden="true" style="font-size: 110%">Bolni<i class="rletter">T</i>chka</i>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-    </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form action="http://localhost:8082/">
+                        <button type="submit" class="btn btn-success mr-2 btn-sm">Settings</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <!--<h:form id="form">-->

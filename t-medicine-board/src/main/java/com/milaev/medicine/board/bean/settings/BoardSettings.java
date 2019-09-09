@@ -9,11 +9,14 @@ import javax.ejb.Stateful;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Startup
-@Stateful
+@Startup
+@Singleton
 public class BoardSettings {
     private boolean showID;
+    private boolean showDiagnosis;
+    private boolean showDateTime;
     private boolean showHealingType;
+    private boolean showHealingName;
     private List<BoardSettingsItem> items;
 
     public boolean isShowID() {
@@ -30,6 +33,30 @@ public class BoardSettings {
 
     public void setShowHealingType(boolean showHealingType) {
         this.showHealingType = showHealingType;
+    }
+
+    public boolean isShowDiagnosis() {
+        return showDiagnosis;
+    }
+
+    public void setShowDiagnosis(boolean showDiagnosis) {
+        this.showDiagnosis = showDiagnosis;
+    }
+
+    public boolean isShowDateTime() {
+        return showDateTime;
+    }
+
+    public void setShowDateTime(boolean showDateTime) {
+        this.showDateTime = showDateTime;
+    }
+
+    public boolean isShowHealingName() {
+        return showHealingName;
+    }
+
+    public void setShowHealingName(boolean showHealingName) {
+        this.showHealingName = showHealingName;
     }
 
     public List<BoardSettingsItem> getItems() {
@@ -51,6 +78,15 @@ public class BoardSettings {
                 case SHOW_H_TYPE:
                     showHealingType = item.isShow();
                     break;
+                case SHOW_H_NAME:
+                    showHealingName = item.isShow();
+                    break;
+                case SHOW_DIAGNOSIS:
+                    showDiagnosis = item.isShow();
+                    break;
+                case SHOW_DATETIME:
+                    showDateTime = item.isShow();
+                    break;
             }
         }
     }
@@ -61,8 +97,13 @@ public class BoardSettings {
         items = new ArrayList<>();
         bsi = new BoardSettingsItem(SettingsType.SHOW_ID.ordinal(), "Show id", false);
         items.add(bsi);
-
         bsi = new BoardSettingsItem(SettingsType.SHOW_H_TYPE.ordinal(), "Show healing type", true);
+        items.add(bsi);
+        bsi = new BoardSettingsItem(SettingsType.SHOW_H_NAME.ordinal(), "Show healing name", true);
+        items.add(bsi);
+        bsi = new BoardSettingsItem(SettingsType.SHOW_DATETIME.ordinal(), "Show date and time", true);
+        items.add(bsi);
+        bsi = new BoardSettingsItem(SettingsType.SHOW_DIAGNOSIS.ordinal(), "Show diagnosis", true);
         items.add(bsi);
 
         fillSettings(items);

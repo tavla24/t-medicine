@@ -39,8 +39,33 @@ public abstract class AbstractDAO<T> {
         return query.getResultList();
     }
 
+    protected Long getCountByQuery(String queryString, Map<String, Object> queryParams) {
+        Query<T> query = getCurrentSession().createQuery(queryString);
+
+        for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        return (Long)query.uniqueResult();
+    }
+
     protected List<T> getByQuery(String queryString, Map<String, Object> queryParams) {
         Query<T> query = getCurrentSession().createQuery(queryString);
+
+        for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        return getQResults(query);
+        //return query.getQResults();
+    }
+
+    protected List<T> getByQuery(String queryString, Map<String, Object> queryParams, int start, int size) {
+        Query<T> query = getCurrentSession().createQuery(queryString);
+
+        query.setFirstResult(start);
+        query.setMaxResults(size);
+
         for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }

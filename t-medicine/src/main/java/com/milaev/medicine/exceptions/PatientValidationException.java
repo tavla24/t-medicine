@@ -1,4 +1,4 @@
-package com.milaev.medicine.service.exceptions;
+package com.milaev.medicine.exceptions;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;

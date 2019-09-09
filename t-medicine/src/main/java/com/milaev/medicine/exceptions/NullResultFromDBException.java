@@ -1,4 +1,4 @@
-package com.milaev.medicine.service.exceptions;
+package com.milaev.medicine.exceptions;
 
 public class NullResultFromDBException extends RuntimeException {
 

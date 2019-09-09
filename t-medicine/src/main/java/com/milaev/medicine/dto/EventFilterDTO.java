@@ -2,6 +2,7 @@ package com.milaev.medicine.dto;
 
 import com.milaev.medicine.model.enums.HealingType;
 import com.milaev.medicine.model.enums.PatientStatus;
+import com.milaev.medicine.utils.paginators.NavigationWrapper;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,8 @@ public class EventFilterDTO {
     private String status;
     private String healingType;
     private boolean sortByTime;
+
+    private NavigationWrapper navigation = new NavigationWrapper();
 
     public Long getId() {
         return id;
@@ -96,6 +99,14 @@ public class EventFilterDTO {
 
     public void setSortByTime(boolean sortByTime) {
         this.sortByTime = sortByTime;
+    }
+
+    public NavigationWrapper getNavigation() {
+        return navigation;
+    }
+
+    public void setNavigation(NavigationWrapper navigation) {
+        this.navigation = navigation;
     }
 
     public List<String> getStatuses() {

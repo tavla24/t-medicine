@@ -11,7 +11,7 @@ import com.milaev.medicine.message.MessageSender;
 import com.milaev.medicine.model.Event;
 import com.milaev.medicine.model.RecipeSimple;
 import com.milaev.medicine.model.enums.EventStatus;
-import com.milaev.medicine.service.exceptions.EventValidationException;
+import com.milaev.medicine.exceptions.EventValidationException;
 import com.milaev.medicine.utils.MapperUtil;
 import com.milaev.medicine.utils.converters.DataExchangeConverter;
 import com.milaev.medicine.utils.datetime.DayOfWeekContainer;
@@ -82,8 +82,11 @@ public class EventService extends AbstractService {
 
     @Transactional
     public List<EventDTO> getByFilter(EventFilterDTO filter) {
-        eventFilterDTOAssistant.createQuery(filter);
-        List<Event> list = daoEvent.getByFilter(eventFilterDTOAssistant.getQueryString(), eventFilterDTOAssistant.getQueryParams());
+        eventFilterDTOAssistant.createQuery(filter, true);
+        Long cnt = daoEvent.getCountByFilter(eventFilterDTOAssistant.getQueryString(), eventFilterDTOAssistant.getQueryParams());
+        filter.getNavigation().setCount(cnt);
+        eventFilterDTOAssistant.createQuery(filter, false);
+        List<Event> list = daoEvent.getByFilter(eventFilterDTOAssistant.getQueryString(), eventFilterDTOAssistant.getQueryParams(), filter.getNavigation().getSkip(), filter.getNavigation().getView());
         return fillDTO(list);
     }
 

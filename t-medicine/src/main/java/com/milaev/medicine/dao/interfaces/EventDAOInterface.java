@@ -10,7 +10,11 @@ public interface EventDAOInterface {
 
     List<Event> getAll();
 
+    Long getCountByFilter(String queryString, Map<String, Object> queryParams);
+
     List<Event> getByFilter(String queryString, Map<String, Object> queryParams);
+
+    List<Event> getByFilter(String queryString, Map<String, Object> queryParams, int start, int size);
     
     List<Event> getByRecipeId(Long id);
 

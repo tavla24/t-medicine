@@ -12,8 +12,12 @@ public class EventFilterDTOAssistant {
     private String queryString;
     private Map<String, Object> queryParams;
 
-    public void createQuery(EventFilterDTO eventFilterDTO){
+    public void createQuery(EventFilterDTO eventFilterDTO, boolean pageable){
         StringBuilder sb = new StringBuilder();
+
+        if (pageable)
+            sb.append("select count(*) ");
+
         sb.append("from Event as f");
 
         List<String> queryStringBuilder = new ArrayList<>();

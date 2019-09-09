@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.jms.JMSException;
 
 @Component
-@PropertySource("classpath:mq.properties")
+@PropertySource("classpath:mq/mq.properties")
 public class MessageReceiver {
 
     static final Logger log = LoggerFactory.getLogger(MessageReceiver.class);

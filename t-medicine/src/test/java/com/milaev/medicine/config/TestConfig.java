@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import static org.mockito.Mockito.mock;
 
-@Configuration
+//@Configuration
 //@ComponentScan("com.milaev.medicine")
 public class TestConfig {
 

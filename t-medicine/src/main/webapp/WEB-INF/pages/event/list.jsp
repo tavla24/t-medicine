@@ -16,7 +16,11 @@
     </jsp:attribute>
     <jsp:body>
         <div>
-            <form:form method="POST" modelAttribute="filter">
+            <form:form id="mainf" method="POST" modelAttribute="filter">
+                <form:input type="hidden" path="navigation.view"/>
+                <form:input type="hidden" path="navigation.skip"/>
+                <form:input type="hidden" path="navigation.count"/>
+
                 <div class="table-responsive-sm">
                     <table class="table table-striped table-hover table-bordered table-sm">
                         <thead class="thead-light">
@@ -114,7 +118,8 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${dto}" var="event">
-                    <tr>
+                    <c:url var="link" value='/event/edit/${event.id}' />
+                    <tr onclick="window.location='${link}';">
                         <th>${event.recipe.patient.surname} ${event.recipe.patient.name} ${event.recipe.patient.patronymic}</th>
                         <fmt:formatDate value="${event.datestamp}" var="dateString" pattern="yyyy-MM-dd HH:mm"/>
                         <th>${dateString}</th>
@@ -130,6 +135,12 @@
                 </c:forEach>
                 </tbody>
             </table>
+        </div>
+        <div class="text-center">
+            <c:url var="linkPrev" value='/event/list/prev' />
+            <c:url var="linkNext" value='/event/list/next' />
+            <input type="submit" value="Prev" class="btn btn-success mr-2 btn-sm" formaction="${linkPrev}" form="mainf"/>
+            <input type="submit" value="Next" class="btn btn-success mr-2 btn-sm" formaction="${linkNext}" form="mainf"/>
         </div>
 
     </jsp:body>

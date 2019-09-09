@@ -52,6 +52,7 @@
 		<version.activemq-spring>5.15.9</version.activemq-spring>
 		<version.spring-jms>5.1.8.RELEASE</version.spring-jms>
 		<version.h2>1.4.199</version.h2>
+		<version.liquibase-core>3.8.0</version.liquibase-core>
 		<version.t-medicine-mq>1.0</version.t-medicine-mq>
 	</properties>
 
@@ -202,6 +203,14 @@
 			<version>${version.h2}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${version.liquibase-core}</version>
+		</dependency>
+
 
 
 		<!-- === log === -->
@@ -368,11 +377,11 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!--<plugin>-->
-					<!--<groupId>org.sonarsource.scanner.maven</groupId>-->
-					<!--<artifactId>sonar-maven-plugin</artifactId>-->
-					<!--<version>${version.sonar-maven-plugin}</version>-->
-				<!--</plugin>-->
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${version.sonar-maven-plugin}</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

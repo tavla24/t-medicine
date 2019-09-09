@@ -5,6 +5,9 @@ public class BoardSettingsItem {
     private String title;
     private boolean show;
 
+    public BoardSettingsItem() {
+    }
+
     public BoardSettingsItem(int id, String title, boolean show) {
         this.id = id;
         this.title = title;

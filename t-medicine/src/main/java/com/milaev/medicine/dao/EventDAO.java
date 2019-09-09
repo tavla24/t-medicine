@@ -23,8 +23,18 @@ public class EventDAO extends AbstractDAO<Event> implements EventDAOInterface {
     }
 
     @Override
+    public Long getCountByFilter(String queryString, Map<String, Object> queryParams) {
+        return getCountByQuery(queryString, queryParams);
+    }
+
+    @Override
     public List<Event> getByFilter(String queryString, Map<String, Object> queryParams) {
         return getByQuery(queryString, queryParams);
+    }
+
+    @Override
+    public List<Event> getByFilter(String queryString, Map<String, Object> queryParams, int start, int size) {
+        return getByQuery(queryString, queryParams, start, size);
     }
 
     @Override

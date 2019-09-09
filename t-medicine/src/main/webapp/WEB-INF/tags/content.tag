@@ -14,15 +14,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/">
 
+    <%--<link rel="stylesheet" type="text/css" href="res/css/font-awesome.css"/>--%>
+    <%--<link rel="stylesheet" type="text/css" href="res/css/bootstrap.min.css">--%>
+    <%--<script src="res/css/jquery-3.4.1.js"></script>--%>
+    <%--<script src="res/css/bootstrap.min.js"></script>--%>
+
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="res/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="res/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 
     <title>${title}</title>
 </head>
@@ -33,10 +38,10 @@
 <div class="container container_bg">
     <jsp:doBody/>
 </div>
-<%--
+
 <footer>
-    <div class="navbar-fixed-bottom row-fluid">
-        <div class="navbar-inner">
+    <%--<div class="navbar-fixed-bottom row-fluid">--%>
+        <%--<div class="navbar-inner">--%>
             <div class="container main-content">
                 <div class="d-flex justify-content-between">
                     <div class="footer-left">
@@ -49,9 +54,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        <%--</div>--%>
+    <%--</div>--%>
 </footer>
---%>
+
 </body>
 </html>

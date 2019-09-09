@@ -5,6 +5,7 @@ import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.validators.EventValidator;
 import com.milaev.medicine.service.EventService;
 import com.milaev.medicine.utils.PageURLContext;
+import com.milaev.medicine.utils.paginators.NavigationWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,62 +50,54 @@ public class EventController {
     @GetMapping(value = "/list")
     public ModelAndView listEvents() {
         log.info("[/event] get request for url /list");
-//        ModelAndView mav = eventService.getPreparedMAV();
-//        mav.addObject("filter", new EventFilterDTO());
-//        mav.addObject("dto", eventService.getAll());
-
-        ModelAndView mav = prepareMAV(eventService.getAll());
+        EventFilterDTO filter = new EventFilterDTO();
+        ModelAndView mav = prepareMAV(eventService.getByFilter(filter), filter);
         return PageURLContext.getPage(mav, eventService.PAGE_LIST);
-        //return eventService.mavList();
     }
 
     @GetMapping(value = "/list/{insuranceId}")
     public ModelAndView listEvents(@PathVariable String insuranceId) {
         log.info("[/event] get request for url /list/{}", insuranceId);
-//        ModelAndView mav = eventService.getPreparedMAV();
-//        mav.addObject("filter", new EventFilterDTO());
-//        mav.addObject("dto", eventService.getByInsuranceId(insuranceId));
-
         ModelAndView mav = prepareMAV(eventService.getByInsuranceId(insuranceId));
         return PageURLContext.getPage(mav, eventService.PAGE_LIST);
-        //return eventService.mavList();
     }
 
     @PostMapping(value = "/list")
     public ModelAndView listEvents(@ModelAttribute("filter") EventFilterDTO filter) {
         log.info("[/event] post request for url /list");
-//        ModelAndView mav = eventService.getPreparedMAV();
-//        mav.addObject("filter", filter);
-//        mav.addObject("dto", eventService.getByFilter(filter));
-
         ModelAndView mav = prepareMAV(eventService.getByFilter(filter), filter);
         return PageURLContext.getPage(mav, eventService.PAGE_LIST);
-        //return eventService.mavList(filter, result);
+    }
+
+    @PostMapping(value = "/list/prev")
+    public ModelAndView listEventsPrev(@ModelAttribute("filter") EventFilterDTO filter) {
+        log.info("[/event] get request for url /list/prev");
+        filter.getNavigation().setPrev(true);
+        ModelAndView mav = prepareMAV(eventService.getByFilter(filter), filter);
+        return PageURLContext.getPage(mav, eventService.PAGE_LIST);
+    }
+
+    @PostMapping(value = "/list/next")
+    public ModelAndView listEventsNext(@ModelAttribute("filter") EventFilterDTO filter) {
+        log.info("[/event] get request for url /list/next");
+        filter.getNavigation().setNext(true);
+        ModelAndView mav = prepareMAV(eventService.getByFilter(filter), filter);
+        return PageURLContext.getPage(mav, eventService.PAGE_LIST);
     }
 
     @GetMapping(value = "/edit/{id}")
     public ModelAndView editEvent(@PathVariable Long id) {
         log.info("[/event] get request for url /edit/{}", id);
-//        ModelAndView mav = eventService.getPreparedMAV();
-//        mav.addObject("dto", eventService.getById(id));
-
         ModelAndView mav = prepareMAV(eventService.getById(id));
         return PageURLContext.getPage(mav, eventService.PAGE_REGISTRATION);
-        //return eventService.mavEdit(id);
     }
 
     @PostMapping(value = "/edit/{id}")
     public ModelAndView editEvent(@PathVariable Long id, @ModelAttribute("dto") @Validated EventDTO dto, BindingResult result) {
         log.info("[/event] get request for url /edit/{}", id);
-//        ModelAndView mav = eventService.getPreparedMAV();
-//        eventService.checkDTO(dto, result, mav);
-//        eventService.updateProfile(dto);
-//        mav.addObject("dto", dto);
-
         ModelAndView mav = prepareMAV(dto, null, result);
         eventService.updateProfile(dto);
         return PageURLContext.getPageRedirect(mav, eventService.URI_LIST);
-        //return eventService.mavEdit(dto, resul);
     }
 
     private ModelAndView prepareMAV(Object dto) {

@@ -12,7 +12,7 @@ import org.springframework.jms.core.JmsTemplate;
 import java.util.Arrays;
 
 @Configuration
-@PropertySource("classpath:mq.properties")
+@PropertySource("classpath:mq/mq.properties")
 public class MessagingConfiguration {
 
     //@Autowired
