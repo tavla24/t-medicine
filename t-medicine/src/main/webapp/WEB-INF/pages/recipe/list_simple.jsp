@@ -21,7 +21,7 @@
                     <th>Healing</th>
                     <th>dateFrom</th>
                     <th>dateTo</th>
-                    <th class="col-1"></th>
+                    <%--<th class="col-1"></th>--%>
                     <sec:authorize access="hasRole('ADMIN')">
                         <th class="col-1"></th>
                     </sec:authorize>
@@ -29,11 +29,12 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${dto}" var="recipe">
-                    <tr>
+                    <c:url var="link" value='/recipe/edit/${insuranceId}/${recipe.id}' />
+                    <tr onclick="window.location='${link}';">
                         <td>${recipe.healingType}:${recipe.healingName}</td>
                         <td>${recipe.dateFrom}</td>
                         <td>${recipe.dateTo}</td>
-                        <td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>
+                        <%--<td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>--%>
                         <sec:authorize access="hasRole('ADMIN')">
                             <td><a href="<c:url value='/recipe/delete/${insuranceId}/${recipe.id}' />">delete</a></td>
                         </sec:authorize>

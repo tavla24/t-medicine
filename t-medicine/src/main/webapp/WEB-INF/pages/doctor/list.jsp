@@ -27,16 +27,15 @@
                 <th>Phone</th>
                 <th>Login</th>
                 <sec:authorize access="hasRole('ADMIN')">
-                    <th class="col-1"></th>
-                </sec:authorize>
-                <sec:authorize access="hasRole('ADMIN')">
+                    <%--<th class="col-1"></th>--%>
                     <th class="col-1"></th>
                 </sec:authorize>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${dto}" var="doctor">
-                <tr>
+                <c:url var="link" value='/admin/doctor/edit/${doctor.login}' />
+                <tr onclick="window.location='${link}';">
                     <td>${doctor.name}</td>
                     <td>${doctor.surname}</td>
                     <td>${doctor.patronymic}</td>
@@ -46,7 +45,7 @@
                     <td>${doctor.phone}</td>
                     <td>${doctor.login}</td>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>
+                        <%--<td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>--%>
                         <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>
                     </sec:authorize>
                 </tr>

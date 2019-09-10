@@ -21,9 +21,9 @@
                 <th>Login</th>
                 <th>Password</th>
                 <th>Role</th>
-                <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                    <th class="col-1"></th>
-                </sec:authorize>
+                <%--<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">--%>
+                    <%--<th class="col-1"></th>--%>
+                <%--</sec:authorize>--%>
                 <sec:authorize access="hasRole('ADMIN')">
                     <th class="col-1"></th>
                 </sec:authorize>
@@ -31,13 +31,14 @@
             </thead>
             <tbody>
             <c:forEach items="${dto}" var="account">
-                <tr>
+                <c:url var="link" value='/admin/account/edit/${account.login}' />
+                <tr onclick="window.location='${link}';">
                     <td>${account.login}</td>
                     <td>${account.password}</td>
                     <td>${account.role.type}</td>
-                    <sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">
-                        <td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>
-                    </sec:authorize>
+                    <%--<sec:authorize access="hasRole('ADMIN') or hasRole('ROOT')">--%>
+                        <%--<td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>--%>
+                    <%--</sec:authorize>--%>
                     <sec:authorize access="hasRole('ADMIN')">
                         <td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>
                     </sec:authorize>

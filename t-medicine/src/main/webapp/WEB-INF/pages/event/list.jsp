@@ -126,11 +126,8 @@
                         <th>${event.status}</th>
 
                         <th>${event.recipe.healingType}: ${event.recipe.healingName} [${event.recipe.doze}]</th>
-                            <%--<th>${event.info}</th>--%>
 
-                            <%--<sec:authorize access="hasRole('DOCTOR')">--%>
                         <td><a href="<c:url value='/event/edit/${event.id}' />">details</a></td>
-                            <%--</sec:authorize>--%>
                     </tr>
                 </c:forEach>
                 </tbody>

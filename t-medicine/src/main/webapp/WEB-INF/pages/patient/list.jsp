@@ -31,7 +31,7 @@
                                         <th>email</th>
                                         <th>Phone</th>
                         --%>
-                        <th class="col-1"></th>
+                        <%--<th class="col-1"></th>--%>
                         <th class="col-1"></th>
                     <sec:authorize access="hasRole('ADMIN')">
                         <th class="col-1"></th>
@@ -40,7 +40,8 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${dto}" var="patient">
-                    <tr>
+                    <c:url var="link" value='/patient/edit/${patient.insuranceId}' />
+                    <tr onclick="window.location='${link}';">
                         <td>${patient.name}</td>
                         <td>${patient.surname}</td>
                         <td>${patient.patronymic}</td>
@@ -55,7 +56,7 @@
                            <th>${patient.phone}</th>--%>
 
 
-                            <td><a href="<c:url value='/patient/edit/${patient.insuranceId}' />">details</a></td>
+                            <%--<td><a href="<c:url value='/patient/edit/${patient.insuranceId}' />">details</a></td>--%>
                             <td><a href="<c:url value='/recipe/list/${patient.insuranceId}' />">recipes</a></td>
                         <sec:authorize access="hasRole('ADMIN')">
                             <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
