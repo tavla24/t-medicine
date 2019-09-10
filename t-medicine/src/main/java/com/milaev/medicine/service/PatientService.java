@@ -41,77 +41,7 @@ public class PatientService extends AbstractService {
     @Autowired
     private AccountDAO daoAccount;
 
-    @Transactional
-    public ModelAndView mavList() {
-        log.info("called PatientService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        String loggedinuser = (String) mav.getModel().get("loggedinuser");
-
-        Account account = getCurrentAccount(loggedinuser);
-        if (account.getRole().getType().equals(RoleType.ADMIN.name()))
-            mav.addObject("dto", getAll());
-        else
-            mav.addObject("dto", getByDoctor(loggedinuser));
-
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
-
-    private Account getCurrentAccount(String loggedinuser) {
-        Account account = daoAccount.getByLogin(loggedinuser);
-        if (account == null)
-            throw new NullResultFromDBException();
-        return account;
-    }
-
-    @Transactional
-    public ModelAndView mavNew() {
-        log.info("called PatientService.mavNew");
-        ModelAndView mav = getPreparedMAV();
-        String loggedinuser = (String) mav.getModel().get("loggedinuser");
-
-        PatientDTO dto = new PatientDTO();
-        Doctor doctor = daoDoctor.getByLogin(loggedinuser);
-        if (doctor != null)
-            dto.getDoctor().setLogin(doctor.getAccount().getLogin());
-
-        mav.addObject("dto", dto);
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavNew(PatientDTO dto, BindingResult result) {
-        log.info("called PatientService.mavNew with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, URI_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavDelete(String insuranceId) {
-        log.info("called PatientService.mavDelete");
-        deleteProfile(insuranceId);
-        return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(String insuranceId) {
-        log.info("called PatientService.mavEdit");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("dto", getByInsuranceId(insuranceId));
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(PatientDTO dto, BindingResult result) {
-        log.info("called PatientService.mavEdit with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, URI_MAIN);
-    }
-
-    private void checkDTO(PatientDTO dto, BindingResult result,
+    public void checkDTO(PatientDTO dto, BindingResult result,
                           ModelAndView mav) {
         if (result.hasErrors()) {
             log.info("hasErrors()");
@@ -155,6 +85,32 @@ public class PatientService extends AbstractService {
             listDAO.add(PatientConverter.toDTO(item));
         }
         return listDAO;
+    }
+
+    @Transactional
+    public List<PatientDTO> getByAccount(String loggedinuser){
+        Account account = getCurrentAccount(loggedinuser);
+
+        if (account.getRole().getType().equals(RoleType.ADMIN.name()))
+            return getAll();
+        else
+            return getByDoctor(loggedinuser);
+    }
+
+    private Account getCurrentAccount(String loggedinuser) {
+        Account account = daoAccount.getByLogin(loggedinuser);
+        if (account == null)
+            throw new NullResultFromDBException();
+        return account;
+    }
+
+    @Transactional
+    public PatientDTO getPatientDTOwithDoctor(String loggedinuser){
+        PatientDTO dto = new PatientDTO();
+        Doctor doctor = daoDoctor.getByLogin(loggedinuser);
+        if (doctor != null)
+            dto.getDoctor().setLogin(doctor.getAccount().getLogin());
+        return dto;
     }
 
     @Transactional

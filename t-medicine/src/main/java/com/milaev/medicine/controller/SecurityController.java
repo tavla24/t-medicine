@@ -18,12 +18,8 @@ public class SecurityController {
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
 
-    @Autowired
-    private MessageSender messageSender;
-
     @GetMapping("/")
     public String index(Model model) {
-        //messageSender.sendMessage("hello from Spring");
         if (!sessionAuth.isAnonymousSession()) {
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }

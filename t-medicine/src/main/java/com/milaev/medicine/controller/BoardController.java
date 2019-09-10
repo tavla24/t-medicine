@@ -25,7 +25,6 @@ public class BoardController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ExchangeData> listAccounts() {
         log.info("[board] get request for url /");
-        StateChangedEvent rez = new StateChangedEvent("testREST");
         List<ExchangeData> list = eventService.getExchangeData();
         return list;
     }

@@ -41,63 +41,20 @@ public class RecipeSimpleService extends AbstractService {
     @Autowired
     private EventService eventService;
 
-    @Transactional
-    public ModelAndView mavList(String insuranceId) {
-        log.info("called RecipeSimpleService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("dto", getByInsuranceId(insuranceId));
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavNew(String insuranceId) {
-        log.info("called RecipeSimpleService.mavNew");
-        ModelAndView mav = getPreparedMAV();
-        RecipeSimpleDTO dto = new RecipeSimpleDTO();
-        dto.setPatient(patientService.getByInsuranceId(insuranceId));
-        mav.addObject("dto", dto);
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavNew(RecipeSimpleDTO dto, BindingResult result) {
-        log.info("called RecipeSimpleService.mavEdit with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, String.format("%s/%s", URI_LIST, dto.getPatient().getInsuranceId()));
-    }
-
-    @Transactional
-    public ModelAndView mavDelete(RecipeSimpleDTO dto, String insuranceId) {
-        log.info("called RecipeSimpleService.mavDelete");
-        dto.getPatient().setInsuranceId(insuranceId);
-        delete(dto);
-        return PageURLContext.getPageRedirect(new ModelAndView(),String.format("%s/%s", URI_LIST, dto.getPatient().getInsuranceId()));
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(String insuranceId, Long id) {
-        log.info("called RecipeSimpleService.mavEdit");
-        ModelAndView mav = getPreparedMAV();
-        RecipeSimpleDTO dto = getById(id);
-        mav.addObject("dto", dto);
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(RecipeSimpleDTO dto, BindingResult result) {
-        log.info("called RecipeSimpleService.mavEdit with dto");
-        return mavNew(dto, result);
-    }
-
-    private void checkDTO(RecipeSimpleDTO dto, BindingResult result,
+    public void checkDTO(RecipeSimpleDTO dto, BindingResult result,
                           ModelAndView mav){
         if (result.hasErrors()) {
             log.info("hasErrors()");
             log.info(result.getAllErrors().toString());
             throw new RecipeSimpleValidationException(dto, result, mav);
         }
+    }
+
+    @Transactional
+    public RecipeSimpleDTO getRecipeSimpleDTOwithPatient(String insuranceId){
+        RecipeSimpleDTO dto = new RecipeSimpleDTO();
+        dto.setPatient(patientService.getByInsuranceId(insuranceId));
+        return dto;
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package com.milaev.medicine.controller;
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.validators.DoctorValidator;
 import com.milaev.medicine.service.DoctorService;
+import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,50 +39,109 @@ public class DoctorsController {
     @GetMapping("/admin/doctor/list")
     public ModelAndView listDoctors() {
         log.info("[/admin/doctor] get request for url /list");
-        return doctorService.mavList();
+        return mavList();
     }
 
     @GetMapping("/admin/doctor/new")
     public ModelAndView newDoctor() {
         log.info("[/admin/doctor] get request for url /new");
-        return doctorService.mavNew();
+        return mavNew();
     }
 
     @PostMapping("/admin/doctor/new")
     public ModelAndView newDoctor(@Validated DoctorDTO dto, BindingResult result) {
         log.info("[/admin/doctor] post request for url /new");
-        return doctorService.mavNew(dto, result);
+        return mavNew(dto, result);
     }
 
     @GetMapping("/admin/doctor/delete/{login}")
     public ModelAndView deleteDoctor(@PathVariable String login) {
         log.info("[/admin/doctor] get request for url /delete/{}", login);
-        return doctorService.mavDelete(login);
+        return mavDelete(login);
     }
 
     @GetMapping("/admin/doctor/edit/{login}" )
     public ModelAndView editDoctor(@PathVariable String login) {
         log.info("[/admin/doctor] get request for url /edit/{}", login);
-        return doctorService.mavEdit(login);
+        return mavEdit(login);
     }
 
     @PostMapping("/admin/doctor/edit/{login}")
     public ModelAndView editDoctor(@Validated DoctorDTO dto, BindingResult result,
                                      @PathVariable String login) {
         log.info("[/admin/doctor] post request for url /edit/{}", login);
-        return doctorService.mavEdit(dto, result);
+        return mavEdit(dto, result);
     }
 
     @GetMapping("/doctor/edit")
     public ModelAndView editDoctor(ModelMap model) {
         log.info("[/doctor] get request for url /edit");
-        return doctorService.mavEdit("");
+        return mavEdit("");
     }
 
     @PostMapping("/doctor/edit")
     public ModelAndView updateDoctor(@Validated DoctorDTO dto, BindingResult result) {
         //return "redirect:/";
         log.info("[/doctor] post request for url /edit");
-        return doctorService.mavEdit(dto, result);
+        return mavEdit(dto, result);
+    }
+
+
+    private ModelAndView mavList() {
+        log.info("called DoctorService.mavList");
+        ModelAndView mav = doctorService.getPreparedMAV();
+        mav.addObject("dto", doctorService.getAll());
+        return PageURLContext.getPage(mav, doctorService.PAGE_LIST);
+    }
+
+    private ModelAndView mavNew() {
+        log.info("called DoctorService.mavNew");
+        ModelAndView mav = doctorService.getPreparedMAV();
+        mav.addObject("dto", new DoctorDTO());
+        return PageURLContext.getPage(mav, doctorService.PAGE_REGISTRATION);
+    }
+
+    private ModelAndView mavNew(DoctorDTO dto, BindingResult result) {
+        log.info("called DoctorService.mavNew with dto");
+        ModelAndView mav = doctorService.getPreparedMAV();
+        doctorService.checkDTO(dto, result, mav);
+        doctorService.updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, doctorService.URI_LIST);
+    }
+
+    private ModelAndView mavEdit(String login) {
+        log.info("called DoctorService.mavEdit");
+        ModelAndView mav = doctorService.getPreparedMAV();
+
+        DoctorDTO dto;
+        if (login.isEmpty()){
+            String loggedinuser = (String) mav.getModel().get("loggedinuser");
+            if (doctorService.isProfileExist(loggedinuser))
+                dto = doctorService.getByLogin(loggedinuser);
+            else {
+                dto = new DoctorDTO();
+                dto.setLogin(loggedinuser);
+            }
+        } else
+            dto = doctorService.getByLogin(login);
+
+        dto.setEdit(true);
+        mav.addObject("dto", dto);
+
+        return PageURLContext.getPage(mav, doctorService.PAGE_REGISTRATION);
+    }
+
+    private ModelAndView mavEdit(DoctorDTO dto, BindingResult result) {
+        log.info("called DoctorService.mavEdit with dto");
+        ModelAndView mav = doctorService.getPreparedMAV();
+        doctorService.checkDTO(dto, result, mav);
+        doctorService.updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, doctorService.URI_MAIN);
+    }
+
+    private ModelAndView mavDelete(String login) {
+        log.info("called DoctorService.mavDelete");
+        doctorService.deleteProfile(login);
+        return PageURLContext.getPageRedirect(new ModelAndView(), doctorService.URI_LIST);
     }
 }

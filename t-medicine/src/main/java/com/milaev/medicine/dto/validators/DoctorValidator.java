@@ -31,8 +31,8 @@ public class DoctorValidator extends PersonValidator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "doctor.login.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "specialization", "doctor.specialization.empty");
 
-        //if (!dto.getLogin().isEmpty())
-            if (!accountService.getByLogin(dto.getLogin()).getRole().getType().equals(RoleType.DOCTOR.name()))
+        if (!dto.getLogin().isEmpty())
+            if (!accountService.isLoginUnique(dto.getLogin()) && !accountService.getByLogin(dto.getLogin()).getRole().getType().equals(RoleType.DOCTOR.name()))
                 errors.rejectValue("login", "doctor.login.nonDoctor", new String[]{dto.getLogin()}, null);
     }
 

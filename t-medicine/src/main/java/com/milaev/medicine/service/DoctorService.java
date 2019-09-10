@@ -2,11 +2,14 @@ package com.milaev.medicine.service;
 
 import com.milaev.medicine.dao.AccountDAO;
 import com.milaev.medicine.dao.DoctorDAO;
+import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.RoleDTO;
 import com.milaev.medicine.model.Account;
 import com.milaev.medicine.model.Doctor;
 import com.milaev.medicine.exceptions.DoctorValidationException;
 import com.milaev.medicine.exceptions.NullResultFromDBException;
+import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.utils.PageURLContext;
 import com.milaev.medicine.utils.converters.DoctorConverter;
 import org.slf4j.Logger;
@@ -35,71 +38,10 @@ public class DoctorService extends AbstractService {
     @Autowired
     private AccountDAO daoAccount;
 
-    @Transactional
-    public ModelAndView mavList() {
-        log.info("called DoctorService.mavList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("dto", getAll());
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
+    @Autowired
+    private AccountService accountService;
 
-    @Transactional
-    public ModelAndView mavNew() {
-        log.info("called DoctorService.mavNew");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("dto", new DoctorDTO());
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavNew(DoctorDTO dto, BindingResult result) {
-        log.info("called DoctorService.mavNew with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, URI_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(String login) {
-        log.info("called DoctorService.mavEdit");
-        ModelAndView mav = getPreparedMAV();
-
-        DoctorDTO dto;
-        if (login.isEmpty()){
-            String loggedinuser = (String) mav.getModel().get("loggedinuser");
-            if (isProfileExist(loggedinuser))
-                dto = getByLogin(loggedinuser);
-            else {
-                dto = new DoctorDTO();
-                dto.setLogin(loggedinuser);
-            }
-        } else
-            dto = getByLogin(login);
-
-        dto.setEdit(true);
-        mav.addObject("dto", dto);
-
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(DoctorDTO dto, BindingResult result) {
-        log.info("called DoctorService.mavEdit with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-        updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, URI_MAIN);
-    }
-
-    @Transactional
-    public ModelAndView mavDelete(String login) {
-        log.info("called DoctorService.mavDelete");
-        deleteProfile(login);
-        return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
-    }
-
-    private void checkDTO(DoctorDTO dto, BindingResult result,
+    public void checkDTO(DoctorDTO dto, BindingResult result,
                           ModelAndView mav){
         if (result.hasErrors()) {
             log.info("hasErrors()");
@@ -185,6 +127,17 @@ public class DoctorService extends AbstractService {
 
     private void fillEntity(DoctorDTO dto, Doctor entity) {
         log.info("fillEntity");
+
+        if (accountService.isLoginUnique(dto.getLogin())){
+            AccountDTO accountDTO = new AccountDTO();
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setType(RoleType.DOCTOR.name());
+            accountDTO.setLogin(dto.getLogin());
+            accountDTO.setPassword(dto.getPhone());
+            accountDTO.setRole(roleDTO);
+            accountService.insert(accountDTO);
+        }
+
         Account a = daoAccount.getByLogin(dto.getLogin());
         entity.setAccount(a);
         DoctorConverter.toEntity(dto, entity);

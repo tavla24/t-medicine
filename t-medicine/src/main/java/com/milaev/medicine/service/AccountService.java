@@ -41,67 +41,8 @@ public class AccountService extends AbstractService {
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
-    @Transactional
-    public ModelAndView mavList() {
-        log.info("called AccountService.mavAccountsList");
-        ModelAndView mav = getPreparedMAV();
-        mav.addObject("dto", getAll());
-        return PageURLContext.getPage(mav, PAGE_LIST);
-    }
 
-    @Transactional
-    public ModelAndView mavNew() {
-        log.info("called AccountService.mavNewAccount");
-        ModelAndView mav = getPreparedMAV();
-
-        mav.addObject("dto", new AccountDTO());
-
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavNew(AccountDTO dto, BindingResult result) {
-        log.info("called AccountService.mavNewAccount with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-        insert(dto);
-
-        return PageURLContext.getPageRedirect(mav, URI_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavDelete(String login) {
-        log.info("called AccountService.mavDeleteAccount()");
-        deleteByLogin(login);
-        return PageURLContext.getPageRedirect(new ModelAndView(), URI_LIST);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(String login) {
-        log.info("called AccountService.mavEditAccount");
-        ModelAndView mav = getPreparedMAV();
-
-        AccountDTO dto = getByLogin(login);
-        dto.setEdit(true);
-        mav.addObject("dto", dto);
-
-        return PageURLContext.getPage(mav, PAGE_REGISTRATION);
-    }
-
-    @Transactional
-    public ModelAndView mavEdit(AccountDTO dto, BindingResult result, String login) {
-        log.info("called AccountService.mavEditAccount with dto");
-        ModelAndView mav = getPreparedMAV();
-        checkDTO(dto, result, mav);
-
-        update(dto, login);
-
-        return PageURLContext.getPageRedirect(mav, URI_LIST);
-    }
-
-    private void checkDTO(AccountDTO dto, BindingResult result,
+    public void checkDTO(AccountDTO dto, BindingResult result,
                           ModelAndView mav) {
         if (result.hasErrors()) {
             log.info("hasErrors()");
@@ -181,6 +122,7 @@ public class AccountService extends AbstractService {
         Account db = new Account();
         Role role = getOrInsert(dto.getRole().getType());
         db.setRole(role);
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         AccountConverter.toEntity(dto, db);
         try {
             daoAccount.insert(db);
