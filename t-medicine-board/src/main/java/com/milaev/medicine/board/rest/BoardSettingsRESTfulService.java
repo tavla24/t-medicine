@@ -33,9 +33,6 @@ public class BoardSettingsRESTfulService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getSettings() throws IOException {
-        //String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(settings.getItems());
-        //return settings.getItems();
-
         return Response.ok() //200
                 .entity(settings.getItems())
                 .header("Access-Control-Allow-Origin", "*")
@@ -48,7 +45,7 @@ public class BoardSettingsRESTfulService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response putSettings(String str) throws IOException {
-        log.info("===============================> putSettings");
+        log.info("PUT request");
 
         try {
             List<BoardSettingsItem> list = Arrays.asList(mapper.readValue(str, BoardSettingsItem[].class));
@@ -60,21 +57,5 @@ public class BoardSettingsRESTfulService {
 
         return getSettings();
     }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response postSettings() throws IOException {
-        log.info("===============================> postSettings");
-        return getSettings();
-    }
-
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response postSettings(List<BoardSettingsItem> list) throws IOException {
-//        log.info("===============================> postSettings");
-//        return getSettings();
-//    }
 
 }

@@ -1,15 +1,10 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.HibernateTestConfig;
 import com.milaev.medicine.config.WebMvcConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         WebMvcConfig.class, WebSecurityConfig.class, HibernateTestConfig.class
 })
 @WebAppConfiguration
-public class AccountsControllerTest {
+public class RecipeControllerTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -46,24 +40,25 @@ public class AccountsControllerTest {
 
     @Test
     public void testGetList() throws Exception {
-        MvcResult result = mvc.perform(get("/admin/account/list")).andDo(print())
+        MvcResult result = mvc.perform(get("/recipe/list/FGR1458762")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/pages/account/list.jsp"))
+                .andExpect(forwardedUrl("/WEB-INF/pages/recipe/list_simple.jsp"))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
-
-//        Assert.assertNotNull( result.getFieldError("info") );
     }
 
     @Test
-    public void testGetNew() throws Exception {
-        MvcResult result = mvc.perform(get("/admin/account/new")).andDo(print())
+    public void testCreateNew() throws Exception {
+        MvcResult result = mvc.perform(get("/recipe/list/FGR1458762")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(forwardedUrl("/WEB-INF/pages/account/registration.jsp"))
+                .andExpect(forwardedUrl("/WEB-INF/pages/recipe/list_simple.jsp"))
                 .andReturn();
-
-        ModelAndView mav = result.getModelAndView();
     }
 
+    @Test
+    public void testEdit() throws Exception {
+        MvcResult result = mvc.perform(get("/recipe/edit/FGR1458762/1")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(forwardedUrl("/WEB-INF/pages/recipe/registration_simple.jsp"))
+                .andReturn();
+    }
 }

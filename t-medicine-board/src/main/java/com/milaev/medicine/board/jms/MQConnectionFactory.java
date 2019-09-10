@@ -32,7 +32,6 @@ public class MQConnectionFactory {
 
     public void sendMessage(String text){
         try {
-            //producer.send(session.createObjectMessage(new StateChangedResponse(text)));
             producer.send(session.createTextMessage(text));
         } catch (JMSException e) {
             log.error("Unable to send message. (JMSException)");

@@ -26,11 +26,6 @@ public class BoardEndpoint {
     public void onOpen(Session session) {
         log.info("Session opened, id: {}", session.getId());
         peers.add(session);
-//        try {
-//            session.getBasicRemote().sendText("Hi there, we are successfully connected.");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
     }
 
     @OnMessage

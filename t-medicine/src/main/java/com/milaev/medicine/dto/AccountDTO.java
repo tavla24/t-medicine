@@ -61,14 +61,6 @@ public class AccountDTO {
         this.edit = edit;
     }
 
-    public boolean isOldLoginEmpty() {
-        return oldLogin.isEmpty();
-    }
-
-    public boolean isLoginEqualsOldLogin() {
-        return oldLogin.equals(login);
-    }
-
     @Override
     public String toString() {
         return String.format("accounts result: login[%s]; password[%s]; role[%s]", login, password, getRole().getType());

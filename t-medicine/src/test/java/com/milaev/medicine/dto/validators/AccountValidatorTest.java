@@ -2,56 +2,70 @@ package com.milaev.medicine.dto.validators;
 
 import com.milaev.medicine.config.TestConfig;
 import com.milaev.medicine.dto.AccountDTO;
+import com.milaev.medicine.dto.RoleDTO;
+import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.AccountService;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = TestConfig.class, loader = AnnotationConfigContextLoader.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AccountValidatorTest {
 
-    @Autowired
+    @InjectMocks
     private AccountValidator accountValidator;
 
-    @Autowired
+    @Mock
     private AccountService accountService;
 
-    private static final String login = "admin";
-    private static final AccountDTO acc = mock(AccountDTO.class);
+    private AccountDTO acc;
+    private RoleDTO role;
 
-    @BeforeAll
-    public static void setup() {
-        when(acc.getOldLogin().isEmpty()).thenReturn(false);
+    private Errors errors;
 
-        when(acc.isOldLoginEmpty()).thenReturn(false);
-        when(acc.isLoginEqualsOldLogin()).thenReturn(false);
-        when(acc.getLogin()).thenReturn(login);
-        when(acc.getOldLogin()).thenReturn(login);
+    private static final String value_str = "string";
+
+    @Before
+    public void setup() {
+        acc = new AccountDTO();
+        acc.setLogin(value_str);
+        acc.setPassword(value_str);
+        acc.setOldLogin("");
+        acc.setOldPassword(value_str);
+        role = new RoleDTO();
+        role.setType(RoleType.ROOT.name());
+        acc.setRole(role);
+
+        errors = new BeanPropertyBindingResult(acc, "acc");
     }
 
     @Test
     public void validateAccountWithNewLogin() {
-        when(accountService.isLoginUnique(login)).thenReturn(false);
-        Errors errors = mock(Errors.class);
+        when(accountService.isLoginUnique(any())).thenReturn(true);
         accountValidator.validate(acc, errors);
-        verify(errors, never()).rejectValue(eq("login"), any(), any());
+
+        Assert.assertFalse(errors.hasErrors());
     }
 
     @Test
     public void validateAccountWithAlreadyUsedLogin() {
-        when(accountService.isLoginUnique(login)).thenReturn(true);
-        Errors errors = mock(Errors.class);
+        when(accountService.isLoginUnique(any())).thenReturn(false);
         accountValidator.validate(acc, errors);
-        verify(errors, times(2))
-                .rejectValue(eq("login"), any(), any(), any());
+
+        Assert.assertNotNull( errors.getFieldError("login") );
     }
 
 }

@@ -1,55 +1,87 @@
 package com.milaev.medicine.dto.validators;
 
 import com.milaev.medicine.config.TestConfig;
+import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.DoctorDTO;
+import com.milaev.medicine.dto.RoleDTO;
+import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.AccountService;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.util.List;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = TestConfig.class, loader = AnnotationConfigContextLoader.class)
+import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
 public class DoctorValidatorTest {
 
-    @Autowired
+    @InjectMocks
     private DoctorValidator doctorValidator;
 
-    @Autowired
+    @Mock
     private AccountService accountService;
 
-    private static final DoctorDTO dto = mock(DoctorDTO.class);
+    private DoctorDTO doc;
+    private AccountDTO acc;
+    private RoleDTO role;
 
-    private static final String login = "doctor";
-    private static final String email = "email@mail.com";
-    private static final String phone = "0-123-1234567";
+    private Errors errors;
 
+    private static final String value_str = "string";
+    private static final String value_email = "address@mail.ru";
+    private static final String value_phone = "1-111-1111111";
 
-    @BeforeAll
-    public static void setup() {
-        when(dto.getLogin()).thenReturn(login);
-        when(dto.getEmail()).thenReturn(email);
-        when(dto.getPhone()).thenReturn(email);
-        when(login.isEmpty()).thenReturn(true);
+    @Before
+    public void setup() {
+        acc = new AccountDTO();
+        role = new RoleDTO();
+        role.setType(RoleType.ROOT.name());
+        acc.setRole(role);
+
+        doc = new DoctorDTO();
+        doc.setLogin(value_str);
+        doc.setEmail(value_email);
+        doc.setPhone(value_phone);
+        doc.setSpecialization(value_str);
+        doc.setName(value_str);
+        doc.setSurname(value_str);
+        doc.setPatronymic(value_str);
+
+        errors = new BeanPropertyBindingResult(doc, "doc");
     }
 
     @Test
-    public void validateAccountWithNewLogin() {
-//        AccountDTO accDTO = new AccountDTO();
-//        RoleDTO roleDTO = new RoleDTO();
-//        roleDTO.setType("DOCTOR");
-//        accDTO.setRole(roleDTO);
-//
-//        when(accountService.getByLogin(any())).thenReturn(accDTO);
-//
-//        Errors errors = mock(Errors.class);
-//        doctorValidator.validate(dto, errors);
-//        verify(errors, never()).rejectValue(eq("login"), any(), any());
+    public void validateDoctorDTO() {
+        when(accountService.isLoginUnique(any())).thenReturn(true);
+        when(accountService.getByLogin(any())).thenReturn(acc);
+
+        doctorValidator.validate(doc, errors);
+
+        Assert.assertFalse(errors.hasErrors());
+    }
+
+    @Test
+    public void validateDoctorDTOWithWrongEmailPattern() {
+        when(accountService.isLoginUnique(any())).thenReturn(true);
+        when(accountService.getByLogin(any())).thenReturn(acc);
+
+        doc.setEmail(value_str);
+        doctorValidator.validate(doc, errors);
+
+        Assert.assertNotNull( errors.getFieldError("email") );
     }
 }

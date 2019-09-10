@@ -30,9 +30,11 @@ public class AccountValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "account.login.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "account.password.empty");
 
-        if (dto.isOldLoginEmpty() && (!accountService.isLoginUnique(dto.getLogin())))
+//        if (dto.isOldLoginEmpty() && (!accountService.isLoginUnique(dto.getLogin())))
+        if (dto.getOldLogin().isEmpty() && (!accountService.isLoginUnique(dto.getLogin())))
             errors.rejectValue("login", "account.login.unique", new String[] { dto.getLogin() }, null);
-        else if (!dto.isLoginEqualsOldLogin() && (!accountService.isLoginUnique(dto.getLogin())))
+//        else if (!dto.isLoginEqualsOldLogin() && (!accountService.isLoginUnique(dto.getLogin())))
+        else if (!dto.getOldLogin().equals(dto.getLogin()) && (!accountService.isLoginUnique(dto.getLogin())))
             errors.rejectValue("login", "account.login.unique", new String[] { dto.getLogin() }, null);
 
     }

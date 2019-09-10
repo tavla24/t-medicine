@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//@ManagedBean(name = "boardDataSource")
-//@ApplicationScoped
 @Startup
 @Singleton
 public class BoardDataSource {

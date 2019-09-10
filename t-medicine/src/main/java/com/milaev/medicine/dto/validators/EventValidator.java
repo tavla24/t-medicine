@@ -24,7 +24,7 @@ public class EventValidator implements Validator {
     public void validate(Object target, Errors errors) {
         EventDTO dto = (EventDTO) target;
 
-        //if ((dto.getStatus() != null) && !dto.getStatus().isEmpty())
+        if ((dto.getStatus() != null) && !dto.getStatus().isEmpty())
             if(dto.getStatus().equals(EventStatus.CANCEL.name()))
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "info", "event.info.empty");
     }

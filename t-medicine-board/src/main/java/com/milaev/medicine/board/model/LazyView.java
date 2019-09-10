@@ -17,8 +17,6 @@ import java.util.Date;
 
 @ManagedBean(name="dtLazyView")
 @ViewScoped
-//@SessionScoped // TODO save state in refresh
-//@Stateful
 public class LazyView implements Serializable {
 
     private LazyDataModel<ExchangeData> lazyModel;
@@ -26,7 +24,6 @@ public class LazyView implements Serializable {
 
     private ExchangeData selectedExchangeData;
 
-    //@ManagedProperty("#{boardDataSource}")
     @Inject
     private BoardDataSource boardDataSource;
 

@@ -25,16 +25,16 @@ public class TestConfig {
 //    public DoctorValidator doctorValidator() {
 //        return new DoctorValidator();
 //    }
-
-    @Bean
-    public EventValidator eventValidator() {
-        return new EventValidator();
-    }
 //
 //    @Bean
-//    public SessionAuthenticationInterface sessionAuthentication() {
-//        return new SessionAuthentication();
+//    public EventValidator eventValidator() {
+//        return new EventValidator();
 //    }
+//
+    @Bean
+    public SessionAuthenticationInterface sessionAuthentication() {
+        return mock(SessionAuthentication.class);
+    }
 
     @Bean
     public AccountService accountService() {

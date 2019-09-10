@@ -23,9 +23,6 @@ public class MessageReceiver implements MessageListener {
             TextMessage textMessage = (TextMessage) message;
             String text = textMessage.getText();
 
-//            ObjectMessage objectMessage = (ObjectMessage) message;
-//            String text = ((StateChangedEvent) objectMessage.getObject()).getText();
-
             log.info(text);
             log.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
             boardUpdater.setNewState(true, text);

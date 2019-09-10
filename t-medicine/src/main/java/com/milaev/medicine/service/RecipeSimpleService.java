@@ -44,8 +44,7 @@ public class RecipeSimpleService extends AbstractService {
     public void checkDTO(RecipeSimpleDTO dto, BindingResult result,
                           ModelAndView mav){
         if (result.hasErrors()) {
-            log.info("hasErrors()");
-            log.info(result.getAllErrors().toString());
+            log.info("hasErrors: {}", result.getAllErrors());
             throw new RecipeSimpleValidationException(dto, result, mav);
         }
     }
@@ -98,7 +97,8 @@ public class RecipeSimpleService extends AbstractService {
         else
             rezDTO = update(dto, daoRecipeSimple.getById(dto.getId()));
 
-        eventService.updateEvents(rezDTO.getId());
+        if (rezDTO != null)
+            eventService.updateEvents(rezDTO.getId());
     }
 
     @Transactional
