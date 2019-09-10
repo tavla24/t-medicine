@@ -1,13 +1,11 @@
 /*/.idea/
 /*/*.iml
 /*/target/
-/*/bin/
 /*/.settings/
 /*/.classpath
 /*/.project
 /*/lib/
 .settings/
-db/
+/db/
 /*/dist/
 /*/node_modules/
-*.v0

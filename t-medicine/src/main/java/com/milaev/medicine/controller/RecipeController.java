@@ -74,7 +74,7 @@ public class RecipeController {
     }
 
     @GetMapping(value = "/delete/{insuranceId}/{id}")
-    public ModelAndView deleteRecipe(@Valid RecipeSimpleDTO dto, @PathVariable String insuranceId, @PathVariable String id) {
+    public ModelAndView deleteRecipe(RecipeSimpleDTO dto, @PathVariable String insuranceId, @PathVariable String id) {
         log.info("[/recipe] get request for url /delete/{}/{}", insuranceId, id);
         return mavDelete(dto, insuranceId);
     }
@@ -121,14 +121,14 @@ public class RecipeController {
         log.info("called RecipeSimpleService.mavEdit with dto");
         return mavNew(dto, result);
     }
-
-    // TODO delete by post + fill model
-    @PostMapping(value = "/list/{insuranceId}") // , method = RequestMethod.GET @Valid @ModelAttribute("container") @Valid @ModelAttribute("container")
-    public String deleteRecipeDel(DTOContainer<RecipeSimpleDTO> dto, BindingResult result, ModelMap model) {
-        log.info("deleteRecipesDel()");
-        //dto.getPatient().setInsuranceId(insuranceId);
-        //dto.setId(id);
-        //recipeService.delete(dto);
-        return String.format("redirect:/recipe/list/0");
-    }
+//
+//    // TODO delete by post + fill model
+//    @PostMapping(value = "/list/{insuranceId}") // , method = RequestMethod.GET @Valid @ModelAttribute("container") @Valid @ModelAttribute("container")
+//    public String deleteRecipeDel(DTOContainer<RecipeSimpleDTO> dto, BindingResult result, ModelMap model) {
+//        log.info("deleteRecipesDel()");
+//        //dto.getPatient().setInsuranceId(insuranceId);
+//        //dto.setId(id);
+//        //recipeService.delete(dto);
+//        return String.format("redirect:/recipe/list/0");
+//    }
 }
