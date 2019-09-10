@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.Singleton;
 import javax.inject.Inject;
-import javax.jms.*;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
 @Singleton
 public class MessageReceiver implements MessageListener {

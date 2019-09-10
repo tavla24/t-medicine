@@ -1,6 +1,5 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.HibernateTestConfig;
 import com.milaev.medicine.config.WebMvcConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;

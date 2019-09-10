@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.Schedule;
-import javax.inject.Inject;
-import javax.ejb.Startup;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
 import javax.jms.*;
 import java.io.IOException;
 import java.util.Properties;

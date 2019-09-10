@@ -4,7 +4,6 @@ import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.dto.RoleDTO;
-import com.milaev.medicine.model.enums.EventStatus;
 import com.milaev.medicine.model.enums.PatientStatus;
 import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.AccountService;
@@ -17,7 +16,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 

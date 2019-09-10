@@ -1,6 +1,5 @@
 package com.milaev.medicine.dto.validators;
 
-import com.milaev.medicine.config.TestConfig;
 import com.milaev.medicine.dto.AccountDTO;
 import com.milaev.medicine.dto.DoctorDTO;
 import com.milaev.medicine.dto.RoleDTO;
@@ -13,18 +12,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 
-import java.util.List;
-
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DoctorValidatorTest {

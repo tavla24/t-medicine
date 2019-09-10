@@ -5,7 +5,6 @@ import com.milaev.medicine.dto.EventFilterDTO;
 import com.milaev.medicine.dto.validators.EventValidator;
 import com.milaev.medicine.service.EventService;
 import com.milaev.medicine.utils.PageURLContext;
-import com.milaev.medicine.utils.paginators.NavigationWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

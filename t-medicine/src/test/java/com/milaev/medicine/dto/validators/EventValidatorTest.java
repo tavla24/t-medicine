@@ -1,6 +1,5 @@
 package com.milaev.medicine.dto.validators;
 
-import com.milaev.medicine.config.TestConfig;
 import com.milaev.medicine.dto.EventDTO;
 import com.milaev.medicine.dto.RecipeSimpleDTO;
 import com.milaev.medicine.model.enums.EventStatus;
@@ -10,10 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 

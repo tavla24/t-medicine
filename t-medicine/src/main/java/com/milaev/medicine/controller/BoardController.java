@@ -2,7 +2,6 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.service.EventService;
 import com.milaev.mq.data.ExchangeData;
-import com.milaev.mq.message.StateChangedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

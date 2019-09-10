@@ -1,7 +1,6 @@
 package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
-import com.milaev.medicine.message.MessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

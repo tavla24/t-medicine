@@ -5,8 +5,6 @@ import org.apache.commons.lang.time.DateUtils;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

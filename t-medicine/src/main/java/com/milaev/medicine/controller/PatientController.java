@@ -2,10 +2,6 @@ package com.milaev.medicine.controller;
 
 import com.milaev.medicine.dto.PatientDTO;
 import com.milaev.medicine.dto.validators.PatientValidator;
-import com.milaev.medicine.exceptions.NullResultFromDBException;
-import com.milaev.medicine.model.Account;
-import com.milaev.medicine.model.Doctor;
-import com.milaev.medicine.model.enums.RoleType;
 import com.milaev.medicine.service.PatientService;
 import com.milaev.medicine.utils.PageURLContext;
 import org.slf4j.Logger;
