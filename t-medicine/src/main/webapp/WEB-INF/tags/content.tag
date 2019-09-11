@@ -40,8 +40,6 @@
 </div>
 
 <footer>
-    <%--<div class="navbar-fixed-bottom row-fluid">--%>
-        <%--<div class="navbar-inner">--%>
             <div class="container main-content">
                 <div class="d-flex justify-content-between">
                     <div class="footer-left">
@@ -54,8 +52,6 @@
                     </div>
                 </div>
             </div>
-        <%--</div>--%>
-    <%--</div>--%>
 </footer>
 
 </body>

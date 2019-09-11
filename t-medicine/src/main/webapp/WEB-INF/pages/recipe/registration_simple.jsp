@@ -32,7 +32,7 @@
                     <div class="col-md-6 offset-md-3">
                         <label for="healingName">Healing</label>
                         <form:input type="text" path="healingName" id="healingName"
-                                    class="form-control form-control-sm mb-2 mr-2"/>
+                                    class="form-control form-control-sm mb-2 mr-2" required=""/>
                         <form:errors path="healingName" class="text-danger"/>
 
                         <form:select tabindex="0" path="healingType" items="${dto.sourceHealingTypes}" multiple="false"
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <label for="doze">Doze:</label>
-                        <form:input type="text" path="doze" id="doze" class="form-control form-control-sm mb-2 mr-2"/>
+                        <form:input type="text" path="doze" id="doze" class="form-control form-control-sm mb-2 mr-2" required=""/>
                         <form:errors path="doze" class="text-danger"/>
                     </div>
                 </div>

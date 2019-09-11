@@ -1,13 +1,22 @@
 <div *ngIf="!loading">
-<ul>
+<!-- <ul>
     <li *ngFor="let item of boardSettingsService.boardSettings; let i=index">
-        <span [class.done]="item.show">
+        <span>
             <input type="checkbox" [checked]="item.show" (change)="onChange(item.id)">
             <strong>{{ i+1 }}</strong> {{item.title}}
         </span>
     </li>
-</ul>
-<button type="button" (click)="onSendSettings()">click me</button>
+</ul> -->
+<div class="uicont">
+    <div class="licont" *ngFor="let item of boardSettingsService.boardSettings; let i=index">
+        <span>
+            <input type="checkbox" [checked]="item.show" (change)="onChange(item.id)">
+            <strong> </strong> {{item.title}}
+        </span>
+    </div>
+</div>
+    <br>
+<button type="button" (click)="onSendSettings()" class="btn btn-success mr-2 btn-sm">Save settings</button>
 </div>
 <p *ngIf="loading">Loading....</p>
 

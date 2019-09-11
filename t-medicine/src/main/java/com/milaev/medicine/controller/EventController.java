@@ -96,6 +96,7 @@ public class EventController {
         log.info("[/event] get request for url /edit/{}", id);
         ModelAndView mav = prepareMAV(dto, null, result);
         eventService.updateProfile(dto);
+        eventService.sendMessageBoard();
         return PageURLContext.getPageRedirect(mav, eventService.URI_LIST);
     }
 

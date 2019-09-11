@@ -17,6 +17,7 @@ body{
 header{
     /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
     flex: 0 0 auto;
+    background-color: #f0f0f0;
 }
 .main-content{
     /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
@@ -27,7 +28,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 50px;
+/*    height: 30px;*/
 }
 
 a{
@@ -50,7 +51,7 @@ a:hover{
 }
 */
 header .navbar-color{
-    background-color: #fff;
+    background-color: #d0d0d0;
 }
 
 header .navbar-dark .navbar-nav .nav-link{
@@ -88,7 +89,7 @@ header .nav-item a:hover::after{
 }
 
 footer{
-    background-color: #f0f0f0;
-    padding: 40px 0;
+    background-color: #e8e8e8;
+    padding: 25px 0;
     color: #000000;
 }

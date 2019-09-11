@@ -161,6 +161,10 @@ public class EventService extends AbstractService {
             createChangedEvents(dto);
         }
 
+        sendMessageBoard();
+    }
+
+    public void sendMessageBoard(){
         messageSender.sendMessage("events_updated");
     }
 

@@ -113,7 +113,7 @@
                     <th>Status</th>
                     <th>Healing</th>
                     <%--<th>info</th>--%>
-                    <th class="col-1"></th>
+                    <%--<th class="col-1"></th>--%>
                 </tr>
                 </thead>
                 <tbody>
@@ -127,7 +127,7 @@
 
                         <th>${event.recipe.healingType}: ${event.recipe.healingName} [${event.recipe.doze}]</th>
 
-                        <td><a href="<c:url value='/event/edit/${event.id}' />">details</a></td>
+                        <%--<td><a href="<c:url value='/event/edit/${event.id}' />">details</a></td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -41,7 +41,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="name">First Name</label>
                             <form:input type="text" path="name" id="name"
-                                        class="form-control form-control-sm "/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="name" class="text-danger"/>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="surname">Surname</label>
                             <form:input type="text" path="surname" id="surname"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="surname" class="text-danger"/>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="insuranceId">Insurance Id</label>
                             <form:input type="text" path="insuranceId" id="insuranceId"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="insuranceId" class="text-danger"/>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="diagnosis">Diagnosis</label>
                             <form:input type="text" path="diagnosis" id="diagnosis"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="diagnosis" class="text-danger"/>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="email">email</label>
                             <form:input type="text" path="email" id="email"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="email" class="text-danger"/>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                         <div class="col-md-6 offset-md-3  mb-2 mr-2">
                             <label for="phone">phone</label>
                             <form:input type="text" path="phone" id="phone"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required=""/>
                             <form:errors path="phone" class="text-danger"/>
                         </div>
                     </div>

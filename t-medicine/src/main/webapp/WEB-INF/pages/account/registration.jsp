@@ -26,7 +26,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
 
                             <label for="login">Login</label>
-                            <form:input type="text" path="login" id="login" class="form-control form-control-sm"/>
+                            <form:input type="text" path="login" id="login" class="form-control form-control-sm" required=""/>
                             <form:errors path="login" class="text-danger"/>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="col-md-6 offset-md-3 mb-2 mr-2">
                             <label for="password">Password</label>
                             <form:input type="password" path="password" id="password"
-                                        class="form-control form-control-sm"/>
+                                        class="form-control form-control-sm" required="" />
                             <form:errors path="password" class="text-danger"/>
                         </div>
                     </div>

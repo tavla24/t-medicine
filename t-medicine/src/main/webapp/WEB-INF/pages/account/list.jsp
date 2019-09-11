@@ -40,7 +40,14 @@
                         <%--<td><a href="<c:url value='/admin/account/edit/${account.login}' />">edit</a></td>--%>
                     <%--</sec:authorize>--%>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>
+                        <%--<td><a href="<c:url value='/admin/account/delete/${account.login}' />">delete</a></td>--%>
+                        <td>
+                            <div class="text-center">
+                            <a href="<c:url value='/admin/account/delete/${account.login}' />">
+                            <img src="res/img/remove.png" style="width: 16px; height: 16px;" alt="Delete image"/>
+                        </a>
+                            </div>
+                        </td>
                     </sec:authorize>
                 </tr>
             </c:forEach>

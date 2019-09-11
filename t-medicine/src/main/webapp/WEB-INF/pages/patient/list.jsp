@@ -59,7 +59,10 @@
                             <%--<td><a href="<c:url value='/patient/edit/${patient.insuranceId}' />">details</a></td>--%>
                             <td><a href="<c:url value='/recipe/list/${patient.insuranceId}' />">recipes</a></td>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/patient/delete/${patient.insuranceId}' />">delete</a></td>
+                            <td>
+                                <div class="text-center">
+                                    <a href="<c:url value='/patient/delete/${patient.insuranceId}' />"><img src="res/img/remove.png" style="width: 16px; height: 16px;" alt="Textual description of bar.png"/></a>
+                                </div></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>

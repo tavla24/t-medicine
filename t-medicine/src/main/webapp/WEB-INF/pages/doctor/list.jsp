@@ -46,7 +46,10 @@
                     <td>${doctor.login}</td>
                     <sec:authorize access="hasRole('ADMIN')">
                         <%--<td><a href="<c:url value='/admin/doctor/edit/${doctor.login}' />">edit</a></td>--%>
-                        <td><a href="<c:url value='/admin/doctor/delete/${doctor.login}' />">delete</a></td>
+                        <td>
+                            <div class="text-center">
+                                <a href="<c:url value='/admin/doctor/delete/${doctor.login}' />"><img src="res/img/remove.png" style="width: 16px; height: 16px;" alt="Textual description of bar.png"/></a>
+                            </div></td>
                     </sec:authorize>
                 </tr>
             </c:forEach>

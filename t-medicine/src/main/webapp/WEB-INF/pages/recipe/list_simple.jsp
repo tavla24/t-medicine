@@ -36,7 +36,10 @@
                         <td>${recipe.dateTo}</td>
                         <%--<td><a href="<c:url value='/recipe/edit/${insuranceId}/${recipe.id}' />">details</a></td>--%>
                         <sec:authorize access="hasRole('ADMIN')">
-                            <td><a href="<c:url value='/recipe/delete/${insuranceId}/${recipe.id}' />">delete</a></td>
+                            <td>
+                                <div class="text-center">
+                                    <a href="<c:url value='/recipe/delete/${insuranceId}/${recipe.id}' />"><img src="res/img/remove.png" style="width: 16px; height: 16px;" alt="Textual description of bar.png"/></a>
+                                </div></td>
                         </sec:authorize>
                     </tr>
                 </c:forEach>
