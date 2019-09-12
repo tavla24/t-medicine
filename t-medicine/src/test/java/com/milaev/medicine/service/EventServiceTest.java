@@ -70,19 +70,21 @@ public class EventServiceTest {
 
     @Test
     public void testIsAllEventsDone() {
-        RecipeSimpleDTO recipe = recipeService.getById(new Long(1));
+        List<RecipeSimpleDTO> list = recipeService.getByInsuranceId("FGR1458762");
+        RecipeSimpleDTO recipe = list.get(0);
         eventService.isAllEventsDone(recipe.getPatient().getInsuranceId());
     }
 
     @Test
-    public void testUpdateEventse() throws ParseException {
-        RecipeSimpleDTO recipe = recipeService.getById(new Long(1));
+    public void testUpdateEvents() throws ParseException {
+        List<RecipeSimpleDTO> list = recipeService.getByInsuranceId("KDE2458762");
+        RecipeSimpleDTO recipe = list.get(0);
         recipe.setDateFrom(format.parse("01/01/2020"));
         recipe.setDateTo(format.parse("03/03/2020"));
         recipe.setDayNamesList(Arrays.asList(DayNameTypes.MONDAY.name(), DayNameTypes.THURSDAY.name()));
         recipe.setDayPartsList(Arrays.asList(DayPartTypes.MORNING.name(), DayPartTypes.EVENING.name()));
         eventService.updateEvents(recipe);
-        eventService.updateEvents(new Long(1));
+        eventService.updateEvents(recipe.getId());
     }
 
     @Test

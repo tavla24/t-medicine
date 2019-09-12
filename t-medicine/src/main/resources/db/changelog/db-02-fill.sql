@@ -27,10 +27,10 @@ INSERT INTO patients (id, doctor_id, diagnosis, insuranceid, status) VALUES
 (5, 2, 'Loss of muscle tone', 'KDE2458762', 'ILL');
 
 INSERT INTO recipes_simple (patient_id, healing_name, healing_type, healthful, date_from, date_to, doze, day_names, day_parts) VALUES
-(3, 'Wear black glasses', 'PROCEDURE', false, '2019-08-21', '2019-08-27', '10 minutes', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
-(4, 'Exercises for eyes', 'PROCEDURE', false, '2019-08-24', '2019-08-30', '3 time for 5 mimutes', 'MONDAY;FRIDAY;', 'MORNING;'),
-(5, 'Multivitamins', 'DRUG', false, '2019-08-23', '2019-08-29', '3 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;'),
-(5, 'Acupuncture', 'PROCEDURE', false, '2019-08-19', '2019-08-26', 'In all body points', 'MONDAY;WEDNESDAY;FRIDAY;SUNDAY;', 'MORNING;NIGHT;');
+(3, 'Wear black glasses', 'PROCEDURE', false, '2019-09-12', '2019-09-18', '10 minutes', 'MONDAY;TUESDAY;FRIDAY;', 'MORNING;EVENING;'),
+(4, 'Exercises for eyes', 'PROCEDURE', false, '2019-09-13', '2019-09-25', '3 time for 5 mimutes', 'MONDAY;FRIDAY;', 'MORNING;'),
+(5, 'Multivitamins', 'DRUG', false, '2019-09-15', '2019-09-29', '3 pills', 'SATURDAY;SUNDAY;', 'DAY;EVENING;NIGHT;'),
+(5, 'Acupuncture', 'PROCEDURE', false, '2019-09-20', '2019-09-26', 'In all body points', 'MONDAY;WEDNESDAY;FRIDAY;SUNDAY;', 'MORNING;NIGHT;');
 
 INSERT INTO articles (imgpath, title, text) VALUES
 ('res/img/image01.jpeg', 'Psychiatric symptoms may indicate the beginning of Alzheimer’s disease', '<div class="texcon">
