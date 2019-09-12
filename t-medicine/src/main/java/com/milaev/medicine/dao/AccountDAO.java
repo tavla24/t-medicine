@@ -36,11 +36,6 @@ public class AccountDAO extends AbstractDAO<Account> implements AccountDAOInterf
         upd(acc);
     }
 
-//    @Override
-//    public Account getById(Long id) {
-//        return getById(id);
-//    }
-
     @Override
     @SuppressWarnings("unchecked")
     public Account getByLogin(String login) {

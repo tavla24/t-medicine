@@ -14,7 +14,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.milaev.medicine")
-//@ComponentScan(basePackages = "com.milaev.medicine.*")
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
@@ -38,10 +37,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return messageSource;
     }
 
-//    @Bean
-//    public ResourceBundleMessageSource messageSource() {
-//        ResourceBundleMessageSource rb = new ResourceBundleMessageSource();
-//        rb.setBasenames(new String[] { "messages/messages", "messages/validation" });
-//        return rb;
-//    }
 }

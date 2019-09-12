@@ -41,7 +41,7 @@ public class DoctorValidatorTest {
     public void setup() {
         acc = new AccountDTO();
         role = new RoleDTO();
-        role.setType(RoleType.ROOT.name());
+        role.setType(RoleType.NURSE.name());
         acc.setRole(role);
 
         doc = new DoctorDTO();

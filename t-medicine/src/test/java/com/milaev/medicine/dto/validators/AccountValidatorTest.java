@@ -41,7 +41,7 @@ public class AccountValidatorTest {
         acc.setOldLogin("");
         acc.setOldPassword(value_str);
         role = new RoleDTO();
-        role.setType(RoleType.ROOT.name());
+        role.setType(RoleType.NURSE.name());
         acc.setRole(role);
 
         errors = new BeanPropertyBindingResult(acc, "acc");

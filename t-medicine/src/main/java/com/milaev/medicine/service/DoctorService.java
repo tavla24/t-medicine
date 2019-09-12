@@ -27,9 +27,9 @@ public class DoctorService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(DoctorService.class);
 
-    public static String PAGE_LIST = "doctor/list";
-    public static String PAGE_REGISTRATION = "doctor/registration";
-    public static String URI_LIST = "/admin/doctor/list";
+    public static final String PAGE_LIST = "doctor/list";
+    public static final String PAGE_REGISTRATION = "doctor/registration";
+    public static final String URI_LIST = "/admin/doctor/list";
 
     @Autowired
     private DoctorDAO daoDoctor;
@@ -152,8 +152,7 @@ public class DoctorService extends AbstractService {
     }
 
     private void report(Exception ex) {
-        log.error("Exception from Service during DB query");
-        ex.printStackTrace();
+        log.error("Exception from Service during DB query", ex);
         throw new NullResultFromDBException();
     }
 }

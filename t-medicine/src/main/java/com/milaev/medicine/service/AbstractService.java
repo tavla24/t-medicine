@@ -10,7 +10,7 @@ public abstract class AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(AbstractService.class);
 
-    public static String URI_MAIN = "/";
+    public static final String URI_MAIN = "/";
 
     @Autowired
     private SessionAuthenticationInterface sessionAuth;

@@ -2,7 +2,7 @@
 --changeset milaev:create-test-table
 
 --DROP DATABASE IF EXISTS hospital;
-CREATE SCHEMA hospital;
+CREATE SCHEMA IF NOT EXISTS hospital;
 USE hospital;
 
 --DROP TABLE IF EXISTS persistent_logins;
@@ -93,6 +93,14 @@ CREATE TABLE persistent_logins (
   token VARCHAR(64) NOT NULL,
   last_used TIMESTAMP NOT NULL,
   PRIMARY KEY (series)
+);
+
+CREATE TABLE articles (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  imgpath VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  text LONGTEXT NOT NULL,
+  PRIMARY KEY (id)
 );
 
 ALTER TABLE accounts

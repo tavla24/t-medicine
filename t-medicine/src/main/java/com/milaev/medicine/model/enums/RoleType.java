@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum RoleType {
-    ROOT("ROOT"), ADMIN("ADMIN"), USER("USER"), DOCTOR("DOCTOR"), NURSE("NURSE"), PATIENT("PATIENT");
+    ADMIN("ADMIN"), DOCTOR("DOCTOR"), NURSE("NURSE");
 
     String userProfileType;
 

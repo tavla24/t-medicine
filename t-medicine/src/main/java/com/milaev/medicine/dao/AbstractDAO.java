@@ -57,7 +57,6 @@ public abstract class AbstractDAO<T> {
         }
 
         return getQResults(query);
-        //return query.getQResults();
     }
 
     protected List<T> getByQuery(String queryString, Map<String, Object> queryParams, int start, int size) {
@@ -71,7 +70,6 @@ public abstract class AbstractDAO<T> {
         }
 
         return getQResults(query);
-        //return query.getQResults();
     }
 
     protected List<T> getByParams(TypedQuery<T> query, String... params) {
@@ -79,7 +77,6 @@ public abstract class AbstractDAO<T> {
             query.setParameter(String.format("param%d", i + 1), params[i]);
         }
         return getQResults(query);
-        //return query.getQResults();
     }
 
     protected T getByParamsSingle(TypedQuery<T> query, String... params) {
@@ -87,7 +84,6 @@ public abstract class AbstractDAO<T> {
             query.setParameter(String.format("param%d", i + 1), params[i]);
         }
         return getQResult(query);
-        //return query.getQResult();
     }
 
     protected List<T> getByParams(TypedQuery<T> query, Long... params) {
@@ -95,7 +91,6 @@ public abstract class AbstractDAO<T> {
             query.setParameter(String.format("param%d", i + 1), params[i]);
         }
         return getQResults(query);
-        //return query.getQResults();
     }
 
     protected T getByParamsSingle(TypedQuery<T> query, Long... params) {
@@ -103,16 +98,13 @@ public abstract class AbstractDAO<T> {
             query.setParameter(String.format("param%d", i + 1), params[i]);
         }
         return getQResult(query);
-        //return query.getQResult();
     }
 
     protected T per(T db) {
         try {
             getCurrentSession().persist(db);
         } catch (Exception ex) {
-            // TODO exceptions (double var) dont catched
-            log.error("Exception /persist/ from DAO during DB query");
-            ex.printStackTrace();
+            log.error("Exception /persist/ from DAO during DB query", ex);
         }
         return db;
     }
@@ -121,8 +113,7 @@ public abstract class AbstractDAO<T> {
         try {
             getCurrentSession().delete(db);
         } catch (Exception ex) {
-            log.error("Exception /delete/ from DAO during DB query");
-            ex.printStackTrace();
+            log.error("Exception /delete/ from DAO during DB query", ex);
         }
         return db;
     }
@@ -131,8 +122,7 @@ public abstract class AbstractDAO<T> {
         try {
             getCurrentSession().update(db);
         } catch (Exception ex) {
-            log.error("Exception /update/ from DAO during DB query");
-            ex.printStackTrace();
+            log.error("Exception /update/ from DAO during DB query", ex);
         }
         return db;
     }
@@ -150,7 +140,6 @@ public abstract class AbstractDAO<T> {
     protected static <T> List<T> getQResults(TypedQuery<T> query) {
         List<T> list = query.getResultList();
         if (list == null || list.isEmpty()) {
-//            return null;
             return new ArrayList<T>();
         }
 

@@ -1,7 +1,7 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.config.HibernateTestConfig;
 import com.milaev.medicine.config.WebMvcConfig;
+import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,13 +21,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WebMvcConfig.class, WebSecurityConfig.class, HibernateTestConfig.class
+        WebMvcConfig.class, WebSecurityConfig.class, HibernateConfig.class
 })
 @WebAppConfiguration
 public class AccountsControllerTest {
@@ -50,8 +46,6 @@ public class AccountsControllerTest {
                 .andReturn();
 
         ModelAndView mav = result.getModelAndView();
-
-//        Assert.assertNotNull( result.getFieldError("info") );
     }
 
     @Test

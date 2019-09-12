@@ -56,6 +56,13 @@ public class MapperUtil {
         return mapper::map;
     }
 
+    public static BiConsumer<ArticleDTO, Article> toEntityArticle() {
+        return mapper::map;
+    }
+    public static BiConsumer<Article, ArticleDTO> toDTOArticle() {
+        return mapper::map;
+    }
+
     @PostConstruct
     public void postConstruct() {
         mapper = new ModelMapper();
@@ -84,6 +91,10 @@ public class MapperUtil {
         mapper.createTypeMap(RoleDTO.class, Role.class).setPropertyCondition(Conditions.isNotNull())
                 .addMappings(map -> map.skip(Role::setId));
         mapper.createTypeMap(Role.class, RoleDTO.class).setPropertyCondition(Conditions.isNotNull());
+
+        mapper.createTypeMap(ArticleDTO.class, Article.class).setPropertyCondition(Conditions.isNotNull())
+                .addMappings(map -> map.skip(Article::setId));
+        mapper.createTypeMap(Article.class, ArticleDTO.class).setPropertyCondition(Conditions.isNotNull());
 
     }
 }

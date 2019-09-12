@@ -34,9 +34,9 @@ public class EventService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(EventService.class);
 
-    public static String PAGE_LIST = "event/list";
-    public static String PAGE_REGISTRATION = "event/registration";
-    public static String URI_LIST = "/event/list";
+    public static final String PAGE_LIST = "event/list";
+    public static final String PAGE_REGISTRATION = "event/registration";
+    public static final String URI_LIST = "/event/list";
 
     @Autowired
     private EventDAO daoEvent;
@@ -52,6 +52,9 @@ public class EventService extends AbstractService {
 
     @Autowired
     private MessageSender messageSender;
+
+    @Autowired
+    EmailService emailService;
 
     public void checkDTO(EventDTO dto, BindingResult result,
                           ModelAndView mav) {
@@ -105,7 +108,8 @@ public class EventService extends AbstractService {
 
         List<ExchangeData> listDTO = new ArrayList<>();
         for (Event item : list)
-            listDTO.add(DataExchangeConverter.toDTO(item));
+            if (item.getStatus().equals(EventStatus.PLAN.name()))
+                listDTO.add(DataExchangeConverter.toDTO(item));
         return listDTO;
     }
 
@@ -134,8 +138,7 @@ public class EventService extends AbstractService {
         try {
             daoEvent.delete(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 
@@ -192,6 +195,9 @@ public class EventService extends AbstractService {
                 updateProfile(eventDTO);
             }
         }
+
+        emailService.sendEmail("t-med-com@mail.ru");
+        emailService.sendEmail(dto.getPatient().getEmail());
     }
 
     @Transactional
@@ -211,8 +217,7 @@ public class EventService extends AbstractService {
         try {
             daoEvent.insert(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 
@@ -222,8 +227,7 @@ public class EventService extends AbstractService {
         try {
             daoEvent.update(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.milaev.medicine.controller;
 
-import com.milaev.medicine.config.HibernateTestConfig;
+import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.WebMvcConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
 import org.junit.Before;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WebMvcConfig.class, WebSecurityConfig.class, HibernateTestConfig.class
+        WebMvcConfig.class, WebSecurityConfig.class, HibernateConfig.class
 })
 @WebAppConfiguration
 public class MainControllerTest {
@@ -42,7 +42,7 @@ public class MainControllerTest {
     public void homeShouldRedirectToUsersPage() throws Exception {
         MvcResult result = mvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"))
+                .andExpect(view().name("index2"))
                 .andReturn();
 
         ModelAndView mav = result.getModelAndView();

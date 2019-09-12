@@ -26,9 +26,9 @@ public class AccountService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(AccountService.class);
 
-    public static String PAGE_LIST = "account/list";
-    public static String PAGE_REGISTRATION = "account/registration";
-    public static String URI_LIST = "/admin/account/list";
+    public static final String PAGE_LIST = "account/list";
+    public static final String PAGE_REGISTRATION = "account/registration";
+    public static final String URI_LIST = "/admin/account/list";
 
     @Autowired
     private AccountDAO daoAccount;
@@ -152,8 +152,7 @@ public class AccountService extends AbstractService {
     }
 
     private void report(Exception ex) {
-        log.error("Exception from Service during DB query");
-        ex.printStackTrace();
+        log.error("Exception from Service during DB query", ex);
         throw new NullResultFromDBException();
     }
 }

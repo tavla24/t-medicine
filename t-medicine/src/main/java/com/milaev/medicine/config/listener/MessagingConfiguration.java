@@ -14,8 +14,6 @@ import java.util.Arrays;
 @PropertySource("classpath:mq/mq.properties")
 public class MessagingConfiguration {
 
-    //@Autowired
-    //MQProperties mqProperties;
     @Autowired
     private Environment env;
 

@@ -39,25 +39,33 @@ public class DoctorsController {
     @GetMapping("/admin/doctor/list")
     public ModelAndView listDoctors() {
         log.info("[/admin/doctor] get request for url /list");
-        return mavList();
+        ModelAndView mav = doctorService.getPreparedMAV();
+        mav.addObject("dto", doctorService.getAll());
+        return PageURLContext.getPage(mav, doctorService.PAGE_LIST);
     }
 
     @GetMapping("/admin/doctor/new")
     public ModelAndView newDoctor() {
         log.info("[/admin/doctor] get request for url /new");
-        return mavNew();
+        ModelAndView mav = doctorService.getPreparedMAV();
+        mav.addObject("dto", new DoctorDTO());
+        return PageURLContext.getPage(mav, doctorService.PAGE_REGISTRATION);
     }
 
     @PostMapping("/admin/doctor/new")
     public ModelAndView newDoctor(@Validated DoctorDTO dto, BindingResult result) {
         log.info("[/admin/doctor] post request for url /new");
-        return mavNew(dto, result);
+        ModelAndView mav = doctorService.getPreparedMAV();
+        doctorService.checkDTO(dto, result, mav);
+        doctorService.updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, doctorService.URI_LIST);
     }
 
     @GetMapping("/admin/doctor/delete/{login}")
     public ModelAndView deleteDoctor(@PathVariable String login) {
         log.info("[/admin/doctor] get request for url /delete/{}", login);
-        return mavDelete(login);
+        doctorService.deleteProfile(login);
+        return PageURLContext.getPageRedirect(new ModelAndView(), doctorService.URI_LIST);
     }
 
     @GetMapping("/admin/doctor/edit/{login}" )
@@ -70,7 +78,10 @@ public class DoctorsController {
     public ModelAndView editDoctor(@Validated DoctorDTO dto, BindingResult result,
                                      @PathVariable String login) {
         log.info("[/admin/doctor] post request for url /edit/{}", login);
-        return mavEdit(dto, result);
+        ModelAndView mav = doctorService.getPreparedMAV();
+        doctorService.checkDTO(dto, result, mav);
+        doctorService.updateProfile(dto);
+        return PageURLContext.getPageRedirect(mav, doctorService.URI_MAIN);
     }
 
     @GetMapping("/doctor/edit")
@@ -83,31 +94,12 @@ public class DoctorsController {
     public ModelAndView updateDoctor(@Validated DoctorDTO dto, BindingResult result) {
         //return "redirect:/";
         log.info("[/doctor] post request for url /edit");
-        return mavEdit(dto, result);
-    }
-
-
-    private ModelAndView mavList() {
-        log.info("called DoctorService.mavList");
-        ModelAndView mav = doctorService.getPreparedMAV();
-        mav.addObject("dto", doctorService.getAll());
-        return PageURLContext.getPage(mav, doctorService.PAGE_LIST);
-    }
-
-    private ModelAndView mavNew() {
-        log.info("called DoctorService.mavNew");
-        ModelAndView mav = doctorService.getPreparedMAV();
-        mav.addObject("dto", new DoctorDTO());
-        return PageURLContext.getPage(mav, doctorService.PAGE_REGISTRATION);
-    }
-
-    private ModelAndView mavNew(DoctorDTO dto, BindingResult result) {
-        log.info("called DoctorService.mavNew with dto");
         ModelAndView mav = doctorService.getPreparedMAV();
         doctorService.checkDTO(dto, result, mav);
         doctorService.updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, doctorService.URI_LIST);
+        return PageURLContext.getPageRedirect(mav, doctorService.URI_MAIN);
     }
+
 
     private ModelAndView mavEdit(String login) {
         log.info("called DoctorService.mavEdit");
@@ -131,17 +123,4 @@ public class DoctorsController {
         return PageURLContext.getPage(mav, doctorService.PAGE_REGISTRATION);
     }
 
-    private ModelAndView mavEdit(DoctorDTO dto, BindingResult result) {
-        log.info("called DoctorService.mavEdit with dto");
-        ModelAndView mav = doctorService.getPreparedMAV();
-        doctorService.checkDTO(dto, result, mav);
-        doctorService.updateProfile(dto);
-        return PageURLContext.getPageRedirect(mav, doctorService.URI_MAIN);
-    }
-
-    private ModelAndView mavDelete(String login) {
-        log.info("called DoctorService.mavDelete");
-        doctorService.deleteProfile(login);
-        return PageURLContext.getPageRedirect(new ModelAndView(), doctorService.URI_LIST);
-    }
 }

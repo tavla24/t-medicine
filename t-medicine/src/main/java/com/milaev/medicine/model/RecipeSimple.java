@@ -13,7 +13,7 @@ public class RecipeSimple {
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST }
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
@@ -29,27 +29,21 @@ public class RecipeSimple {
     @Column(name = "doze", nullable = false)
     private String doze;
 
-    //@Converter
-    //private List<String> dayNames;
-    //private List<String> dayParts;
-
     @Column(name = "day_names", nullable = false)
     private String dayNames;
 
     @Column(name = "day_parts", nullable = false)
     private String dayParts;
 
-    @Column(name = "date_from", nullable = false)//, nullable = false
+    @Column(name = "date_from", nullable = false)
     @Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateFrom;
 
-    @Column(name = "date_to", nullable = false)//, nullable = false
+    @Column(name = "date_to", nullable = false)
     @Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateTo;
 
-    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})//, cascade = { CascadeType.MERGE, CascadeType.PERSIST } orphanRemoval = true
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY, cascade = { CascadeType.REMOVE})
     private List<Event> events;
 
     public Long getId() {

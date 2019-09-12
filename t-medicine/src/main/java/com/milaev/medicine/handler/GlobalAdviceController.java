@@ -88,7 +88,7 @@ public class GlobalAdviceController extends DefaultHandlerExceptionResolver {
     }
 
     private ModelAndView fillPageContent(String message, Exception ex){
-        ex.printStackTrace();
+        log.error("Exception occured", ex);
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex);
         mav.addObject("errorMessage", message);

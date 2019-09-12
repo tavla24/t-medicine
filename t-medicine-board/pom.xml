@@ -13,20 +13,26 @@
     <name>t-medicine-board Maven Webapp</name>
     <url>http://www.t-medicine-board.com</url>
 
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>prime-repo</id>-->
-            <!--<name>PrimeFaces Maven Repository</name>-->
-            <!--<url>http://repository.primefaces.org</url>-->
-            <!--<layout>default</layout>-->
-        <!--</repository>-->
-    <!--</repositories>-->
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
         <version.t-medicine-mq>1.0</version.t-medicine-mq>
+
+        <version.javax.servlet-api>4.0.1</version.javax.servlet-api>
+        <version.javax.ejb-api>3.2.2</version.javax.ejb-api>
+        <version.javax.jms-api>2.0.1</version.javax.jms-api>
+        <version.javax.inject>1</version.javax.inject>
+        <version.activemq-all>5.15.8</version.activemq-all>
+        <version.jackson-mapper-asl>1.9.13</version.jackson-mapper-asl>
+        <version.javaee-api>7.0</version.javaee-api>
+        <version.primefaces>7.0</version.primefaces>
+        <version.datafactory>0.8</version.datafactory>
+        <version.h2>1.4.193</version.h2>
+        <version.hibernate-core>5.2.8.Final</version.hibernate-core>
+        <version.javax.persistence-api>2.2</version.javax.persistence-api>
+        <version.commons-lang>2.6</version.commons-lang>
+        <version.junit>4.12</version.junit>
     </properties>
 
     <dependencies>
@@ -37,119 +43,91 @@
             <version>${version.t-medicine-mq}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${version.javax.servlet-api}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
         <dependency>
             <groupId>javax.ejb</groupId>
             <artifactId>javax.ejb-api</artifactId>
-            <version>3.2.2</version>
+            <version>${version.javax.ejb-api}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.jms/javax.jms-api -->
         <dependency>
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
-            <version>2.0.1</version>
+            <version>${version.javax.jms-api}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${version.javax.inject}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-all -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-all</artifactId>
-            <version>5.15.8</version>
+            <version>${version.activemq-all}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
+            <version>${version.jackson-mapper-asl}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>${version.javaee-api}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>7.0</version>
+            <version>${version.primefaces}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.primefaces.themes/all-themes -->
-        <!--<dependency>-->
-            <!--<groupId>org.primefaces.themes</groupId>-->
-            <!--<artifactId>all-themes</artifactId>-->
-            <!--<version>1.0.9</version>-->
-        <!--</dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/org.fluttercode.datafactory/datafactory -->
         <dependency>
             <groupId>org.fluttercode.datafactory</groupId>
             <artifactId>datafactory</artifactId>
-            <version>0.8</version>
+            <version>${version.datafactory}</version>
         </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.193</version>
+            <version>${version.h2}</version>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.8.Final</version>
+            <version>${version.hibernate-core}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>javax.persistence</groupId>-->
-            <!--<artifactId>persistence-api</artifactId>-->
-            <!--<version>1.0.2</version>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
+            <version>${version.javax.persistence-api}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.sun.faces</groupId>-->
-            <!--<artifactId>jsf-api</artifactId>-->
-            <!--<version>2.2.14</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.sun.faces</groupId>-->
-            <!--<artifactId>jsf-impl</artifactId>-->
-            <!--<version>2.2.14</version>-->
-        <!--</dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${version.commons-lang}</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
 

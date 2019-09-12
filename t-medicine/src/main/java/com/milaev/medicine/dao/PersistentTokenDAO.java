@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
-//import org.apache.log4j.Logger;
-
 @Repository
 public class PersistentTokenDAO implements PersistentTokenDAOInterface {
 
@@ -93,7 +91,6 @@ public class PersistentTokenDAO implements PersistentTokenDAOInterface {
         sessionFactory.getCurrentSession().delete(entity);
     }
 
-    // TODO deprecated
     protected Criteria createEntityCriteria() {
         return sessionFactory.getCurrentSession().createCriteria(PersistentToken.class);
     }

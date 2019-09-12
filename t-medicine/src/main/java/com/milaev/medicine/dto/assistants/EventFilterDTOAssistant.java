@@ -24,12 +24,12 @@ public class EventFilterDTOAssistant {
         queryParams = new HashMap<>();
 
         if (isValid(eventFilterDTO.getName())) {
-            queryStringBuilder.add(" f.recipe.patient.name = :p_name");
-            queryParams.put("p_name", eventFilterDTO.getName());
+            queryStringBuilder.add(" f.recipe.patient.name LIKE :p_name");
+            queryParams.put("p_name", "%" + eventFilterDTO.getName() + "%");
         }
         if (isValid(eventFilterDTO.getSurname())) {
-            queryStringBuilder.add(" f.recipe.patient.surname = :p_surname");
-            queryParams.put("p_surname", eventFilterDTO.getSurname());
+            queryStringBuilder.add(" f.recipe.patient.surname LIKE :p_surname");
+            queryParams.put("p_surname", "%" + eventFilterDTO.getSurname() + "%");
         }
         if (eventFilterDTO.getNextHours() != null) {
             Date currDateTime = new Date();

@@ -27,9 +27,9 @@ public class PatientService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(PatientService.class);
 
-    public static String PAGE_LIST = "patient/list";
-    public static String PAGE_REGISTRATION = "patient/registration";
-    public static String URI_LIST = "/patient/list";
+    public static final String PAGE_LIST = "patient/list";
+    public static final String PAGE_REGISTRATION = "patient/registration";
+    public static final String URI_LIST = "/patient/list";
 
     @Autowired
     private PatientDAO daoPatient;
@@ -133,8 +133,7 @@ public class PatientService extends AbstractService {
         try {
             daoPatient.delete(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 
@@ -155,8 +154,7 @@ public class PatientService extends AbstractService {
         try {
             daoPatient.update(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 
@@ -166,8 +164,7 @@ public class PatientService extends AbstractService {
         try {
             daoPatient.insert(db);
         } catch (Exception ex) {
-            log.error("Exception from Service during DB query");
-            ex.printStackTrace();
+            log.error("Exception from Service during DB query", ex);
         }
     }
 

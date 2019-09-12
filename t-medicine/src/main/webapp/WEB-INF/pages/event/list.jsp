@@ -136,8 +136,12 @@
         <div class="text-center">
             <c:url var="linkPrev" value='/event/list/prev' />
             <c:url var="linkNext" value='/event/list/next' />
-            <input type="submit" value="Prev" class="btn btn-success mr-2 btn-sm" formaction="${linkPrev}" form="mainf"/>
-            <input type="submit" value="Next" class="btn btn-success mr-2 btn-sm" formaction="${linkNext}" form="mainf"/>
+            <c:if test="${filter.navigation.prevExist}">
+                <input type="submit" value="Prev" class="btn btn-success mr-2 btn-sm" formaction="${linkPrev}" form="mainf"/>
+            </c:if>
+            <c:if test="${filter.navigation.nextExist}">
+                <input type="submit" value="Next" class="btn btn-success mr-2 btn-sm" formaction="${linkNext}" form="mainf"/>
+            </c:if>
         </div>
 
     </jsp:body>

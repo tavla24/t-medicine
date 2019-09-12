@@ -24,9 +24,9 @@ public class RecipeSimpleService extends AbstractService {
 
     private static Logger log = LoggerFactory.getLogger(RecipeSimpleService.class);
 
-    public static String PAGE_LIST = "recipe/list_simple";
-    public static String PAGE_REGISTRATION = "recipe/registration_simple";
-    public static String URI_LIST = "/recipe/list";
+    public static final String PAGE_LIST = "recipe/list_simple";
+    public static final String PAGE_REGISTRATION = "recipe/registration_simple";
+    public static final String URI_LIST = "/recipe/list";
 
     @Autowired
     private RecipeSimpleDAO daoRecipeSimple;
@@ -151,8 +151,7 @@ public class RecipeSimpleService extends AbstractService {
     }
 
     private void report(Exception ex) {
-        log.error("Exception from Service during DB query");
-        ex.printStackTrace();
+        log.error("Exception from Service during DB query", ex);
         throw new NullResultFromDBException();
     }
 }

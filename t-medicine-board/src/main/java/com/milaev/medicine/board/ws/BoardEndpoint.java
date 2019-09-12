@@ -35,7 +35,7 @@ public class BoardEndpoint {
         try {
             session.getBasicRemote().sendText(String.format("We received your message: %s%n", message));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            log.error("Error while sending message", ex);
         }
     }
 

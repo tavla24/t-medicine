@@ -13,9 +13,9 @@ public class Patient extends Person {
     private String diagnosis;
 
     @Column(nullable = false)
-    private String status;// = PatientStatus.ILL.getPatientStatus();
+    private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)//, cascade = { CascadeType.MERGE, CascadeType.PERSIST }
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 

@@ -1,7 +1,7 @@
 package com.milaev.medicine.controller;
 
 
-import com.milaev.medicine.config.HibernateTestConfig;
+import com.milaev.medicine.config.HibernateConfig;
 import com.milaev.medicine.config.WebMvcConfig;
 import com.milaev.medicine.config.security.WebSecurityConfig;
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        WebMvcConfig.class, WebSecurityConfig.class, HibernateTestConfig.class
+        WebMvcConfig.class, WebSecurityConfig.class, HibernateConfig.class
 })
 @WebAppConfiguration
 public class SecurityControllerTest {
@@ -44,7 +44,6 @@ public class SecurityControllerTest {
         mvc = MockMvcBuilders
                 .webAppContextSetup(wac)
                 .defaultRequest(get("/").with(user("admin").roles("ADMIN")))
-//                .addFilters(springSecurityFilterChain)
                 .apply(springSecurity())
                 .build();
     }

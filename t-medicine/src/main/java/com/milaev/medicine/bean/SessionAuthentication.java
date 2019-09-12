@@ -22,7 +22,6 @@ public class SessionAuthentication implements SessionAuthenticationInterface {
     @Autowired
     AuthenticationTrustResolver authenticationTrustResolver;
 
-    // TODO another way? by global context, ...
     @Override
     public String getUserName() {
         return getPrincipal();
@@ -37,7 +36,6 @@ public class SessionAuthentication implements SessionAuthenticationInterface {
     private String getPrincipal() {
         log.info("getPrincipal()");
         String userName = null;
-        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         Object principal = "anonymmousUser";

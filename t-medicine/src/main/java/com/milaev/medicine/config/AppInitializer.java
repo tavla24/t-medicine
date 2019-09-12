@@ -13,21 +13,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-    // TODO AbstractAnnotationConfigDispatcherServletInitializer vs
-    // AnnotationConfigWebApplicationContext (WebApplicationInitializer)
 
-    // TODO in all notes HibernateConfig.class, SecurityConfig.class - in the
-    // getRootConfigClasses()
-    // WebMvcConfig.class - in the getServletConfigClasses()
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        // return new Class[] { HibernateConfig.class };
         return null;
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] { WebMvcConfig.class, WebSecurityConfig.class, HibernateConfig.class };
+        return new Class[] { WebMvcConfig.class, WebSecurityConfig.class, HibernateConfig.class, MailConfig.class };
     }
 
     @Override
@@ -60,7 +54,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
 
-        // throw NoHandlerFoundException to Controller
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
 
         ServletRegistration.Dynamic registration = servletContext.addServlet(servletName, dispatcherServlet);

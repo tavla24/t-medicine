@@ -8,6 +8,9 @@ public class NavigationWrapper {
     private int skip = 0;
     private long count = -1;
 
+    private boolean nextExist = false;
+    private boolean prevExist = false;
+
     public void setNextPage(){
         skip += view;
     }
@@ -44,6 +47,22 @@ public class NavigationWrapper {
         return skip;
     }
 
+    public boolean isNextExist() {
+        return nextExist;
+    }
+
+    public void setNextExist(boolean nextExist) {
+        this.nextExist = nextExist;
+    }
+
+    public boolean isPrevExist() {
+        return prevExist;
+    }
+
+    public void setPrevExist(boolean prevExist) {
+        this.prevExist = prevExist;
+    }
+
     public void setCount(long count) {
         this.count = count;
         if (next)
@@ -67,6 +86,14 @@ public class NavigationWrapper {
 
         if (skip < 0)
             skip = 0;
+
+        nextExist = true;
+        prevExist = true;
+        if (skip + view >= count)
+            nextExist = false;
+
+        if (skip - view < 0)
+            prevExist = false;
     }
 
 }

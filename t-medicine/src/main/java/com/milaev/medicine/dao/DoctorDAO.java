@@ -18,10 +18,8 @@ public class DoctorDAO extends AbstractDAO<Doctor> implements DoctorDAOInterface
     @SuppressWarnings("unchecked")
     public List<Doctor> getAll() {
         Query<Doctor> query = getCurrentSession().createQuery("from Doctor");
-        //Query<Doctor> query = getCurrentSession().createQuery("from Doctor as d where d.account.role.type = :paramName");
-        //query.setParameter("paramName", "DOCTOR");
 
-        return getAll(query);//getByParams(query);
+        return getAll(query);
     }
 
     @Override

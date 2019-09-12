@@ -11,21 +11,6 @@ import static org.mockito.Mockito.mock;
 //@ComponentScan("com.milaev.medicine")
 public class TestConfig {
 
-//    @Bean
-//    public AccountValidator accountValidator() {
-//        return new AccountValidator();
-//    }
-//
-//    @Bean
-//    public DoctorValidator doctorValidator() {
-//        return new DoctorValidator();
-//    }
-//
-//    @Bean
-//    public EventValidator eventValidator() {
-//        return new EventValidator();
-//    }
-//
     @Bean
     public SessionAuthenticationInterface sessionAuthentication() {
         return mock(SessionAuthentication.class);

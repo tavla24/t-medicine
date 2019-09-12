@@ -106,9 +106,11 @@
 
             <br>
             <c:if test="${!dto.healthful}">
+            <c:if test="${dto.patient.status == 'ILL'}">
             <div class="text-center">
                 <input type="submit" value="Save" class="btn btn-success mr-2 btn-sm"/>
             </div>
+            </c:if>
             </c:if>
         </form:form>
 

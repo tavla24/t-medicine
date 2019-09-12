@@ -1,6 +1,8 @@
 package com.milaev.medicine.controller;
 
 import com.milaev.medicine.bean.interfaces.SessionAuthenticationInterface;
+import com.milaev.medicine.service.ArticleService;
+import com.milaev.medicine.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class SecurityController {
@@ -17,12 +22,19 @@ public class SecurityController {
     @Autowired
     private SessionAuthenticationInterface sessionAuth;
 
+    @Autowired
+    private ArticleService articleService;
+
+    @Autowired
+    EmailService emailService;
+
     @GetMapping("/")
     public String index(Model model) {
         if (!sessionAuth.isAnonymousSession()) {
             model.addAttribute("loggedinuser", sessionAuth.getUserName());
         }
-        return "index";
+        model.addAttribute("dto", articleService.getAll());
+        return "index2";
     }
 
     @GetMapping("/login")

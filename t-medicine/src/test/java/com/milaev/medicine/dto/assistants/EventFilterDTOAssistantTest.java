@@ -26,7 +26,7 @@ public class EventFilterDTOAssistantTest {
         dto.setName("name");
 
         filter.createQuery(dto, false);
-        Assert.assertEquals("from Event as f where f.recipe.patient.name = :p_name", filter.getQueryString());
+        Assert.assertEquals("from Event as f where f.recipe.patient.name LIKE :p_name", filter.getQueryString());
         Assert.assertEquals(1, filter.getQueryParams().size());
     }
 
@@ -36,7 +36,7 @@ public class EventFilterDTOAssistantTest {
         dto.setSurname("surname");
 
         filter.createQuery(dto, false);
-        Assert.assertEquals("from Event as f where f.recipe.patient.surname = :p_surname", filter.getQueryString());
+        Assert.assertEquals("from Event as f where f.recipe.patient.surname LIKE :p_surname", filter.getQueryString());
         Assert.assertEquals(1, filter.getQueryParams().size());
     }
 
@@ -106,7 +106,7 @@ public class EventFilterDTOAssistantTest {
         dto.setHealingType("type");
 
         filter.createQuery(dto, false);
-        Assert.assertEquals("from Event as f where f.recipe.patient.name = :p_name and f.recipe.patient.surname = :p_surname and f.datestamp > :p_date_now and f.datestamp < :p_date_next and f.status = :p_status and f.recipe.healingType = :p_healing_type order by f.datestamp", filter.getQueryString());
+        Assert.assertEquals("from Event as f where f.recipe.patient.name LIKE :p_name and f.recipe.patient.surname LIKE :p_surname and f.datestamp > :p_date_now and f.datestamp < :p_date_next and f.status = :p_status and f.recipe.healingType = :p_healing_type order by f.datestamp", filter.getQueryString());
         Assert.assertEquals(6, filter.getQueryParams().size());
     }
 }

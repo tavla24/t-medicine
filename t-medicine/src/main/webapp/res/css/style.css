@@ -17,7 +17,6 @@ body{
 header{
     /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
     flex: 0 0 auto;
-    background-color: #f0f0f0;
 }
 .main-content{
     /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
