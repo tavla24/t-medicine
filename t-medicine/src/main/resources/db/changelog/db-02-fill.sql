@@ -5,10 +5,10 @@ INSERT INTO roles (type) VALUES
 ('ADMIN'), ('DOCTOR'), ('NURSE');
 
 INSERT INTO accounts (login, password, role_id) VALUES
-('admin', 'PW_2222', 1),
-('ivanov', 'PW_4444', 2),
-('petrov', 'PW_4444', 2),
-('sidorov', 'PW_5555', 3);
+('admin', '$2a$10$omtBnRnLTemPYmeACLCKwORt5xca/frGEzBxN7uSPOsBvIf5DhjAO', 1),
+('ivanov', '$2a$10$u2CvCFwSZfiGFXw22tv1/elGnbLptgY6CMC/oQoUHB95Grg7.TqiS', 2),
+('petrov', '$2a$10$u2CvCFwSZfiGFXw22tv1/elGnbLptgY6CMC/oQoUHB95Grg7.TqiS', 2),
+('sidorov', '$2a$10$5LEMOdG6OrYHhxotf/uw2.QywLzCYqygYf5QtZrn/Uw.wjvprOjSu', 3);
 
 INSERT INTO persons (name, surname, patronymic, email, phone, account_id) VALUES
 ('Sergey', 'Ivanov', 'Aleksandrovich', 'ivanov@mail.ru', '7-921-5486257', 2),

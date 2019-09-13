@@ -28,7 +28,7 @@ public class DoctorServiceTest {
 
     @Test
     public void testGetById() {
-        DoctorDTO doc = doctorService.getById(new Long(1));
+        DoctorDTO doc = doctorService.getById(1l);
     }
 
     @Test

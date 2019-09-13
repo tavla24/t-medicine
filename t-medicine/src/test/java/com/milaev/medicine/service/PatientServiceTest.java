@@ -32,7 +32,7 @@ public class PatientServiceTest {
 
     @Test
     public void testGetById() {
-        PatientDTO dto = patientService.getById(new Long(3));
+        PatientDTO dto = patientService.getById(3l);
         Assert.assertEquals(dto.getInsuranceId(), "FGR1458762");
     }
     @Test

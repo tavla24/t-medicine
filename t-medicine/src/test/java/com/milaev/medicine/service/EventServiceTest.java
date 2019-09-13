@@ -49,7 +49,7 @@ public class EventServiceTest {
 
     @Test
     public void testGetById() {
-        eventService.getById(new Long(0));
+        eventService.getById(0l);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class EventServiceTest {
 
     @Test
     public void testGetByRecipeId() {
-        eventService.getByRecipeId(new Long(0));
+        eventService.getByRecipeId(0l);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class EventServiceTest {
 
     @Test
     public void testUpdateEvents() throws ParseException {
-        List<RecipeSimpleDTO> list = recipeService.getByInsuranceId("KDE2458762");
+        List<RecipeSimpleDTO> list = recipeService.getByInsuranceId("FGR1458762");
         RecipeSimpleDTO recipe = list.get(0);
         recipe.setDateFrom(format.parse("01/01/2020"));
         recipe.setDateTo(format.parse("03/03/2020"));

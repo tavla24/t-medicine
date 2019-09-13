@@ -39,7 +39,7 @@ public class MainControllerTest {
     }
 
     @Test
-    public void homeShouldRedirectToUsersPage() throws Exception {
+    public void mainPage() throws Exception {
         MvcResult result = mvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("index2"))

@@ -28,7 +28,7 @@ public class AccountServiceTest {
 
     @Test
     public void testGetById() {
-        accountService.getById(new Long(0));
+        accountService.getById(0l);
     }
 
     @Test

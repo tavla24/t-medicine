@@ -28,7 +28,7 @@ public class RecipeSimpleServiceTest {
 
     @Test
     public void testGetById() {
-        recipeService.getById(new Long(1));
+        recipeService.getById(1l);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class RecipeSimpleServiceTest {
 
     @Test
     public void testUpdateDelete() {
-        RecipeSimpleDTO recipe = recipeService.getById(new Long(1));
+        RecipeSimpleDTO recipe = recipeService.getById(1l);
         recipeService.updateProfile(recipe);
         recipeService.delete(recipe);
         recipe.setId(null);
