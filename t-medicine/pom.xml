@@ -27,7 +27,7 @@
 		<version.spring-context>5.1.8.RELEASE</version.spring-context>
 		<version.spring-beans>5.1.8.RELEASE</version.spring-beans>
 		<version.spring-web>5.1.8.RELEASE</version.spring-web>
-		<version.spring-webmvc>5.1.8.RELEASE</version.spring-webmvc>
+		<version.spring-webmvc>5.2.0.RELEASE</version.spring-webmvc>
 		<version.spring-security-taglibs>5.1.5.RELEASE</version.spring-security-taglibs>
 		<version.spring-security-web>5.1.5.RELEASE</version.spring-security-web>
 		<version.spring-security-config>5.1.5.RELEASE</version.spring-security-config>
