@@ -37,7 +37,7 @@
 		<version.mysql-connector-java>8.0.16</version.mysql-connector-java>
 		<version.hibernate-entitymanager>5.4.3.Final</version.hibernate-entitymanager>
 		<version.hibernate-jpa-2.1-api>1.0.2.Final</version.hibernate-jpa-2.1-api>
-		<version.log4j-core>2.12.0</version.log4j-core>
+		<version.log4j-core>2.13.2</version.log4j-core>
 		<version.log4j-api>2.12.0</version.log4j-api>
 		<version.log4j-slf4j-impl>2.12.0</version.log4j-slf4j-impl>
 		<version.lombok>1.18.8</version.lombok>
