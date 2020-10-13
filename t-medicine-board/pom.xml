@@ -32,7 +32,7 @@
         <version.hibernate-core>5.2.8.Final</version.hibernate-core>
         <version.javax.persistence-api>2.2</version.javax.persistence-api>
         <version.commons-lang>2.6</version.commons-lang>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
     </properties>
 
     <dependencies>
