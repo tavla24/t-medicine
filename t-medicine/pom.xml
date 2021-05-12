@@ -29,7 +29,7 @@
 		<version.spring-web>5.1.8.RELEASE</version.spring-web>
 		<version.spring-webmvc>5.1.8.RELEASE</version.spring-webmvc>
 		<version.spring-security-taglibs>5.1.5.RELEASE</version.spring-security-taglibs>
-		<version.spring-security-web>5.1.5.RELEASE</version.spring-security-web>
+		<version.spring-security-web>5.2.10.RELEASE</version.spring-security-web>
 		<version.spring-security-config>5.1.5.RELEASE</version.spring-security-config>
 		<version.spring-jdbc>5.1.8.RELEASE</version.spring-jdbc>
 		<version.spring-orm>5.1.8.RELEASE</version.spring-orm>
